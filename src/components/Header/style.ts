@@ -4,7 +4,6 @@ export const HeaderContainer = styled.div< {show:boolean} >`
   width: 100vw;
   height: 8vh;
   border-bottom: 0.5px solid #C9CDD2;
-  background-color: ${({show}) => show ? '#C9CDD2' : 'white'};
   box-shadow: ${({show}) => show ? '0.5px 1.5px 1.5px 0.5px silver' : 'white'};
   position: fixed;
   transition: 0.5s ease-in-out;
