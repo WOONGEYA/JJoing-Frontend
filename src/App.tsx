@@ -1,14 +1,15 @@
 import React from 'react';
-import Header from './components/Header'
-import List from './components/List'
 import './styles/globalStyle.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Explore from './pages/Explore';
 
 const App = () => {
 	return (
-		<>
-			<Header />
-			<List />
-		</>
+		<BrowserRouter>
+			<Routes>
+				<Route path='/explore' element={<Explore />} />
+			</Routes>
+		</BrowserRouter>
 	);
 };
 
