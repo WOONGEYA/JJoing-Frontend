@@ -35,9 +35,11 @@ export const MenuList = styled.div`
 
 export const MenuItem1 = styled.span`
   margin: 0 15px 0 60px;
+  cursor: pointer;
 `;
 export const MenuItem = styled.span`
   margin: 0 15px;
+  cursor: pointer;
 `;
 
 export const ProfileContainer = styled.div`
@@ -59,4 +61,10 @@ export const AlarmContainer = styled.div`
 export const Image = styled.img`
   width: 30px;
   height: 30px;
+  cursor: pointer;
+`
+export const ImageLogo = styled.img`
+  width: 80px;
+  height: 60px;
+  cursor: pointer;
 `

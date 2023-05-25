@@ -1,8 +1,8 @@
 import React from 'react'
 import * as S from './style' 
-import Logo from '../../images/mainLogo.svg'
-import Bell from '../../images/bell.svg'
-import Profile from '../../images/profile.svg'
+import Logo from '../../assets/logo.svg'
+import Bell from '../../assets/bell.svg'
+import Profile from '../../assets/profile.svg'
 import { useState, useEffect } from 'react'
 
 export default function Header() {
@@ -26,7 +26,7 @@ export default function Header() {
     <S.HeaderContainer show={show}>
       <S.HeaderWrapper>
         <S.LogoContainer>
-          <S.Image src={Logo} alt="logo" />
+          <S.ImageLogo src={Logo} alt="logo" />
         </S.LogoContainer>
         <S.MenuList>
           <S.MenuItem1>둘러보기</S.MenuItem1>
