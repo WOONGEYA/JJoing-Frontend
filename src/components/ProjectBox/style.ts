@@ -48,11 +48,13 @@ export const StateArea = styled.div`
     height: 20px;
     padding: 0 10px;
     display: flex;
+    align-items: center;
     gap: 6px;
 `
 
 export const Statuses = styled.div`
     display: flex;
+    align-items: center;
     gap: 18px;
 `
 

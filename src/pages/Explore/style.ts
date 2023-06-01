@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 export const Container = styled.div`
-    width: 100vw;
+    max-width: 100vw;
     height: 1000vh;
     padding: 100px 200px 0;
     box-sizing: border-box;
@@ -22,7 +22,7 @@ export const C_Title = styled.h1`
     font-size: 32px;
     line-height: 38px;
 `
-export const C_Select = styled.div`
+export const C_Selects = styled.div`
     display: flex;
     gap: 24px;
     margin-top: 30px;
@@ -31,6 +31,8 @@ export const C_Select = styled.div`
     font-size: 14px;
     line-height: 25px;
 `
+
+
 export const S_inner = styled.div`
     display: flex;
     align-items: center;
@@ -39,9 +41,9 @@ export const S_inner = styled.div`
 
 export const Contents = styled.div`
     width: 100%;
-    height: 100%;
     display: flex;
     gap: 20px;
+    justify-content: center;
 `
 
 export const selctIcon = styled.img`
