@@ -1,7 +1,5 @@
-import React from 'react';
 import Header from './components/Header'
-import Footer from './components/footer'
-import './styles/globalStyle.css'
+import Footer from './components/Footer'
 
 const App = () => {
 	return (

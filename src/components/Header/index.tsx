@@ -2,8 +2,8 @@ import React from 'react'
 import * as S from './style' 
 import Logo from '../../assets/logo.svg'
 import Bell from '../../assets/bell.svg'
-import Profile from '../../assets/profile.svg'
 import { useState, useEffect } from 'react'
+import LoginPage from '../../pages/LoginPage'
 
 export default function Header() {
   const [show, setShow] = useState<boolean>(false)
@@ -37,7 +37,7 @@ export default function Header() {
           <S.Image src={Bell} alt="alarm" />
         </S.AlarmContainer>
         <S.ProfileContainer>
-          <S.Image src={Profile} alt="profile"/>
+          <LoginPage />
         </S.ProfileContainer>
       </S.HeaderWrapper>
     </S.HeaderContainer>
