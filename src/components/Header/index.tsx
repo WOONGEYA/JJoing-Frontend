@@ -4,9 +4,13 @@ import Logo from '../../assets/logo.svg'
 import Bell from '../../assets/bell.svg'
 import { useState, useEffect } from 'react'
 import LoginPage from '../../pages/LoginPage'
+import { useRecoilState } from 'recoil';
+import { accessGoogle } from '../../apis/recoil';
 
 export default function Header() {
   const [show, setShow] = useState<boolean>(false)
+
+  const [profile, setProfile] = useRecoilState(accessGoogle);
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -34,7 +38,7 @@ export default function Header() {
           <S.MenuItem>채팅</S.MenuItem>
         </S.MenuList>
         <S.AlarmContainer>
-          <S.Image src={Bell} alt="alarm" />
+          {profile && <S.Image src={profile}/>}
         </S.AlarmContainer>
         <S.ProfileContainer>
           <LoginPage />
