@@ -3,7 +3,7 @@ import * as S from './style';
 
 export default function Footer() {
 	return (
-		<S.Footer>
+		<S.FooterContainer>
 			<S.FooterTopDiv>
 				<S.UnderText>이용약관</S.UnderText>
 				<S.UnderText>개인정보처리방침</S.UnderText>
@@ -22,6 +22,6 @@ export default function Footer() {
 			<S.FooterDiv2>
 				<S.UnderText>Copyright Woong itd. Alright reserved.</S.UnderText>
 			</S.FooterDiv2>
-		</S.Footer>
+		</S.FooterContainer>
 	);
 }

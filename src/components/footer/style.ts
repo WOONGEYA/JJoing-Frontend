@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Footer = styled.div`
+export const FooterContainer = styled.div`
 	width: 100%;
 	height: 350px;
 	display: flex;
