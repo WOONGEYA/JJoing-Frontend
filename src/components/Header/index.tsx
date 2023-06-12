@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as S from './style';
-import Logo from '../../assets/logo.svg';
-import Bell from '../../assets/bell.svg';
-import Profile from '../../assets/profile.svg';
+import Logo from 'assets/logo.svg';
+import Bell from 'assets/bell.svg';
+import Profile from 'assets/profile.svg';
 
 export default function Header() {
 	const [show, setShow] = useState<boolean>(false);
