@@ -1,5 +1,4 @@
-import React from 'react'
-import * as S from './style' 
+import * as S from './style'
 import Logo from '../../images/mainLogo.svg'
 import Bell from '../../images/bell.svg'
 import Profile from '../../images/profile.svg'
@@ -8,17 +7,19 @@ import { useState, useEffect } from 'react'
 export default function Header() {
   const [show, setShow] = useState<boolean>(false)
 
+  const listener = () => {
+    if (window.scrollY > 60) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  }
+
   useEffect(() => {
-    window.addEventListener('scroll', () => {
-      if(window.scrollY > 60){
-        setShow(true);
-      } else{
-        setShow(false);
-      }
-    })
-    
+    window.addEventListener('scroll', listener);
+
     return () => {
-      window.removeEventListener('scroll', () => {});
+      window.removeEventListener('scroll', listener);
     }
   }, [])
 
@@ -37,7 +38,7 @@ export default function Header() {
           <S.Image src={Bell} alt="alarm" />
         </S.AlarmContainer>
         <S.ProfileContainer>
-          <S.Image src={Profile} alt="profile"/>
+          <S.Image src={Profile} alt="profile" />
         </S.ProfileContainer>
       </S.HeaderWrapper>
     </S.HeaderContainer>
