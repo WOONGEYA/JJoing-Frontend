@@ -10,12 +10,17 @@ export default function Header() {
   const [profile, setProfile] = useRecoilState(accessGoogle);
 
   useEffect(() => {
-    window.addEventListener('scroll', () => setShow(window.scrollY > 60));
-
+    const handleScroll = () => {
+      setShow(window.scrollY > 60);
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+  
     return () => {
-      window.removeEventListener('scroll', () => {});
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  
 
   return (
     <S.HeaderContainer show={show}>
