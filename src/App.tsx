@@ -12,16 +12,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" element={
-            <>
-              <Header />
-              <Footer />
-            </>
-          } />
-          <Route
-            path="/login/oauth2/code/google"
-            element={<LoginPage />}
-          /> */}
+          
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
