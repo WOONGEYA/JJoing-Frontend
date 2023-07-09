@@ -51,11 +51,12 @@ export const ProfileContainer = styled.div`
 `;
 
 export const AlarmContainer = styled.div`
-  width: 80px;
+  width: 90px;
   height: 8vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `;
 
 export const Image = styled.img`
@@ -67,4 +68,12 @@ export const ImageLogo = styled.img`
   width: 80px;
   height: 60px;
   cursor: pointer;
+`
+export const Href = styled.a`
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  &:active{
+    color: gray;
+  }
 `
