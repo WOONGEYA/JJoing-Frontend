@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const HeaderContainer = styled.div<{ show:boolean }>`
+export const HeaderContainer = styled.div<{ show:number | null }>`
   width: 100vw;
   height: 8vh;
   border-bottom: 0.5px solid #C9CDD2;

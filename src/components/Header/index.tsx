@@ -1,16 +1,12 @@
 import * as S from './style';
-import Logo from '../../assets/logo.svg';
+import Logo from 'assets/logo.svg';
 import { useState, useEffect } from 'react';
-import LoginPage from '../../pages/LoginPage';
-import { useRecoilState } from 'recoil';
-import { accessGoogle } from '../../apis/recoil';
+import LoginPage from 'pages/LoginPage';
+import { OAUTH_URL } from 'constants/config';
 
 export default function Header() {
-  const authUrl = 'https://accounts.google.com/o/oauth2/auth?client_id=977860049416-faqog6g742c0qqs4epucuu5biobgr3ph.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';
-
   const [show, setShow] = useState<boolean>(false);
-  const [profile, setProfile] = useRecoilState(accessGoogle);
-  
+  console.log(`URL : ${OAUTH_URL}`);
   console.log(window.location.port);
   useEffect(() => {
     const handleScroll = () => {
@@ -30,7 +26,7 @@ export default function Header() {
   };
 
   return (
-    <S.HeaderContainer show={show}>
+    <S.HeaderContainer show={show ? 1 : null}>
       <S.HeaderWrapper>
         <S.LogoContainer>
           <S.ImageLogo src={Logo} alt='logo' />
@@ -43,7 +39,7 @@ export default function Header() {
         <S.AlarmContainer>
           {localStorage.accessToken ?
             <S.Href onClick={handleLogout}>로그아웃</S.Href> : 
-            <S.Href href={authUrl}>로그인</S.Href>
+            <S.Href href={OAUTH_URL}>로그인</S.Href>
           }
         </S.AlarmContainer>
         <S.ProfileContainer>

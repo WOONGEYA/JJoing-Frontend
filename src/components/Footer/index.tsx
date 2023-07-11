@@ -13,13 +13,13 @@ export default function Footer() {
       <S.FooterDiv>
         <S.FooterText>
           <S.Text>Tel. 010-4401-1234</S.Text>
-          <S.Text>Emaiil. Zoing@woong.com</S.Text>
+          <S.Text>Email. JJoing@woong.com</S.Text>
           <S.Text>Office. BSSM, Gangseo-gu, Busan, Republic of Korea</S.Text>
           <S.Text>공동대표. 강웅빈, 고윤영, 이상진, 이희성, 한예준</S.Text>
         </S.FooterText>
       </S.FooterDiv>
       <S.FooterDiv2>
-        <S.UnderText>Copyright Woong itd. Alright reserved.</S.UnderText>
+        <S.UnderText>Copyright Woong itd. All rights reserved.</S.UnderText>
       </S.FooterDiv2>
     </S.Footer>
   )
