@@ -52,4 +52,3 @@ export default function Header() {
       </S.HeaderWrapper>
     </S.HeaderContainer>
   );
-}
