@@ -6,11 +6,12 @@ import { useRecoilState } from 'recoil';
 import { accessGoogle } from '../../apis/recoil';
 
 export default function Header() {
-  const authUrl = 'https://accounts.google.com/o/oauth2/auth?client_id=977860049416-faqog6g742c0qqs4epucuu5biobgr3ph.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';
+  const authUrl =
+    'https://accounts.google.com/o/oauth2/auth?client_id=977860049416-faqog6g742c0qqs4epucuu5biobgr3ph.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';
 
   const [show, setShow] = useState<boolean>(false);
   const [profile, setProfile] = useRecoilState(accessGoogle);
-  
+
   console.log(window.location.port);
   useEffect(() => {
     const handleScroll = () => {
@@ -41,10 +42,11 @@ export default function Header() {
           <S.MenuItem>채팅</S.MenuItem>
         </S.MenuList>
         <S.AlarmContainer>
-          {localStorage.accessToken ?
-            <S.Href onClick={handleLogout}>로그아웃</S.Href> : 
+          {localStorage.accessToken ? (
+            <S.Href onClick={handleLogout}>로그아웃</S.Href>
+          ) : (
             <S.Href href={authUrl}>로그인</S.Href>
-          }
+          )}
         </S.AlarmContainer>
         <S.ProfileContainer>
           <LoginPage />
@@ -52,3 +54,4 @@ export default function Header() {
       </S.HeaderWrapper>
     </S.HeaderContainer>
   );
+}
