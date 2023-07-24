@@ -1,50 +1,79 @@
 import styled from 'styled-components';
 
-export const FooterContainer = styled.div`
-	width: 100%;
-	height: 350px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	background-color: #f1f3f5;
-`;
-export const FooterDiv = styled.div`
-	width: 70%;
-	height: 230px;
-	margin: 0 auto;
-	border-bottom: 1px solid gray;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`;
-export const FooterDiv2 = styled.div`
-	width: 70%;
-	height: 50px;
-	margin: 0 auto;
-	display: flex;
-	justify-content: flex-end;
-`;
-export const UnderText = styled.div`
-	margin: 10px 7px 0 10px;
-	font-weight: 300;
-`;
-export const FooterTopDiv = styled.div`
-	width: 70%;
-	height: 30px;
-	margin: 0 auto;
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-`;
-export const FooterText = styled.div`
-	width: 100%;
-	height: 180px;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-`;
-export const Text = styled.div`
-	font-weight: 300;
-	margin: 5px 0 5px 0;
-`;
+export const Container = styled.div`
+    width: 100vw;
+    height: 300px;
+    background-color: #F7F8F9;
+    padding: 60px 200px 25px;
+    box-sizing: border-box;
+    font-family: Pretendard;
+`
+
+export const Logo = styled.img`
+    width: 122px;
+`
+
+export const List = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #9EA4AA;
+    margin-bottom: 24px;
+`
+
+export const Title = styled.h2`
+    color: rgba(38, 68, 102, 0.80);
+    font-weight: 700;
+    font-size: 18px;
+    font-style: normal;
+    line-height: 20px;
+    cursor: default;
+`
+
+export const HeadLine = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 22px;
+`
+
+export const HeadLineElement = styled.span`
+    color: var(--gray-500, #72787F);
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    cursor: pointer;
+`
+
+export const Info = styled.div`
+    display: flex;
+    align-items: center;
+    height: 25px;
+    h2{
+        font-weight: 500;
+        color: #72787F;
+        font-size: 15px;
+        margin-right: 5px;
+    }
+    span{
+        color: #9EA4AA;
+        font-size: 15px;
+    }
+`
+
+export const Flex = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h2{
+        margin: 0;
+    }
+`
+
+export const CopyRight = styled.h2`
+    color: var(--gray-500, #72787F);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+`
