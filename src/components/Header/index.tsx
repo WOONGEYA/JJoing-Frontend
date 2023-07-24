@@ -30,9 +30,8 @@ export default function Header() {
 					<S.ImageLogo src={Logo} alt='logo' />
 				</S.LogoContainer>
 				<S.MenuList>
-					<S.MenuItem1>둘러보기</S.MenuItem1>
+					<S.MenuItem1>프로젝트 목록</S.MenuItem1>
 					<S.MenuItem>새 프로젝트</S.MenuItem>
-					<S.MenuItem>채팅</S.MenuItem>
 				</S.MenuList>
 				<S.AlarmContainer>
 					<S.Image src={Bell} alt='alarm' />
