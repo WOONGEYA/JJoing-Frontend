@@ -37,7 +37,7 @@ export const EditBox = styled.div`
 `;
 
 export const Profile = styled.div`
-  width: 30%;
+  width: 230px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,8 +50,8 @@ export const Information = styled.div`
 `;
 
 export const Circle = styled.div`
-  width: 12.5vw;
-  height: 25vh;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   background-image: url(${ProfileImage});
   background-repeat: no-repeat;
@@ -184,8 +184,8 @@ export const Contents = styled.div`
 `;
 
 export const Gimg = styled.img`
-  width: 1.5vw;
-  height: 3vh;
+  width: 20px;
+  height: 20px;
   padding-left: 0.4rem;
   cursor: pointer;
 `;
