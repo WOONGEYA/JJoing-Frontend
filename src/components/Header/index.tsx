@@ -1,46 +1,70 @@
-import React, { useState, useEffect } from 'react';
 import * as S from './style';
 import Logo from 'assets/logo.svg';
-import Bell from 'assets/bell.svg';
-import Profile from 'assets/profile.svg';
+import { useState, useEffect } from 'react';
+import LoginPage from 'pages/LoginPage';
+import { OAUTH_URL } from 'constants/config';
+import axios from 'axios';
 
 export default function Header() {
-	const [show, setShow] = useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(false);
+  console.log(`URL : ${OAUTH_URL}`);
 
-	useEffect(() => {
-		const handleScroll = () => {
-			if (window.scrollY > 60) {
-				setShow(true);
-			} else {
-				setShow(false);
-			}
-		};
+  useEffect(() => {
+    const handleScroll = () => {
+      setShow(window.scrollY > 60);
+    };
 
-		window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	}, []);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
-	return (
-		<S.HeaderContainer show={show}>
-			<S.HeaderWrapper>
-				<S.LogoContainer>
-					<S.ImageLogo src={Logo} alt='logo' />
-				</S.LogoContainer>
-				<S.MenuList>
-					<S.MenuItem1>둘러보기</S.MenuItem1>
-					<S.MenuItem>새 프로젝트</S.MenuItem>
-					<S.MenuItem>채팅</S.MenuItem>
-				</S.MenuList>
-				<S.AlarmContainer>
-					<S.Image src={Bell} alt='alarm' />
-				</S.AlarmContainer>
-				<S.ProfileContainer>
-					<S.Image src={Profile} alt='profile' />
-				</S.ProfileContainer>
-			</S.HeaderWrapper>
-		</S.HeaderContainer>
-	);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://192.168.10.142:8080/user', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        console.log('data:', response.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
+  return (
+    <S.HeaderContainer show={show ? 1 : null}>
+      <S.HeaderWrapper>
+        <S.LogoContainer>
+          <S.ImageLogo src={Logo} alt='logo' />
+        </S.LogoContainer>
+        <S.MenuList>
+          <S.MenuItem1>둘러보기</S.MenuItem1>
+          <S.MenuItem>새 프로젝트</S.MenuItem>
+          <S.MenuItem>채팅</S.MenuItem>
+        </S.MenuList>
+        <S.AlarmContainer>
+          {localStorage.accessToken ? (
+            <S.Href onClick={handleLogout}>로그아웃</S.Href>
+          ) : (
+            <S.Href href={OAUTH_URL}>로그인</S.Href>
+          )}
+        </S.AlarmContainer>
+        <S.ProfileContainer>
+          <LoginPage />
+        </S.ProfileContainer>
+      </S.HeaderWrapper>
+    </S.HeaderContainer>
+  );
 }
