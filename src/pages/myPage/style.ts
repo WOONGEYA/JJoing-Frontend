@@ -21,12 +21,12 @@ export const ProfileContainer = styled.div`
 
 export const ProfileBox = styled.div`
   display: flex;
-  width: 62vw; // 820
+  width: 840px;
   height: 240px;
 `;
 
 export const EditBox = styled.div`
-  width: 38vw;
+  width: 360px;
   height: 240px;
   display: flex;
   align-items: center;
@@ -34,14 +34,14 @@ export const EditBox = styled.div`
 `;
 
 export const Profile = styled.div`
-  width: 33vw;
+  width: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 export const Information = styled.div`
-  width: 67vw;
+  width: 700px;
   display: flex;
   align-items: center;
 `;
@@ -101,6 +101,7 @@ export const Dev = styled.div`
 export const EditDiv = styled.div`
   width: 175px;
   height: 60%;
+  margin-left: 50px;
 `;
 
 export const Edit = styled.div`
@@ -154,11 +155,13 @@ export const Tfont = styled.div`
   font-weight: 500;
 `;
 
+// style.js 파일의 Projects 스타일을 다음과 같이 수정합니다.
 export const Projects = styled.div`
   width: 100%;
   height: auto;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between; /* 콘텐츠를 간격을 두고 정렬합니다 */
 `;
 
 export const Project = styled.div`

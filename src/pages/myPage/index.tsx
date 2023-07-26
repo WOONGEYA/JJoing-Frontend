@@ -84,20 +84,18 @@ const index = () => {
           <S.ShowLine />
         </S.ProfileNav>
         <S.ProjectDiv>
-          <S.ProjectDiv>
-            <S.Together>
-              <S.Tfont>참여중인 프로젝트</S.Tfont>
-            </S.Together>
-            <S.Projects>
-              {dummy_data.map((el) => (
-                <S.Project key={el.id}>
-                  <S.Picture src={SpongeBob} alt='spongeBob' />
-                  <S.ProjectName>{el.name}</S.ProjectName>
-                  <S.Contents>{el.contents}</S.Contents>
-                </S.Project>
-              ))}
-            </S.Projects>
-          </S.ProjectDiv>
+          <S.Together>
+            <S.Tfont>참여중인 프로젝트</S.Tfont>
+          </S.Together>
+          <S.Projects>
+            {dummy_data.map((el) => (
+              <S.Project key={el.id}>
+                <S.Picture src={SpongeBob} alt='spongeBob' />
+                <S.ProjectName>{el.name}</S.ProjectName>
+                <S.Contents>{el.contents}</S.Contents>
+              </S.Project>
+            ))}
+          </S.Projects>
         </S.ProjectDiv>
       </S.Container>
     </>
