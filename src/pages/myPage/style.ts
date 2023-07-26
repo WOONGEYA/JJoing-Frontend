@@ -8,8 +8,7 @@ export const HeaderPadding = styled.div`
 
 export const Container = styled.div`
   width: 1200px;
-  height: 1235px;
-  overflow: hidden;
+  height: 1400px;
   margin: 0 auto;
 `;
 
@@ -30,20 +29,23 @@ export const EditBox = styled.div`
   height: 240px;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   cursor: pointer;
+  background-color: yellowgreen;
 `;
 
 export const Profile = styled.div`
-  width: 500px;
+  width: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 export const Information = styled.div`
-  width: 700px;
+  width: 800px;
   display: flex;
   align-items: center;
+  background-color: green;
 `;
 
 export const Circle = styled.div`
@@ -55,6 +57,7 @@ export const Circle = styled.div`
   background-size: 180px;
   background-color: skyblue;
   border: 1px solid gray;
+  margin-left: 30px;
 `;
 
 export const School = styled.div`
@@ -88,20 +91,22 @@ export const Inf = styled.div`
 
 export const FollowDiv = styled.div`
   margin-right: 40px;
+  color: black;
 `;
 
 export const SchoolDiv = styled.div`
   margin-right: 10px;
+  color: gray;
 `;
 
 export const Dev = styled.div`
-  margin-left: 10px;
+  margin-top: 20px;
 `;
 
 export const EditDiv = styled.div`
   width: 175px;
   height: 60%;
-  margin-left: 50px;
+  margin-right: 50px;
 `;
 
 export const Edit = styled.div`
@@ -139,7 +144,8 @@ export const ShowLine = styled.div`
 export const ProjectDiv = styled.div`
   margin: 0 auto;
   width: 1100px;
-  height: 960px;
+  height: 500px;
+  margin-bottom: 30px;
 `;
 
 export const Together = styled.div`
@@ -155,32 +161,35 @@ export const Tfont = styled.div`
   font-weight: 500;
 `;
 
-// style.js 파일의 Projects 스타일을 다음과 같이 수정합니다.
 export const Projects = styled.div`
-  width: 100%;
-  height: auto;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; /* 콘텐츠를 간격을 두고 정렬합니다 */
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 20px 0 20px 20px;
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const Project = styled.div`
-  width: 255px;
-  height: 270px;
+  width: 328px;
+  height: 360px;
   margin: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 4px 1px;
+  flex: 0 0 auto;
 `;
 
 export const Picture = styled.img`
-  border-radius: 10px;
+  border-radius: 5px 5px 0 0;
   width: 100%;
-  height: 160px;
+  height: 180px;
 `;
 
 export const ProjectName = styled.div`
   width: 100%;
   height: 40px;
-  font-size: 20px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -188,6 +197,40 @@ export const ProjectName = styled.div`
 
 export const Contents = styled.div`
   width: 100%;
-  height: 60px;
-  color: gray;
+  height: 95px;
+`;
+
+export const Gimg = styled.img`
+  width: 22px;
+  height: 22px;
+  margin: 0 0 3px 5px;
+  cursor: pointer;
+`;
+
+export const People = styled.div`
+  width: 100%;
+  height: 35px;
+  border-top: 1px solid #e3e3e3;
+  border-radius: 0 0 5px 5px;
+  display: flex;
+  align-items: center;
+`;
+
+export const Names = styled.div`
+  margin-left: 20px;
+  font-size: 19px;
+`;
+
+export const ConT = styled.div`
+  margin: 5px 20px 0 20px;
+  color: silver;
+`;
+
+export const Peo = styled.div`
+  margin: 0 5px 0 20px;
+`;
+
+export const Counts = styled.span`
+  font-size: 15px;
+  color: #264466;
 `;
