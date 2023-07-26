@@ -88,10 +88,10 @@ const index = () => {
                   <S.ConT>{truncate(el.contents)}</S.ConT>
                 </S.Contents>
                 <S.People>
-                  <S.Peo>
+                  <S.PeopleDiv>
                     <img src={PeoplePng} alt='people' />
-                  </S.Peo>
-                  <S.Counts>3/5</S.Counts>
+                    <S.Counts>3/5</S.Counts>
+                  </S.PeopleDiv>
                 </S.People>
               </S.Project>
             ))}
@@ -114,10 +114,10 @@ const index = () => {
                   <S.ConT>{truncate(el.contents)}</S.ConT>
                 </S.Contents>
                 <S.People>
-                  <S.Peo>
+                  <S.PeopleDiv>
                     <img src={PeoplePng} alt='people' />
-                  </S.Peo>
-                  <S.Counts>3/5</S.Counts>
+                    <S.Counts>3/5</S.Counts>
+                  </S.PeopleDiv>
                 </S.People>
               </S.Project>
             ))}

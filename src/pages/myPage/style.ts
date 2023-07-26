@@ -50,7 +50,7 @@ export const Information = styled.div`
 `;
 
 export const Circle = styled.div`
-  width: 13.5vw;
+  width: 12.5vw;
   height: 25vh;
   border-radius: 50%;
   background-image: url(${ProfileImage});
@@ -154,7 +154,7 @@ export const Projects = styled.div`
 `;
 
 export const Project = styled.div`
-  width: 328px;
+  width: 21.5vw;
   height: 360px;
   margin: 10px;
   border-radius: 5px;
@@ -169,49 +169,53 @@ export const Picture = styled.img`
 `;
 
 export const ProjectName = styled.div`
-  width: 100%;
+  width: 90%;
   height: 40px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   cursor: pointer;
 `;
 
 export const Contents = styled.div`
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
   height: 95px;
 `;
 
 export const Gimg = styled.img`
   width: 1.5vw;
   height: 3vh;
-  padding: 0 0 0.3rem 0.4rem;
+  padding-left: 0.4rem;
   cursor: pointer;
 `;
 
 export const People = styled.div`
   width: 100%;
   height: 35px;
-  border-top: 1px solid #e3e3e3;
-  border-radius: 0 0 5px 5px;
   display: flex;
   align-items: center;
+  border-top: 1px solid #e3e3e3;
+  border-radius: 0 0 5px 5px;
 `;
 
 export const Names = styled.div`
-  margin-left: 20px;
-  font-size: 19px;
+  font-size: 1.1875rem;
 `;
 
 export const ConT = styled.div`
-  margin: 5px 20px 0 20px;
   color: silver;
 `;
 
-export const Peo = styled.div`
-  margin: 0 5px 0 20px;
+export const Counts = styled.span`
+  font-size: 0.9375rem;
+  color: #264466;
 `;
 
-export const Counts = styled.span`
-  font-size: 15px;
-  color: #264466;
+export const PeopleDiv = styled.div`
+  width: 90%;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  gap: 0.4rem;
 `;
