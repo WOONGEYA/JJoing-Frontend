@@ -3,48 +3,15 @@ import * as S from './style';
 import SpongeBob from 'assets/spongeBob.webp';
 import Github from 'assets/github.png';
 import PeoplePng from 'assets/bi_people-fill.png';
-
-const dummy_data = [
-  {
-    id: 0,
-    name: '스폰지밥 1',
-    contents: '비키니시티비키니시티비키니시티비키니시티비키니시티비키니시티비키니시티비키니시티',
-  },
-  {
-    id: 1,
-    name: '스폰지밥 2',
-    contents: '집게리아집게리아집게리아집게리아집게리아집게리아집게리아집게리아집게리아집게리아',
-  },
-  {
-    id: 2,
-    name: '스폰지밥 3',
-    contents: '뚱이뚱이뚱이뚱이뚱이뚱이뚱이',
-  },
-  {
-    id: 0,
-    name: '스폰지밥 1',
-    contents: '비키니시티비키니시티비키니시티비키니시티비키니시티비키니시티비키니시티비키니시티',
-  },
-  {
-    id: 1,
-    name: '스폰지밥 2',
-    contents: '집게리아집게리아집게리아집게리아집게리아집게리아집게리아집게리아집게리아집게리아',
-  },
-  {
-    id: 2,
-    name: '스폰지밥 3',
-    contents: '뚱이뚱이뚱이뚱이뚱이뚱이뚱이',
-  },
-];
+import { dummy_data } from 'fixtures/dummyData';
 
 const truncate = (str: string) => {
   return str?.length > 30 ? str.substring(0, 30) + '...' : str;
 };
 
-const index = () => {
+const myPage = () => {
   return (
     <>
-      <S.HeaderPadding />
       <S.Container>
         <S.ProfileContainer>
           <S.ProfileBox>
@@ -52,18 +19,18 @@ const index = () => {
               <S.Circle />
             </S.Profile>
             <S.Information>
-              <S.Inf>
+              <S.InformationContainer>
                 <S.Name>
                   뚱이
                   <S.Gimg src={Github} alt='github' />
                 </S.Name>
                 <S.SchoolDiv>부산소프트웨어마이스터고등학교</S.SchoolDiv>
                 <S.Follow>
-                  <S.FollowDiv>팔로우 251</S.FollowDiv>
+                  <S.FollowDiv>팔로워 251</S.FollowDiv>
                   <S.FollowDiv>팔로우 317</S.FollowDiv>
                 </S.Follow>
                 <S.School>프론트엔드 개발자 지망생, 18살 남자입니다.</S.School>
-              </S.Inf>
+              </S.InformationContainer>
             </S.Information>
           </S.ProfileBox>
           <S.EditBox>
@@ -78,14 +45,14 @@ const index = () => {
         </S.ProfileNav>
         <S.ProjectDiv>
           <S.Projects>
-            {dummy_data.map((el) => (
-              <S.Project key={el.id}>
+            {dummy_data.map((data) => (
+              <S.Project key={data.id}>
                 <S.Picture src={SpongeBob} alt='spongeBob' />
                 <S.ProjectName>
-                  <S.Names>{el.name}</S.Names>
+                  <S.Names>{data.name}</S.Names>
                 </S.ProjectName>
                 <S.Contents>
-                  <S.ConT>{truncate(el.contents)}</S.ConT>
+                  <S.ConT>{truncate(data.contents)}</S.ConT>
                 </S.Contents>
                 <S.People>
                   <S.PeopleDiv>
@@ -104,14 +71,14 @@ const index = () => {
         </S.ProfileNav>
         <S.ProjectDiv>
           <S.Projects>
-            {dummy_data.map((el) => (
-              <S.Project key={el.id}>
+            {dummy_data.map((data) => (
+              <S.Project key={data.id}>
                 <S.Picture src={SpongeBob} alt='spongeBob' />
                 <S.ProjectName>
-                  <S.Names>{el.name}</S.Names>
+                  <S.Names>{data.name}</S.Names>
                 </S.ProjectName>
                 <S.Contents>
-                  <S.ConT>{truncate(el.contents)}</S.ConT>
+                  <S.ConT>{truncate(data.contents)}</S.ConT>
                 </S.Contents>
                 <S.People>
                   <S.PeopleDiv>
@@ -128,4 +95,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default myPage;

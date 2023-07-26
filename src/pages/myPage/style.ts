@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 import ProfileImage from 'assets/profile.webp';
 
-export const HeaderPadding = styled.div`
-  width: 100%;
-  height: 8vh;
-`;
-
 export const Container = styled.div`
   width: 1200px;
   height: 1300px;
@@ -13,6 +8,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 8vh;
 `;
 
 export const ProfileContainer = styled.div`
@@ -87,7 +83,7 @@ export const Follow = styled.div`
   gap: 3rem;
 `;
 
-export const Inf = styled.div`
+export const InformationContainer = styled.div`
   width: 100%;
   height: 60%;
 `;
@@ -154,7 +150,7 @@ export const Projects = styled.div`
 `;
 
 export const Project = styled.div`
-  width: 21.5vw;
+  width: 310px;
   height: 360px;
   margin: 10px;
   border-radius: 5px;
