@@ -9,7 +9,7 @@ const truncate = (str: string) => {
   return str?.length > 30 ? str.substring(0, 30) + '...' : str;
 };
 
-const myPage = () => {
+const MyPage = () => {
   return (
     <>
       <S.Container>
@@ -95,4 +95,4 @@ const myPage = () => {
   );
 };
 
-export default myPage;
+export default MyPage;
