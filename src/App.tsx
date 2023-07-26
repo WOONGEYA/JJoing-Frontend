@@ -7,7 +7,9 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Routes></Routes>
+        <Routes>
+        
+        </Routes>
       </BrowserRouter>
     </QueryClientProvider>
   );

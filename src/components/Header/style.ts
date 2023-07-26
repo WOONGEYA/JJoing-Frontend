@@ -51,7 +51,7 @@ export const ProfileContainer = styled.div`
 `;
 
 export const AlarmContainer = styled.div`
-  width: 90px;
+  width: 95px;
   height: 8vh;
   display: flex;
   align-items: center;
