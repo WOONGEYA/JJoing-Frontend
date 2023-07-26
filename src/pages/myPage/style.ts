@@ -8,56 +8,57 @@ export const HeaderPadding = styled.div`
 
 export const Container = styled.div`
   width: 1200px;
-  height: 1400px;
+  height: 1300px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const ProfileContainer = styled.div`
-  width: 100%;
+  width: 91%;
   height: 240px;
   display: flex;
 `;
 
 export const ProfileBox = styled.div`
   display: flex;
-  width: 840px;
+  width: 70vw;
   height: 240px;
 `;
 
 export const EditBox = styled.div`
-  width: 360px;
+  width: 30vw;
   height: 240px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   cursor: pointer;
-  background-color: yellowgreen;
 `;
 
 export const Profile = styled.div`
-  width: 400px;
+  width: 30%;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 export const Information = styled.div`
-  width: 800px;
+  width: 70%;
   display: flex;
   align-items: center;
-  background-color: green;
 `;
 
 export const Circle = styled.div`
-  width: 185px;
-  height: 170px;
+  width: 13.5vw;
+  height: 25vh;
   border-radius: 50%;
   background-image: url(${ProfileImage});
   background-repeat: no-repeat;
   background-size: 180px;
   background-color: skyblue;
   border: 1px solid gray;
-  margin-left: 30px;
+  margin-right: 1rem;
 `;
 
 export const School = styled.div`
@@ -73,7 +74,7 @@ export const Name = styled.div`
   height: 30%;
   display: flex;
   align-items: center;
-  font-size: 20px;
+  font-size: 1.25rem;
 `;
 
 export const Follow = styled.div`
@@ -81,7 +82,9 @@ export const Follow = styled.div`
   height: 25%;
   display: flex;
   align-items: center;
+  padding-bottom: 0.8rem;
   color: gray;
+  gap: 3rem;
 `;
 
 export const Inf = styled.div`
@@ -90,23 +93,16 @@ export const Inf = styled.div`
 `;
 
 export const FollowDiv = styled.div`
-  margin-right: 40px;
   color: black;
 `;
 
 export const SchoolDiv = styled.div`
-  margin-right: 10px;
   color: gray;
 `;
 
-export const Dev = styled.div`
-  margin-top: 20px;
-`;
-
 export const EditDiv = styled.div`
-  width: 175px;
+  width: 180px;
   height: 60%;
-  margin-right: 50px;
 `;
 
 export const Edit = styled.div`
@@ -121,7 +117,6 @@ export const Edit = styled.div`
 `;
 
 export const ProfileNav = styled.div`
-  margin: 0 auto;
   width: 91%;
   height: 35px;
   display: flex;
@@ -144,28 +139,14 @@ export const ShowLine = styled.div`
 export const ProjectDiv = styled.div`
   margin: 0 auto;
   width: 1100px;
-  height: 500px;
-  margin-bottom: 30px;
-`;
-
-export const Together = styled.div`
-  width: 100%;
-  height: 80px;
-  display: flex;
-  align-items: center;
-`;
-
-export const Tfont = styled.div`
-  margin: 15px 0 0 22px;
-  font-size: 22px;
-  font-weight: 500;
+  height: 480px;
 `;
 
 export const Projects = styled.div`
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  padding: 20px 0 20px 20px;
+  padding-top: 2rem;
   scroll-behavior: smooth;
   &::-webkit-scrollbar {
     display: none;
@@ -201,9 +182,9 @@ export const Contents = styled.div`
 `;
 
 export const Gimg = styled.img`
-  width: 22px;
-  height: 22px;
-  margin: 0 0 3px 5px;
+  width: 1.5vw;
+  height: 3vh;
+  padding: 0 0 0.3rem 0.4rem;
   cursor: pointer;
 `;
 

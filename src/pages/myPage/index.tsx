@@ -62,9 +62,7 @@ const index = () => {
                   <S.FollowDiv>팔로우 251</S.FollowDiv>
                   <S.FollowDiv>팔로우 317</S.FollowDiv>
                 </S.Follow>
-                <S.School>
-                  <S.Dev>프론트엔드 개발자 지망생, 18살 남자입니다. </S.Dev>
-                </S.School>
+                <S.School>프론트엔드 개발자 지망생, 18살 남자입니다.</S.School>
               </S.Inf>
             </S.Information>
           </S.ProfileBox>
@@ -79,9 +77,6 @@ const index = () => {
           <S.ShowLine />
         </S.ProfileNav>
         <S.ProjectDiv>
-          <S.Together>
-            <S.Tfont>참여중인 프로젝트</S.Tfont>
-          </S.Together>
           <S.Projects>
             {dummy_data.map((el) => (
               <S.Project key={el.id}>
@@ -108,9 +103,6 @@ const index = () => {
           <S.ShowLine />
         </S.ProfileNav>
         <S.ProjectDiv>
-          <S.Together>
-            <S.Tfont>참여했던 프로젝트</S.Tfont>
-          </S.Together>
           <S.Projects>
             {dummy_data.map((el) => (
               <S.Project key={el.id}>
