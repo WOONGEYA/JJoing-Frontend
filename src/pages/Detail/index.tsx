@@ -3,6 +3,7 @@ import Header from 'components/Header';
 import * as S from './style';
 import dummy from 'fixtures/Detail/dumy';
 import MemberIcon from 'assets/Detail/member.svg';
+import ProjectBox from 'components/ProjectBox';
 
 const Detail = () => {
     return (
@@ -53,6 +54,12 @@ const Detail = () => {
                         ))}
                     </S.Categories>
                 </S.ProjectBox>
+                <S.Title>다른 프로젝트들 😎</S.Title>
+                <S.Projects>
+                    <ProjectBox />
+                    <ProjectBox />
+                    <ProjectBox />
+                </S.Projects>
             </S.Container>
         </>
     );

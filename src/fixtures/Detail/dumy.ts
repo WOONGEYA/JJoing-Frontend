@@ -10,6 +10,8 @@ interface Project {
     atmosphere: string[];
     stack: string[];
     cooperation: string[];
+    currentPeople: number;
+    requirePeople: number;
 }
 
 const dummy: Project = {
@@ -23,7 +25,9 @@ const dummy: Project = {
     memberImage: [member01, member02, member03],
     atmosphere: ['친근한', '다정하게', '유쾌한', '뭐든 괜찮아요'],
     stack: ['React', 'TypeScript', 'C++', 'Spring Boot', 'Spring Security', 'Jenkins'],
-    cooperation: ['Slack', 'Github', 'Figma', 'ZIRA']
+    cooperation: ['Slack', 'Github', 'Figma', 'ZIRA'],
+    currentPeople: 3,
+    requirePeople: 5
 };
 
 export default dummy;

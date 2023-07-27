@@ -8,9 +8,12 @@ const getBackgroundColor = (props: any) => {
 
 export const Container = styled.div`
     width: 100vw;
-    height: 100vh;
+    height: 120rem;
     padding: 140px 204px 0;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 `;
 
 export const ProjectBox = styled.div`
@@ -79,8 +82,6 @@ export const MemberProfile = styled.img`
     border-radius: 50px;
 `
 
-
-
 export const Button = styled.button`
     cursor: pointer;
     color: white;
@@ -142,4 +143,10 @@ export const Category = styled.div`
     box-sizing: border-box;
     font-size: 12px;
     font-weight: 500;   
+`
+
+export const Projects = styled.div`
+    width: 100%;
+    display: flex;
+    gap: 24px;
 `
