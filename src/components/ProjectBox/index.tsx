@@ -1,5 +1,5 @@
 import * as S from './style'
-import dummy from 'fixtures/Detail/dumy';
+import dummy from 'fixtures/Detail/dummy';
 import MemeberIcon from 'assets/Detail/member.svg'
 
 const ProjectBox = () => {
