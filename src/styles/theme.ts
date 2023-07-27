@@ -18,6 +18,7 @@ const grey = {
 
 export default {
     primary,
+    secondary,
     grey,
     black,
     white
