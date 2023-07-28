@@ -1,6 +1,5 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from 'components/Header';
+import { BrowserRouter, Routes } from 'react-router-dom';
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -8,9 +7,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Header />} />
-        </Routes>
+        <Routes></Routes>
       </BrowserRouter>
     </QueryClientProvider>
   );
