@@ -6,7 +6,7 @@ import PeoplePng from 'assets/bi_people-fill.png';
 import { dummy_data } from 'fixtures/dummyData';
 
 const truncate = (str: string) => {
-  return str?.length > 30 ? str.substring(0, 30) + '...' : str;
+  return str?.length > 30 ? `${str.substring(0, 30)}...` : str;
 };
 
 const MyPage = () => {
@@ -22,7 +22,7 @@ const MyPage = () => {
               <S.InformationContainer>
                 <S.Name>
                   뚱이
-                  <S.Gimg src={Github} alt='github' />
+                  <S.GithubImg src={Github} alt='github' />
                 </S.Name>
                 <S.SchoolDiv>부산소프트웨어마이스터고등학교</S.SchoolDiv>
                 <S.Follow>
@@ -52,7 +52,7 @@ const MyPage = () => {
                   <S.Names>{data.name}</S.Names>
                 </S.ProjectName>
                 <S.Contents>
-                  <S.ConT>{truncate(data.contents)}</S.ConT>
+                  <S.ConTentsName>{truncate(data.contents)}</S.ConTentsName>
                 </S.Contents>
                 <S.People>
                   <S.PeopleDiv>
@@ -78,7 +78,7 @@ const MyPage = () => {
                   <S.Names>{data.name}</S.Names>
                 </S.ProjectName>
                 <S.Contents>
-                  <S.ConT>{truncate(data.contents)}</S.ConT>
+                  <S.ConTentsName>{truncate(data.contents)}</S.ConTentsName>
                 </S.Contents>
                 <S.People>
                   <S.PeopleDiv>

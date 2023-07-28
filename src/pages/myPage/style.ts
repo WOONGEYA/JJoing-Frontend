@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import ProfileImage from 'assets/profile.webp';
 
 export const Container = styled.div`
-  width: 1200px;
-  height: 1300px;
+  width: 80vw;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -113,7 +113,7 @@ export const Edit = styled.div`
 `;
 
 export const ProfileNav = styled.div`
-  width: 91%;
+  width: 96%;
   height: 35px;
   display: flex;
 `;
@@ -179,7 +179,7 @@ export const Contents = styled.div`
   height: 95px;
 `;
 
-export const Gimg = styled.img`
+export const GithubImg = styled.img`
   width: 20px;
   height: 20px;
   padding-left: 0.4rem;
@@ -196,10 +196,10 @@ export const People = styled.div`
 `;
 
 export const Names = styled.div`
-  font-size: 1.1875rem;
+  font-size: 20px;
 `;
 
-export const ConT = styled.div`
+export const ConTentsName = styled.div`
   color: silver;
 `;
 
