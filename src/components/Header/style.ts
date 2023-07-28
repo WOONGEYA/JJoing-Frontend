@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.div<{ show: number | null }>`
   width: 100%;
-  height: 65px;
+  height: 55px;
   border-bottom: 0.5px solid #c9cdd2;
   background-color: white;
   box-shadow: ${({ show }) => (show ? '0.5px 1.5px 1.5px 0.5px silver' : 'white')};
@@ -12,7 +12,7 @@ export const HeaderContainer = styled.div<{ show: number | null }>`
 
 export const HeaderWrapper = styled.div`
   width: 80vw;
-  height: 65px;
+  height: 55px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -51,7 +51,7 @@ export const ProfileContainer = styled.div`
 `;
 
 export const AlarmContainer = styled.div`
-  width: 90px;
+  width: 95px;
   height: 8vh;
   display: flex;
   align-items: center;
