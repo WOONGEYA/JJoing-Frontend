@@ -7,7 +7,7 @@ import axios from 'axios';
 
 export default function Header() {
   const [show, setShow] = useState<boolean>(false);
-  console.log(`URL : ${OAUTH_URL}`);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,13 +35,18 @@ export default function Header() {
       }
     };
 
-    fetchUserData();
+    if (localStorage.getItem('accessToken')) {
+      setToken(localStorage.getItem('accessToken'));
+      fetchUserData();
+    }
   }, []);
 
   const handleLogout = () => {
     localStorage.clear();
     window.location.reload();
   };
+
+  const handleLogin = OAUTH_URL;
 
   return (
     <S.HeaderContainer show={show ? 1 : null}>
@@ -55,11 +60,7 @@ export default function Header() {
           <S.MenuItem>채팅</S.MenuItem>
         </S.MenuList>
         <S.AlarmContainer>
-          {localStorage.accessToken ? (
-            <S.Href onClick={handleLogout}>로그아웃</S.Href>
-          ) : (
-            <S.Href href={OAUTH_URL}>로그인</S.Href>
-          )}
+          {token ? <S.Href onClick={handleLogout}>로그아웃</S.Href> : <S.Href href={handleLogin}>로그인</S.Href>}
         </S.AlarmContainer>
         <S.ProfileContainer>
           <LoginPage />

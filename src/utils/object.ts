@@ -1,3 +1,3 @@
 export const isNullObject = (data: object) => {
-  return Object.keys(data).length !== 0;
+  return Object.keys(data).length;
 };
