@@ -4,6 +4,8 @@ import SpongeBob from 'assets/spongeBob.webp';
 import Github from 'assets/github.png';
 import PeoplePng from 'assets/PeopleSvg.svg';
 import { dummy_data } from 'fixtures/dummyData';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
 
 const truncate = (str: string) => {
   return str?.length > 30 ? `${str.substring(0, 30)}...` : str;
@@ -12,6 +14,7 @@ const truncate = (str: string) => {
 const MyPage = () => {
   return (
     <>
+      <Header />
       <S.Wrapper>
         <S.ProfileWrapper>
           <S.ProfileBox>
@@ -29,7 +32,9 @@ const MyPage = () => {
                   <S.FollowerDiv>팔로워 251</S.FollowerDiv>
                   <S.FollowDiv>팔로우 317</S.FollowDiv>
                 </S.FollowWrapper>
-                <S.CharacterSchool>프론트엔드 개발자 지망생, 18살 남자입니다.</S.CharacterSchool>
+                <S.CharacterProfileInformation>
+                  프론트엔드 개발자 지망생, 18살 남자입니다.
+                </S.CharacterProfileInformation>
               </S.InformationContainer>
             </S.InformationWrapper>
           </S.ProfileBox>
@@ -91,6 +96,7 @@ const MyPage = () => {
           </S.ShowProjects>
         </S.ProjectWrapper>
       </S.Wrapper>
+      <Footer />
     </>
   );
 };

@@ -57,7 +57,7 @@ export const Circle = styled.div`
   margin-right: 1rem;
 `;
 
-export const CharacterSchool = styled.div`
+export const CharacterProfileInformation = styled.div`
   width: 100%;
   height: 25%;
   display: flex;
