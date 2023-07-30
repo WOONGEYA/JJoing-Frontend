@@ -204,6 +204,7 @@ export const ProjectName = styled.div`
 
 export const Contents = styled.div`
   color: silver;
+  font-size: 15px;
 `;
 
 export const ProjectMemberCounts = styled.span`

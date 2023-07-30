@@ -1,8 +1,6 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Footer from 'components/Footer';
-import Header from 'components/Header';
-import MyPage from 'pages/MyPage'; // 수정
+import MyPage from 'pages/MyPage';
 import LoginPage from 'pages/LoginPage';
 
 const App = () => {

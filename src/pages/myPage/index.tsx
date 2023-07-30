@@ -3,13 +3,10 @@ import * as S from './style'; // Updated import for the styles
 import SpongeBob from 'assets/spongeBob.webp';
 import Github from 'assets/github.png';
 import PeoplePng from 'assets/PeopleSvg.svg';
-import { dummy_data } from 'fixtures/dummyData';
+import { myPage_dummy } from 'fixtures/MyPageMember';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-
-const truncate = (str: string) => {
-  return str?.length > 30 ? `${str.substring(0, 30)}...` : str;
-};
+import { truncate } from 'utils/truncate';
 
 const MyPage = () => {
   return (
@@ -50,7 +47,7 @@ const MyPage = () => {
         </S.MyProjectWrapper>
         <S.ProjectWrapper>
           <S.ShowProjects>
-            {dummy_data.map((data) => (
+            {myPage_dummy.map((data) => (
               <S.Project key={data.id}>
                 <S.PojectPicture src={SpongeBob} alt='spongeBob' />
                 <S.ProjectNameWrapper>
@@ -76,7 +73,7 @@ const MyPage = () => {
         </S.MyProjectWrapper>
         <S.ProjectWrapper>
           <S.ShowProjects>
-            {dummy_data.map((data) => (
+            {myPage_dummy.map((data) => (
               <S.Project key={data.id}>
                 <S.PojectPicture src={SpongeBob} alt='spongeBob' />
                 <S.ProjectNameWrapper>
