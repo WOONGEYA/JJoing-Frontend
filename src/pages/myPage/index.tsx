@@ -1,8 +1,8 @@
 import React from 'react';
-import * as S from './style';
+import * as S from './style'; // Updated import for the styles
 import SpongeBob from 'assets/spongeBob.webp';
 import Github from 'assets/github.png';
-import PeoplePng from 'assets/bi_people-fill.png';
+import PeoplePng from 'assets/PeopleSvg.svg';
 import { dummy_data } from 'fixtures/dummyData';
 
 const truncate = (str: string) => {
@@ -12,85 +12,85 @@ const truncate = (str: string) => {
 const MyPage = () => {
   return (
     <>
-      <S.Container>
-        <S.ProfileContainer>
+      <S.Wrapper>
+        <S.ProfileWrapper>
           <S.ProfileBox>
             <S.Profile>
               <S.Circle />
             </S.Profile>
-            <S.Information>
+            <S.InformationWrapper>
               <S.InformationContainer>
-                <S.Name>
+                <S.CharacterName>
                   뚱이
                   <S.GithubImg src={Github} alt='github' />
-                </S.Name>
-                <S.SchoolDiv>부산소프트웨어마이스터고등학교</S.SchoolDiv>
-                <S.Follow>
-                  <S.FollowDiv>팔로워 251</S.FollowDiv>
+                </S.CharacterName>
+                <S.SchoolName>부산소프트웨어마이스터고등학교</S.SchoolName>
+                <S.FollowWrapper>
+                  <S.FollowerDiv>팔로워 251</S.FollowerDiv>
                   <S.FollowDiv>팔로우 317</S.FollowDiv>
-                </S.Follow>
-                <S.School>프론트엔드 개발자 지망생, 18살 남자입니다.</S.School>
+                </S.FollowWrapper>
+                <S.CharacterSchool>프론트엔드 개발자 지망생, 18살 남자입니다.</S.CharacterSchool>
               </S.InformationContainer>
-            </S.Information>
+            </S.InformationWrapper>
           </S.ProfileBox>
-          <S.EditBox>
-            <S.EditDiv>
-              <S.Edit>프로필 수정하기</S.Edit>
-            </S.EditDiv>
-          </S.EditBox>
-        </S.ProfileContainer>
-        <S.ProfileNav>
-          <S.ShowProfile>참여중인 프로젝트</S.ShowProfile>
-          <S.ShowLine />
-        </S.ProfileNav>
-        <S.ProjectDiv>
-          <S.Projects>
+          <S.EditWrapper>
+            <S.EditBox>
+              <S.EditName>프로필 수정하기</S.EditName>
+            </S.EditBox>
+          </S.EditWrapper>
+        </S.ProfileWrapper>
+        <S.MyProjectWrapper>
+          <S.ShowMyProject>참여중인 프로젝트</S.ShowMyProject>
+          <S.ProjectNavLine />
+        </S.MyProjectWrapper>
+        <S.ProjectWrapper>
+          <S.ShowProjects>
             {dummy_data.map((data) => (
               <S.Project key={data.id}>
-                <S.Picture src={SpongeBob} alt='spongeBob' />
-                <S.ProjectName>
-                  <S.Names>{data.name}</S.Names>
-                </S.ProjectName>
-                <S.Contents>
-                  <S.ConTentsName>{truncate(data.contents)}</S.ConTentsName>
-                </S.Contents>
-                <S.People>
-                  <S.PeopleDiv>
-                    <img src={PeoplePng} alt='people' />
-                    <S.Counts>3/5</S.Counts>
-                  </S.PeopleDiv>
-                </S.People>
+                <S.PojectPicture src={SpongeBob} alt='spongeBob' />
+                <S.ProjectNameWrapper>
+                  <S.ProjectName>{data.name}</S.ProjectName>
+                </S.ProjectNameWrapper>
+                <S.ProjectContentsWrapper>
+                  <S.Contents>{truncate(data.contents)}</S.Contents>
+                </S.ProjectContentsWrapper>
+                <S.ProjectInformationWrapper>
+                  <S.PeopleWrapper>
+                    <S.PeopleIcon src={PeoplePng} alt='people' />
+                    <S.ProjectMemberCounts>3/5</S.ProjectMemberCounts>
+                  </S.PeopleWrapper>
+                </S.ProjectInformationWrapper>
               </S.Project>
             ))}
-          </S.Projects>
-        </S.ProjectDiv>
+          </S.ShowProjects>
+        </S.ProjectWrapper>
 
-        <S.ProfileNav>
-          <S.ShowProfile>참여했던 프로젝트</S.ShowProfile>
-          <S.ShowLine />
-        </S.ProfileNav>
-        <S.ProjectDiv>
-          <S.Projects>
+        <S.MyProjectWrapper>
+          <S.ShowMyProject>참여했던 프로젝트</S.ShowMyProject>
+          <S.ProjectNavLine />
+        </S.MyProjectWrapper>
+        <S.ProjectWrapper>
+          <S.ShowProjects>
             {dummy_data.map((data) => (
               <S.Project key={data.id}>
-                <S.Picture src={SpongeBob} alt='spongeBob' />
-                <S.ProjectName>
-                  <S.Names>{data.name}</S.Names>
-                </S.ProjectName>
-                <S.Contents>
-                  <S.ConTentsName>{truncate(data.contents)}</S.ConTentsName>
-                </S.Contents>
-                <S.People>
-                  <S.PeopleDiv>
-                    <img src={PeoplePng} alt='people' />
-                    <S.Counts>3/5</S.Counts>
-                  </S.PeopleDiv>
-                </S.People>
+                <S.PojectPicture src={SpongeBob} alt='spongeBob' />
+                <S.ProjectNameWrapper>
+                  <S.ProjectName>{data.name}</S.ProjectName>
+                </S.ProjectNameWrapper>
+                <S.ProjectContentsWrapper>
+                  <S.Contents>{truncate(data.contents)}</S.Contents>
+                </S.ProjectContentsWrapper>
+                <S.ProjectInformationWrapper>
+                  <S.PeopleWrapper>
+                    <S.PeopleIcon src={PeoplePng} alt='people' />
+                    <S.ProjectMemberCounts>3/5</S.ProjectMemberCounts>
+                  </S.PeopleWrapper>
+                </S.ProjectInformationWrapper>
               </S.Project>
             ))}
-          </S.Projects>
-        </S.ProjectDiv>
-      </S.Container>
+          </S.ShowProjects>
+        </S.ProjectWrapper>
+      </S.Wrapper>
     </>
   );
 };

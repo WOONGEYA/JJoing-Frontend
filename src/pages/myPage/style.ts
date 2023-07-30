@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import ProfileImage from 'assets/profile.webp';
 
-export const Container = styled.div`
+export const Wrapper = styled.div`
   width: 80vw;
   height: 100%;
   margin: 0 auto;
@@ -11,7 +11,7 @@ export const Container = styled.div`
   padding-top: 8vh;
 `;
 
-export const ProfileContainer = styled.div`
+export const ProfileWrapper = styled.div`
   width: 91%;
   height: 240px;
   display: flex;
@@ -23,7 +23,7 @@ export const ProfileBox = styled.div`
   height: 240px;
 `;
 
-export const EditBox = styled.div`
+export const EditWrapper = styled.div`
   width: 30vw;
   height: 240px;
   display: flex;
@@ -39,7 +39,7 @@ export const Profile = styled.div`
   justify-content: center;
 `;
 
-export const Information = styled.div`
+export const InformationWrapper = styled.div`
   width: 70%;
   display: flex;
   align-items: center;
@@ -57,7 +57,7 @@ export const Circle = styled.div`
   margin-right: 1rem;
 `;
 
-export const School = styled.div`
+export const CharacterSchool = styled.div`
   width: 100%;
   height: 25%;
   display: flex;
@@ -65,7 +65,7 @@ export const School = styled.div`
   color: gray;
 `;
 
-export const Name = styled.div`
+export const CharacterName = styled.div`
   width: 100%;
   height: 30%;
   display: flex;
@@ -73,7 +73,7 @@ export const Name = styled.div`
   font-size: 1.25rem;
 `;
 
-export const Follow = styled.div`
+export const FollowWrapper = styled.div`
   width: 100%;
   height: 25%;
   display: flex;
@@ -91,17 +91,20 @@ export const InformationContainer = styled.div`
 export const FollowDiv = styled.div`
   color: black;
 `;
+export const FollowerDiv = styled.div`
+  color: black;
+`;
 
-export const SchoolDiv = styled.div`
+export const SchoolName = styled.div`
   color: gray;
 `;
 
-export const EditDiv = styled.div`
+export const EditBox = styled.div`
   width: 180px;
   height: 60%;
 `;
 
-export const Edit = styled.div`
+export const EditName = styled.div`
   width: 100%;
   height: 40px;
   background-color: #38b57d;
@@ -112,13 +115,13 @@ export const Edit = styled.div`
   justify-content: center;
 `;
 
-export const ProfileNav = styled.div`
+export const MyProjectWrapper = styled.div`
   width: 96%;
   height: 35px;
   display: flex;
 `;
 
-export const ShowProfile = styled.div`
+export const ShowMyProject = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,18 +130,18 @@ export const ShowProfile = styled.div`
   border-bottom: 1.5px solid #38b57d;
 `;
 
-export const ShowLine = styled.div`
+export const ProjectNavLine = styled.div`
   width: calc(100% - 148px);
   border-bottom: 1.5px solid #72787f;
 `;
 
-export const ProjectDiv = styled.div`
+export const ProjectWrapper = styled.div`
   margin: 0 auto;
   width: 1100px;
   height: 480px;
 `;
 
-export const Projects = styled.div`
+export const ShowProjects = styled.div`
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -158,13 +161,13 @@ export const Project = styled.div`
   flex: 0 0 auto;
 `;
 
-export const Picture = styled.img`
+export const PojectPicture = styled.img`
   border-radius: 5px 5px 0 0;
   width: 100%;
   height: 180px;
 `;
 
-export const ProjectName = styled.div`
+export const ProjectNameWrapper = styled.div`
   width: 90%;
   height: 40px;
   margin: 0 auto;
@@ -173,7 +176,7 @@ export const ProjectName = styled.div`
   cursor: pointer;
 `;
 
-export const Contents = styled.div`
+export const ProjectContentsWrapper = styled.div`
   width: 90%;
   margin: 0 auto;
   height: 95px;
@@ -186,7 +189,7 @@ export const GithubImg = styled.img`
   cursor: pointer;
 `;
 
-export const People = styled.div`
+export const ProjectInformationWrapper = styled.div`
   width: 100%;
   height: 35px;
   display: flex;
@@ -195,23 +198,25 @@ export const People = styled.div`
   border-radius: 0 0 5px 5px;
 `;
 
-export const Names = styled.div`
+export const ProjectName = styled.div`
   font-size: 20px;
 `;
 
-export const ConTentsName = styled.div`
+export const Contents = styled.div`
   color: silver;
 `;
 
-export const Counts = styled.span`
-  font-size: 0.9375rem;
+export const ProjectMemberCounts = styled.span`
+  font-size: 14px;
   color: #264466;
 `;
 
-export const PeopleDiv = styled.div`
+export const PeopleWrapper = styled.div`
   width: 90%;
   display: flex;
   align-items: center;
   margin: 0 auto;
   gap: 0.4rem;
 `;
+
+export const PeopleIcon = styled.img``;
