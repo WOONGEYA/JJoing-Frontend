@@ -1,4 +1,4 @@
-export const myPage_dummy = [
+export const dummy_data = [
   {
     id: 0,
     name: '스폰지밥 1',
