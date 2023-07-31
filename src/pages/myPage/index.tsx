@@ -3,7 +3,7 @@ import * as S from './style'; // Updated import for the styles
 import SpongeBob from 'assets/spongeBob.webp';
 import Github from 'assets/github.png';
 import PeoplePng from 'assets/PeopleSvg.svg';
-import { myPage_dummy } from 'fixtures/MyPageMember';
+import { dummy_data } from 'fixtures/mypage.dummy';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import { truncate } from 'utils/truncate';
@@ -47,7 +47,7 @@ const MyPage = () => {
         </S.MyProjectWrapper>
         <S.ProjectWrapper>
           <S.ShowProjects>
-            {myPage_dummy.map((data) => (
+            {dummy_data.map((data) => (
               <S.Project key={data.id}>
                 <S.PojectPicture src={SpongeBob} alt='spongeBob' />
                 <S.ProjectNameWrapper>
@@ -66,14 +66,13 @@ const MyPage = () => {
             ))}
           </S.ShowProjects>
         </S.ProjectWrapper>
-
         <S.MyProjectWrapper>
           <S.ShowMyProject>참여했던 프로젝트</S.ShowMyProject>
           <S.ProjectNavLine />
         </S.MyProjectWrapper>
         <S.ProjectWrapper>
           <S.ShowProjects>
-            {myPage_dummy.map((data) => (
+            {dummy_data.map((data) => (
               <S.Project key={data.id}>
                 <S.PojectPicture src={SpongeBob} alt='spongeBob' />
                 <S.ProjectNameWrapper>
