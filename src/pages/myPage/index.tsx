@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './style'; // Updated import for the styles
 import SpongeBob from 'assets/spongeBob.webp';
-import Github from 'assets/github.png';
+import Github from 'assets/github.svg';
 import PeoplePng from 'assets/PeopleSvg.svg';
 import { dummy_data } from 'fixtures/mypage.dummy';
 import Header from 'components/Header';
