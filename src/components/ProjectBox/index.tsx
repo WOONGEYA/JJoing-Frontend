@@ -1,9 +1,9 @@
 import * as S from './style'
-import dummy from 'fixtures/Detail/dummy';
+import dummy from 'fixtures/detail.dummy';
 import MemeberIcon from 'assets/Detail/member.svg'
 
 const ProjectBox = () => {
-    const MaxDescriptionLength = 35;
+    const MaxDescriptionLength = 40;
     const TruncatedDescription = 
         dummy.description.length > MaxDescriptionLength
         ? dummy.description.substring(0,MaxDescriptionLength) + '...'

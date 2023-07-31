@@ -30,8 +30,6 @@ export const Title = styled.h2`
 `
 
 export const Description = styled.div`
-    width: 85%;
-    height: 34px;
     overflow: hidden;
     text-overflow: clip;
     white-space: wrap;

@@ -2,7 +2,7 @@ import React from 'react';
 import Header from 'components/Header';
 import MemberIcon from 'assets/Detail/member.svg';
 import * as S from './style';
-import dummy from 'fixtures/Detail/dummy';
+import dummy from 'fixtures/detail.dummy';
 import ProjectBox from 'components/ProjectBox';
 import theme from 'styles/theme';
 
