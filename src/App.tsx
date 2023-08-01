@@ -1,18 +1,19 @@
-import Footer from 'components/Footer';
-import Header from 'components/Header';
-import LoginPage from 'pages/LoginPage';
+import Detail from 'pages/Detail';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+const queryClient = new QueryClient();
+
 const App = () => {
-  const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Routes></Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path='/detail' element={<Detail />}/>
+      </Routes>
+    </BrowserRouter>
     </QueryClientProvider>
   );
 };
