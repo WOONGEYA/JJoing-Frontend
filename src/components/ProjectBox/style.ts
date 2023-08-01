@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { font } from 'styles/font';
 import theme from 'styles/theme';
 
 export const Container = styled.div`
@@ -11,7 +12,7 @@ export const Container = styled.div`
 export const Image = styled.img`
     width: 100%;
     height: 50%;
-    background-color: #CCC;
+    background-color: ${theme.grey[300]};
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 `
@@ -24,17 +25,14 @@ export const Info = styled.div`
 `
 
 export const Title = styled.h2`
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 23px;
+    ${font.$title03.title3}
 `
 
 export const Description = styled.div`
     overflow: hidden;
     text-overflow: clip;
     white-space: wrap;
-    font-size: 14px;
-    font-weight: 400;
+    ${font.$subhead.subhead}
 `
 
 export const Footer = styled.div`
@@ -49,8 +47,7 @@ export const Footer = styled.div`
 
 export const Peoples = styled.h3`
     color: ${theme.secondary};
-    font-size: 14px;
-    font-weight: 400;
+    ${font.$callout.callout}
 `
 
 export const Icon = styled.img`

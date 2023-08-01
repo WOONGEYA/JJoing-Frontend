@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
 import theme from 'styles/theme'
+import { font } from 'styles/font';
 
-const getBackgroundColor = (props: any) => {
+const getBackgroundColor = (props:any) => {
     if (props.color === theme.primary) return css`background-color: ${theme.primary};`;
     else if (props.color === theme.secondary) return css`background-color: ${theme.secondary};`;
 };
@@ -46,15 +47,13 @@ export const MainDesc = styled.div`
 `
 
 export const Title = styled.h2`
-    font-size: 26px;
-    font-weight: 700;
+    ${font.$title01.title1};
     color: ${theme.grey[800]};
     margin-bottom: 18px;
 `
 
 export const DeadLine = styled.h3`
-    font-size: 14px;
-    font-weight: 400;
+    ${font.$subhead.subhead};
 `
 
 export const Member = styled.div`
@@ -69,6 +68,7 @@ export const MemberTitle = styled.div`
     display: flex;
     gap: 5px;
     color: ${theme.secondary};
+    ${font.$footnote.footnote};
 `
 
 export const MemberImages = styled.div`
@@ -89,35 +89,25 @@ export const Button = styled.button`
     height: 42px;
     border-radius: 6px;
     border: none;
-    font-size: 14px;
-    font-weight: 700;
     margin-top: 12px;
-    ${getBackgroundColor}
+    ${getBackgroundColor};
+    ${font.$body.body};
 `;
 
 export const CallOut = styled.h2`
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 150%;
-    letter-spacing: 0.9px;
+    ${font.$title03.title3};
 `
 
 export const Description = styled.h3`
     color: ${theme.grey[600]};
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 150%;
-    letter-spacing: 0.8px;
+    ${font.$body.body};
     width: 90%;
     margin-bottom: 30px;
 `
 
 export const SubCallOut = styled.h3`
     color: ${theme.grey[800]};
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 150%;
-    letter-spacing: 0.6px;
+    ${font.$headline.headline};
     margin-top: 16px;
 `
 
@@ -141,8 +131,7 @@ export const Category = styled.div`
     border-radius: 999px;
     padding: 0 14px;
     box-sizing: border-box;
-    font-size: 12px;
-    font-weight: 500;   
+    ${font.$footnote.footnote};
 `
 
 export const Projects = styled.div`
