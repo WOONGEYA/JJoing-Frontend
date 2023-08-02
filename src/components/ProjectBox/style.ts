@@ -1,88 +1,51 @@
-import { styled } from "styled-components";
+import styled from 'styled-components';
+import { font } from 'styles/font';
+import theme from 'styles/theme';
 
 export const Container = styled.div`
-    width: 317px;
-    height: 307px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-`
+  width: 328px;
+  height: 360px;
+  border-radius: 10px;
+  box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.05);
+`;
 
-export const MainImg = styled.img`
-    width: 100%;
-    height: 180px;
-    border-radius: 20px;
-`
+export const Image = styled.img`
+  width: 100%;
+  height: 50%;
+  background-color: ${theme.grey[300]};
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+`;
 
-export const TextArea = styled.div`
-    width: 100%;
-    padding: 0 10px;
-`
+export const Info = styled.div`
+  width: 100%;
+  height: 50%;
+  padding: 18px 18px 0;
+  box-sizing: border-box;
+`;
 
-export const Title = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-`
+export const Title = styled.h2`
+  ${font.$title03.title3}
+`;
 
-export const T_Ttile = styled.h1`
-    font-family: 'Pretendard';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 130%;
-`
+export const Description = styled.div`
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: wrap;
+  ${font.$subhead.subhead}
+`;
 
-export const T_SubTitle = styled.span`
-    max-width: 180px;
-    font-family: 'Pretendard';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 140%;
-    letter-spacing: 0.05em;
-    color: #72787F;
-`
+export const Footer = styled.div`
+  margin-top: 58px;
+  width: 100%;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid ${theme.grey[400]};
+`;
 
-export const StateArea = styled.div`
-    height: 20px;
-    padding: 0 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-`
-
-export const Statuses = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 18px;
-`
-
-export const S_Ligtht = styled.div`
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: #FFEA00;
-`
-
-export const State = styled.h1`
-    font-family: 'Pretendard';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-`
-
-export const Categories = styled.div`
-    display: flex;
-    gap: 18px;
-`
-
-export const Category = styled.h1`
-    font-family: 'Pretendard';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 17px;
-    color: #264466;
-`
+export const Peoples = styled.h3`
+  color: ${theme.secondary};
+  ${font.$callout.callout}
+`;

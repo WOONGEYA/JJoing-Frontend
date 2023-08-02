@@ -1,30 +1,28 @@
-import * as S from "./style"
-import MainImg from "../../assets/testImg.png"
-const ProjectBox = ({title, subtitle, de, fe, be, iscompleted} : any) => {
-    return (
-        <S.Container>
-            <S.MainImg src={MainImg} />
-            <S.TextArea>
-                <S.Title>
-                    <S.T_Ttile>{title}</S.T_Ttile>
-                    <S.T_SubTitle>
-                        {subtitle}
-                    </S.T_SubTitle>
-                </S.Title>
-            </S.TextArea>
-            <S.Statuses>
-                <S.StateArea>
-                    <S.S_Ligtht></S.S_Ligtht>
-                    <S.State>{iscompleted}</S.State>
-                </S.StateArea>
-                <S.Categories>
-                    <S.Category>DE {de}명</S.Category>
-                    <S.Category>FE {fe}명</S.Category>
-                    <S.Category>BE {be}명</S.Category>
-                </S.Categories>
-            </S.Statuses>
-        </S.Container>
-    )
-}
+import * as S from './style';
+import dummy from 'fixtures/detail.dummy';
+import MemeberIcon from 'assets/Detail/member.svg';
 
-export default ProjectBox
+const ProjectBox = () => {
+  const MaxDescriptionLength = 40;
+  const truncateDescription = (description: string, maxLength: number): string => {
+    return description.length > maxLength ? `${description.substring(0, maxLength)}...` : description;
+  };
+  const truncated = truncateDescription(dummy.description, MaxDescriptionLength);
+  return (
+    <S.Container>
+      <S.Image />
+      <S.Info>
+        <S.Title>{dummy.title}</S.Title>
+        <S.Description>{truncated}</S.Description>
+        <S.Footer>
+          <S.Icon src={MemeberIcon} />
+          <S.Peoples>
+            {dummy.currentPeople}/{dummy.requirePeople}
+          </S.Peoples>
+        </S.Footer>
+      </S.Info>
+    </S.Container>
+  );
+};
+
+export default ProjectBox;
