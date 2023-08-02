@@ -45,6 +45,10 @@ export const Footer = styled.div`
   border-top: 1px solid ${theme.grey[400]};
 `;
 
+export const Icon = styled.img`
+  width: 16px;
+`;
+
 export const Peoples = styled.h3`
   color: ${theme.secondary};
   ${font.$callout.callout}
