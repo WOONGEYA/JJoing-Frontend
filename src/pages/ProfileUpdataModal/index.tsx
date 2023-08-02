@@ -5,6 +5,10 @@ import X from 'assets/x.svg';
 import ProfileUpdateModalProps from 'types/IProfileUpdateModalProps.type';
 
 const ProfileUpdateModal: React.FC<ProfileUpdateModalProps> = ({ closeModal }) => {
+  const Submit = () => {
+    closeModal();
+  };
+
   return (
     <S.ModalWrapper>
       <S.ModalHeader>
@@ -32,7 +36,7 @@ const ProfileUpdateModal: React.FC<ProfileUpdateModalProps> = ({ closeModal }) =
       <S.EditIdTitle>분야</S.EditIdTitle>
       <S.EditInput type='text' placeholder='Frontend' />
       <S.ModalButtonWrapper>
-        <S.SubmitButton>저장</S.SubmitButton>
+        <S.SubmitButton onClick={Submit}>저장</S.SubmitButton>
       </S.ModalButtonWrapper>
     </S.ModalWrapper>
   );

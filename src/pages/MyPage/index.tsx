@@ -24,7 +24,7 @@ const MyPage = () => {
       <S.Wrapper>
         <S.ProfileWrapper>
           <S.ProfileBox>
-            <S.Profile>
+            <S.Profile onClick={modalOpen}>
               <S.Circle />
             </S.Profile>
             <S.InformationWrapper>
