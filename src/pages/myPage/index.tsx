@@ -8,6 +8,8 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import { truncate } from 'utils/truncate';
 
+const MaxLength = 90;
+
 const MyPage = () => {
   return (
     <>
@@ -54,7 +56,7 @@ const MyPage = () => {
                   <S.ProjectName>{data.name}</S.ProjectName>
                 </S.ProjectNameWrapper>
                 <S.ProjectContentsWrapper>
-                  <S.Contents>{truncate(data.contents)}</S.Contents>
+                  <S.Contents>{truncate(data.contents, MaxLength)}</S.Contents>
                 </S.ProjectContentsWrapper>
                 <S.ProjectInformationWrapper>
                   <S.PeopleWrapper>
@@ -79,7 +81,7 @@ const MyPage = () => {
                   <S.ProjectName>{data.name}</S.ProjectName>
                 </S.ProjectNameWrapper>
                 <S.ProjectContentsWrapper>
-                  <S.Contents>{truncate(data.contents)}</S.Contents>
+                  <S.Contents>{truncate(data.contents, MaxLength)}</S.Contents>
                 </S.ProjectContentsWrapper>
                 <S.ProjectInformationWrapper>
                   <S.PeopleWrapper>
