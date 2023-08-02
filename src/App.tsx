@@ -4,8 +4,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from 'pages/LoginPage';
 import Detail from 'pages/Detail';
 import Modal from 'components/Modal';
-import MyPage from 'pages/myPage';
+import MyPage from 'pages/MyPage';
 import { RecoilRoot } from 'recoil';
+import Main from 'pages/Main';
 
 const queryClient = new QueryClient();
 
@@ -16,9 +17,10 @@ const App = () => {
         <Modal />
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<MyPage />} />
+            <Route path='/mypage' element={<MyPage />} />
             <Route path='/login/oauth2/code/google' element={<LoginPage />} />
             <Route path='/detail' element={<Detail />} />
+            <Route path='/' element={<Main />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>
