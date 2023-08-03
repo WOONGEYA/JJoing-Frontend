@@ -1,48 +1,50 @@
 import React from 'react';
 import ProjectBox from 'components/ProjectBox';
 import Header from 'components/Header/index';
+import Footer from 'components/Footer';
 import * as S from './style';
-import select from 'assets/select.svg';
-import { dummyData } from '../../data/dummy'
+import Reset from 'assets/reset.svg';
+import Dropdown from 'components/Dropdown';
+
+const options: string[] = ['전문분야 선택', '지역 옵션', '전문가 옵션', '인기순'];
 
 const Explore = () => {
-
   return (
-    <>
+    <S.Container>
       <Header />
-      <S.Container>
-        <S.Categories>
-          <S.CTitle>All</S.CTitle>
-          <S.CSelects>
-            <S.SInner>
-              모집중
-              <S.SelectIcon src={select} />
-            </S.SInner>
-            <S.SInner>
-              백엔드
-              <S.SelectIcon src={select} />
-            </S.SInner>
-            <S.SInner>
-              최신순
-              <S.SelectIcon src={select} />
-            </S.SInner>
-          </S.CSelects>
-        </S.Categories>
-        <S.Contents>
-          {dummyData.map((data, index) => (
-            <ProjectBox
-              key={index}
-              title={data.title}
-              subtitle={data.subtitle}
-              de={data.de}
-              fe={data.fe}
-              be={data.be}
-              isCompleted={data.isCompleted}
-            />
+      <S.Contents>
+        <S.Banner />
+        <S.Filter>
+          <S.Reset>
+            <img src={Reset} alt='reset' />
+          </S.Reset>
+          {options.map((obj, idx) => (
+            <Dropdown key={idx} name={obj} />
           ))}
-        </S.Contents>
-      </S.Container>
-    </>
+        </S.Filter>
+        <S.ProjectList>
+          <S.Title>프로젝트 목록 😎</S.Title>
+          <S.ProjectContainer>
+            <ProjectBox />
+            <ProjectBox />
+            <ProjectBox />
+            <ProjectBox />
+            <ProjectBox />
+            <ProjectBox />
+            <ProjectBox />
+            <ProjectBox />
+            <ProjectBox />
+            <ProjectBox />
+            <ProjectBox />
+            <ProjectBox />
+            <ProjectBox />
+            <ProjectBox />
+            <ProjectBox />
+          </S.ProjectContainer>
+        </S.ProjectList>
+      </S.Contents>
+      <Footer />
+    </S.Container>
   );
 };
 

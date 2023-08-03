@@ -1,53 +1,56 @@
 import { styled } from 'styled-components';
+import theme from 'styles/theme';
+import { font } from 'styles/font';
 
 export const Container = styled.div`
-  max-width: 100vw;
-  height: 1000vh;
-  padding: 150px 200px 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 100px;
-`;
-
-export const Categories = styled.div`
-  width: 20rem;
-  height: 1em;
-`;
-
-export const CTitle = styled.h1`
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 32px;
-  line-height: 38px;
-`;
-
-export const CSelects = styled.div`
-  display: flex;
-  gap: 24px;
-  margin-top: 30px;
-  font-family: 'Pretendard';
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 25px;
-`;
-
-export const SInner = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  min-height: 100vh;
+  width: 100%;
+  background: ${theme.grey[100]};
 `;
 
 export const Contents = styled.div`
-  width: 100%;
+  padding: 120px calc((100% - 1032px) / 2) 128px;
   display: flex;
-  gap: 20px;
-  justify-content: center;
+  flex-direction: column;
+  gap: 48px;
+  max-width: 1032px;
 `;
 
-export const SelectIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
+export const Banner = styled.div`
+  height: 100px;
+  background-color: ${theme.grey[500]};
+  border-radius: 8px;
+`;
+
+export const Filter = styled.div`
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  gap: 8px;
+`;
+
+export const Reset = styled.div`
+  box-sizing: border-box;
+  border: 1px solid ${theme.grey[500]};
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+`;
+
+export const Title = styled.span`
+  ${font.$title01.title1}
+`;
+
+export const ProjectList = styled.div`
+  display: flex;
+  gap: 36px;
+  flex-direction: column;
+`;
+
+export const ProjectContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
 `;
