@@ -3,10 +3,10 @@ import ProjectBox from 'components/ProjectBox';
 import Header from 'components/Header/index';
 import Footer from 'components/Footer';
 import * as S from './style';
-import Reset from 'assets/reset.svg';
+import Reset from 'assets/Reset';
 import Dropdown from 'components/Dropdown';
 
-const options: string[] = ['전문분야 선택', '지역 옵션', '전문가 옵션', '인기순'];
+const options = ['전문분야 선택', '지역 옵션', '전문가 옵션', '인기순'];
 
 const Explore = () => {
   return (
@@ -16,10 +16,10 @@ const Explore = () => {
         <S.Banner />
         <S.Filter>
           <S.Reset>
-            <img src={Reset} alt='reset' />
+            <Reset />
           </S.Reset>
-          {options.map((obj, idx) => (
-            <Dropdown key={idx} name={obj} />
+          {options.map((obj) => (
+            <Dropdown key={obj} name={obj} />
           ))}
         </S.Filter>
         <S.ProjectList>
