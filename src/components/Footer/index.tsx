@@ -1,5 +1,5 @@
-import * as S from './style'
-import Logo from 'assets/logo.svg'
+import * as S from './style';
+import Logo from 'assets/logo.svg';
 
 const Footer = () => {
   const { service, headline, tel, mail, serviceInfo, locate, copyright } = {
@@ -9,8 +9,8 @@ const Footer = () => {
     mail: 'jjoing.woong@gmail.com',
     serviceInfo: '강웅빈 . 고윤영 . 이상진 . 이희성 . 한예준',
     locate: '부산광역시 강서구 가락대로 1393',
-    copyright: 'Copyright Woong ltd. Alright reserved.'
-  }
+    copyright: 'Copyright Woong ltd. Alright reserved.',
+  };
 
   return (
     <S.Container>
