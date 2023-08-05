@@ -5,7 +5,7 @@ import { RecoilRoot } from 'recoil';
 import LoginPage from 'pages/LoginPage';
 import Detail from 'pages/Detail';
 import Modal from 'components/Modal';
-import MyPage from 'pages/myPage';
+import MyPage from 'pages/MyPage';
 import Explore from 'pages/Explore';
 
 const queryClient = new QueryClient();
