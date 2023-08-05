@@ -1,5 +1,4 @@
-import Detail from 'pages/Detail';
-import React from 'react';
+import Notifi from 'pages/Notifi';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -11,7 +10,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
       <Routes>
-        <Route path='/detail' element={<Detail />}/>
+        <Route path='/notifi' element={<Notifi />}/>
       </Routes>
     </BrowserRouter>
     </QueryClientProvider>
