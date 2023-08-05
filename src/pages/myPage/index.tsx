@@ -1,8 +1,8 @@
 import React from 'react';
 import * as S from './style'; // Updated import for the styles
 import SpongeBob from 'assets/spongeBob.webp';
-import Github from 'assets/github.svg';
-import PeoplePng from 'assets/PeopleSvg.svg';
+import Github from 'assets/Github';
+import Member from 'assets/Member';
 import { dummy_data } from 'fixtures/mypage.dummy';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -24,7 +24,7 @@ const MyPage = () => {
               <S.InformationContainer>
                 <S.CharacterName>
                   뚱이
-                  <S.GithubImg src={Github} alt='github' />
+                  <Github />
                 </S.CharacterName>
                 <S.SchoolName>부산소프트웨어마이스터고등학교</S.SchoolName>
                 <S.FollowWrapper>
@@ -60,7 +60,7 @@ const MyPage = () => {
                 </S.ProjectContentsWrapper>
                 <S.ProjectInformationWrapper>
                   <S.PeopleWrapper>
-                    <S.PeopleIcon src={PeoplePng} alt='people' />
+                    <Member />
                     <S.ProjectMemberCounts>3/5</S.ProjectMemberCounts>
                   </S.PeopleWrapper>
                 </S.ProjectInformationWrapper>
@@ -85,7 +85,7 @@ const MyPage = () => {
                 </S.ProjectContentsWrapper>
                 <S.ProjectInformationWrapper>
                   <S.PeopleWrapper>
-                    <S.PeopleIcon src={PeoplePng} alt='people' />
+                    <Member />
                     <S.ProjectMemberCounts>3/5</S.ProjectMemberCounts>
                   </S.PeopleWrapper>
                 </S.ProjectInformationWrapper>

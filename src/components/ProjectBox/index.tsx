@@ -1,6 +1,6 @@
 import * as S from './style';
 import dummy from 'fixtures/detail.dummy';
-import MemberIcon from 'assets/Detail/member.svg';
+import Member from 'assets/Member';
 import { truncate } from 'utils/truncate';
 
 const MaxDescriptionLength = 40;
@@ -15,7 +15,7 @@ const ProjectBox = () => {
         <S.Title>{dummy.title}</S.Title>
         <S.Description>{truncatedDescription}</S.Description>
         <S.Footer>
-          <S.Icon src={MemberIcon} />
+          <Member />
           <S.Peoples>
             {dummy.currentPeople}/{dummy.requirePeople}
           </S.Peoples>
