@@ -1,24 +1,34 @@
 import * as S from './style';
-import dummy from 'fixtures/detail.dummy';
-import MemeberIcon from 'assets/Detail/member.svg';
+import Member from 'assets/Member';
 
-const ProjectBox = () => {
-  const MaxDescriptionLength = 40;
-  const truncateDescription = (description: string, maxLength: number): string => {
-    return description.length > maxLength ? `${description.substring(0, maxLength)}...` : description;
-  };
-  const truncated = truncateDescription(dummy.description, MaxDescriptionLength);
+interface ProjectBoxPropsType {
+  title: string;
+  description: string;
+  currentPeople: number;
+  requiredPeople: number;
+}
+
+const ProjectBox = ({
+  title,
+  description,
+  currentPeople,
+  requiredPeople,
+}: ProjectBoxPropsType) => {
   return (
     <S.Container>
-      <S.Image />
+      <S.ImageContainer>
+        <S.Image />
+      </S.ImageContainer>
       <S.Info>
-        <S.Title>{dummy.title}</S.Title>
-        <S.Description>{truncated}</S.Description>
+        <S.InfoContainer>
+          <S.Title>{title}</S.Title>
+          <S.Description>{description}</S.Description>
+        </S.InfoContainer>
         <S.Footer>
-          <S.Icon src={MemeberIcon} />
-          <S.Peoples>
-            {dummy.currentPeople}/{dummy.requirePeople}
-          </S.Peoples>
+          <Member />
+          <S.People>
+            {currentPeople}/{requiredPeople}
+          </S.People>
         </S.Footer>
       </S.Info>
     </S.Container>
