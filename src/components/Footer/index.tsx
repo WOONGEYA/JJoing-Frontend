@@ -1,20 +1,26 @@
-import * as S from './style'
-import Logo from 'assets/logo.svg'
+import * as S from './style';
+import Logo from 'assets/Logo';
 
 const Footer = () => {
   const { service, headline, tel, mail, serviceInfo, locate, copyright } = {
     service: '소마고 연합 사이드 프로젝트 모집 플랫폼',
-    headline: ['이용약관', '개인정보처리방침', '공지사항', '문의하기', 'FAQ | QNA'],
+    headline: [
+      '이용약관',
+      '개인정보처리방침',
+      '공지사항',
+      '문의하기',
+      'FAQ | QNA',
+    ],
     tel: '010 - 1234 - 5678',
     mail: 'jjoing.woong@gmail.com',
     serviceInfo: '강웅빈 . 고윤영 . 이상진 . 이희성 . 한예준',
     locate: '부산광역시 강서구 가락대로 1393',
-    copyright: 'Copyright Woong ltd. Alright reserved.'
-  }
+    copyright: 'Copyright Woong ltd. Alright reserved.',
+  };
 
   return (
     <S.Container>
-      <S.Logo src={Logo} />
+      <Logo />
       <S.List>
         <S.Title>{service}</S.Title>
         <S.HeadLine>
