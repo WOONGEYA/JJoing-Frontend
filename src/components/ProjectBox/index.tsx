@@ -16,10 +16,14 @@ const ProjectBox = ({
 }: ProjectBoxPropsType) => {
   return (
     <S.Container>
-      <S.Image />
+      <S.ImageContainer>
+        <S.Image />
+      </S.ImageContainer>
       <S.Info>
-        <S.Title>{title}</S.Title>
-        <S.Description>{description}</S.Description>
+        <S.InfoContainer>
+          <S.Title>{title}</S.Title>
+          <S.Description>{description}</S.Description>
+        </S.InfoContainer>
         <S.Footer>
           <Member />
           <S.People>
