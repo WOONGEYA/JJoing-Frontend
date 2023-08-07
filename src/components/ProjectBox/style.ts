@@ -4,6 +4,7 @@ import theme from 'styles/theme';
 
 export const Container = styled.div`
   min-width: 328px;
+  width: 328px;
   border-radius: 10px;
   box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.05);
   overflow: hidden;
