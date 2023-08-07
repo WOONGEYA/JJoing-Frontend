@@ -2,6 +2,7 @@ import React from 'react';
 import ProjectBox from 'components/ProjectBox';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
+import dummy from 'fixtures/detail.dummy';
 import * as S from './style';
 
 const Main = () => {
@@ -14,24 +15,33 @@ const Main = () => {
           <S.TrendingContainer>
             <S.Title>인기 급상승 프로젝트 👇</S.Title>
             <S.Trending>
-              {/** map 쓸 수 있도로 ㄱ 나중에 바꿀 것 */}
-              <ProjectBox />
-              <ProjectBox />
-              <ProjectBox />
-              <ProjectBox />
-              <ProjectBox />
-              <ProjectBox />
+              {dummy
+                .filter((data) => data.id <= 6)
+                .map((data) => (
+                  <ProjectBox
+                    key={data.id}
+                    title={data.title}
+                    description={data.description}
+                    currentPeople={data.currentPeople}
+                    requiredPeople={data.requiredPeople}
+                  />
+                ))}
             </S.Trending>
           </S.TrendingContainer>
           <S.RecommendedContainer>
             <S.Title>희성님을 위한 맞춤 프로젝트 👇</S.Title>
             <S.Recommended>
-              <ProjectBox />
-              <ProjectBox />
-              <ProjectBox />
-              <ProjectBox />
-              <ProjectBox />
-              <ProjectBox />
+              {dummy
+                .filter((data) => data.id <= 6)
+                .map((data) => (
+                  <ProjectBox
+                    key={data.id}
+                    title={data.title}
+                    description={data.description}
+                    currentPeople={data.currentPeople}
+                    requiredPeople={data.requiredPeople}
+                  />
+                ))}
             </S.Recommended>
           </S.RecommendedContainer>
         </S.Projects>
