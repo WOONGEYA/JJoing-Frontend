@@ -5,6 +5,7 @@ import Footer from 'components/Footer';
 import * as S from './style';
 import Reset from 'assets/Reset';
 import Dropdown from 'components/Dropdown';
+import dummy from 'fixtures/detail.dummy';
 
 const options = ['전문분야 선택', '지역 옵션', '전문가 옵션', '인기순'];
 
@@ -25,21 +26,15 @@ const Explore = () => {
         <S.ProjectList>
           <S.Title>프로젝트 목록 😎</S.Title>
           <S.ProjectContainer>
-            <ProjectBox />
-            <ProjectBox />
-            <ProjectBox />
-            <ProjectBox />
-            <ProjectBox />
-            <ProjectBox />
-            <ProjectBox />
-            <ProjectBox />
-            <ProjectBox />
-            <ProjectBox />
-            <ProjectBox />
-            <ProjectBox />
-            <ProjectBox />
-            <ProjectBox />
-            <ProjectBox />
+            {dummy.map((data) => (
+              <ProjectBox
+                key={data.id}
+                title={data.title}
+                description={data.description}
+                currentPeople={data.currentPeople}
+                requiredPeople={data.requiredPeople}
+              />
+            ))}
           </S.ProjectContainer>
         </S.ProjectList>
       </S.Contents>
