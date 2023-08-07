@@ -1,24 +1,30 @@
 import * as S from './style';
-import dummy from 'fixtures/detail.dummy';
 import Member from 'assets/Member';
-import { truncate } from 'utils/truncate';
 
-const MaxDescriptionLength = 40;
+interface ProjectBoxPropsType {
+  title: string;
+  description: string;
+  currentPeople: number;
+  requiredPeople: number;
+}
 
-const ProjectBox = () => {
-  const truncatedDescription = truncate(dummy.description, MaxDescriptionLength);
-
+const ProjectBox = ({
+  title,
+  description,
+  currentPeople,
+  requiredPeople,
+}: ProjectBoxPropsType) => {
   return (
     <S.Container>
       <S.Image />
       <S.Info>
-        <S.Title>{dummy.title}</S.Title>
-        <S.Description>{truncatedDescription}</S.Description>
+        <S.Title>{title}</S.Title>
+        <S.Description>{description}</S.Description>
         <S.Footer>
           <Member />
-          <S.Peoples>
-            {dummy.currentPeople}/{dummy.requirePeople}
-          </S.Peoples>
+          <S.People>
+            {currentPeople}/{requiredPeople}
+          </S.People>
         </S.Footer>
       </S.Info>
     </S.Container>
