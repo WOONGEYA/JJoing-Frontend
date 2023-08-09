@@ -7,7 +7,7 @@ interface SVGAttributeProps {
   color?: string;
 }
 
-const Drop = ({
+const DropIcon = ({
   width = 24,
   height = 24,
   color = theme.grey[600],
@@ -35,4 +35,4 @@ const Drop = ({
   );
 };
 
-export default Drop;
+export default DropIcon;

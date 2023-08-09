@@ -1,5 +1,5 @@
 import React from 'react';
-import Drop from 'assets/Drop';
+import DropIcon from 'assets/DropIcon';
 import * as S from './style';
 
 interface OptionPropsType {
@@ -11,7 +11,7 @@ const Option = ({ name }: OptionPropsType) => {
     <S.Container>
       <S.OptionWrapper>
         <S.OptionName>{name}</S.OptionName>
-        <Drop />
+        <DropIcon />
       </S.OptionWrapper>
     </S.Container>
   );

@@ -1,5 +1,5 @@
 import * as S from './style';
-import Logo from 'assets/Logo';
+import Logo from 'assets/LogoIcon';
 import { useState, useEffect } from 'react';
 import LoginPage from 'pages/LoginPage';
 import { OAUTH_URL } from 'constants/config';

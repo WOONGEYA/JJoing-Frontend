@@ -7,7 +7,7 @@ interface SVGAttributeProps {
   color?: string;
 }
 
-const Reset = ({
+const ResetIcon = ({
   width = 24,
   height = 24,
   color = theme.grey[600],
@@ -28,4 +28,4 @@ const Reset = ({
   );
 };
 
-export default Reset;
+export default ResetIcon;

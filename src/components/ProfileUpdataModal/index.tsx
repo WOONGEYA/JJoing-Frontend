@@ -1,10 +1,13 @@
 import React from 'react';
 import * as S from './style';
-import EditImg from 'assets/EditIcon.svg';
-import X from 'assets/x.svg';
-import ProfileUpdateModalProps from 'types/IProfileUpdateModalProps.type';
+import EditIcon from 'assets/EditIcon';
+import CloseIcon from 'assets/CloseIcon';
 
-const ProfileUpdateModal: React.FC<ProfileUpdateModalProps> = ({ closeModal }) => {
+interface ProfileUpdateModalProps {
+  closeModal: () => void;
+}
+
+const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
   const Submit = () => {
     closeModal();
   };
@@ -14,14 +17,14 @@ const ProfileUpdateModal: React.FC<ProfileUpdateModalProps> = ({ closeModal }) =
       <S.ModalHeader>
         <S.ModalTitle>프로필 수정하기</S.ModalTitle>
         <S.CloseButton onClick={closeModal}>
-          <S.ImgX src={X} alt='x' />
+          <CloseIcon />
         </S.CloseButton>
       </S.ModalHeader>
       <S.ModalEditImgTitle>프로필 이미지</S.ModalEditImgTitle>
       <S.ModalImgWrapper>
         <S.ProfileImg>
           <S.EditProfile>
-            <S.EditImg src={EditImg} alt='EditImg' />
+            <EditIcon />
           </S.EditProfile>
         </S.ProfileImg>
       </S.ModalImgWrapper>

@@ -7,7 +7,7 @@ interface SVGAttributeProps {
   color?: string;
 }
 
-const Logo = ({
+const LogoIcon = ({
   width = 73,
   height = 22,
   color = theme.primary,
@@ -28,4 +28,4 @@ const Logo = ({
   );
 };
 
-export default Logo;
+export default LogoIcon;

@@ -7,7 +7,7 @@ interface SVGAttributeProps {
   color?: string;
 }
 
-const Member = ({
+const MemberIcon = ({
   width = 16,
   height = 16,
   color = theme.secondary,
@@ -28,4 +28,4 @@ const Member = ({
   );
 };
 
-export default Member;
+export default MemberIcon;

@@ -7,7 +7,7 @@ interface SVGAttributeProps {
   color?: string;
 }
 
-const Github = ({
+const GithubIcon = ({
   width = 20,
   height = 20,
   color = theme.black,
@@ -28,4 +28,4 @@ const Github = ({
   );
 };
 
-export default Github;
+export default GithubIcon;

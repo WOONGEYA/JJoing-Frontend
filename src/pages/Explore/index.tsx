@@ -3,7 +3,7 @@ import ProjectBox from 'components/ProjectBox';
 import Header from 'components/Header/index';
 import Footer from 'components/Footer';
 import * as S from './style';
-import Reset from 'assets/Reset';
+import ResetIcon from 'assets/ResetIcon';
 import Dropdown from 'components/Dropdown';
 import dummy from 'fixtures/detail.dummy';
 
@@ -17,7 +17,7 @@ const Explore = () => {
         <S.Banner />
         <S.Filter>
           <S.Reset>
-            <Reset />
+            <ResetIcon />
           </S.Reset>
           {options.map((obj) => (
             <Dropdown key={obj} name={obj} />

@@ -7,7 +7,7 @@ interface SVGAttributeProps {
   color?: string;
 }
 
-const Github = ({
+const BellIcon = ({
   width = 32,
   height = 32,
   color = theme.secondary,
@@ -28,4 +28,4 @@ const Github = ({
   );
 };
 
-export default Github;
+export default BellIcon;

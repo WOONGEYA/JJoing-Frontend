@@ -1,13 +1,11 @@
-import * as S from './style'; // Updated import for the styles
-import SpongeBob from 'assets/spongeBob.webp';
-import Github from 'assets/github.svg';
-import PeoplePng from 'assets/PeopleSvg.svg';
-import { dummy_data } from 'fixtures/mypage.dummy';
+import Github from 'assets/GithubIcon';
+import dummy from 'fixtures/detail.dummy';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-import { truncate } from 'utils/truncate';
 import useModal from 'hooks/useModal';
-import ProfileUpdateModal from 'pages/ProfileUpdataModal';
+import ProfileUpdateModal from 'components/ProfileUpdataModal';
+import ProjectBox from 'components/ProjectBox';
+import * as S from './style';
 
 const MyPage = () => {
   const { openModal, closeModal } = useModal();
@@ -31,7 +29,7 @@ const MyPage = () => {
               <S.InformationContainer>
                 <S.CharacterName>
                   뚱이
-                  <S.GithubImg src={Github} alt='github' />
+                  <Github />
                 </S.CharacterName>
                 <S.SchoolName>부산소프트웨어마이스터고등학교</S.SchoolName>
                 <S.FollowWrapper>
@@ -56,22 +54,14 @@ const MyPage = () => {
         </S.MyProjectWrapper>
         <S.ProjectWrapper>
           <S.ShowProjects>
-            {dummy_data.map((data) => (
-              <S.Project key={data.id}>
-                <S.PojectPicture src={SpongeBob} alt='spongeBob' />
-                <S.ProjectNameWrapper>
-                  <S.ProjectName>{data.name}</S.ProjectName>
-                </S.ProjectNameWrapper>
-                <S.ProjectContentsWrapper>
-                  <S.Contents>{truncate(data.contents)}</S.Contents>
-                </S.ProjectContentsWrapper>
-                <S.ProjectInformationWrapper>
-                  <S.PeopleWrapper>
-                    <S.PeopleIcon src={PeoplePng} alt='people' />
-                    <S.ProjectMemberCounts>3/5</S.ProjectMemberCounts>
-                  </S.PeopleWrapper>
-                </S.ProjectInformationWrapper>
-              </S.Project>
+            {dummy.map((data) => (
+              <ProjectBox
+                key={data.id}
+                title={data.title}
+                description={data.description}
+                currentPeople={data.currentPeople}
+                requiredPeople={data.requiredPeople}
+              />
             ))}
           </S.ShowProjects>
         </S.ProjectWrapper>
@@ -81,22 +71,14 @@ const MyPage = () => {
         </S.MyProjectWrapper>
         <S.ProjectWrapper>
           <S.ShowProjects>
-            {dummy_data.map((data) => (
-              <S.Project key={data.id}>
-                <S.PojectPicture src={SpongeBob} alt='spongeBob' />
-                <S.ProjectNameWrapper>
-                  <S.ProjectName>{data.name}</S.ProjectName>
-                </S.ProjectNameWrapper>
-                <S.ProjectContentsWrapper>
-                  <S.Contents>{truncate(data.contents)}</S.Contents>
-                </S.ProjectContentsWrapper>
-                <S.ProjectInformationWrapper>
-                  <S.PeopleWrapper>
-                    <S.PeopleIcon src={PeoplePng} alt='people' />
-                    <S.ProjectMemberCounts>3/5</S.ProjectMemberCounts>
-                  </S.PeopleWrapper>
-                </S.ProjectInformationWrapper>
-              </S.Project>
+            {dummy.map((data) => (
+              <ProjectBox
+                key={data.id}
+                title={data.title}
+                description={data.description}
+                currentPeople={data.currentPeople}
+                requiredPeople={data.requiredPeople}
+              />
             ))}
           </S.ShowProjects>
         </S.ProjectWrapper>

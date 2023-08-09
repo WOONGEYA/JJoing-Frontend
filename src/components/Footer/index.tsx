@@ -1,5 +1,5 @@
 import * as S from './style';
-import Logo from 'assets/Logo';
+import LogoIcon from 'assets/LogoIcon';
 
 const Footer = () => {
   const { service, headline, tel, mail, serviceInfo, locate, copyright } = {
@@ -20,7 +20,7 @@ const Footer = () => {
 
   return (
     <S.Container>
-      <Logo />
+      <LogoIcon />
       <S.List>
         <S.Title>{service}</S.Title>
         <S.HeadLine>
