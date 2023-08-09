@@ -16,5 +16,5 @@ export const OptionWrapper = styled.div`
 `;
 
 export const OptionName = styled.span`
-  ${font.$subhead.subhead}
+  ${font.$subhead}
 `;

@@ -40,7 +40,7 @@ export const Reset = styled.div`
 `;
 
 export const Title = styled.span`
-  ${font.$title01.title1}
+  ${font.$title01}
 `;
 
 export const ProjectList = styled.div`
