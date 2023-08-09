@@ -1,7 +1,7 @@
 import React from 'react';
 import theme from 'styles/theme';
 
-interface SVGAttributeProps {
+interface SVGAttributeProps extends React.SVGAttributes<HTMLOrSVGElement> {
   width?: number;
   height?: number;
   color?: string;
