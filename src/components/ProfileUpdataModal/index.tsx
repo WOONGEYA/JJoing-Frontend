@@ -2,46 +2,98 @@ import React from 'react';
 import * as S from './style';
 import EditIcon from 'assets/EditIcon';
 import CloseIcon from 'assets/CloseIcon';
+import Input from 'components/Input';
+import Button from 'components/Button';
+import ProfileImg from 'assets/profile.webp';
+import profile_data from 'fixtures/profile.dummy';
+
+const contents = [
+  { name: '아이디', id: 'id' },
+  { name: '깃허브 링크', id: 'github' },
+  { name: '이메일 주소', id: 'email' },
+  { name: '개인 링크', id: 'personalLink' },
+  { name: '상태 메세지', id: 'statusMessage' },
+  { name: '분야', id: 'field' },
+];
 
 interface ProfileUpdateModalProps {
   closeModal: () => void;
 }
 
+interface InputValues {
+  [id: string]: string;
+}
+
 const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
-  const Submit = () => {
-    closeModal();
+  const [imageUrl, setImageUrl] = React.useState<string>(ProfileImg);
+
+  const handleProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
+    if (!files) return;
+
+    const reader = new FileReader();
+
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+      const result = e.target?.result;
+      setImageUrl(String(result));
+    };
+
+    reader.readAsDataURL(files[0]);
+  };
+
+  const { id, github, email, personalLink, statusMessage, field } =
+    profile_data;
+
+  const [inputValues, setInputValues] = React.useState<InputValues>({
+    id,
+    github,
+    email,
+    personalLink,
+    statusMessage,
+    field,
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e);
+    const { name, value } = e.target;
+    setInputValues({ ...inputValues, [name]: value });
   };
 
   return (
-    <S.ModalWrapper>
-      <S.ModalHeader>
-        <S.ModalTitle>프로필 수정하기</S.ModalTitle>
-        <S.CloseButton onClick={closeModal}>
-          <CloseIcon />
-        </S.CloseButton>
-      </S.ModalHeader>
-      <S.ModalEditImgTitle>프로필 이미지</S.ModalEditImgTitle>
-      <S.ModalImgWrapper>
-        <S.ProfileImg>
-          <S.EditProfile>
-            <EditIcon />
-          </S.EditProfile>
-        </S.ProfileImg>
-      </S.ModalImgWrapper>
-      <S.EditIdTitle>아이디</S.EditIdTitle>
-      <S.EditInput type='text' placeholder='뚱이' />
-      <S.EditIdTitle>깃허브 링크</S.EditIdTitle>
-      <S.EditInput type='text' placeholder='https://github.com/lsj0202' />
-      <S.EditIdTitle>이메일 주소</S.EditIdTitle>
-      <S.EditInput type='text' placeholder='2022046@bssm.hs.kr' />
-      <S.EditIdTitle>상태 메시지</S.EditIdTitle>
-      <S.EditInputMessage placeholder='뚱이 스폰지밥 징징이 다람이 핑핑이' />
-      <S.EditIdTitle>분야</S.EditIdTitle>
-      <S.EditInput type='text' placeholder='Frontend' />
-      <S.ModalButtonWrapper>
-        <S.SubmitButton onClick={Submit}>저장</S.SubmitButton>
-      </S.ModalButtonWrapper>
-    </S.ModalWrapper>
+    <S.ModalContainer>
+      <S.TitleContainer>
+        <S.Title>프로필 수정하기 🖨</S.Title>
+        <CloseIcon cursor='pointer' onClick={() => closeModal()} />
+      </S.TitleContainer>
+      <S.Content>
+        <S.ContentTitle>프로필 이미지</S.ContentTitle>
+        <S.Profile>
+          <S.ProfileImage url={imageUrl} htmlFor='file' />
+          <input
+            type='file'
+            id='file'
+            accept='.jpg, .png, .jpeg'
+            onChange={handleProfileImage}
+          />
+          <EditIcon style={{ position: 'absolute', zIndex: '2' }} />
+        </S.Profile>
+      </S.Content>
+      {contents.map((content) => {
+        return (
+          <S.Content key={content.name}>
+            <S.ContentTitle>{content.name}</S.ContentTitle>
+            <Input
+              placeholder={`${content.name}를 입력해주세요.`}
+              width='calc(100% - 32px)'
+              value={inputValues[content.id]}
+              name={content.id}
+              onChange={handleChange}
+            />
+          </S.Content>
+        );
+      })}
+      <Button value='저장' onClick={() => closeModal()} />
+    </S.ModalContainer>
   );
 };
 

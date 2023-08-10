@@ -1,132 +1,66 @@
 import styled from 'styled-components';
-import ProfileImage from 'assets/profile.webp';
+import { font } from 'styles/font';
+import theme from 'styles/theme';
 
-export const ModalWrapper = styled.div`
-  width: 500px;
-  height: 90vh;
-  background-color: white;
-  padding: 20px;
-  border-radius: 15px;
+export const ModalContainer = styled.div`
+  max-width: 504px;
+  width: 50vw;
+  background-color: ${theme.white};
+  display: inline-flex;
+  padding: 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  border-radius: 12px;
 `;
 
-export const ModalHeader = styled.div`
-  width: 100%;
-  height: 5vh;
+export const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-export const ModalTitle = styled.div`
-  font-size: 18px;
-  font-weight: 600;
-`;
-
-export const CloseButton = styled.div`
-  cursor: pointer;
-`;
-
-export const ImgX = styled.img``;
-
-export const ModalEditImgTitle = styled.div`
-  width: 100%;
-  height: 5vh;
-  display: flex;
   align-items: center;
+  align-self: stretch;
 `;
 
-export const ModalImgWrapper = styled.div`
-  width: 100%;
-  height: 14vh;
+export const Title = styled.h1`
+  ${font.$title03}
+  ${theme.black}
 `;
 
-export const ProfileImg = styled.div`
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+`;
+
+export const ContentTitle = styled.h2`
+  color: ${theme.black};
+  ${font.$headline};
+`;
+
+export const Profile = styled.div`
   width: 100px;
   height: 100px;
-  border-radius: 50%;
-  background-image: url(${ProfileImage});
-  background-size: 100px;
-  background-color: skyblue;
-`;
-
-export const EditProfile = styled.div`
-  width: 100%;
-  height: 100px;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const EditImg = styled.img`
-  cursor: pointer;
-`;
-
-export const EditIdTitle = styled.div`
-  width: 100%;
-  height: 5vh;
-  display: flex;
-  align-items: center;
-`;
-
-export const EditIdInputBox = styled.input`
-  width: 100%;
-  height: 30px;
-`;
-
-// export const EditInput = styled.div`
-//   width: 96%;
-//   border-radius: 5px;
-//   height: 5vh;
-//   display: flex;
-//   align-items: center;
-//   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-//   color: gray;
-//   padding-left: 1rem;
-//   margin-bottom: 0.4rem;
-// `;
-
-export const EditInput = styled.input`
-  width: 96%;
-  border-radius: 5px;
-  height: 5vh;
-  display: flex;
-  align-items: center;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  color: gray;
-  padding-left: 1rem;
-  margin-bottom: 0.4rem;
-`;
-
-export const EditInputMessage = styled.textarea`
-  width: 96%;
-  height: 8vh;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  border-radius: 5px;
-  display: flex;
-  color: gray;
-  padding: 0.6rem 0 0 0.7rem;
-  margin-bottom: 0.4rem;
-  border: none;
-  resize: none;
-`;
-
-export const ModalButtonWrapper = styled.div`
-  width: 100%;
-  height: 6.5vh;
-  display: flex;
-  align-items: end;
-  justify-content: end;
-`;
-
-export const SubmitButton = styled.div`
-  width: 64px;
-  height: 4.5vh;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #38b57d;
-  color: white;
-  border-radius: 5px;
+`;
+
+export const ProfileImage = styled.label<{ url: string }>`
+  background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    ),
+    url(${({ url }) => url}) lightgray 50% / cover no-repeat;
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   cursor: pointer;
 `;
