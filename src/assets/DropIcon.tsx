@@ -11,6 +11,7 @@ const DropIcon = ({
   width = 24,
   height = 24,
   color = theme.grey[600],
+  ...rest
 }: SVGAttributeProps) => {
   return (
     <svg
@@ -19,6 +20,7 @@ const DropIcon = ({
       viewBox='0 0 24 24'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      {...rest}
     >
       <g clipPath='url(#clip0_3640_575)'>
         <path
