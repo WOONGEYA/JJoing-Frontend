@@ -6,6 +6,7 @@ import searchIcon from 'assets/search.svg';
 import trash from 'assets/trash.svg';
 import NotifyBox from 'components/NotifyBox';
 import notifications from 'fixtures/notify.dummy';
+import NoNotify from 'components/NoNotify/index';
 
 interface Notification {
   user: string;
@@ -21,9 +22,9 @@ function Notify() {
   }
 
   function handleDeleteOne(index: number) {
-    const Notifications = [...notificationData];
-    Notifications.splice(index, 1);
-    setNotificationData(Notifications);
+    const newNotifications = [...notificationData];
+    newNotifications.splice(index, 1);
+    setNotificationData(newNotifications);
   }
 
   return (
@@ -43,11 +44,15 @@ function Notify() {
             </S.DeleteNotifi>
           </Flex.FlexVertical>
         </S.NotifiHeader>
-        <S.Notifications>
-          {notificationData.map((notification, index) => (
-            <NotifyBox notification={notification} key={index} onDelete={() => handleDeleteOne(index)} />
-          ))}
-        </S.Notifications>
+        {notificationData.length === 0 ? (
+          <NoNotify />
+        ) : (
+          <S.Notifications>
+            {notificationData.map((notification, index) => (
+              <NotifyBox notification={notification} key={index} onDelete={() => handleDeleteOne(index)} />
+            ))}
+          </S.Notifications>
+        )}
       </S.Container>
     </>
   );
