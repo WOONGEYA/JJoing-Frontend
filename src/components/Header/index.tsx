@@ -1,27 +1,17 @@
-import * as S from './style';
-import Logo from 'assets/LogoIcon';
-import { useState, useEffect } from 'react';
+import React from 'react';
 import LoginPage from 'pages/LoginPage';
-import { OAUTH_URL } from 'constants/config';
 import axios from 'axios';
+import Profile from 'assets/profile.webp';
+import BellIcon from 'assets/BellIcon';
+import LogoIcon from 'assets/LogoIcon';
+import { OAUTH_URL } from 'constants/config';
+import * as S from './style';
+import { Link } from 'react-router-dom';
 
-export default function Header() {
-  const [show, setShow] = useState<boolean>(false);
-  console.log(`URL : ${OAUTH_URL}`);
+const Header = () => {
+  const [isOpened, setIsOpened] = React.useState<boolean>(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShow(window.scrollY > 60);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
+  React.useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get('http://192.168.10.142:8080/user', {
@@ -44,27 +34,50 @@ export default function Header() {
   };
 
   return (
-    <S.HeaderContainer show={show ? 1 : null}>
+    <S.HeaderContainer>
       <S.HeaderWrapper>
-        <S.LogoContainer>
-          <Logo />
-        </S.LogoContainer>
         <S.MenuList>
-          <S.MenuItem1>둘러보기</S.MenuItem1>
+          <Link to='/'>
+            <LogoIcon height={24} />
+          </Link>
+          <Link to='/explore'>
+            <S.MenuItem>프로젝트 목록</S.MenuItem>
+          </Link>
           <S.MenuItem>새 프로젝트</S.MenuItem>
-          <S.MenuItem>채팅</S.MenuItem>
         </S.MenuList>
-        <S.AlarmContainer>
-          {localStorage.accessToken ? (
-            <S.Href onClick={handleLogout}>로그아웃</S.Href>
-          ) : (
-            <S.Href href={OAUTH_URL}>로그인</S.Href>
-          )}
-        </S.AlarmContainer>
         <S.ProfileContainer>
+          {localStorage.accessToken ? (
+            <>
+              <Link to='/notify'>
+                <BellIcon cursor='pointer' />
+              </Link>
+              <S.Profile
+                src={Profile}
+                alt='profile'
+                onClick={() => setIsOpened(!isOpened)}
+              />
+              {isOpened && (
+                <S.DropdownContainer>
+                  <S.Options>
+                    <Link to='/mypage'>
+                      <S.Option>내 프로필</S.Option>
+                    </Link>
+                    <Link to='/like'>
+                      <S.Option>마이쫑</S.Option>
+                    </Link>
+                    <S.Option onClick={handleLogout}>로그아웃</S.Option>
+                  </S.Options>
+                </S.DropdownContainer>
+              )}
+            </>
+          ) : (
+            <S.Login href={OAUTH_URL}>로그인</S.Login>
+          )}
           <LoginPage />
         </S.ProfileContainer>
       </S.HeaderWrapper>
     </S.HeaderContainer>
   );
-}
+};
+
+export default Header;
