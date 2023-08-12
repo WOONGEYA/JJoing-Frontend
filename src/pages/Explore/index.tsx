@@ -1,26 +1,51 @@
 import React from 'react';
 import ProjectBox from 'components/ProjectBox';
-import Header from 'components/Header/index';
-import Footer from 'components/Footer';
-import * as S from './style';
-import ResetIcon from 'assets/ResetIcon';
 import Dropdown from 'components/Dropdown';
 import dummy from 'fixtures/detail.dummy';
+import * as S from './style';
+import Layout from 'components/Layout';
 
-const options = ['전문분야 선택', '지역 옵션', '전문가 옵션', '인기순'];
+const dropdownOptions = [
+  {
+    id: '0',
+    currentOption: '분야 선택',
+    options: ['Web', 'iOS', 'Android'],
+  },
+  {
+    id: '1',
+    currentOption: '직군 선택',
+    options: ['Front-end', 'Back-end', 'Designer'],
+  },
+  {
+    id: '2',
+    currentOption: '정렬 기준 선택',
+    options: ['인기순', '마이쫑 많은 순', '최신순'],
+  },
+];
 
 const Explore = () => {
+  const [isOpened, setIsOpened] = React.useState([false, false, false]);
+
+  const handleDropdown = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { id } = e.currentTarget;
+    const parsedId = parseInt(id);
+    const copy = [...isOpened];
+    copy[parsedId] = !copy[parsedId];
+    setIsOpened(copy);
+  };
+
   return (
-    <S.Container>
-      <Header />
+    <Layout>
       <S.Contents>
         <S.Banner />
         <S.Filter>
-          <S.Reset>
-            <ResetIcon />
-          </S.Reset>
-          {options.map((obj) => (
-            <Dropdown key={obj} name={obj} />
+          {dropdownOptions.map((option) => (
+            <Dropdown
+              key={option.id}
+              isOpened={isOpened[parseInt(option.id)]}
+              {...option}
+              onClick={handleDropdown}
+            />
           ))}
         </S.Filter>
         <S.ProjectList>
@@ -38,8 +63,7 @@ const Explore = () => {
           </S.ProjectContainer>
         </S.ProjectList>
       </S.Contents>
-      <Footer />
-    </S.Container>
+    </Layout>
   );
 };
 
