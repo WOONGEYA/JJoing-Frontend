@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import theme from './theme';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -48,6 +47,10 @@ table {
 
 input[type=file]{
 	display: none;
+}
+
+a {
+	text-decoration: none;
 }
 
 :root {
