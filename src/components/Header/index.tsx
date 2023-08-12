@@ -1,5 +1,5 @@
 import * as S from './style';
-import Logo from 'assets/logo.svg';
+import Logo from 'assets/Logo';
 import { useState, useEffect } from 'react';
 import LoginPage from 'pages/LoginPage';
 import { OAUTH_URL } from 'constants/config';
@@ -47,7 +47,7 @@ export default function Header() {
     <S.HeaderContainer show={show ? 1 : null}>
       <S.HeaderWrapper>
         <S.LogoContainer>
-          <S.ImageLogo src={Logo} alt='logo' />
+          <Logo />
         </S.LogoContainer>
         <S.MenuList>
           <S.MenuItem1>둘러보기</S.MenuItem1>

@@ -1,18 +1,18 @@
 import styled from 'styled-components';
 
-export const HeaderContainer = styled.div<{ show:number | null }>`
-  width: 100vw;
-  height: 8vh;
-  border-bottom: 0.5px solid #C9CDD2;
+export const HeaderContainer = styled.div<{ show: number | null }>`
+  width: 100%;
+  height: 55px;
+  border-bottom: 0.5px solid #c9cdd2;
   background-color: white;
-  box-shadow: ${({show}) => show ? '0.5px 1.5px 1.5px 0.5px silver' : 'white'};
+  box-shadow: ${({ show }) => (show ? '0.5px 1.5px 1.5px 0.5px silver' : 'white')};
   position: fixed;
   transition: 0.5s ease-in-out;
 `;
 
 export const HeaderWrapper = styled.div`
   width: 80vw;
-  height: 8vh;
+  height: 55px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -51,7 +51,7 @@ export const ProfileContainer = styled.div`
 `;
 
 export const AlarmContainer = styled.div`
-  width: 90px;
+  width: 95px;
   height: 8vh;
   display: flex;
   align-items: center;
@@ -63,17 +63,17 @@ export const Image = styled.img`
   width: 30px;
   height: 30px;
   cursor: pointer;
-`
+`;
 export const ImageLogo = styled.img`
   width: 80px;
   height: 60px;
   cursor: pointer;
-`
+`;
 export const Href = styled.a`
   text-decoration: none;
   color: black;
   cursor: pointer;
-  &:active{
+  &:active {
     color: gray;
   }
-`
+`;
