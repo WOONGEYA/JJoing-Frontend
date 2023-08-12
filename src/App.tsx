@@ -7,6 +7,7 @@ import Modal from 'components/Modal';
 import MyPage from 'pages/MyPage';
 import Explore from 'pages/Explore';
 import Main from 'pages/Main';
+import Notify from 'pages/Notify';
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => {
             <Route path='/detail' element={<Detail />} />
             <Route path='/explore' element={<Explore />} />
             <Route path='/' element={<Main />} />
+            <Route path='/notify' element={<Notify />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>
