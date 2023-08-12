@@ -25,7 +25,7 @@ export const HeaderWrapper = styled.div`
 export const MenuList = styled.div`
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 48px;
 `;
 
