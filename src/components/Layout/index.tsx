@@ -11,7 +11,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <Background>
       <Header />
-      {children}
+      <div style={{ paddingTop: '60px' }}>{children}</div>
       <Footer />
     </Background>
   );
