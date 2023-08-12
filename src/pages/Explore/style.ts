@@ -3,7 +3,7 @@ import theme from 'styles/theme';
 import { font } from 'styles/font';
 
 export const Contents = styled.div`
-  padding: 120px calc((100% - 1032px) / 2) 128px;
+  padding: 64px calc((100% - 1032px) / 2) 128px;
   display: flex;
   flex-direction: column;
   gap: 48px;
