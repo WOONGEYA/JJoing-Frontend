@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Header from 'components/Header';
 import * as S from './style';
 import * as Flex from 'styles/flex';
@@ -16,6 +16,7 @@ interface Notification {
 
 function Notify() {
   const [notificationData, setNotificationData] = useState<Notification[]>(notifications);
+  const [userInput, setUserInput] = useState<string>('');
 
   function handleDeleteAll() {
     setNotificationData([]);
@@ -27,6 +28,12 @@ function Notify() {
     setNotificationData(newNotifications);
   }
 
+  const filteredNotifications = notificationData.filter(
+    (notification) =>
+      notification.user.toLowerCase().includes(userInput.toLowerCase()) ||
+      notification.project.toLowerCase().includes(userInput.toLowerCase()),
+  );
+
   return (
     <>
       <Header />
@@ -34,21 +41,26 @@ function Notify() {
         <S.NotifiHeader>
           <S.SearchWrapper>
             <S.Icon src={searchIcon} alt='Search' />
-            <S.Search type='text' placeholder='검색어를 입력해주세요.' />
+            <S.Search
+              type='search'
+              placeholder='검색어를 입력해주세요.'
+              value={userInput}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setUserInput(e.target.value)}
+            />
           </S.SearchWrapper>
           <Flex.FlexVertical style={{ gap: '12px' }}>
-            <S.NotifiAmount>알림 {notificationData.length} / 100</S.NotifiAmount>
+            <S.NotifiAmount>알림 {filteredNotifications.length} / 100</S.NotifiAmount>
             <S.DeleteNotifi onClick={handleDeleteAll}>
               <S.Icon src={trash} alt='Trash' />
               모든 알림 삭제하기
             </S.DeleteNotifi>
           </Flex.FlexVertical>
         </S.NotifiHeader>
-        {notificationData.length === 0 ? (
+        {filteredNotifications.length === 0 ? (
           <NoNotify />
         ) : (
           <S.Notifications>
-            {notificationData.map((notification, index) => (
+            {filteredNotifications.map((notification, index) => (
               <NotifyBox notification={notification} key={index} onDelete={() => handleDeleteOne(index)} />
             ))}
           </S.Notifications>
