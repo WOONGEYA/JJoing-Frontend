@@ -23,7 +23,7 @@ export const SearchWrapper = styled.div`
   display: flex;
   align-items: center;
   border-radius: 4px;
-  ${shadow.$shadow02.shadow2};
+  ${shadow.shadow2};
   width: 328px;
   height: 38px;
 `;
@@ -59,7 +59,7 @@ export const DeleteNotifi = styled.button`
   gap: 4px;
   border: none;
   border-radius: 4px;
-  ${shadow.$shadow02.shadow2};
+  ${shadow.shadow2};
   background-color: ${theme.white};
   :hover {
     background-color: ${theme.grey[500]};

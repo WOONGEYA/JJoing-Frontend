@@ -7,7 +7,7 @@ export const Container = styled.div`
   width: 100%;
   height: 92px;
   border-radius: 4px;
-  ${shadow.$shadow02.shadow2};
+  ${shadow.shadow2};
   padding: 16px;
   box-sizing: border-box;
   display: flex;
