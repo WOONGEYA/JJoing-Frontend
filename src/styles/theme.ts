@@ -3,6 +3,7 @@ const secondary = '#264466';
 
 const black = '#000000';
 const white = '#FFFFFF';
+const red = '#F4493C'
 
 const grey = {
     '100': '#F8F9FA',
@@ -21,5 +22,6 @@ export default {
     secondary,
     grey,
     black,
-    white
+    white,
+    red
 };

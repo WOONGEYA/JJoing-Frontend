@@ -15,21 +15,17 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Image = styled.img`
-  width: 88px;
-  margin-bottom: 36px;
-`;
-
 const Description = styled.h2`
   ${font.$title03.title3};
   color: ${theme.grey[500]};
+  margin-top: 32px;
 `;
 
 const NoNotify = () => {
   return (
     <>
       <Container>
-        <Image src={bell} />
+        <NoNotify />
         <Description>새로운 알림이 없습니다.</Description>
       </Container>
     </>
