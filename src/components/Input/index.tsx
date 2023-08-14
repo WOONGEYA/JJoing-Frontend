@@ -3,7 +3,7 @@ import * as S from './style';
 import SearchIcon from 'assets/SearchIcon';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  type?: 'text' | 'date' | 'search' | 'email' | 'url';
+  type?: string;
 }
 
 const Input = ({ width, height, type = 'text', ...rest }: InputProps) => {

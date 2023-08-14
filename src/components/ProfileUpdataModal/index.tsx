@@ -7,13 +7,7 @@ import Button from 'components/Button';
 import ProfileImg from 'assets/profile.webp';
 import profile_data from 'fixtures/profile.dummy';
 
-interface ContentType {
-  name: string;
-  id: string;
-  type: 'text' | 'url' | 'email';
-}
-
-const contents: ContentType[] = [
+const contents = [
   { name: '아이디', id: 'id', type: 'text' },
   { name: '깃허브 링크', id: 'github', type: 'url' },
   { name: '이메일 주소', id: 'email', type: 'email' },
