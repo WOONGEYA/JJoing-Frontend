@@ -3,10 +3,10 @@ import * as S from './style';
 import SearchIcon from 'assets/SearchIcon';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  type?: 'input' | 'date' | 'search';
+  type?: 'text' | 'date' | 'search' | 'email';
 }
 
-const Input = ({ width, height, type = 'input', ...rest }: InputProps) => {
+const Input = ({ width, height, type = 'text', ...rest }: InputProps) => {
   return (
     <S.InputContainer style={{ width, height }}>
       {type === 'search' && <SearchIcon />}
