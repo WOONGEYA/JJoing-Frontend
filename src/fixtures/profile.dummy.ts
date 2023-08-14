@@ -1,5 +1,8 @@
 const profile_data = {
   id: 'lheesung',
+  school: '부산소프트웨어마이스터고등학교',
+  follower: 0,
+  following: 0,
   github: 'https://github.com/lheesung',
   email: 'lheesung@gmail.com',
   personalLink:
