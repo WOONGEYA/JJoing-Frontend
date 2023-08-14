@@ -7,13 +7,19 @@ import Button from 'components/Button';
 import ProfileImg from 'assets/profile.webp';
 import profile_data from 'fixtures/profile.dummy';
 
-const contents = [
-  { name: '아이디', id: 'id' },
-  { name: '깃허브 링크', id: 'github' },
-  { name: '이메일 주소', id: 'email' },
-  { name: '개인 링크', id: 'personalLink' },
-  { name: '상태 메세지', id: 'statusMessage' },
-  { name: '분야', id: 'field' },
+interface ContentType {
+  name: string;
+  id: string;
+  type: 'text' | 'url' | 'email';
+}
+
+const contents: ContentType[] = [
+  { name: '아이디', id: 'id', type: 'text' },
+  { name: '깃허브 링크', id: 'github', type: 'url' },
+  { name: '이메일 주소', id: 'email', type: 'email' },
+  { name: '개인 링크', id: 'personalLink', type: 'url' },
+  { name: '상태 메세지', id: 'statusMessage', type: 'text' },
+  { name: '분야', id: 'field', type: 'text' },
 ];
 
 interface ProfileUpdateModalProps {
@@ -87,6 +93,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
               width='calc(100% - 32px)'
               value={inputValues[content.id]}
               name={content.id}
+              type={content.type}
               onChange={handleChange}
             />
           </S.Content>
