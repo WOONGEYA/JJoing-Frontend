@@ -7,7 +7,7 @@ import trash from 'assets/trash.svg';
 import NotifyBox from 'components/NotifyBox';
 import notifications from 'fixtures/notify.dummy';
 import NoNotify from 'components/NoNotify/index';
-import Search from 'components/Search'; // 추가된 부분
+import Search from 'components/Search';
 
 interface Notification {
   user: string;

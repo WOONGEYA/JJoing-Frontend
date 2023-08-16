@@ -1,4 +1,3 @@
-// components/Search.js
 import React, { ChangeEvent } from 'react';
 import PropTypes from 'prop-types';
 import searchIcon from 'assets/search.svg';
@@ -10,7 +9,7 @@ interface SearchProps {
   onChange: (value: string) => void;
 }
 
-export const SearchWrapper = styled.div`
+const SearchWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
@@ -20,7 +19,7 @@ export const SearchWrapper = styled.div`
   height: 38px;
 `;
 
-export const Icon = styled.img`
+const Icon = styled.img`
   width: 16px;
   height: 16px;
   margin-left: 12px;
@@ -32,7 +31,7 @@ const Searched = styled.input`
   border: none;
 `;
 
-const Search: React.FC<SearchProps> = ({ value, onChange }) => {
+function Search({ value, onChange }: SearchProps) {
   return (
     <SearchWrapper>
       <Icon src={searchIcon} alt='Search' />
@@ -46,7 +45,7 @@ const Search: React.FC<SearchProps> = ({ value, onChange }) => {
       />
     </SearchWrapper>
   );
-};
+}
 
 Search.propTypes = {
   value: PropTypes.string.isRequired,
