@@ -13,10 +13,8 @@ const MyJJong = () => {
     setSearchValue(newValue);
   };
 
-  const filteredProjects = dummy.filter(
-    (data) =>
-      data.title.toLowerCase().includes(searchValue.toLowerCase()) || // Adjust the condition based on your data structure
-      data.description.toLowerCase().includes(searchValue.toLowerCase()), // Adjust the condition based on your data structure
+  const filteredProjects = dummy.filter((data) =>
+    data.title.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   return (
