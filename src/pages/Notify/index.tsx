@@ -7,6 +7,7 @@ import trash from 'assets/trash.svg';
 import NotifyBox from 'components/NotifyBox';
 import notifications from 'fixtures/notify.dummy';
 import NoNotify from 'components/NoNotify/index';
+import Search from 'components/Search'; // 추가된 부분
 
 interface Notification {
   user: string;
@@ -15,7 +16,8 @@ interface Notification {
 }
 
 function Notify() {
-  const [notificationData, setNotificationData] = useState<Notification[]>(notifications);
+  const [notificationData, setNotificationData] =
+    useState<Notification[]>(notifications);
   const [userInput, setUserInput] = useState<string>('');
 
   function handleDeleteAll() {
@@ -39,17 +41,11 @@ function Notify() {
       <Header />
       <S.Container>
         <S.NotifiHeader>
-          <S.SearchWrapper>
-            <S.Icon src={searchIcon} alt='Search' />
-            <S.Search
-              type='search'
-              placeholder='검색어를 입력해주세요.'
-              value={userInput}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setUserInput(e.target.value)}
-            />
-          </S.SearchWrapper>
+          <Search value={userInput} onChange={setUserInput} />{' '}
           <Flex.FlexVertical style={{ gap: '12px' }}>
-            <S.NotifiAmount>알림 {filteredNotifications.length} / 100</S.NotifiAmount>
+            <S.NotifiAmount>
+              알림 {filteredNotifications.length} / 100
+            </S.NotifiAmount>
             <S.DeleteNotifi onClick={handleDeleteAll}>
               <S.Icon src={trash} alt='Trash' />
               모든 알림 삭제하기
@@ -61,7 +57,11 @@ function Notify() {
         ) : (
           <S.Notifications>
             {filteredNotifications.map((notification, index) => (
-              <NotifyBox notification={notification} key={index} onDelete={() => handleDeleteOne(index)} />
+              <NotifyBox
+                notification={notification}
+                key={index}
+                onDelete={() => handleDeleteOne(index)}
+              />
             ))}
           </S.Notifications>
         )}

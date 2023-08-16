@@ -18,26 +18,10 @@ export const NotifiHeader = styled.div`
   margin-bottom: 16px;
 `;
 
-export const SearchWrapper = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  ${shadow.shadow2};
-  width: 328px;
-  height: 38px;
-`;
-
 export const Icon = styled.img`
   width: 16px;
   height: 16px;
   margin-left: 12px;
-`;
-
-export const Search = styled.input`
-  width: 100%;
-  height: 100%;
-  border: none;
 `;
 
 export const HeaderElement = styled.div`

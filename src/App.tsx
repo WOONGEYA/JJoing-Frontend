@@ -8,6 +8,7 @@ import MyPage from 'pages/MyPage';
 import Explore from 'pages/Explore';
 import Main from 'pages/Main';
 import Notify from 'pages/Notify';
+import MyJJong from 'pages/MyJJong';
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => {
             <Route path='/explore' element={<Explore />} />
             <Route path='/' element={<Main />} />
             <Route path='/notify' element={<Notify />} />
+            <Route path='/myjjong' element={<MyJJong />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>
