@@ -46,6 +46,7 @@ export const Description = styled.p`
   word-break: break-word;
   overflow: hidden;
   display: -webkit-box;
+  height: 84px;
 `;
 
 export const Footer = styled.div`
