@@ -54,7 +54,6 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
     const { name, value } = e.target;
     setInputValues({ ...inputValues, [name]: value });
   };
