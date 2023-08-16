@@ -29,6 +29,7 @@ export const Title = styled.div`
 
 export const Projects = styled.div`
   width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 `;
