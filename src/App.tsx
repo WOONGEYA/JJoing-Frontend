@@ -9,7 +9,14 @@ import MyPage from 'pages/MyPage';
 import Explore from 'pages/Explore';
 import Main from 'pages/Main';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 0,
+    },
+  },
+});
 
 const App = () => {
   return (

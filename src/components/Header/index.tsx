@@ -1,25 +1,28 @@
 import React from 'react';
 import LoginPage from 'pages/LoginPage';
 import axios from 'axios';
-import Profile from 'assets/profile.webp';
 import BellIcon from 'assets/BellIcon';
 import LogoIcon from 'assets/LogoIcon';
-import { OAUTH_URL } from 'constants/config';
 import * as S from './style';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { accessGoogle } from 'apis/recoil';
 
 const Header = () => {
+  const navigate = useNavigate();
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
+  const [img, setImg] = useRecoilState(accessGoogle);
 
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://192.168.10.142:8080/user', {
+        const response = await axios.get('http://jjoing.kro.kr/user', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
         console.log('data:', response.data);
+        setImg(response.data.imgUrl);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -29,10 +32,12 @@ const Header = () => {
   }, []);
 
   const handleLogout = () => {
+    navigate('/');
     localStorage.clear();
     window.location.reload();
   };
 
+  const googleImg = img;
   return (
     <S.HeaderContainer>
       <S.HeaderWrapper>
@@ -52,9 +57,11 @@ const Header = () => {
                 <BellIcon cursor='pointer' />
               </Link>
               <S.Profile
-                src={Profile}
+                src={googleImg}
                 alt='profile'
-                onClick={() => setIsOpened(!isOpened)}
+                onClick={() => {
+                  setIsOpened(!isOpened);
+                }}
               />
               {isOpened && (
                 <S.DropdownContainer>
@@ -71,7 +78,9 @@ const Header = () => {
               )}
             </>
           ) : (
-            <S.Login href={OAUTH_URL}>로그인</S.Login>
+            <S.Login href='https://accounts.google.com/o/oauth2/auth?client_id=977860049416-faqog6g742c0qqs4epucuu5biobgr3ph.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email%20https://www.googleapis.com/auth/userinfo.profile'>
+              로그인
+            </S.Login>
           )}
           <LoginPage />
         </S.ProfileContainer>
