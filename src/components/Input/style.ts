@@ -13,3 +13,7 @@ export const InputContainer = styled.div`
   align-items: center;
   ${font.$footnote}
 `;
+
+export const InputText = styled.input<{ type: string }>`
+  width: ${({ type }) => (type === 'search' ? 'calc(100% - 20px)' : '100%')};
+`;
