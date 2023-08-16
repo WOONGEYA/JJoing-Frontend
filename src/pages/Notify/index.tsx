@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import Header from 'components/Header';
 import * as S from './style';
 import * as Flex from 'styles/flex';
-import searchIcon from 'assets/search.svg';
 import trash from 'assets/trash.svg';
 import NotifyBox from 'components/NotifyBox';
 import notifications from 'fixtures/notify.dummy';

@@ -1,10 +1,3 @@
-import member04 from 'assets/member04.png';
-import member05 from 'assets/member05.jpeg';
-import member06 from 'assets/member06.jpeg';
-import projectImage01 from 'assets/project01.jpg';
-import projectImage02 from 'assets/project02.jpg';
-import projectImage03 from 'assets/project03.jpg';
-
 interface Project {
   id: number;
   title: string;
