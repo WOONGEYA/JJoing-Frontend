@@ -27,7 +27,7 @@ export const Title = styled.div`
   padding: 6px;
   color: ${theme.primary};
   border-bottom: 2px solid ${theme.primary};
-  ${font.$body.body};
+  ${font.$body};
 `;
 
 export const Projects = styled.div`
