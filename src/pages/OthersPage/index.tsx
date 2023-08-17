@@ -3,21 +3,20 @@ import GithubIcon from 'assets/GithubIcon';
 import LinkIcon from 'assets/LinkIcon';
 import EmailIcon from 'assets/EmailIcon';
 import profile from 'assets/profile.webp';
-import Layout from 'components/Layout';
-import useModal from 'hooks/useModal';
-import ProfileUpdateModal from 'components/ProfileUpdataModal';
 import ProjectBox from 'components/ProjectBox';
-import dummy from 'fixtures/detail.dummy';
-import profile_data from 'fixtures/profile.dummy';
-import * as S from './style';
-import { Link } from 'react-router-dom';
+import Layout from 'components/Layout';
 import Button from 'components/Button';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
+import theme from 'styles/theme';
+import { Link } from 'react-router-dom';
+import dummy from 'fixtures/detail.dummy';
+import profile_data from 'fixtures/profile.dummy';
+import * as S from './style';
 
 const MyPage = () => {
   const [selected, setSelected] = React.useState(0);
-  const { openModal, closeModal } = useModal();
+  const [followed, setFollowed] = React.useState(false);
 
   const {
     id,
@@ -30,12 +29,6 @@ const MyPage = () => {
     statusMessage,
     field,
   } = profile_data;
-
-  const modalOpen = () => {
-    openModal({
-      component: <ProfileUpdateModal closeModal={closeModal} />,
-    });
-  };
 
   const copyTooltipText = (text: string) => {
     navigator.clipboard.writeText(text).then(() => alert('복사 완료'));
@@ -53,7 +46,11 @@ const MyPage = () => {
           <S.UserInformation>
             <S.UserWrapper>
               <S.UserImage>
-                <S.Image onClick={modalOpen} src={profile} alt='profile' />
+                <S.Image
+                  style={{ cursor: 'default' }}
+                  src={profile}
+                  alt='profile'
+                />
               </S.UserImage>
               <S.UserData>
                 <div>
@@ -69,7 +66,11 @@ const MyPage = () => {
               </S.UserData>
             </S.UserWrapper>
             <S.ButtonContainer>
-              <Button value='프로필 편집하기' onClick={modalOpen} />
+              <Button
+                value={followed ? '언팔로우' : '팔로우'}
+                background={followed ? theme.secondary : theme.primary}
+                onClick={() => setFollowed(!followed)}
+              />
             </S.ButtonContainer>
           </S.UserInformation>
           <S.UserLinks>

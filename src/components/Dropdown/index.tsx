@@ -1,20 +1,47 @@
 import React from 'react';
-import Drop from 'assets/Drop';
+import DropIcon from 'assets/DropIcon';
 import * as S from './style';
 
-interface OptionPropsType {
-  name: string;
+interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
+  currentOption?: string | undefined;
+  options: string[];
+  isOpened: boolean;
 }
 
-const Option = ({ name }: OptionPropsType) => {
+const Dropdown = ({
+  currentOption,
+  options,
+  isOpened,
+  id,
+  ...rest
+}: DropdownProps) => {
+  const [selectedOption, setSelectedOption] = React.useState(currentOption);
+
+  const handleOptionValue = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { textContent } = e.currentTarget;
+    if (textContent === null) return;
+    setSelectedOption(textContent);
+  };
+
   return (
-    <S.Container>
-      <S.OptionWrapper>
-        <S.OptionName>{name}</S.OptionName>
-        <Drop />
-      </S.OptionWrapper>
-    </S.Container>
+    <S.DropdownContainer id={id} {...rest}>
+      <S.Container>
+        <S.DropdownWrapper>
+          <S.CurrentOption>{selectedOption}</S.CurrentOption>
+          <DropIcon isOpened={isOpened} />
+        </S.DropdownWrapper>
+      </S.Container>
+      {isOpened && (
+        <S.Options>
+          {options.map((option) => (
+            <S.Option key={option} onClick={handleOptionValue}>
+              {option}
+            </S.Option>
+          ))}
+        </S.Options>
+      )}
+    </S.DropdownContainer>
   );
 };
 
-export default Option;
+export default Dropdown;

@@ -1,14 +1,12 @@
 import React from 'react';
 import ProjectBox from 'components/ProjectBox';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
+import Layout from 'components/Layout';
 import dummy from 'fixtures/detail.dummy';
 import * as S from './style';
 
 const Main = () => {
   return (
-    <S.Container>
-      <Header />
+    <Layout>
       <S.Contents>
         <S.Banner />
         <S.Projects>
@@ -46,8 +44,7 @@ const Main = () => {
           </S.RecommendedContainer>
         </S.Projects>
       </S.Contents>
-      <Footer />
-    </S.Container>
+    </Layout>
   );
 };
 

@@ -1,5 +1,5 @@
 import * as S from './style';
-import Member from 'assets/Member';
+import Member from 'assets/MemberIcon';
 
 interface ProjectBoxPropsType {
   title: string;

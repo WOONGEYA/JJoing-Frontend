@@ -1,79 +1,74 @@
 import styled from 'styled-components';
+import { font } from 'styles/font';
+import theme from 'styles/theme';
 
-export const Container = styled.div`
-  width: 100vw;
-  height: 300px;
-  background-color: #f7f8f9;
-  padding: 60px 200px 25px;
-  box-sizing: border-box;
-  font-family: Pretendard;
-`;
-
-export const Logo = styled.img`
-  width: 122px;
-`;
-
-export const List = styled.div`
+export const FooterContainer = styled.footer`
   width: 100%;
+  background-color: ${theme.grey[200]};
+`;
+
+export const FooterWrapper = styled.div`
+  max-width: 1032px;
+  width: calc(100% - 2rem);
+  display: flex;
+  padding: 32px 0;
+  margin: auto;
+  flex-direction: column;
+`;
+
+export const Headlines = styled.div`
+  color: ${theme.grey[600]};
+  display: flex;
+  gap: 24px;
+  ${font.$body}
+  justify-content: end;
+`;
+
+export const Headline = styled.h3`
+  color: ${theme.grey[600]};
+  ${font.$body}
+`;
+
+export const Line = styled.div`
+  width: 100%;
+  border-bottom: 1px solid ${theme.grey[600]};
+`;
+
+export const LogoContainer = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+`;
+
+export const Service = styled.h2`
+  color: ${theme.secondary};
+  ${font.$title03}
+`;
+
+export const Information = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #9ea4aa;
-  margin-bottom: 24px;
+  align-items: end;
 `;
 
-export const Title = styled.h2`
-  color: rgba(38, 68, 102, 0.8);
-  font-weight: 700;
-  font-size: 18px;
-  font-style: normal;
-  line-height: 20px;
-  cursor: default;
+export const Tel = styled.h4`
+  ${font.$headline};
+  color: ${theme.grey[700]};
 `;
 
-export const HeadLine = styled.div`
+export const Email = styled(Tel)``;
+
+export const Founders = styled(Tel)``;
+
+export const Location = styled(Tel)``;
+
+export const Copyright = styled(Tel)`
+  color: ${theme.grey[600]};
+`;
+
+export const InformationContainer = styled.div`
   display: flex;
-  align-items: center;
-  gap: 22px;
-`;
-
-export const HeadLineElement = styled.span`
-  color: var(--gray-500, #72787f);
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-  cursor: pointer;
-`;
-
-export const Info = styled.div`
-  display: flex;
-  align-items: center;
-  height: 25px;
-  h2 {
-    font-weight: 500;
-    color: #72787f;
-    font-size: 15px;
-    margin-right: 5px;
-  }
-  span {
-    color: #9ea4aa;
-    font-size: 15px;
-  }
-`;
-
-export const Flex = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  h2 {
-    margin: 0;
-  }
-`;
-
-export const CopyRight = styled.h2`
-  color: var(—gray-500, #72787f);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
+  flex-direction: column;
+  gap: 32px;
 `;
