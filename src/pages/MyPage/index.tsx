@@ -1,14 +1,36 @@
+import React, { useEffect } from 'react';
 import GithubIcon from 'assets/GithubIcon';
-import dummy from 'fixtures/detail.dummy';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
+import LinkIcon from 'assets/LinkIcon';
+import EmailIcon from 'assets/EmailIcon';
+import profile from 'assets/profile.webp';
+import Layout from 'components/Layout';
 import useModal from 'hooks/useModal';
 import ProfileUpdateModal from 'components/ProfileUpdataModal';
-import * as S from './style';
 import ProjectBox from 'components/ProjectBox';
+import dummy from 'fixtures/detail.dummy';
+import profile_data from 'fixtures/profile.dummy';
+import * as S from './style';
+import { Link } from 'react-router-dom';
+import Button from 'components/Button';
+import Tooltip from 'components/Tooltip';
+import Input from 'components/Input';
+import axios from 'axios';
 
 const MyPage = () => {
+  const [selected, setSelected] = React.useState(0);
   const { openModal, closeModal } = useModal();
+
+  const {
+    id,
+    school,
+    follower,
+    following,
+    github,
+    email,
+    personalLink,
+    statusMessage,
+    field,
+  } = profile_data;
 
   const modalOpen = () => {
     openModal({
@@ -16,47 +38,98 @@ const MyPage = () => {
     });
   };
 
+  const copyTooltipText = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => alert('복사 완료'));
+  };
+
+  const handleTabSelect = (e: React.MouseEvent<HTMLDivElement>) => {
+    const id = parseInt(e.currentTarget.id);
+    setSelected(id);
+  };
+
+  React.useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://jjoing.kro.kr/project', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        console.log('data:', response.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   return (
-    <>
-      <Header />
-      <S.Wrapper>
-        <S.ProfileWrapper>
-          <S.ProfileBox>
-            <S.Profile onClick={modalOpen}>
-              <S.Circle />
-            </S.Profile>
-            <S.InformationWrapper>
-              <S.InformationContainer>
-                <S.CharacterName>
-                  뚱이
-                  <GithubIcon />
-                </S.CharacterName>
-                <S.SchoolName>부산소프트웨어마이스터고등학교</S.SchoolName>
-                <S.FollowWrapper>
-                  <S.FollowerDiv>팔로워 251</S.FollowerDiv>
-                  <S.FollowDiv>팔로우 317</S.FollowDiv>
-                </S.FollowWrapper>
-                <S.CharacterProfileInformation>
-                  프론트엔드 개발자 지망생, 18살 남자입니다.
-                </S.CharacterProfileInformation>
-              </S.InformationContainer>
-            </S.InformationWrapper>
-          </S.ProfileBox>
-          <S.EditWrapper>
-            <S.EditBox>
-              <S.EditName onClick={modalOpen}>프로필 수정하기</S.EditName>
-            </S.EditBox>
-          </S.EditWrapper>
-        </S.ProfileWrapper>
-        <S.MyProjectWrapper>
-          <S.ShowMyProject>참여중인 프로젝트</S.ShowMyProject>
-          <S.ProjectNavLine />
-        </S.MyProjectWrapper>
-        <S.ProjectWrapper>
-          <S.ShowProjects>
-            {dummy
-              .filter((data) => data.id <= 3)
-              .map((data) => (
+    <Layout>
+      <S.Contents>
+        <S.UserContainer>
+          <S.UserInformation>
+            <S.UserWrapper>
+              <S.UserImage>
+                <S.Image onClick={modalOpen} src={profile} alt='profile' />
+              </S.UserImage>
+              <S.UserData>
+                <div>
+                  <S.UserName>{id}</S.UserName>
+                  <S.UserPosition>
+                    {school} / {field}
+                  </S.UserPosition>
+                </div>
+                <S.Follow>
+                  팔로워 {follower} 팔로잉 {following}
+                </S.Follow>
+                <S.StatusMessage>{statusMessage}</S.StatusMessage>
+              </S.UserData>
+            </S.UserWrapper>
+            <S.ButtonContainer>
+              <Button value='프로필 편집하기' onClick={modalOpen} />
+            </S.ButtonContainer>
+          </S.UserInformation>
+          <S.UserLinks>
+            <Link to={github}>
+              <GithubIcon />
+            </Link>
+            <Tooltip
+              value={email}
+              onClick={() => copyTooltipText(email)}
+              style={{ cursor: 'pointer' }}
+            >
+              <Link to={`mailto:${email}`}>
+                <EmailIcon />
+              </Link>
+            </Tooltip>
+            <Link to={personalLink}>
+              <LinkIcon />
+            </Link>
+          </S.UserLinks>
+        </S.UserContainer>
+        <S.TabContainer>
+          <S.TabWrapper>
+            <S.Tab id={0} selected={selected} onClick={handleTabSelect}>
+              참여중인 프로젝트
+            </S.Tab>
+            <S.Tab id={1} selected={selected} onClick={handleTabSelect}>
+              참여했던 프로젝트
+            </S.Tab>
+            <S.Underline selected={selected} />
+          </S.TabWrapper>
+          <S.Search>
+            <Input
+              type='search'
+              width={296}
+              placeholder='검색어를 입력해주세요.'
+            />
+          </S.Search>
+        </S.TabContainer>
+        <S.Projects>
+          {selected === 0 &&
+            (dummy ? (
+              dummy.map((data) => (
                 <ProjectBox
                   key={data.id}
                   title={data.title}
@@ -64,18 +137,13 @@ const MyPage = () => {
                   currentPeople={data.currentPeople}
                   requiredPeople={data.requiredPeople}
                 />
-              ))}
-          </S.ShowProjects>
-        </S.ProjectWrapper>
-        <S.MyProjectWrapper>
-          <S.ShowMyProject>참여했던 프로젝트</S.ShowMyProject>
-          <S.ProjectNavLine />
-        </S.MyProjectWrapper>
-        <S.ProjectWrapper>
-          <S.ShowProjects>
-            {dummy
-              .filter((data) => data.id <= 3)
-              .map((data) => (
+              ))
+            ) : (
+              <S.NoContents>참여중인 프로젝트가 없습니다.</S.NoContents>
+            ))}
+          {selected === 1 &&
+            (dummy ? (
+              dummy.map((data) => (
                 <ProjectBox
                   key={data.id}
                   title={data.title}
@@ -83,12 +151,13 @@ const MyPage = () => {
                   currentPeople={data.currentPeople}
                   requiredPeople={data.requiredPeople}
                 />
-              ))}
-          </S.ShowProjects>
-        </S.ProjectWrapper>
-      </S.Wrapper>
-      <Footer />
-    </>
+              ))
+            ) : (
+              <S.NoContents>참여했던 프로젝트가 없습니다.</S.NoContents>
+            ))}
+        </S.Projects>
+      </S.Contents>
+    </Layout>
   );
 };
 

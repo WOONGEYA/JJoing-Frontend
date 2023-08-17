@@ -7,8 +7,8 @@ export const TooltipContainer = styled.div`
   z-index: 5;
 `;
 
-export const TooltipText = styled.div<{ visible: boolean }>`
-  display: ${({ visible }) => (visible ? 'flex' : 'none')};
+export const TooltipText = styled.div<{ $visible: boolean }>`
+  display: ${({ $visible }) => ($visible ? 'flex' : 'none')};
   background-color: ${theme.grey[500]};
   padding: 8px 12px;
   position: absolute;

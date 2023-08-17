@@ -19,7 +19,7 @@ const Tooltip = ({ children, value, ...rest }: TooltipType) => {
       onMouseLeave={handleMouseOver}
     >
       <div>{children}</div>
-      <S.TooltipText {...rest} visible={isOnMouseOver}>
+      <S.TooltipText {...rest} $visible={isOnMouseOver}>
         {value}
       </S.TooltipText>
     </S.TooltipContainer>

@@ -4,7 +4,7 @@ import theme from 'styles/theme';
 
 export const InputContainer = styled.div`
   display: flex;
-  padding: 12px 16px;
+  padding: 8px 12px;
   align-items: flex-start;
   border-radius: 4px;
   background: ${theme.white};
@@ -12,4 +12,8 @@ export const InputContainer = styled.div`
   gap: 4px;
   align-items: center;
   ${font.$footnote}
+`;
+
+export const InputText = styled.input<{ type: string }>`
+  width: ${({ type }) => (type === 'search' ? 'calc(100% - 20px)' : '100%')};
 `;

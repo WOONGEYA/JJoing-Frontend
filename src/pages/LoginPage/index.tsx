@@ -7,6 +7,7 @@ const LoginPage = () => {
   useEffect(() => {
     postCode;
   }, []);
+
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -14,8 +15,6 @@ const LoginPage = () => {
   const encodedCode = searchParams.get('code') ?? '';
 
   const encodedValue = encodeURIComponent(encodedCode);
-
-  console.log(encodedValue);
 
   const instance = axios.create({
     baseURL: 'http://jjoing.kro.kr',
@@ -27,7 +26,6 @@ const LoginPage = () => {
 
   useQuery('auth', () => postCode(encodedValue), {
     onSuccess: (data) => {
-      console.log(data);
       const { accessToken, refreshToken } = data;
       navigate('/');
 
