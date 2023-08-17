@@ -14,16 +14,17 @@ export const Container = styled.div`
   background: ${theme.grey[100]};
 `;
 
-export const Contents = styled.div`
-  padding-top: 56px;
-`;
+export const Contents = styled.div``;
 
 export const Projects = styled.div`
+  max-width: 1032px;
+  width: calc(100% - 2rem);
   padding: 64px calc((100% - 1032px) / 2) 128px;
   display: flex;
   flex-direction: column;
   gap: 64px;
-  max-width: 1032px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const TrendingContainer = styled.div`
@@ -43,7 +44,7 @@ export const Trending = styled.div`
 `;
 
 export const Title = styled.span`
-  ${font.$title01.title1}
+  ${font.$title01}
 `;
 
 export const RecommendedContainer = styled(TrendingContainer)``;

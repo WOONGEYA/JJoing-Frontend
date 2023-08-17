@@ -2,18 +2,15 @@ import { styled } from 'styled-components';
 import theme from 'styles/theme';
 import { font } from 'styles/font';
 
-export const Container = styled.div`
-  min-height: 100vh;
-  width: 100%;
-  background: ${theme.grey[100]};
-`;
-
 export const Contents = styled.div`
-  padding: 120px calc((100% - 1032px) / 2) 128px;
+  max-width: 1032px;
+  width: calc(100% - 2rem);
+  padding: 64px calc((100% - 1032px) / 2) 128px;
   display: flex;
   flex-direction: column;
   gap: 48px;
-  max-width: 1032px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const Banner = styled.div`
@@ -24,23 +21,22 @@ export const Banner = styled.div`
 
 export const Filter = styled.div`
   display: flex;
-  width: fit-content;
-  height: fit-content;
   gap: 8px;
 `;
 
 export const Reset = styled.div`
-  box-sizing: border-box;
-  border: 1px solid ${theme.grey[500]};
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3px;
+  padding: 4px;
+  background-color: ${theme.white};
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
 `;
 
 export const Title = styled.span`
-  ${font.$title01.title1}
+  ${font.$title01}
 `;
 
 export const ProjectList = styled.div`

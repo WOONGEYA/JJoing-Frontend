@@ -29,7 +29,7 @@ export const Info = styled.div`
 `;
 
 export const Title = styled.h2`
-  ${font.$title03.title3}
+  ${font.$title03}
   overflow:hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -38,7 +38,7 @@ export const Title = styled.h2`
 `;
 
 export const Description = styled.p`
-  ${font.$callout.callout}
+  ${font.$callout}
   white-space: wrap;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -46,6 +46,7 @@ export const Description = styled.p`
   word-break: break-word;
   overflow: hidden;
   display: -webkit-box;
+  height: 84px;
 `;
 
 export const Footer = styled.div`
@@ -59,7 +60,7 @@ export const Footer = styled.div`
 
 export const People = styled.h3`
   color: ${theme.secondary};
-  ${font.$callout.callout}
+  ${font.$callout}
 `;
 
 export const InfoContainer = styled.div`

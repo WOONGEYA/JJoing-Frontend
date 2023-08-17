@@ -53,13 +53,13 @@ export const MainDesc = styled.div`
 `;
 
 export const Title = styled.h2`
-  ${font.$title01.title1};
+  ${font.$title01};
   color: ${theme.grey[800]};
   margin-bottom: 18px;
 `;
 
 export const DeadLine = styled.h3`
-  ${font.$subhead.subhead};
+  ${font.$subhead};
   color: ${theme.grey[500]};
 `;
 
@@ -75,7 +75,7 @@ export const MemberTitle = styled.div`
   display: flex;
   gap: 5px;
   color: ${theme.secondary};
-  ${font.$footnote.footnote};
+  ${font.$footnote};
 `;
 
 export const MemberImages = styled.div`
@@ -98,23 +98,23 @@ export const Button = styled.button`
   border: none;
   margin-top: 12px;
   ${getBackgroundColor};
-  ${font.$body.body};
+  ${font.$body};
 `;
 
 export const CallOut = styled.h2`
-  ${font.$title03.title3};
+  ${font.$title03};
 `;
 
 export const Description = styled.h3`
   color: ${theme.grey[600]};
-  ${font.$body.body};
+  ${font.$body};
   width: 90%;
   margin-bottom: 30px;
 `;
 
 export const SubCallOut = styled.h3`
   color: ${theme.grey[800]};
-  ${font.$headline.headline};
+  ${font.$headline};
   margin-top: 16px;
 `;
 
@@ -138,7 +138,7 @@ export const Category = styled.div`
   border-radius: 999px;
   padding: 0 14px;
   box-sizing: border-box;
-  ${font.$footnote.footnote};
+  ${font.$footnote};
 `;
 
 export const Projects = styled.div`

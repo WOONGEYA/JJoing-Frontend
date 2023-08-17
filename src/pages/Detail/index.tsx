@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from 'components/Header';
-import Member from 'assets/Member';
+import MemberIcon from 'assets/MemberIcon';
 import * as S from './style';
 import dummy from 'fixtures/detail.dummy';
 import ProjectBox from 'components/ProjectBox';
@@ -17,12 +17,16 @@ interface CategoryPropsType {
 const Members = ({ images }: MembersPropsType) => (
   <S.Member>
     <S.MemberTitle>
-      <Member />
+      <MemberIcon />
       <span>멤버</span>
     </S.MemberTitle>
     <S.MemberImages>
       {images.map((image, index) => (
-        <S.MemberProfile key={index} src={image} alt={`Member ${index + 1}`} />
+        <S.MemberProfile
+          key={index}
+          src={image}
+          alt={`MemberIcon ${index + 1}`}
+        />
       ))}
     </S.MemberImages>
   </S.Member>

@@ -1,79 +1,85 @@
 import styled from 'styled-components';
+import { font } from 'styles/font';
+import theme from 'styles/theme';
 
-export const HeaderContainer = styled.div<{ show: number | null }>`
+export const HeaderContainer = styled.header`
   width: 100%;
-  height: 55px;
-  border-bottom: 0.5px solid #c9cdd2;
-  background-color: white;
-  box-shadow: ${({ show }) => (show ? '0.5px 1.5px 1.5px 0.5px silver' : 'white')};
+  height: 60px;
+  background-color: ${theme.white};
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
   position: fixed;
-  transition: 0.5s ease-in-out;
+  z-index: 99;
 `;
 
 export const HeaderWrapper = styled.div`
-  width: 80vw;
-  height: 55px;
-  margin: 0 auto;
+  height: calc(100% - 20px);
+  max-width: 1032px;
+  width: calc(100% - 2rem);
   display: flex;
+  justify-content: space-between;
   align-items: center;
-`;
-
-export const LogoContainer = styled.div`
-  width: 50px;
-  height: 8vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 10px 0;
+  margin: auto;
 `;
 
 export const MenuList = styled.div`
-  width: 100vw;
-  height: 8vh;
   display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 48px;
 `;
 
-export const MenuItem1 = styled.span`
-  margin: 0 15px 0 60px;
-  cursor: pointer;
-`;
-export const MenuItem = styled.span`
-  margin: 0 15px;
-  cursor: pointer;
+export const MenuItem = styled.div`
+  color: ${theme.black};
+  ${font.$body};
 `;
 
 export const ProfileContainer = styled.div`
-  width: 80px;
-  height: 8vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 48px;
 `;
 
-export const AlarmContainer = styled.div`
-  width: 95px;
-  height: 8vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-`;
-
-export const Image = styled.img`
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-`;
-export const ImageLogo = styled.img`
-  width: 80px;
-  height: 60px;
-  cursor: pointer;
-`;
-export const Href = styled.a`
+export const Login = styled.a`
+  padding: 12px 16px;
   text-decoration: none;
   color: black;
   cursor: pointer;
-  &:active {
-    color: gray;
+`;
+
+export const Profile = styled.img`
+  border-radius: 50%;
+  display: block;
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+  cursor: pointer;
+  background-color: ${theme.grey[300]};
+`;
+
+export const Options = styled.div`
+  width: 120px;
+  z-index: 3;
+  background-color: ${theme.white};
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  text-decoration: none;
+`;
+
+export const Option = styled.div`
+  color: ${theme.black};
+  padding: 8px 16px;
+  cursor: pointer;
+  ${font.$callout};
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background-color: ${theme.grey[200]};
   }
+`;
+
+export const DropdownContainer = styled.div`
+  top: 100%;
+  position: absolute;
+  cursor: pointer;
 `;
