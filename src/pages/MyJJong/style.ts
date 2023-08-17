@@ -7,6 +7,9 @@ export const Container = styled.div`
   height: 120rem;
   padding: 140px 204px 0;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const Header = styled.div`
@@ -30,6 +33,7 @@ export const Title = styled.div`
 export const Projects = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  justify-content: space-between;
   gap: 24px;
 `;

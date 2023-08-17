@@ -7,6 +7,7 @@ import NotifyBox from 'components/NotifyBox';
 import notifications from 'fixtures/notify.dummy';
 import NoNotify from 'components/NoNotify/index';
 import Search from 'components/Search';
+import { useQueries } from 'react-query';
 
 interface Notification {
   user: string;
