@@ -1,14 +1,11 @@
 import React from 'react';
 import GithubIcon from 'assets/GithubIcon';
-import LinkIcon from 'assets/LinkIcon';
 import EmailIcon from 'assets/EmailIcon';
-import profile from 'assets/profile.webp';
 import Layout from 'components/Layout';
 import useModal from 'hooks/useModal';
 import ProfileUpdateModal from 'components/ProfileUpdataModal';
 import ProjectBox from 'components/ProjectBox';
 import dummy from 'fixtures/detail.dummy';
-import profile_data from 'fixtures/profile.dummy';
 import * as S from './style';
 import { Link } from 'react-router-dom';
 import Button from 'components/Button';
