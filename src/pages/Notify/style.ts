@@ -30,14 +30,14 @@ export const HeaderElement = styled.div`
 
 export const NotifiAmount = styled.span`
   color: ${theme.grey[800]};
-  ${font.$subhead.subhead};
+  ${font.$subhead};
 `;
 
 export const DeleteNotifi = styled.button`
   width: 155px;
   height: 38px;
   color: ${theme.grey[800]};
-  ${font.$callout.callout};
+  ${font.$callout};
   display: flex;
   align-items: center;
   gap: 4px;

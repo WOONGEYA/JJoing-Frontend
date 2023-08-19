@@ -26,16 +26,16 @@ export const Image = styled.div`
 export const Element = styled.div``;
 
 export const Desciption = styled.h1`
-  ${font.$body.body};
+  ${font.$body};
 `;
 
 export const CallOut = styled.h2`
-  ${font.$callout.callout};
+  ${font.$callout};
   color: ${theme.grey[500]};
 `;
 
 export const Time = styled.h2`
-  ${font.$callout.callout};
+  ${font.$callout};
   color: ${theme.grey[800]};
 `;
 
