@@ -50,6 +50,11 @@ export const Image = styled.img`
 export const UserName = styled.h1`
   color: ${theme.grey[900]};
   ${font.$title03};
+  margin: 3px 0 3px 0;
+`;
+export const UserNickName = styled.div`
+  color: ${theme.grey[600]};
+  ${font.$title04};
 `;
 
 export const UserPosition = styled.h2`
@@ -65,7 +70,7 @@ export const StatusMessage = styled.h3`
 `;
 
 export const UserData = styled.div`
-  width: 328px;
+  width: 339px;
   display: flex;
   flex-direction: column;
 `;

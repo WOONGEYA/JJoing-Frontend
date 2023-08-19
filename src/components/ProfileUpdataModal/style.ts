@@ -7,13 +7,13 @@ export const ModalContainer = styled.div`
   width: 50vw;
   background-color: ${theme.white};
   display: inline-flex;
-  padding: 24px;
+  padding: 20px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
   gap: 20px;
   border-radius: 12px;
-  height: 38rem;
+  height: 42rem;
 `;
 
 export const TitleContainer = styled.div`

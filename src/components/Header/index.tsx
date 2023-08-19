@@ -9,6 +9,9 @@ import { useRecoilState } from 'recoil';
 import { accessGoogle } from 'apis/recoil';
 
 const Header = () => {
+  const LOGIN_URL = process.env.REACT_APP_OAUTH_URL;
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const navigate = useNavigate();
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
   const [img, setImg] = useRecoilState(accessGoogle);
@@ -16,7 +19,7 @@ const Header = () => {
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://jjoing.kro.kr/user', {
+        const response = await axios.get(`${API_URL}/user`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
@@ -78,9 +81,7 @@ const Header = () => {
               )}
             </>
           ) : (
-            <S.Login href='https://accounts.google.com/o/oauth2/auth?client_id=977860049416-faqog6g742c0qqs4epucuu5biobgr3ph.apps.googleusercontent.com&redirect_uri=http://localhost:3000/login/oauth2/code/google&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email%20https://www.googleapis.com/auth/userinfo.profile'>
-              로그인
-            </S.Login>
+            <S.Login href={LOGIN_URL}>로그인</S.Login>
           )}
           <LoginPage />
         </S.ProfileContainer>
