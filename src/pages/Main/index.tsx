@@ -3,8 +3,16 @@ import ProjectBox from 'components/ProjectBox';
 import Layout from 'components/Layout';
 import dummy from 'fixtures/detail.dummy';
 import * as S from './style';
+import useModal from 'hooks/useModal';
+import GenerateModal from 'components/GenerateModal';
 
 const Main = () => {
+  const { openModal, closeModal } = useModal();
+  const modalOpen = () => {
+    openModal({
+      component: <GenerateModal closeModal={closeModal} />,
+    });
+  };
   return (
     <Layout>
       <S.Contents>
@@ -12,6 +20,7 @@ const Main = () => {
         <S.Projects>
           <S.TrendingContainer>
             <S.Title>인기 급상승 프로젝트 👇</S.Title>
+            <h1 onClick={modalOpen}>새 프로젝트</h1>
             <S.Trending>
               {dummy
                 .filter((data) => data.id <= 6)
