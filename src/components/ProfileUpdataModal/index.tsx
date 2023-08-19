@@ -30,10 +30,6 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [imageUrl, setImageUrl] = useState<string>(img);
 
-  const userInfoSubmitBtn = () => {
-    closeModal();
-  };
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -81,6 +77,30 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
     return <div>Loading...</div>;
   }
 
+  const updateProfile = async () => {
+    try {
+      await axios.put(
+        `${API_URL}/user`,
+        {
+          nickname: profile.nickName,
+          githubUrl: profile.githubUrl,
+          email: profile.email,
+          statusMessage: profile.statusMessage,
+          major: profile.major,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        },
+      );
+
+      closeModal();
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+    }
+  };
+
   return (
     <S.ModalContainer>
       <S.TitleContainer>
@@ -107,7 +127,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
           width='calc(100% - 32px)'
           name='name'
           type='text'
-          value={profile?.nickName || ''}
+          value={profile?.nickName}
           onChange={(e) => handleProfileFieldChange('nickName', e.target.value)}
         />
       </S.Content>
@@ -161,7 +181,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         />
       </S.Content>
 
-      <Button value='저장' onClick={userInfoSubmitBtn} />
+      <Button value='저장' onClick={updateProfile} />
     </S.ModalContainer>
   );
 };
