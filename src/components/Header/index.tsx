@@ -1,16 +1,15 @@
 import React from 'react';
 import LoginPage from 'pages/LoginPage';
-import axios from 'axios';
 import BellIcon from 'assets/BellIcon';
 import LogoIcon from 'assets/LogoIcon';
 import * as S from './style';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { accessGoogle } from 'apis/recoil';
+import instance from 'apis/httpClient';
 
 const Header = () => {
   const LOGIN_URL = process.env.REACT_APP_OAUTH_URL;
-  const API_URL = process.env.REACT_APP_API_URL;
 
   const navigate = useNavigate();
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
@@ -19,7 +18,7 @@ const Header = () => {
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${API_URL}/user`, {
+        const response = await instance('/user', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },

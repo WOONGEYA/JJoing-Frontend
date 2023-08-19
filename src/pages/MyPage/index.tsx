@@ -11,9 +11,7 @@ import { Link } from 'react-router-dom';
 import Button from 'components/Button';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
-import axios from 'axios';
-
-const API_URL = process.env.REACT_APP_API_URL;
+import instance from 'apis/httpClient';
 
 const MyPage = () => {
   interface UserProfile {
@@ -52,7 +50,7 @@ const MyPage = () => {
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${API_URL}/project`, {
+        const response = await instance.get('/project', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
@@ -69,7 +67,7 @@ const MyPage = () => {
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${API_URL}/user`, {
+        const response = await instance.get('/user', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
@@ -86,7 +84,7 @@ const MyPage = () => {
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${API_URL}/user`, {
+        const response = await instance.get('/user', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
@@ -100,7 +98,7 @@ const MyPage = () => {
     fetchUserData();
   }, []);
 
-  console.log('앙기모찌', userProfile);
+  console.log('유저 정보', userProfile);
 
   return (
     <Layout>

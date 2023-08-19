@@ -4,11 +4,9 @@ import EditIcon from 'assets/EditIcon';
 import CloseIcon from 'assets/CloseIcon';
 import Input from 'components/Input';
 import Button from 'components/Button';
-import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { accessGoogle } from 'apis/recoil';
-
-const API_URL = process.env.REACT_APP_API_URL;
+import instance from 'apis/httpClient';
 
 interface ProfileUpdateModalProps {
   closeModal: () => void;
@@ -33,7 +31,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${API_URL}/user`, {
+        const response = await instance.get('/user', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
@@ -79,10 +77,10 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
 
   const updateProfile = async () => {
     try {
-      await axios.put(
-        `${API_URL}/user`,
+      await instance.put(
+        '/user',
         {
-          nickname: profile.nickName,
+          nickName: profile.nickName,
           githubUrl: profile.githubUrl,
           email: profile.email,
           statusMessage: profile.statusMessage,
