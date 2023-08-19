@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from 'components/Header';
 import styled from 'styled-components';
 import bell from 'assets/NoNotify.svg';
 import { font } from 'styles/font';
@@ -21,18 +20,16 @@ const Image = styled.img`
 `;
 
 const Description = styled.h2`
-  ${font.$title03.title3};
+  ${font.$title03};
   color: ${theme.grey[500]};
 `;
 
 const NoNotify = () => {
   return (
-    <>
-      <Container>
-        <Image src={bell} />
-        <Description>새로운 알림이 없습니다.</Description>
-      </Container>
-    </>
+    <Container>
+      <Image src={bell} />
+      <Description>새로운 알림이 없습니다.</Description>
+    </Container>
   );
 };
 
