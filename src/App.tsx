@@ -11,7 +11,14 @@ import Main from 'pages/Main';
 import Notify from 'pages/Notify';
 import MyJJong from 'pages/MyJJong';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 0,
+    },
+  },
+});
 
 const App = () => {
   return (
