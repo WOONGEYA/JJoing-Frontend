@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import GithubIcon from 'assets/GithubIcon';
 import LinkIcon from 'assets/LinkIcon';
 import EmailIcon from 'assets/EmailIcon';
@@ -16,21 +16,26 @@ import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import axios from 'axios';
 
-const MyPage = () => {
-  const [selected, setSelected] = React.useState(0);
-  const { openModal, closeModal } = useModal();
+const API_URL = process.env.REACT_APP_API_URL;
 
-  const {
-    id,
-    school,
-    follower,
-    following,
-    github,
-    email,
-    personalLink,
-    statusMessage,
-    field,
-  } = profile_data;
+const MyPage = () => {
+  interface UserProfile {
+    statusMessage: string;
+    nickName: string;
+    githubUrl: string;
+    name: string;
+    email: string;
+    imgUrl: string;
+    school: string;
+    major: string;
+  }
+
+  const [selected, setSelected] = React.useState(0);
+  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
+    null,
+  );
+
+  const { openModal, closeModal } = useModal();
 
   const modalOpen = () => {
     openModal({
@@ -50,7 +55,7 @@ const MyPage = () => {
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://jjoing.kro.kr/project', {
+        const response = await axios.get(`${API_URL}/project`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
@@ -64,6 +69,42 @@ const MyPage = () => {
     fetchUserData();
   }, []);
 
+  React.useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/user`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        setUserProfile(response.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  React.useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/user`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        setUserProfile(response.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  console.log('앙기모찌', userProfile);
+
   return (
     <Layout>
       <S.Contents>
@@ -71,19 +112,37 @@ const MyPage = () => {
           <S.UserInformation>
             <S.UserWrapper>
               <S.UserImage>
-                <S.Image onClick={modalOpen} src={profile} alt='profile' />
+                <S.Image
+                  onClick={modalOpen}
+                  src={userProfile?.imgUrl}
+                  alt='profile'
+                />
               </S.UserImage>
               <S.UserData>
                 <div>
-                  <S.UserName>{id}</S.UserName>
+                  <S.UserName>
+                    {userProfile?.name}
+                    {userProfile?.nickName ? (
+                      <S.UserNickName>{userProfile?.nickName}</S.UserNickName>
+                    ) : (
+                      <S.UserNickName>(닉네임을 추가해주세요)</S.UserNickName>
+                    )}
+                  </S.UserName>
                   <S.UserPosition>
-                    {school} / {field}
+                    {userProfile?.school} /{' '}
+                    {userProfile?.major
+                      ? userProfile?.major
+                      : '(분야를 추가해주세요)'}
                   </S.UserPosition>
                 </div>
                 <S.Follow>
-                  팔로워 {follower} 팔로잉 {following}
+                  {/* 팔로워 {follower} 팔로잉 {following} */}
                 </S.Follow>
-                <S.StatusMessage>{statusMessage}</S.StatusMessage>
+                <S.StatusMessage>
+                  {userProfile?.statusMessage
+                    ? userProfile?.statusMessage
+                    : '(상태 메시지를 추가해주세요)'}
+                </S.StatusMessage>
               </S.UserData>
             </S.UserWrapper>
             <S.ButtonContainer>
@@ -91,21 +150,18 @@ const MyPage = () => {
             </S.ButtonContainer>
           </S.UserInformation>
           <S.UserLinks>
-            <Link to={github}>
+            <Link to={String(userProfile?.githubUrl)}>
               <GithubIcon />
             </Link>
             <Tooltip
-              value={email}
-              onClick={() => copyTooltipText(email)}
+              value={String(userProfile?.email)}
+              onClick={() => copyTooltipText(String(userProfile?.email))}
               style={{ cursor: 'pointer' }}
             >
-              <Link to={`mailto:${email}`}>
+              <Link to={`mailto:${String(userProfile?.email)}`}>
                 <EmailIcon />
               </Link>
             </Tooltip>
-            <Link to={personalLink}>
-              <LinkIcon />
-            </Link>
           </S.UserLinks>
         </S.UserContainer>
         <S.TabContainer>
