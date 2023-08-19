@@ -45,7 +45,6 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
 
     fetchUserData();
   }, []);
-  console.log(profile);
 
   const handleProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
