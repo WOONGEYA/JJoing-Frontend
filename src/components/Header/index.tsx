@@ -4,12 +4,11 @@ import LogoIcon from 'assets/LogoIcon';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { accessGoogle } from 'apis/recoil';
+import { OAUTH_URL } from 'constants/config';
 import instance from 'apis/httpClient';
 import * as S from './style';
 
 const Header = () => {
-  const LOGIN_URL = process.env.REACT_APP_OAUTH_URL;
-
   const navigate = useNavigate();
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
   const [img, setImg] = useRecoilState(accessGoogle);
@@ -42,7 +41,6 @@ const Header = () => {
     window.location.reload();
   };
 
-  const googleImg = img;
   return (
     <S.HeaderContainer>
       <S.HeaderWrapper>
@@ -62,7 +60,7 @@ const Header = () => {
                 <BellIcon cursor='pointer' />
               </Link>
               <S.Profile
-                src={googleImg}
+                src={img}
                 alt='profile'
                 onClick={() => {
                   setIsOpened(!isOpened);
@@ -83,7 +81,7 @@ const Header = () => {
               )}
             </>
           ) : (
-            <S.Login href={LOGIN_URL}>로그인</S.Login>
+            <S.Login href={OAUTH_URL}>로그인</S.Login>
           )}
         </S.ProfileContainer>
       </S.HeaderWrapper>
