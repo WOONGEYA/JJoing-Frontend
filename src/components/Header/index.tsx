@@ -1,5 +1,4 @@
 import React from 'react';
-import LoginPage from 'pages/LoginPage';
 import BellIcon from 'assets/BellIcon';
 import LogoIcon from 'assets/LogoIcon';
 import * as S from './style';

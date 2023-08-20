@@ -44,20 +44,6 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
     fetchUserData();
   }, []);
 
-  const handleProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
-    if (!files) return;
-
-    const reader = new FileReader();
-
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-      const result = e.target?.result;
-      setImageUrl(result as string);
-    };
-
-    reader.readAsDataURL(files[0]);
-  };
-
   const handleProfileFieldChange = useMemo(
     () => (field: keyof UserProfile, value: string) => {
       if (profile === null) return;
@@ -91,21 +77,43 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         },
       );
 
-      await instance.post(
-        '/user/image',
-        { image: imageUrl },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        },
-      );
+      const formData = new FormData();
+      formData.append('image', imageUrl);
 
-      window.location.reload();
+      await instance.post('/user/image', formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
+
+      console.log('Image uploaded successfully');
+
       closeModal();
     } catch (error) {
       console.error('Error updating user profile:', error);
     }
+  };
+
+  const handleImageChange = (e: any) => {
+    const selectedFile = e.target.files[0];
+    setImageUrl(URL.createObjectURL(selectedFile));
+
+    const formData = new FormData();
+    formData.append('image', selectedFile);
+
+    instance
+      .post('/user/image', formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(() => {
+        console.log('Image uploaded successfully');
+      })
+      .catch((error) => {
+        console.error('Error uploading image:', error);
+      });
   };
 
   return (
@@ -118,12 +126,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         <S.ContentTitle>프로필 이미지</S.ContentTitle>
         <S.Profile>
           <S.ProfileImage url={imageUrl} htmlFor='file' />
-          <input
-            type='file'
-            id='file'
-            accept='.jpg, .png, .jpeg'
-            onChange={handleProfileImage}
-          />
+          <input type='file' id='file' onChange={handleImageChange} />
           <EditIcon style={{ position: 'absolute', zIndex: '2' }} />
         </S.Profile>
       </S.Content>

@@ -24,7 +24,7 @@ const LoginPage = () => {
       );
       return response.data;
     } catch (error) {
-      console.error('error error error');
+      console.error('');
       throw error;
     }
   };
