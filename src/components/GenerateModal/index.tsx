@@ -19,6 +19,9 @@ interface UserInput {
   endDate: string;
   selectedCategories: string[];
   projectDescription: string;
+  developmentMood: string[];
+  usingStack: string[];
+  cooperationTools: string[];
 }
 
 const initialUserInput: UserInput = {
@@ -28,6 +31,9 @@ const initialUserInput: UserInput = {
   endDate: '',
   selectedCategories: [],
   projectDescription: '',
+  developmentMood: [],
+  usingStack: [],
+  cooperationTools: [],
 };
 
 const GenerateModal = ({ closeModal }: GenerateModalProps) => {
@@ -36,6 +42,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
   const [imageUrl, setImageUrl] = React.useState<string>(ProfileImg);
   const [userInput, setUserInput] = useState(initialUserInput);
   const [tab, setTab] = useState(true);
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
   const handleInputChange = (
     field: keyof UserInput,
@@ -55,7 +62,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
 
     reader.onload = (e: ProgressEvent<FileReader>) => {
       const result = e.target?.result;
-      setImageUrl(String(result));
+      setUploadedImage(String(result));
     };
 
     reader.readAsDataURL(files[0]);
@@ -64,6 +71,21 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
   const handleCompletion = () => {
     console.log(userInput);
     closeModal();
+  };
+
+  const handleAddItem = (
+    field: keyof UserInput,
+    value: string,
+    event: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (event.key === 'Enter' && value.trim() !== '') {
+      event.preventDefault();
+      setUserInput((prevInput) => ({
+        ...prevInput,
+        [field]: [...(prevInput[field] as string[]), value.trim()],
+      }));
+      event.currentTarget.value = '';
+    }
   };
 
   // console.log(userInput);
@@ -80,6 +102,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <S.HeadLine>프로젝트 이름</S.HeadLine>
               <Input
+                required
                 placeholder='프로젝트 이름을 알려주세요'
                 type='text'
                 value={userInput.projectName}
@@ -91,6 +114,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <S.HeadLine>모집 인원</S.HeadLine>
               <Input
+                required
                 placeholder='모집 인원을 알려주세요'
                 type='number'
                 value={userInput.recruitMembers}
@@ -103,6 +127,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
               <S.HeadLine>모집 기한</S.HeadLine>
               <FlexVertical style={{ gap: '24px' }}>
                 <Input
+                  required
                   placeholder='시작 날짜'
                   width={216}
                   type='date'
@@ -126,6 +151,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 {categories.map((data, index) => (
                   <FlexVertical key={index} style={{ gap: '8px' }}>
                     <S.CheckBox
+                      required
                       type='checkbox'
                       checked={userInput.selectedCategories.includes(data)}
                       onChange={() => {
@@ -152,6 +178,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <S.HeadLine>프로젝트 설명</S.HeadLine>
               <S.Description
+                required
                 placeholder='프로젝트에 대해 설명해주세요.'
                 value={userInput.projectDescription}
                 onChange={(e) =>
@@ -166,42 +193,62 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.HeadLine>개발분위기</S.HeadLine>
             <S.InputArea>
               <Input
+                required
                 width={216}
                 type='text'
                 placeholder='예시) 진중함, 목표지향, 창의적'
+                onKeyDown={(e) =>
+                  handleAddItem('developmentMood', e.currentTarget.value, e)
+                }
               />
             </S.InputArea>
             <S.HeadLine>사용 기술</S.HeadLine>
             <S.InputArea>
               <Input
+                required
                 width={216}
                 type='text'
                 placeholder='사용 기술을 적어주세요.'
+                onKeyDown={(e) =>
+                  handleAddItem('usingStack', e.currentTarget.value, e)
+                }
               />
             </S.InputArea>
             <S.HeadLine>협업 툴</S.HeadLine>
             <S.InputArea>
               <Input
+                required
                 width={216}
                 type='text'
                 placeholder='협업할 때 쓰는 툴을 알려주세요.'
+                onKeyDown={(e) =>
+                  handleAddItem('cooperationTools', e.currentTarget.value, e)
+                }
               />
             </S.InputArea>
             <S.HeadLine>커버 이미지 추가</S.HeadLine>
             <S.InputArea>
-              <S.UploadImage htmlFor='file'>
-                <UploadImage />
-                <S.Footnote style={{ color: theme.grey[600] }}>
-                  선택하여 이미지를 업로드 해주세요.
-                </S.Footnote>
-                <input
-                  type='file'
-                  id='file'
-                  accept='.jpg, .png, .jpeg'
-                  onChange={handleProfileImage}
-                  style={{ display: 'none' }}
+              {uploadedImage ? (
+                <img
+                  src={uploadedImage}
+                  alt='Uploaded Cover'
+                  style={{ maxWidth: '100%', height: 'auto' }}
                 />
-              </S.UploadImage>
+              ) : (
+                <S.UploadImage htmlFor='file'>
+                  <UploadImage />
+                  <S.Footnote style={{ color: theme.grey[600] }}>
+                    선택하여 이미지를 업로드 해주세요.
+                  </S.Footnote>
+                  <input
+                    type='file'
+                    id='file'
+                    accept='.jpg, .png, .jpeg'
+                    onChange={handleProfileImage}
+                    style={{ display: 'none' }}
+                  />
+                </S.UploadImage>
+              )}
             </S.InputArea>
             <FlexVertical style={{ justifyContent: 'space-between' }}>
               <Button

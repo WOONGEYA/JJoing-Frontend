@@ -75,5 +75,4 @@ export const UploadImage = styled.label`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 98px;
 `;
