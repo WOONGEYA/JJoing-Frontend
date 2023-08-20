@@ -21,7 +21,7 @@ const Image = styled.img`
 `;
 
 const Description = styled.h2`
-  ${font.$title03.title3};
+  ${font.$title03};
   color: ${theme.grey[500]};
 `;
 

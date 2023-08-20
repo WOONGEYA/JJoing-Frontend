@@ -4,7 +4,7 @@ import theme from 'styles/theme';
 
 export const InputContainer = styled.div`
   display: flex;
-  padding: 12px 16px;
+  padding: 8px 12px;
   align-items: flex-start;
   border-radius: 4px;
   background: ${theme.white};
