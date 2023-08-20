@@ -82,7 +82,6 @@ const Header = () => {
           ) : (
             <S.Login href={LOGIN_URL}>로그인</S.Login>
           )}
-          <LoginPage />
         </S.ProfileContainer>
       </S.HeaderWrapper>
     </S.HeaderContainer>

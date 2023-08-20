@@ -1,15 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useQuery } from 'react-query';
 import axios from 'axios';
 import { useEffect } from 'react';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const LoginPage = () => {
-  useEffect(() => {
-    postCode;
-  }, []);
-
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -23,21 +18,35 @@ const LoginPage = () => {
   });
 
   const postCode = async (encodedValue: string) => {
-    return (await instance.post(`/login/google?code=${encodedValue}`)).data;
+    try {
+      const response = await instance.post(
+        `/login/google?code=${encodedValue}`,
+      );
+      return response.data;
+    } catch (error) {
+      console.error('error error error');
+      throw error;
+    }
   };
 
-  useQuery('auth', () => postCode(encodedValue), {
-    onSuccess: (data) => {
-      const { accessToken, refreshToken } = data;
-      navigate('/');
+  useEffect(() => {
+    const fetchAndNavigate = async () => {
+      try {
+        const data = await postCode(encodedValue);
+        const { accessToken, refreshToken } = data;
 
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+        navigate('/');
+
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+      } catch (error) {
+        console.error(error);
+        navigate('/');
+      }
+    };
+
+    fetchAndNavigate();
+  }, [encodedValue]);
 
   return <></>;
 };

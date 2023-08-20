@@ -18,7 +18,6 @@ interface UserProfile {
   githubUrl: string;
   name: string;
   email: string;
-  imgUrl: string;
   school: string;
   major: string;
 }
@@ -42,7 +41,6 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         console.error('Error fetching user data:', error);
       }
     };
-
     fetchUserData();
   }, []);
 
@@ -74,12 +72,13 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
     return <div>Loading...</div>;
   }
 
+  console.log('이미지 유알엘', imageUrl);
   const updateProfile = async () => {
     try {
       await instance.put(
         '/user',
         {
-          nickName: profile.nickName,
+          nickname: profile.nickName,
           githubUrl: profile.githubUrl,
           email: profile.email,
           statusMessage: profile.statusMessage,
@@ -92,6 +91,17 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         },
       );
 
+      await instance.post(
+        '/user/image',
+        { image: imageUrl },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        },
+      );
+
+      window.location.reload();
       closeModal();
     } catch (error) {
       console.error('Error updating user profile:', error);
@@ -118,13 +128,13 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         </S.Profile>
       </S.Content>
       <S.Content>
-        <S.ContentTitle>아이디</S.ContentTitle>
+        <S.ContentTitle>닉네임</S.ContentTitle>
         <Input
           placeholder='아이디를 입력해주세요.'
           width='calc(100% - 32px)'
           name='name'
           type='text'
-          value={profile?.nickName}
+          value={profile?.nickName || ''}
           onChange={(e) => handleProfileFieldChange('nickName', e.target.value)}
         />
       </S.Content>
@@ -135,7 +145,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
           width='calc(100% - 32px)'
           name='name'
           type='text'
-          value={profile.githubUrl}
+          value={profile.githubUrl || ''}
           onChange={(e) =>
             handleProfileFieldChange('githubUrl', e.target.value)
           }
@@ -148,19 +158,16 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
           width='calc(100% - 32px)'
           name='name'
           type='text'
-          value={profile.email}
+          value={profile.email || ''}
           onChange={(e) => handleProfileFieldChange('email', e.target.value)}
           readOnly
         />
       </S.Content>
       <S.Content>
         <S.ContentTitle>상태 메시지</S.ContentTitle>
-        <Input
-          placeholder='상태 메시지를 입력해주세요'
-          width='calc(100% - 32px)'
+        <S.Description
           name='name'
-          type='text'
-          value={profile.statusMessage}
+          value={profile.statusMessage || ''}
           onChange={(e) =>
             handleProfileFieldChange('statusMessage', e.target.value)
           }
@@ -173,7 +180,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
           width='calc(100% - 32px)'
           name='name'
           type='text'
-          value={profile.major}
+          value={profile.major || ''}
           onChange={(e) => handleProfileFieldChange('major', e.target.value)}
         />
       </S.Content>
