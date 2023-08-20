@@ -1,12 +1,11 @@
 import React from 'react';
-import LoginPage from 'pages/LoginPage';
 import BellIcon from 'assets/BellIcon';
 import LogoIcon from 'assets/LogoIcon';
-import * as S from './style';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { accessGoogle } from 'apis/recoil';
 import instance from 'apis/httpClient';
+import * as S from './style';
 
 const Header = () => {
   const LOGIN_URL = process.env.REACT_APP_OAUTH_URL;
@@ -17,16 +16,20 @@ const Header = () => {
 
   React.useEffect(() => {
     const fetchUserData = async () => {
-      try {
-        const response = await instance('/user', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        console.log('data:', response.data);
-        setImg(response.data.imgUrl);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
+      const accessToken = localStorage.getItem('accessToken');
+
+      if (accessToken) {
+        try {
+          const response = await instance.get('/user', {
+            headers: {
+              Authorization: accessToken,
+            },
+          });
+
+          setImg(response.data.imgUrl);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
       }
     };
 
