@@ -201,6 +201,11 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   handleAddItem('developmentMood', e.currentTarget.value, e)
                 }
               />
+              <S.TagArea>
+                {userInput.developmentMood.map((tag, index) => (
+                  <S.Tag key={index}>{tag}</S.Tag>
+                ))}
+              </S.TagArea>
             </S.InputArea>
             <S.HeadLine>사용 기술</S.HeadLine>
             <S.InputArea>
@@ -213,6 +218,11 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   handleAddItem('usingStack', e.currentTarget.value, e)
                 }
               />
+              <S.TagArea>
+                {userInput.usingStack.map((tag, index) => (
+                  <S.Tag key={index}>{tag}</S.Tag>
+                ))}
+              </S.TagArea>
             </S.InputArea>
             <S.HeadLine>협업 툴</S.HeadLine>
             <S.InputArea>
@@ -225,6 +235,11 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   handleAddItem('cooperationTools', e.currentTarget.value, e)
                 }
               />
+              <S.TagArea>
+                {userInput.cooperationTools.map((tag, index) => (
+                  <S.Tag key={index}>{tag}</S.Tag>
+                ))}
+              </S.TagArea>
             </S.InputArea>
             <S.HeadLine>커버 이미지 추가</S.HeadLine>
             <S.InputArea>

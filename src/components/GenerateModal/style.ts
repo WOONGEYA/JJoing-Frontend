@@ -5,7 +5,7 @@ import theme from 'styles/theme';
 
 export const Container = styled.div`
   width: 500px;
-  height: 740px;
+  height: 790px;
   background-color: ${theme.white};
   border-radius: 12px;
   padding: 24px;
@@ -68,11 +68,30 @@ export const Description = styled.textarea`
 
 export const UploadImage = styled.label`
   width: 100%;
-  height: 212px;
+  height: 200px;
   border-radius: 5px;
   border: 1px dashed ${theme.grey[600]};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+export const TagArea = styled.div`
+  width: 100%;
+  height: 30px;
+  display: flex;
+  gap: 8px;
+`;
+
+export const Tag = styled.div`
+  border-radius: 30px;
+  height: 100%;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  ${shadow.shadow2};
+  ${font.$footnote};
+  margin-top: 10px;
 `;
