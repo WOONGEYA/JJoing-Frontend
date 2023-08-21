@@ -5,6 +5,7 @@ import Search from 'components/Search';
 import * as S from './style';
 import dummy from 'fixtures/myjjong.dummy';
 import ProjectBox from 'components/ProjectBox';
+import instance from 'apis/httpClient';
 
 const MyJJong = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -16,6 +17,18 @@ const MyJJong = () => {
   const filteredProjects = dummy.filter((data) =>
     data.title.toLowerCase().includes(searchValue.toLowerCase()),
   );
+
+  React.useEffect(() => {
+    const fetchedData = async () => {
+      try {
+        const response = (await instance.get('/like/my')).data;
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchedData();
+  }, []);
 
   return (
     <>
