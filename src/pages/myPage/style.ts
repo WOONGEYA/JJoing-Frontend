@@ -29,8 +29,7 @@ export const UserContainer = styled.div`
   display: flex;
   gap: 20px;
   flex-direction: column;
-  max-width: 1032px;
-  width: calc(100% - 2rem);
+  width: 100%;
 `;
 
 export const UserImage = styled.div`
@@ -52,6 +51,10 @@ export const UserName = styled.h1`
   color: ${theme.grey[900]};
   ${font.$title03};
 `;
+export const UserNickName = styled.div`
+  color: ${theme.grey[600]};
+  ${font.$title04};
+`;
 
 export const UserPosition = styled.h2`
   color: ${theme.grey[800]};
@@ -66,7 +69,7 @@ export const StatusMessage = styled.h3`
 `;
 
 export const UserData = styled.div`
-  width: 328px;
+  width: 339px;
   display: flex;
   flex-direction: column;
 `;
