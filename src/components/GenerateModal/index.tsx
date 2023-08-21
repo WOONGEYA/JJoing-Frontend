@@ -245,7 +245,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 <img
                   src={uploadedImage}
                   alt='Uploaded Cover'
-                  style={{ maxWidth: '100%', height: 'auto' }}
+                  style={{ maxWidth: '100%', height: '255px' }}
                 />
               ) : (
                 <S.UploadImage htmlFor='file'>
