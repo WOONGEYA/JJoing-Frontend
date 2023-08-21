@@ -3,7 +3,6 @@ import * as S from './style';
 import CloseIcon from 'assets/CloseIcon';
 import Input from 'components/Input';
 import { FlexVertical } from 'styles/flex';
-import ProfileImg from 'assets/profile.webp';
 import UploadImage from 'assets/UploadImage';
 import theme from 'styles/theme';
 import Button from 'components/Button';
@@ -38,8 +37,6 @@ const initialUserInput: UserInput = {
 
 const GenerateModal = ({ closeModal }: GenerateModalProps) => {
   const categories = ['프론트엔드', '백엔드', '앱', '디자인'];
-
-  const [imageUrl, setImageUrl] = React.useState<string>(ProfileImg);
   const [userInput, setUserInput] = useState(initialUserInput);
   const [tab, setTab] = useState(true);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -215,7 +212,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 width={216}
                 type='text'
                 placeholder='사용 기술을 적어주세요.'
-                onKeyDown={(e) =>
+                onKeyPress={(e) =>
                   handleAddItem('usingStack', e.currentTarget.value, e)
                 }
               />
@@ -232,7 +229,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 width={216}
                 type='text'
                 placeholder='협업할 때 쓰는 툴을 알려주세요.'
-                onKeyDown={(e) =>
+                onKeyPress={(e) =>
                   handleAddItem('cooperationTools', e.currentTarget.value, e)
                 }
               />

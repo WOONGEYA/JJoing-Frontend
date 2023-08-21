@@ -11,7 +11,6 @@ const UploadImage = ({
   width = 40,
   height = 40,
   color = theme.grey[600],
-  ...rest
 }: SVGAttributeProps) => {
   return (
     <svg
