@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import axios from 'axios';
+import { useEffect } from 'react';
+import instance from 'apis/httpClient';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -11,29 +11,36 @@ const LoginPage = () => {
 
   const encodedValue = encodeURIComponent(encodedCode);
 
-  console.log(encodedValue);
-
-  const instance = axios.create({
-    baseURL: 'http://192.168.10.142:8080',
-  });
-
   const postCode = async (encodedValue: string) => {
-    return (await instance.get(`/login/oauth2/code/google?code=${encodedValue}`)).data;
+    try {
+      const response = await instance.post(
+        `/login/google?code=${encodedValue}`,
+      );
+      return response.data;
+    } catch (error) {
+      console.error('error error error');
+      throw error;
+    }
   };
 
-  useQuery('auth', () => postCode(encodedValue), {
-    onSuccess: (data) => {
-      console.log(data);
-      const { accessToken, refreshToken } = data;
-      navigate('/');
+  useEffect(() => {
+    const fetchAndNavigate = async () => {
+      try {
+        const data = await postCode(encodedValue);
+        const { accessToken, refreshToken } = data;
 
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+        navigate('/');
+
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+      } catch (error) {
+        console.error(error);
+        navigate('/');
+      }
+    };
+
+    fetchAndNavigate();
+  }, [encodedValue]);
 
   return <></>;
 };
