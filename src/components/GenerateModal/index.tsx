@@ -72,12 +72,12 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     console.log(userInput);
     closeModal();
   };
-
   const handleAddItem = (
     field: keyof UserInput,
     value: string,
     event: React.KeyboardEvent<HTMLInputElement>,
   ) => {
+    // const trimmedValue = value.trim() + ' ';
     if (event.key === 'Enter' && value.trim() !== '') {
       event.preventDefault();
       setUserInput((prevInput) => ({
@@ -197,7 +197,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 width={216}
                 type='text'
                 placeholder='예시) 진중함, 목표지향, 창의적'
-                onKeyDown={(e) =>
+                onKeyPress={(e) =>
                   handleAddItem('developmentMood', e.currentTarget.value, e)
                 }
               />
@@ -207,6 +207,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 ))}
               </S.TagArea>
             </S.InputArea>
+
             <S.HeadLine>사용 기술</S.HeadLine>
             <S.InputArea>
               <Input
