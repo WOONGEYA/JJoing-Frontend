@@ -153,7 +153,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                       checked={userInput.selectedCategories.includes(data)}
                       onChange={() => {
                         if (userInput.selectedCategories.includes(data)) {
-                          handleInputChange(
+                          return handleInputChange(
                             'selectedCategories',
                             userInput.selectedCategories.filter(
                               (category) => category !== data,
@@ -200,11 +200,13 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
               />
               <S.TagArea>
                 {userInput.developmentMood.map((tag, index) => (
-                  <S.Tag key={index}>{tag}</S.Tag>
+                  <S.Tag key={index}>
+                    <CloseIcon />
+                    <S.TagInner>{tag}</S.TagInner>
+                  </S.Tag>
                 ))}
               </S.TagArea>
             </S.InputArea>
-
             <S.HeadLine>사용 기술</S.HeadLine>
             <S.InputArea>
               <Input
@@ -242,7 +244,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.HeadLine>커버 이미지 추가</S.HeadLine>
             <S.InputArea>
               {uploadedImage ? (
-                <img
+                <S.UploadedImage
                   src={uploadedImage}
                   alt='Uploaded Cover'
                   style={{ maxWidth: '100%', height: '255px' }}

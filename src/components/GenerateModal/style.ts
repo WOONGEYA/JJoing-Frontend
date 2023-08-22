@@ -93,6 +93,17 @@ export const Tag = styled.div`
   align-items: center;
   box-sizing: border-box;
   ${shadow.shadow2};
-  ${font.$footnote};
   margin-top: 10px;
+`;
+
+export const UploadedImage = styled.img`
+  max-width: 100%;
+  height: 255px;
+  border-radius: 5px;
+`;
+
+export const TagInner = styled.div`
+  ${font.$footnote};
+  position: absolute;
+  cursor: pointer;
 `;
