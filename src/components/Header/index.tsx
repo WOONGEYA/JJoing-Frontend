@@ -1,31 +1,34 @@
 import React from 'react';
 import BellIcon from 'assets/BellIcon';
 import LogoIcon from 'assets/LogoIcon';
-import * as S from './style';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { accessGoogle } from 'apis/recoil';
+import { OAUTH_URL } from 'constants/config';
 import instance from 'apis/httpClient';
+import * as S from './style';
 
 const Header = () => {
-  const LOGIN_URL = process.env.REACT_APP_OAUTH_URL;
-
   const navigate = useNavigate();
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
   const [img, setImg] = useRecoilState(accessGoogle);
 
   React.useEffect(() => {
     const fetchUserData = async () => {
-      try {
-        const response = await instance('/user', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        console.log('data:', response.data);
-        setImg(response.data.imgUrl);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
+      const accessToken = localStorage.getItem('accessToken');
+
+      if (accessToken) {
+        try {
+          const response = await instance.get('/user', {
+            headers: {
+              Authorization: accessToken,
+            },
+          });
+
+          setImg(response.data.imgUrl);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
       }
     };
 
@@ -38,7 +41,6 @@ const Header = () => {
     window.location.reload();
   };
 
-  const googleImg = img;
   return (
     <S.HeaderContainer>
       <S.HeaderWrapper>
@@ -58,7 +60,7 @@ const Header = () => {
                 <BellIcon cursor='pointer' />
               </Link>
               <S.Profile
-                src={googleImg}
+                src={img}
                 alt='profile'
                 onClick={() => {
                   setIsOpened(!isOpened);
@@ -79,7 +81,7 @@ const Header = () => {
               )}
             </>
           ) : (
-            <S.Login href={LOGIN_URL}>로그인</S.Login>
+            <S.Login href={OAUTH_URL}>로그인</S.Login>
           )}
         </S.ProfileContainer>
       </S.HeaderWrapper>
