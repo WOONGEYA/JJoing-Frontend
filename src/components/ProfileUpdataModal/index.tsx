@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './style';
 import EditIcon from 'assets/EditIcon';
 import CloseIcon from 'assets/CloseIcon';
@@ -44,31 +44,50 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
     fetchUserData();
   }, []);
 
-  const handleProfileFieldChange = useMemo(
-    () => (field: keyof UserProfile, value: string) => {
-      if (profile === null) return;
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFile = e.target.files[0];
+      setImageUrl(URL.createObjectURL(selectedFile));
 
-      const newProfile: UserProfile = { ...profile, [field]: value };
-      setProfile(newProfile);
-    },
-    [profile],
-  );
+      const formData = new FormData();
+      formData.append('image', selectedFile);
 
-  if (!profile) {
-    return <div>Loading...</div>;
-  }
+      try {
+        await instance.post('/user', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
 
-  console.log('이미지 유알엘', imageUrl);
+        console.log('Image uploaded successfully!');
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+    }
+  };
+
+  const handleProfileFieldChange = (
+    field: keyof UserProfile,
+    value: string,
+  ) => {
+    if (profile === null) return;
+
+    const newProfile: UserProfile = { ...profile, [field]: value };
+    setProfile(newProfile);
+  };
+
   const updateProfile = async () => {
     try {
       await instance.put(
         '/user',
         {
-          nickname: profile.nickName,
-          githubUrl: profile.githubUrl,
-          email: profile.email,
-          statusMessage: profile.statusMessage,
-          major: profile.major,
+          nickname: profile?.nickName,
+          githubUrl: profile?.githubUrl,
+          email: profile?.email,
+          statusMessage: profile?.statusMessage,
+          major: profile?.major,
+          imgUrl: imageUrl,
         },
         {
           headers: {
@@ -77,44 +96,15 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         },
       );
 
-      const formData = new FormData();
-      formData.append('image', imageUrl);
-
-      await instance.post('/user/image', formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-
-      console.log('Image uploaded successfully');
-
       closeModal();
     } catch (error) {
       console.error('Error updating user profile:', error);
     }
   };
 
-  const handleImageChange = (e: any) => {
-    const selectedFile = e.target.files[0];
-    setImageUrl(URL.createObjectURL(selectedFile));
-
-    const formData = new FormData();
-    formData.append('image', selectedFile);
-
-    instance
-      .post('/user/image', formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then(() => {
-        console.log('Image uploaded successfully');
-      })
-      .catch((error) => {
-        console.error('Error uploading image:', error);
-      });
-  };
+  if (!profile) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <S.ModalContainer>
