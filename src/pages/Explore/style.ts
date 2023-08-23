@@ -24,17 +24,6 @@ export const Filter = styled.div`
   gap: 8px;
 `;
 
-export const Reset = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 4px;
-  background-color: ${theme.white};
-  cursor: pointer;
-  border-radius: 50%;
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
-`;
-
 export const Title = styled.span`
   ${font.$title01}
 `;
