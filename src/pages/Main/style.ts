@@ -37,7 +37,7 @@ export const Trending = styled.div`
   display: flex;
   overflow-x: scroll;
   gap: 24px;
-  height: 365px;
+  height: 360px;
   &::-webkit-scrollbar {
     display: none;
   }
