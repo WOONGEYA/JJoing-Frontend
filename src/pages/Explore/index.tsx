@@ -7,19 +7,19 @@ import * as S from './style';
 
 const dropdownOptions = [
   {
-    id: '0',
-    currentOption: '분야 선택',
-    options: ['Web', 'iOS', 'Android'],
+    id: 0,
+    currentOption: '개발 분야',
+    options: ['Web', 'iOS', 'Android', '게임', '기타'],
   },
   {
-    id: '1',
-    currentOption: '직군 선택',
-    options: ['Front-end', 'Back-end', 'Designer'],
+    id: 1,
+    currentOption: '모집 직군',
+    options: ['Front-end', 'Back-end', 'Designer', '기타'],
   },
   {
-    id: '2',
-    currentOption: '정렬 기준 선택',
-    options: ['인기순', '마이쫑 많은 순', '최신순'],
+    id: 2,
+    currentOption: '정렬 기준',
+    options: ['인기순', '조회수 많은 순', '최신순'],
   },
 ];
 
@@ -72,7 +72,7 @@ const Explore = () => {
           {dropdownOptions.map((option) => (
             <Dropdown
               key={option.id}
-              isOpened={isOpened[parseInt(option.id)]}
+              isOpened={isOpened[option.id]}
               {...option}
               onClick={handleDropdown}
             />
