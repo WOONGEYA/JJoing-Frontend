@@ -10,9 +10,11 @@ const instance: AxiosInstance = axios.create({
 instance.interceptors.request.use(
   (response) => {
     const accessToken = localStorage.getItem('accessToken');
+
     if (accessToken) {
-      response.headers.set('token', accessToken);
+      response.headers.Authorization = accessToken;
     }
+
     return response;
   },
 
