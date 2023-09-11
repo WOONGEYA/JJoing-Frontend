@@ -20,7 +20,6 @@ const Main = () => {
         <S.Projects>
           <S.TrendingContainer>
             <S.Title>인기 급상승 프로젝트 👇</S.Title>
-            <h1 onClick={modalOpen}>새 프로젝트</h1>
             <S.Trending>
               {dummy
                 .filter((data) => data.id <= 6)

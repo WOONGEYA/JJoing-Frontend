@@ -7,9 +7,18 @@ import LogoIcon from 'assets/LogoIcon';
 import { OAUTH_URL } from 'constants/config';
 import * as S from './style';
 import { Link } from 'react-router-dom';
+import useModal from 'hooks/useModal';
+import GenerateModal from 'components/GenerateModal';
 
 const Header = () => {
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
+  const { openModal, closeModal } = useModal();
+
+  const modalOpen = () => {
+    openModal({
+      component: <GenerateModal closeModal={closeModal} />,
+    });
+  };
 
   React.useEffect(() => {
     const fetchUserData = async () => {
@@ -43,7 +52,7 @@ const Header = () => {
           <Link to='/explore'>
             <S.MenuItem>프로젝트 목록</S.MenuItem>
           </Link>
-          <S.MenuItem>새 프로젝트</S.MenuItem>
+          <S.MenuItem onClick={modalOpen}>새 프로젝트</S.MenuItem>
         </S.MenuList>
         <S.ProfileContainer>
           {localStorage.accessToken ? (

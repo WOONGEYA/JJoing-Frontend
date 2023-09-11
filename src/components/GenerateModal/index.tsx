@@ -74,7 +74,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     value: string,
     event: React.KeyboardEvent<HTMLInputElement>,
   ) => {
-    // const trimmedValue = value.trim() + ' ';
     if (event.key === 'Enter' && value.trim() !== '') {
       event.preventDefault();
       setUserInput((prevInput) => ({
@@ -84,8 +83,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
       event.currentTarget.value = '';
     }
   };
-
-  // console.log(userInput);
 
   return (
     <S.Container>
