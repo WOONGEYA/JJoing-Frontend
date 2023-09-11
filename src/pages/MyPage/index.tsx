@@ -89,6 +89,8 @@ const MyPage = () => {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
+        console.log('nickName', response.data);
+
         setUserProfile(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -99,6 +101,7 @@ const MyPage = () => {
   }, []);
 
   console.log('유저 정보', userProfile);
+  console.log(userProfile?.nickName);
 
   return (
     <Layout>

@@ -20,6 +20,8 @@ interface UserProfile {
   email: string;
   school: string;
   major: string;
+  age: number;
+  imageUrl: string;
 }
 
 const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
@@ -53,14 +55,14 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
       formData.append('image', selectedFile);
 
       try {
-        await instance.post('/user', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-
-        console.log('Image uploaded successfully!');
+        await instance
+          .post('/user/image', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          })
+          .then((response) => console.log(response.data));
       } catch (error) {
         console.error('Error uploading image:', error);
       }
@@ -79,16 +81,19 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
 
   const updateProfile = async () => {
     try {
+      // imageUrl을 제외한 필드만 업데이트할 객체 생성
+      const updateData = {
+        nickName: profile?.nickName,
+        major: profile?.major,
+        githubUrl: profile?.githubUrl,
+        imageUrl: imageUrl,
+        statusMessage: profile?.statusMessage,
+        // imageUrl은 업데이트하지 않음
+      };
+
       await instance.put(
         '/user',
-        {
-          nickname: profile?.nickName,
-          githubUrl: profile?.githubUrl,
-          email: profile?.email,
-          statusMessage: profile?.statusMessage,
-          major: profile?.major,
-          imgUrl: imageUrl,
-        },
+        updateData, // imageUrl을 제외한 필드만 보냄
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -96,6 +101,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         },
       );
 
+      window.location.reload();
       closeModal();
     } catch (error) {
       console.error('Error updating user profile:', error);
