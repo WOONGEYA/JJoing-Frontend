@@ -89,7 +89,6 @@ const MyPage = () => {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
-        console.log('nickName', response.data);
 
         setUserProfile(response.data);
       } catch (error) {

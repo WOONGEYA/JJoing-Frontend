@@ -28,6 +28,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
   const [img, setImg] = useRecoilState(accessGoogle);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [imageUrl, setImageUrl] = useState<string>(img);
+  const [newImageUrl, setNewImageUrl] = useState<string>('');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -54,15 +55,21 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
       const formData = new FormData();
       formData.append('image', selectedFile);
 
+      const blob = new Blob([JSON.stringify(selectedFile)], {
+        type: 'application/json',
+      });
+
+      formData.append('data', blob);
+
       try {
-        await instance
-          .post('/user/image', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            },
-          })
-          .then((response) => console.log(response.data));
+        const { data } = await instance.post('/user/image', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+
+        setNewImageUrl(data.imgUrl);
       } catch (error) {
         console.error('Error uploading image:', error);
       }
@@ -81,27 +88,20 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
 
   const updateProfile = async () => {
     try {
-      // imageUrl을 제외한 필드만 업데이트할 객체 생성
       const updateData = {
         nickName: profile?.nickName,
         major: profile?.major,
         githubUrl: profile?.githubUrl,
-        imageUrl: imageUrl,
+        imageUrl: newImageUrl,
         statusMessage: profile?.statusMessage,
-        // imageUrl은 업데이트하지 않음
       };
 
-      await instance.put(
-        '/user',
-        updateData, // imageUrl을 제외한 필드만 보냄
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
+      await instance.put('/user', updateData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
-      );
+      });
 
-      window.location.reload();
       closeModal();
     } catch (error) {
       console.error('Error updating user profile:', error);
@@ -133,7 +133,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
           width='calc(100% - 32px)'
           name='name'
           type='text'
-          value={profile?.nickName || ''}
+          value={profile.nickName || ''}
           onChange={(e) => handleProfileFieldChange('nickName', e.target.value)}
         />
       </S.Content>
