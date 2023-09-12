@@ -3,7 +3,7 @@ import GithubIcon from 'assets/GithubIcon';
 import EmailIcon from 'assets/EmailIcon';
 import Layout from 'components/Layout';
 import useModal from 'hooks/useModal';
-import ProfileUpdateModal from 'components/ProfileUpdataModal';
+import ProfileUpdateModal from 'components/ProfileUpdateModal';
 import ProjectBox from 'components/ProjectBox';
 import dummy from 'fixtures/detail.dummy';
 import * as S from './style';
