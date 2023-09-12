@@ -28,7 +28,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
   const [img, setImg] = useRecoilState(accessGoogle);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [imageUrl, setImageUrl] = useState<string>(img);
-  const [newImageUrl, setNewImageUrl] = useState<string>('');
+  const [newImageUrl, setNewImageUrl] = useState<string>(img);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -102,6 +102,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         },
       });
 
+      window.location.reload();
       closeModal();
     } catch (error) {
       console.error('Error updating user profile:', error);

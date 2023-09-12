@@ -3,7 +3,6 @@ import GithubIcon from 'assets/GithubIcon';
 import EmailIcon from 'assets/EmailIcon';
 import Layout from 'components/Layout';
 import useModal from 'hooks/useModal';
-import ProfileUpdateModal from 'components/ProfileUpdateModal';
 import ProjectBox from 'components/ProjectBox';
 import dummy from 'fixtures/detail.dummy';
 import * as S from './style';
@@ -12,6 +11,7 @@ import Button from 'components/Button';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import instance from 'apis/httpClient';
+import ProfileUpdateModal from 'components/ProfileUpdateModal';
 
 const MyPage = () => {
   interface UserProfile {
@@ -50,12 +50,12 @@ const MyPage = () => {
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await instance.get('/project', {
+        const { data } = await instance.get('/project', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
-        console.log('data:', response.data);
+        console.log('data:', data);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -72,24 +72,6 @@ const MyPage = () => {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
-        setUserProfile(response.data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
-  React.useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await instance.get('/user', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-
         setUserProfile(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -132,9 +114,6 @@ const MyPage = () => {
                       : '(분야를 추가해주세요)'}
                   </S.UserPosition>
                 </div>
-                <S.Follow>
-                  {/* 팔로워 {follower} 팔로잉 {following} */}
-                </S.Follow>
                 <S.StatusMessage>
                   {userProfile?.statusMessage
                     ? userProfile?.statusMessage

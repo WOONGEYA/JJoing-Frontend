@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import BellIcon from 'assets/BellIcon';
 import LogoIcon from 'assets/LogoIcon';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ const Header = () => {
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
   const [img, setImg] = useRecoilState(accessGoogle);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchUserData = async () => {
       const accessToken = localStorage.getItem('accessToken');
 
