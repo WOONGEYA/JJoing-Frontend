@@ -1,62 +1,116 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './style';
 import EditIcon from 'assets/EditIcon';
 import CloseIcon from 'assets/CloseIcon';
 import Input from 'components/Input';
 import Button from 'components/Button';
-import ProfileImg from 'assets/profile.webp';
-import profile_data from 'fixtures/profile.dummy';
-
-const contents = [
-  { name: '아이디', id: 'id', type: 'text' },
-  { name: '깃허브 링크', id: 'github', type: 'url' },
-  { name: '이메일 주소', id: 'email', type: 'email' },
-  { name: '개인 링크', id: 'personalLink', type: 'url' },
-  { name: '상태 메세지', id: 'statusMessage', type: 'text' },
-  { name: '분야', id: 'field', type: 'text' },
-];
+import { useRecoilState } from 'recoil';
+import { accessGoogle } from 'apis/recoil';
+import instance from 'apis/httpClient';
 
 interface ProfileUpdateModalProps {
   closeModal: () => void;
 }
 
-interface InputValues {
-  [id: string]: string;
+interface UserProfile {
+  statusMessage: string;
+  nickName: string;
+  githubUrl: string;
+  name: string;
+  email: string;
+  school: string;
+  major: string;
+  age: number;
+  imageUrl: string;
 }
 
 const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
-  const [imageUrl, setImageUrl] = React.useState<string>(ProfileImg);
+  const [img, setImg] = useRecoilState(accessGoogle);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [imageUrl, setImageUrl] = useState<string>(img);
+  const [newImageUrl, setNewImageUrl] = useState<string>('');
 
-  const handleProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
-    if (!files) return;
-
-    const reader = new FileReader();
-
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-      const result = e.target?.result;
-      setImageUrl(String(result));
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await instance.get('/user', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        setImg(response.data.imgUrl);
+        setProfile(response.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
     };
+    fetchUserData();
+  }, []);
 
-    reader.readAsDataURL(files[0]);
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFile = e.target.files[0];
+      setImageUrl(URL.createObjectURL(selectedFile));
+
+      const formData = new FormData();
+      formData.append('image', selectedFile);
+
+      const blob = new Blob([JSON.stringify(selectedFile)], {
+        type: 'application/json',
+      });
+
+      formData.append('data', blob);
+
+      try {
+        const { data } = await instance.post('/user/image', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+
+        setNewImageUrl(data.imgUrl);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+    }
   };
 
-  const { id, github, email, personalLink, statusMessage, field } =
-    profile_data;
+  const handleProfileFieldChange = (
+    field: keyof UserProfile,
+    value: string,
+  ) => {
+    if (profile === null) return;
 
-  const [inputValues, setInputValues] = React.useState<InputValues>({
-    id,
-    github,
-    email,
-    personalLink,
-    statusMessage,
-    field,
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setInputValues({ ...inputValues, [name]: value });
+    const newProfile: UserProfile = { ...profile, [field]: value };
+    setProfile(newProfile);
   };
+
+  const updateProfile = async () => {
+    try {
+      const updateData = {
+        nickName: profile?.nickName,
+        major: profile?.major,
+        githubUrl: profile?.githubUrl,
+        imageUrl: newImageUrl,
+        statusMessage: profile?.statusMessage,
+      };
+
+      await instance.put('/user', updateData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
+
+      closeModal();
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+    }
+  };
+
+  if (!profile) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <S.ModalContainer>
@@ -68,31 +122,69 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         <S.ContentTitle>프로필 이미지</S.ContentTitle>
         <S.Profile>
           <S.ProfileImage url={imageUrl} htmlFor='file' />
-          <input
-            type='file'
-            id='file'
-            accept='.jpg, .png, .jpeg'
-            onChange={handleProfileImage}
-          />
+          <input type='file' id='file' onChange={handleImageChange} />
           <EditIcon style={{ position: 'absolute', zIndex: '2' }} />
         </S.Profile>
       </S.Content>
-      {contents.map((content) => {
-        return (
-          <S.Content key={content.name}>
-            <S.ContentTitle>{content.name}</S.ContentTitle>
-            <Input
-              placeholder={`${content.name}를 입력해주세요.`}
-              width='calc(100% - 32px)'
-              value={inputValues[content.id]}
-              name={content.id}
-              type={content.type}
-              onChange={handleChange}
-            />
-          </S.Content>
-        );
-      })}
-      <Button value='저장' onClick={() => closeModal()} />
+      <S.Content>
+        <S.ContentTitle>닉네임</S.ContentTitle>
+        <Input
+          placeholder='아이디를 입력해주세요.'
+          width='calc(100% - 32px)'
+          name='name'
+          type='text'
+          value={profile.nickName || ''}
+          onChange={(e) => handleProfileFieldChange('nickName', e.target.value)}
+        />
+      </S.Content>
+      <S.Content>
+        <S.ContentTitle>깃허브 링크</S.ContentTitle>
+        <Input
+          placeholder='깃허브 링크를 입력해주세요'
+          width='calc(100% - 32px)'
+          name='name'
+          type='text'
+          value={profile.githubUrl || ''}
+          onChange={(e) =>
+            handleProfileFieldChange('githubUrl', e.target.value)
+          }
+        />
+      </S.Content>
+      <S.Content>
+        <S.ContentTitle>이메일 주소</S.ContentTitle>
+        <Input
+          placeholder=''
+          width='calc(100% - 32px)'
+          name='name'
+          type='text'
+          value={profile.email || ''}
+          onChange={(e) => handleProfileFieldChange('email', e.target.value)}
+          readOnly
+        />
+      </S.Content>
+      <S.Content>
+        <S.ContentTitle>상태 메시지</S.ContentTitle>
+        <S.Description
+          name='name'
+          value={profile.statusMessage || ''}
+          onChange={(e) =>
+            handleProfileFieldChange('statusMessage', e.target.value)
+          }
+        />
+      </S.Content>
+      <S.Content>
+        <S.ContentTitle>분야</S.ContentTitle>
+        <Input
+          placeholder='분야를 입력해주세요'
+          width='calc(100% - 32px)'
+          name='name'
+          type='text'
+          value={profile.major || ''}
+          onChange={(e) => handleProfileFieldChange('major', e.target.value)}
+        />
+      </S.Content>
+
+      <Button value='저장' onClick={updateProfile} />
     </S.ModalContainer>
   );
 };

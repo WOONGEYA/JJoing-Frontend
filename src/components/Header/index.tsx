@@ -1,16 +1,17 @@
 import React from 'react';
-import LoginPage from 'pages/LoginPage';
-import axios from 'axios';
-import Profile from 'assets/profile.webp';
 import BellIcon from 'assets/BellIcon';
 import LogoIcon from 'assets/LogoIcon';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { accessGoogle } from 'apis/recoil';
 import { OAUTH_URL } from 'constants/config';
+import instance from 'apis/httpClient';
 import * as S from './style';
-import { Link } from 'react-router-dom';
 import useModal from 'hooks/useModal';
 import GenerateModal from 'components/GenerateModal';
 
 const Header = () => {
+  const navigate = useNavigate();
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
   const { openModal, closeModal } = useModal();
 
@@ -22,15 +23,20 @@ const Header = () => {
 
   React.useEffect(() => {
     const fetchUserData = async () => {
-      try {
-        const response = await axios.get('http://192.168.10.142:8080/user', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        console.log('data:', response.data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
+      const accessToken = localStorage.getItem('accessToken');
+
+      if (accessToken) {
+        try {
+          const response = await instance.get('/user', {
+            headers: {
+              Authorization: accessToken,
+            },
+          });
+
+          setImg(response.data.imgUrl);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
       }
     };
 
@@ -38,6 +44,7 @@ const Header = () => {
   }, []);
 
   const handleLogout = () => {
+    navigate('/');
     localStorage.clear();
     window.location.reload();
   };
@@ -61,9 +68,11 @@ const Header = () => {
                 <BellIcon cursor='pointer' />
               </Link>
               <S.Profile
-                src={Profile}
+                src={img}
                 alt='profile'
-                onClick={() => setIsOpened(!isOpened)}
+                onClick={() => {
+                  setIsOpened(!isOpened);
+                }}
               />
               {isOpened && (
                 <S.DropdownContainer>
@@ -82,7 +91,6 @@ const Header = () => {
           ) : (
             <S.Login href={OAUTH_URL}>로그인</S.Login>
           )}
-          <LoginPage />
         </S.ProfileContainer>
       </S.HeaderWrapper>
     </S.HeaderContainer>
