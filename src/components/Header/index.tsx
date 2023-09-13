@@ -7,11 +7,20 @@ import { accessGoogle } from 'apis/recoil';
 import { OAUTH_URL } from 'constants/config';
 import instance from 'apis/httpClient';
 import * as S from './style';
+import useModal from 'hooks/useModal';
+import GenerateModal from 'components/GenerateModal';
 
 const Header = () => {
   const navigate = useNavigate();
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
   const [img, setImg] = useRecoilState(accessGoogle);
+  const { openModal, closeModal } = useModal();
+
+  const modalOpen = () => {
+    openModal({
+      component: <GenerateModal closeModal={closeModal} />,
+    });
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -51,7 +60,7 @@ const Header = () => {
           <Link to='/explore'>
             <S.MenuItem>프로젝트 목록</S.MenuItem>
           </Link>
-          <S.MenuItem>새 프로젝트</S.MenuItem>
+          <S.MenuItem onClick={modalOpen}>새 프로젝트</S.MenuItem>
         </S.MenuList>
         <S.ProfileContainer>
           {localStorage.accessToken ? (

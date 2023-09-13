@@ -12,34 +12,51 @@ interface GenerateModalProps {
 }
 
 interface UserInput {
-  projectName: string;
+  name: string;
   recruitMembers: number;
   startDate: string;
   endDate: string;
   selectedCategories: string[];
-  projectDescription: string;
-  developmentMood: string[];
-  usingStack: string[];
-  cooperationTools: string[];
+  content: string;
+  moodType: string[];
+  skill: string[];
+  communicationTool: string[];
 }
 
 const initialUserInput: UserInput = {
-  projectName: '',
+  name: '',
   recruitMembers: 0,
   startDate: '',
   endDate: '',
   selectedCategories: [],
-  projectDescription: '',
-  developmentMood: [],
-  usingStack: [],
-  cooperationTools: [],
+  content: '',
+  moodType: [],
+  skill: [],
+  communicationTool: [],
 };
 
 const GenerateModal = ({ closeModal }: GenerateModalProps) => {
-  const categories = ['프론트엔드', '백엔드', '앱', '디자인'];
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = String(today.getMonth() + 1);
+    let day = String(today.getDate());
+
+    if (month.length === 1) {
+      month = `0${month}`;
+    }
+
+    if (day.length === 1) {
+      day = `0${day}`;
+    }
+
+    return `${year}-${month}-${day}`;
+  };
+
   const [userInput, setUserInput] = useState(initialUserInput);
   const [tab, setTab] = useState(true);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [startDate, setStartDate] = useState(getCurrentDate());
 
   const handleInputChange = (
     field: keyof UserInput,
@@ -83,7 +100,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
       event.currentTarget.value = '';
     }
   };
-
   return (
     <S.Container>
       <S.Header>
@@ -99,10 +115,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 required
                 placeholder='프로젝트 이름을 알려주세요'
                 type='text'
-                value={userInput.projectName}
-                onChange={(e) =>
-                  handleInputChange('projectName', e.target.value)
-                }
+                value={userInput.name}
+                onChange={(e) => handleInputChange('name', e.target.value)}
               />
             </S.InputArea>
             <S.InputArea>
@@ -123,12 +137,10 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 <Input
                   required
                   placeholder='시작 날짜'
+                  id='currentDate'
                   width={216}
                   type='date'
-                  value={userInput.startDate}
-                  onChange={(e) =>
-                    handleInputChange('startDate', e.target.value)
-                  }
+                  value={startDate}
                 />
                 <Input
                   placeholder='종료 날짜'
@@ -139,45 +151,31 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 />
               </FlexVertical>
             </S.InputArea>
+
+            <S.HeadLine>모집 분야</S.HeadLine>
             <S.InputArea>
-              <S.HeadLine>모집 분야</S.HeadLine>
-              <FlexVertical>
-                {categories.map((data, index) => (
-                  <FlexVertical key={index} style={{ gap: '8px' }}>
-                    <S.CheckBox
-                      required
-                      type='checkbox'
-                      checked={userInput.selectedCategories.includes(data)}
-                      onChange={() => {
-                        if (userInput.selectedCategories.includes(data)) {
-                          return handleInputChange(
-                            'selectedCategories',
-                            userInput.selectedCategories.filter(
-                              (category) => category !== data,
-                            ),
-                          );
-                        } else {
-                          handleInputChange('selectedCategories', [
-                            ...userInput.selectedCategories,
-                            data,
-                          ]);
-                        }
-                      }}
-                    />
-                    <S.Footnote>{data}</S.Footnote>
-                  </FlexVertical>
+              <Input
+                required
+                width={216}
+                type='text'
+                placeholder='예시) 프론트, 백엔드, 디자이너'
+                onKeyPress={(e) =>
+                  handleAddItem('selectedCategories', e.currentTarget.value, e)
+                }
+              />
+              <S.TagArea>
+                {userInput.selectedCategories.map((tag, index) => (
+                  <S.Tag key={index}>{tag}</S.Tag>
                 ))}
-              </FlexVertical>
+              </S.TagArea>
             </S.InputArea>
             <S.InputArea>
               <S.HeadLine>프로젝트 설명</S.HeadLine>
               <S.Description
                 required
                 placeholder='프로젝트에 대해 설명해주세요.'
-                value={userInput.projectDescription}
-                onChange={(e) =>
-                  handleInputChange('projectDescription', e.target.value)
-                }
+                value={userInput.content}
+                onChange={(e) => handleInputChange('content', e.target.value)}
               />
             </S.InputArea>
             <S.Button onClick={() => setTab((prev) => !prev)}>다음</S.Button>
@@ -192,15 +190,12 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 type='text'
                 placeholder='예시) 진중함, 목표지향, 창의적'
                 onKeyPress={(e) =>
-                  handleAddItem('developmentMood', e.currentTarget.value, e)
+                  handleAddItem('moodType', e.currentTarget.value, e)
                 }
               />
               <S.TagArea>
-                {userInput.developmentMood.map((tag, index) => (
-                  <S.Tag key={index}>
-                    <CloseIcon />
-                    <S.TagInner>{tag}</S.TagInner>
-                  </S.Tag>
+                {userInput.moodType.map((tag, index) => (
+                  <S.Tag key={index}>{tag}</S.Tag>
                 ))}
               </S.TagArea>
             </S.InputArea>
@@ -212,11 +207,11 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 type='text'
                 placeholder='사용 기술을 적어주세요.'
                 onKeyPress={(e) =>
-                  handleAddItem('usingStack', e.currentTarget.value, e)
+                  handleAddItem('skill', e.currentTarget.value, e)
                 }
               />
               <S.TagArea>
-                {userInput.usingStack.map((tag, index) => (
+                {userInput.skill.map((tag, index) => (
                   <S.Tag key={index}>{tag}</S.Tag>
                 ))}
               </S.TagArea>
@@ -229,11 +224,11 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 type='text'
                 placeholder='협업할 때 쓰는 툴을 알려주세요.'
                 onKeyPress={(e) =>
-                  handleAddItem('cooperationTools', e.currentTarget.value, e)
+                  handleAddItem('communicationTool', e.currentTarget.value, e)
                 }
               />
               <S.TagArea>
-                {userInput.cooperationTools.map((tag, index) => (
+                {userInput.communicationTool.map((tag, index) => (
                   <S.Tag key={index}>{tag}</S.Tag>
                 ))}
               </S.TagArea>
