@@ -2,15 +2,15 @@ import * as S from './style';
 import Member from 'assets/MemberIcon';
 
 interface ProjectBoxPropsType {
-  title: string;
-  description: string;
+  content: string;
   currentPeople: number;
   requiredPeople: number;
+  name: string;
 }
 
 const ProjectBox = ({
-  title,
-  description,
+  name,
+  content,
   currentPeople,
   requiredPeople,
 }: ProjectBoxPropsType) => {
@@ -21,8 +21,8 @@ const ProjectBox = ({
       </S.ImageContainer>
       <S.Info>
         <S.InfoContainer>
-          <S.Title>{title}</S.Title>
-          <S.Description>{description}</S.Description>
+          <S.Title>{name}</S.Title>
+          <S.Description>{content}</S.Description>
         </S.InfoContainer>
         <S.Footer>
           <Member />

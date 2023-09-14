@@ -83,7 +83,7 @@ const Detail = () => {
         </S.ProjectBox>
         <S.Title>다른 프로젝트들 😎</S.Title>
         <S.Projects>
-          {dummy
+          {/* {dummy
             .filter((data) => data.id <= 3)
             .map((data) => (
               <ProjectBox
@@ -93,7 +93,7 @@ const Detail = () => {
                 currentPeople={data.currentPeople}
                 requiredPeople={data.requiredPeople}
               />
-            ))}
+            ))} */}
         </S.Projects>
       </S.Container>
     </>

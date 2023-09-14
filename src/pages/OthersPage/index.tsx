@@ -110,7 +110,7 @@ const MyPage = () => {
           </S.Search>
         </S.TabContainer>
         <S.Projects>
-          {selected === 0 &&
+          {/* {selected === 0 &&
             (dummy ? (
               dummy.map((data) => (
                 <ProjectBox
@@ -123,8 +123,8 @@ const MyPage = () => {
               ))
             ) : (
               <S.NoContents>참여중인 프로젝트가 없습니다.</S.NoContents>
-            ))}
-          {selected === 1 &&
+            ))} */}
+          {/* {selected === 1 &&
             (dummy ? (
               dummy.map((data) => (
                 <ProjectBox
@@ -137,7 +137,7 @@ const MyPage = () => {
               ))
             ) : (
               <S.NoContents>참여했던 프로젝트가 없습니다.</S.NoContents>
-            ))}
+            ))} */}
         </S.Projects>
       </S.Contents>
     </Layout>

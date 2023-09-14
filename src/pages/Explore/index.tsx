@@ -51,7 +51,7 @@ const Explore = () => {
         <S.ProjectList>
           <S.Title>프로젝트 목록 😎</S.Title>
           <S.ProjectContainer>
-            {dummy.map((data) => (
+            {/* {dummy.map((data) => (
               <ProjectBox
                 key={data.id}
                 title={data.title}
@@ -59,7 +59,7 @@ const Explore = () => {
                 currentPeople={data.currentPeople}
                 requiredPeople={data.requiredPeople}
               />
-            ))}
+            ))} */}
           </S.ProjectContainer>
         </S.ProjectList>
       </S.Contents>

@@ -21,7 +21,7 @@ const Main = () => {
           <S.TrendingContainer>
             <S.Title>인기 급상승 프로젝트 👇</S.Title>
             <S.Trending>
-              {dummy
+              {/* {dummy
                 .filter((data) => data.id <= 6)
                 .map((data) => (
                   <ProjectBox
@@ -31,13 +31,13 @@ const Main = () => {
                     currentPeople={data.currentPeople}
                     requiredPeople={data.requiredPeople}
                   />
-                ))}
+                ))} */}
             </S.Trending>
           </S.TrendingContainer>
           <S.RecommendedContainer>
             <S.Title>희성님을 위한 맞춤 프로젝트 👇</S.Title>
             <S.Recommended>
-              {dummy
+              {/* {dummy
                 .filter((data) => data.id <= 6)
                 .map((data) => (
                   <ProjectBox
@@ -47,7 +47,7 @@ const Main = () => {
                     currentPeople={data.currentPeople}
                     requiredPeople={data.requiredPeople}
                   />
-                ))}
+                ))} */}
             </S.Recommended>
           </S.RecommendedContainer>
         </S.Projects>

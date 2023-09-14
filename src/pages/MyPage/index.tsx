@@ -4,7 +4,6 @@ import EmailIcon from 'assets/EmailIcon';
 import Layout from 'components/Layout';
 import useModal from 'hooks/useModal';
 import ProjectBox from 'components/ProjectBox';
-import dummy from 'fixtures/detail.dummy';
 import * as S from './style';
 import { Link } from 'react-router-dom';
 import Button from 'components/Button';
@@ -25,7 +24,17 @@ const MyPage = () => {
     major: string;
   }
 
+  interface NewProject {
+    id: number;
+    name: string;
+    content: string;
+    currentPeople: number;
+    requiredPeople: number;
+    viewCount: number;
+  }
+
   const [selected, setSelected] = React.useState(0);
+  const [myProject, setMyProject] = React.useState<NewProject[]>([]);
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
     null,
   );
@@ -77,6 +86,10 @@ const MyPage = () => {
         console.error('Error fetching user data:', error);
       }
     };
+
+    instance.get('/project').then((res) => {
+      setMyProject(res.data);
+    });
 
     fetchUserData();
   }, []);
@@ -160,12 +173,12 @@ const MyPage = () => {
         </S.TabContainer>
         <S.Projects>
           {selected === 0 &&
-            (dummy ? (
-              dummy.map((data) => (
+            (myProject ? (
+              myProject.map((data) => (
                 <ProjectBox
                   key={data.id}
-                  title={data.title}
-                  description={data.description}
+                  name={data.name}
+                  content={data.content}
                   currentPeople={data.currentPeople}
                   requiredPeople={data.requiredPeople}
                 />
@@ -174,12 +187,12 @@ const MyPage = () => {
               <S.NoContents>참여중인 프로젝트가 없습니다.</S.NoContents>
             ))}
           {selected === 1 &&
-            (dummy ? (
-              dummy.map((data) => (
+            (myProject ? (
+              myProject.map((data) => (
                 <ProjectBox
                   key={data.id}
-                  title={data.title}
-                  description={data.description}
+                  name={data.name}
+                  content={data.content}
                   currentPeople={data.currentPeople}
                   requiredPeople={data.requiredPeople}
                 />
