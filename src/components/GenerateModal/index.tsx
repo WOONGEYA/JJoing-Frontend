@@ -23,7 +23,7 @@ interface UserInput {
   moods: string[];
   coops: string[];
   positions: string[];
-  imgUrls: string;
+  imgUrl: string;
 }
 
 const initialUserInput: UserInput = {
@@ -36,7 +36,7 @@ const initialUserInput: UserInput = {
   moods: [],
   coops: [],
   positions: [],
-  imgUrls: '',
+  imgUrl: '',
 };
 
 const GenerateModal = ({ closeModal }: GenerateModalProps) => {
@@ -153,7 +153,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
         coops: userInput?.coops, // 협업 툴 8
         moods: userInput?.moods, // 개발 분위기 6
         positions: userInput?.positions, // 모집 분야 3
-        imgUrls: newImageUrl, // 이미지 9
+        imgUrl: newImageUrl, // 이미지 9
       };
 
       await instance.post('/project', newProject, {
@@ -162,7 +162,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
         },
       });
 
-      window.location.reload();
       closeModal();
     } catch (error) {
       console.error('Error updating user profile:', error);
@@ -328,7 +327,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 value={'이전'}
                 background={theme.grey[500]}
               />
-              <Button value={'완료'} onClick={handleCompletion} />
+              <Button value={'완료'} onClick={updateProfile} />
             </FlexVertical>
           </>
         )}
