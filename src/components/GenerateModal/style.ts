@@ -68,9 +68,8 @@ export const Description = styled.textarea`
 
 export const UploadImage = styled.label`
   width: 100%;
-  height: 200px;
+  height: 245px;
   border-radius: 5px;
-  border: 1px dashed ${theme.grey[600]};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,4 +104,30 @@ export const TagInner = styled.div`
   ${font.$footnote};
   position: absolute;
   cursor: pointer;
+`;
+
+export const ProfileImage = styled.label<{ url: string }>`
+  background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.6) 100%
+    ),
+    url(${({ url }) => url}) lightgray 50% / cover no-repeat;
+  height: 26vh;
+  width: 92%;
+  border-radius: 5px;
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+`;
+
+export const Profile = styled.div`
+  width: 109%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

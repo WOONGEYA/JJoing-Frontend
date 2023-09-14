@@ -6,6 +6,8 @@ import { FlexVertical } from 'styles/flex';
 import UploadImage from 'assets/UploadImage';
 import theme from 'styles/theme';
 import Button from 'components/Button';
+import instance from 'apis/httpClient';
+import EditIcon from 'assets/EditIcon';
 
 interface GenerateModalProps {
   closeModal: () => void;
@@ -13,26 +15,28 @@ interface GenerateModalProps {
 
 interface UserInput {
   name: string;
-  recruitMembers: number;
+  requiredPeople: number;
   startDate: string;
   endDate: string;
-  selectedCategories: string[];
+  skills: string[];
   content: string;
-  moodType: string[];
-  skill: string[];
-  communicationTool: string[];
+  moods: string[];
+  coops: string[];
+  positions: string[];
+  imgUrls: string;
 }
 
 const initialUserInput: UserInput = {
   name: '',
-  recruitMembers: 0,
+  requiredPeople: 0,
   startDate: '',
   endDate: '',
-  selectedCategories: [],
+  skills: [],
   content: '',
-  moodType: [],
-  skill: [],
-  communicationTool: [],
+  moods: [],
+  coops: [],
+  positions: [],
+  imgUrls: '',
 };
 
 const GenerateModal = ({ closeModal }: GenerateModalProps) => {
@@ -57,6 +61,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
   const [tab, setTab] = useState(true);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [startDate, setStartDate] = useState(getCurrentDate());
+  const [imageUrl, setImageUrl] = useState<string>('');
+  const [newImageUrl, setNewImageUrl] = useState<string>('');
 
   const handleInputChange = (
     field: keyof UserInput,
@@ -68,23 +74,58 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     }));
   };
 
-  const handleProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
-    if (!files) return;
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const img =
+      'https://blog.kakaocdn.net/dn/bqPYzR/btraWSj02cT/HnIasx6vc09IszobY6Fwe0/img.jpg';
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFile = e.target.files[0];
+      setImageUrl(URL.createObjectURL(selectedFile));
 
-    const reader = new FileReader();
+      const formData = new FormData();
+      formData.append('image', selectedFile);
 
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-      const result = e.target?.result;
-      setUploadedImage(String(result));
-    };
+      const blob = new Blob([JSON.stringify(selectedFile)], {
+        type: 'application/json',
+      });
 
-    reader.readAsDataURL(files[0]);
+      formData.append('data', blob);
+
+      try {
+        const { data } = await instance.post('/project/image', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+
+        console.log('img', data.imgUrl);
+        setNewImageUrl(data.imgUrl);
+
+        if (!data.imgUrl) {
+          setNewImageUrl(img);
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+    } else {
+      setImageUrl(img);
+      setNewImageUrl(img);
+    }
   };
 
   const handleCompletion = () => {
-    console.log(userInput);
-    closeModal();
+    console.log(
+      '유저 업데이트',
+      userInput?.name,
+      userInput?.content,
+      userInput?.requiredPeople,
+      userInput?.endDate,
+      userInput?.skills,
+      userInput?.coops,
+      userInput?.moods,
+      userInput?.positions,
+      newImageUrl,
+    );
   };
   const handleAddItem = (
     field: keyof UserInput,
@@ -100,6 +141,34 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
       event.currentTarget.value = '';
     }
   };
+
+  const updateProfile = async () => {
+    try {
+      const newProject = {
+        name: userInput?.name, // 프로젝트 이름 1
+        content: userInput?.content, // 프로젝트 설명 5
+        requiredPeople: userInput?.requiredPeople, // 모집 인원 2
+        endDate: userInput?.endDate, // 모집 기한 4
+        skills: userInput?.skills, // 사용 기술 7
+        coops: userInput?.coops, // 협업 툴 8
+        moods: userInput?.moods, // 개발 분위기 6
+        positions: userInput?.positions, // 모집 분야 3
+        imgUrls: newImageUrl, // 이미지 9
+      };
+
+      await instance.post('/project', newProject, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
+
+      window.location.reload();
+      closeModal();
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+    }
+  };
+
   return (
     <S.Container>
       <S.Header>
@@ -122,12 +191,13 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <S.HeadLine>모집 인원</S.HeadLine>
               <Input
+                min='0'
                 required
                 placeholder='모집 인원을 알려주세요'
                 type='number'
-                value={userInput.recruitMembers}
+                value={userInput.requiredPeople}
                 onChange={(e) =>
-                  handleInputChange('recruitMembers', parseInt(e.target.value))
+                  handleInputChange('requiredPeople', parseInt(e.target.value))
                 }
               />
             </S.InputArea>
@@ -141,6 +211,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   width={216}
                   type='date'
                   value={startDate}
+                  readOnly
                 />
                 <Input
                   placeholder='종료 날짜'
@@ -160,11 +231,11 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 type='text'
                 placeholder='예시) 프론트, 백엔드, 디자이너'
                 onKeyPress={(e) =>
-                  handleAddItem('selectedCategories', e.currentTarget.value, e)
+                  handleAddItem('positions', e.currentTarget.value, e)
                 }
               />
               <S.TagArea>
-                {userInput.selectedCategories.map((tag, index) => (
+                {userInput.positions.map((tag, index) => (
                   <S.Tag key={index}>{tag}</S.Tag>
                 ))}
               </S.TagArea>
@@ -190,11 +261,11 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 type='text'
                 placeholder='예시) 진중함, 목표지향, 창의적'
                 onKeyPress={(e) =>
-                  handleAddItem('moodType', e.currentTarget.value, e)
+                  handleAddItem('moods', e.currentTarget.value, e)
                 }
               />
               <S.TagArea>
-                {userInput.moodType.map((tag, index) => (
+                {userInput.moods.map((tag, index) => (
                   <S.Tag key={index}>{tag}</S.Tag>
                 ))}
               </S.TagArea>
@@ -207,11 +278,11 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 type='text'
                 placeholder='사용 기술을 적어주세요.'
                 onKeyPress={(e) =>
-                  handleAddItem('skill', e.currentTarget.value, e)
+                  handleAddItem('skills', e.currentTarget.value, e)
                 }
               />
               <S.TagArea>
-                {userInput.skill.map((tag, index) => (
+                {userInput.skills.map((tag, index) => (
                   <S.Tag key={index}>{tag}</S.Tag>
                 ))}
               </S.TagArea>
@@ -224,11 +295,11 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 type='text'
                 placeholder='협업할 때 쓰는 툴을 알려주세요.'
                 onKeyPress={(e) =>
-                  handleAddItem('communicationTool', e.currentTarget.value, e)
+                  handleAddItem('coops', e.currentTarget.value, e)
                 }
               />
               <S.TagArea>
-                {userInput.communicationTool.map((tag, index) => (
+                {userInput.coops.map((tag, index) => (
                   <S.Tag key={index}>{tag}</S.Tag>
                 ))}
               </S.TagArea>
@@ -242,18 +313,12 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   style={{ maxWidth: '100%', height: '255px' }}
                 />
               ) : (
-                <S.UploadImage htmlFor='file'>
-                  <UploadImage />
-                  <S.Footnote style={{ color: theme.grey[600] }}>
-                    선택하여 이미지를 업로드 해주세요.
-                  </S.Footnote>
-                  <input
-                    type='file'
-                    id='file'
-                    accept='.jpg, .png, .jpeg'
-                    onChange={handleProfileImage}
-                    style={{ display: 'none' }}
-                  />
+                <S.UploadImage>
+                  <S.Profile>
+                    <S.ProfileImage url={imageUrl} htmlFor='file' />
+                    <input type='file' id='file' onChange={handleImageChange} />
+                    <EditIcon style={{ position: 'absolute', zIndex: '2' }} />
+                  </S.Profile>
                 </S.UploadImage>
               )}
             </S.InputArea>
