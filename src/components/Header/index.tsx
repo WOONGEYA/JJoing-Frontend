@@ -14,6 +14,7 @@ const Header = () => {
   const navigate = useNavigate();
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
   const { openModal, closeModal } = useModal();
+  const [img, setImg] = useRecoilState(accessGoogle);
 
   const modalOpen = () => {
     openModal({

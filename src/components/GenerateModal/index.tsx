@@ -84,16 +84,16 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     }
   };
 
-  const handleRemoveItem = (field: keyof UserInput, index: number) => {
-    setUserInput((prevInput) => {
-      const updatedField = [...(prevInput[field] as string[])];
-      updatedField.splice(index, 1);
-      return {
-        ...prevInput,
-        [field]: updatedField,
-      };
-    });
-  };
+  // const handleRemoveItem = (field: keyof UserInput, index: number) => {
+  //   setUserInput((prevInput) => {
+  //     const updatedField = [...(prevInput[field] as string[])];
+  //     updatedField.splice(index, 1);
+  //     return {
+  //       ...prevInput,
+  //       [field]: updatedField,
+  //     };
+  //   });
+  // };
 
   return (
     <S.Container>
