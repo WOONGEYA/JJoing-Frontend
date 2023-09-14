@@ -2,7 +2,6 @@ import React from 'react';
 import * as S from './style';
 import * as F from 'styles/flex';
 import trash from 'assets/trash.svg';
-import Trash from 'assets/Trash';
 
 interface Notification {
   user: string;
@@ -34,7 +33,7 @@ function NotifyBox({ notification, onDelete }: NotifyBoxProps) {
         </F.FlexVertical>
       </S.Element>
       <S.Else>
-        <Trash onClick={onDelete} />
+        <S.Icon src={trash} onClick={onDelete} />
         <S.Time>{timestamp}</S.Time>
       </S.Else>
     </S.Container>

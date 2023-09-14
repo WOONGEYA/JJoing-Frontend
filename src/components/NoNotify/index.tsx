@@ -1,7 +1,4 @@
-import React from 'react';
-import Header from 'components/Header';
 import styled from 'styled-components';
-import bell from 'assets/NoNotify.svg';
 import { font } from 'styles/font';
 import theme from 'styles/theme';
 
