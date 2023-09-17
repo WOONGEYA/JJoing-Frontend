@@ -20,6 +20,7 @@ export const Image = styled.img`
   display: block;
   object-fit: cover;
   box-sizing: inherit;
+  position: absolute;
 `;
 
 export const Info = styled.div`

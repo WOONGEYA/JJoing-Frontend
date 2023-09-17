@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ProjectBox from 'components/ProjectBox';
 import Dropdown from 'components/Dropdown';
 import dummy from 'fixtures/detail.dummy';
@@ -30,6 +30,7 @@ interface NewProject {
   currentPeople: number;
   requiredPeople: number;
   viewCount: number;
+  imgUrl: string;
 }
 
 const Explore = () => {
@@ -44,9 +45,11 @@ const Explore = () => {
     setIsOpened(copy);
   };
 
-  instance.get('/project').then((res) => {
-    setMyProject(res.data);
-  });
+  useEffect(() => {
+    instance.get('/project').then((res) => {
+      setMyProject(res.data);
+    });
+  }, []);
 
   return (
     <Layout>
@@ -72,6 +75,7 @@ const Explore = () => {
                 content={data.content}
                 currentPeople={data.currentPeople}
                 requiredPeople={data.requiredPeople}
+                imgUrl={data.imgUrl}
               />
             ))}
           </S.ProjectContainer>

@@ -38,24 +38,7 @@ const LoginPage = () => {
       }
     };
 
-    const refreshToken = async () => {
-      if (!localStorage.getItem('accessToken')) {
-        try {
-          const { data } = await instance.put('/login', {
-            refreshToken: localStorage.getItem('refreshToken'),
-          });
-
-          localStorage.setItem('accessToken', data.accessToken);
-          localStorage.setItem('refreshToken', data.refreshToken);
-          console.log('이게 되노');
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-
     fetchAndNavigate();
-    refreshToken();
   }, [encodedValue]);
 
   return <></>;

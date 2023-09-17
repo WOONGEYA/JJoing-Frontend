@@ -31,10 +31,11 @@ const MyPage = () => {
     currentPeople: number;
     requiredPeople: number;
     viewCount: number;
+    imgUrl: string;
   }
 
   const [selected, setSelected] = React.useState(0);
-  const [myProject, setMyProject] = React.useState<NewProject[]>([]);
+  const [myProject, setMyProject] = React.useState<NewProject[] | null>([]);
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
     null,
   );
@@ -59,23 +60,6 @@ const MyPage = () => {
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const { data } = await instance.get('/project', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        console.log('data:', data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
-  React.useEffect(() => {
-    const fetchUserData = async () => {
-      try {
         const response = await instance.get('/user', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -87,15 +71,21 @@ const MyPage = () => {
       }
     };
 
-    instance.get('/project').then((res) => {
-      setMyProject(res.data);
-    });
-
     fetchUserData();
   }, []);
 
-  console.log('유저 정보', userProfile);
-  console.log(userProfile?.nickName);
+  React.useEffect(() => {
+    instance
+      .get('/project/my', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then((response) => {
+        setMyProject(response.data);
+        console.log(response.data);
+      });
+  }, []);
 
   return (
     <Layout>
@@ -181,6 +171,7 @@ const MyPage = () => {
                   content={data.content}
                   currentPeople={data.currentPeople}
                   requiredPeople={data.requiredPeople}
+                  imgUrl={data.imgUrl}
                 />
               ))
             ) : (
@@ -195,6 +186,7 @@ const MyPage = () => {
                   content={data.content}
                   currentPeople={data.currentPeople}
                   requiredPeople={data.requiredPeople}
+                  imgUrl={data.imgUrl}
                 />
               ))
             ) : (

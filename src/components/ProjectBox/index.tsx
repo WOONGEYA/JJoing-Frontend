@@ -6,6 +6,7 @@ interface ProjectBoxPropsType {
   currentPeople: number;
   requiredPeople: number;
   name: string;
+  imgUrl: string;
 }
 
 const ProjectBox = ({
@@ -13,11 +14,12 @@ const ProjectBox = ({
   content,
   currentPeople,
   requiredPeople,
+  imgUrl,
 }: ProjectBoxPropsType) => {
   return (
     <S.Container>
       <S.ImageContainer>
-        <S.Image />
+        <S.Image src={imgUrl} />
       </S.ImageContainer>
       <S.Info>
         <S.InfoContainer>
