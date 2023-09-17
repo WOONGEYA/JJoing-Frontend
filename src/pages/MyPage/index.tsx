@@ -162,36 +162,34 @@ const MyPage = () => {
           </S.Search>
         </S.TabContainer>
         <S.Projects>
-          {selected === 0 &&
-            (myProject ? (
-              myProject.map((data) => (
-                <ProjectBox
-                  key={data.id}
-                  name={data.name}
-                  content={data.content}
-                  currentPeople={data.currentPeople}
-                  requiredPeople={data.requiredPeople}
-                  imgUrl={data.imgUrl}
-                />
-              ))
-            ) : (
-              <S.NoContents>참여중인 프로젝트가 없습니다.</S.NoContents>
-            ))}
-          {selected === 1 &&
-            (myProject ? (
-              myProject.map((data) => (
-                <ProjectBox
-                  key={data.id}
-                  name={data.name}
-                  content={data.content}
-                  currentPeople={data.currentPeople}
-                  requiredPeople={data.requiredPeople}
-                  imgUrl={data.imgUrl}
-                />
-              ))
-            ) : (
-              <S.NoContents>참여했던 프로젝트가 없습니다.</S.NoContents>
-            ))}
+          {selected === 0 && myProject && myProject.length > 0 ? (
+            myProject.map((data) => (
+              <ProjectBox
+                key={data.id}
+                name={data.name}
+                content={data.content}
+                currentPeople={data.currentPeople}
+                requiredPeople={data.requiredPeople}
+                imgUrl={data.imgUrl}
+              />
+            ))
+          ) : selected === 0 ? (
+            <S.NoContents>참여중인 프로젝트가 없습니다.</S.NoContents>
+          ) : null}
+          {selected === 1 && myProject && myProject.length > 0 ? (
+            myProject.map((data) => (
+              <ProjectBox
+                key={data.id}
+                name={data.name}
+                content={data.content}
+                currentPeople={data.currentPeople}
+                requiredPeople={data.requiredPeople}
+                imgUrl={data.imgUrl}
+              />
+            ))
+          ) : selected === 1 ? (
+            <S.NoContents>참여했던 프로젝트가 없습니다.</S.NoContents>
+          ) : null}
         </S.Projects>
       </S.Contents>
     </Layout>
