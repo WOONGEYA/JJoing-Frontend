@@ -163,34 +163,40 @@ const MyPage = () => {
         </S.TabContainer>
         <S.Projects>
           {selected === 0 && myProject && myProject.length > 0 ? (
-            myProject.map((data) => (
-              <ProjectBox
-                id={data.id}
-                key={data.id}
-                name={data.name}
-                content={data.content}
-                currentPeople={data.currentPeople}
-                requiredPeople={data.requiredPeople}
-                imgUrl={data.imgUrl}
-                viewCount={data.viewCount}
-              />
-            ))
+            myProject
+              .slice() // 원본 배열을 변경하지 않기 위해 복사본을 만듭니다.
+              .sort((a, b) => b.id - a.id) // id를 역순으로 정렬합니다.
+              .map((data) => (
+                <ProjectBox
+                  id={data.id}
+                  key={data.id}
+                  name={data.name}
+                  content={data.content}
+                  currentPeople={data.currentPeople}
+                  requiredPeople={data.requiredPeople}
+                  imgUrl={data.imgUrl}
+                  viewCount={data.viewCount}
+                />
+              ))
           ) : selected === 0 ? (
             <S.NoContents>참여중인 프로젝트가 없습니다.</S.NoContents>
           ) : null}
           {selected === 1 && myProject && myProject.length > 0 ? (
-            myProject.map((data) => (
-              <ProjectBox
-                id={data.id}
-                key={data.id}
-                name={data.name}
-                content={data.content}
-                currentPeople={data.currentPeople}
-                requiredPeople={data.requiredPeople}
-                imgUrl={data.imgUrl}
-                viewCount={data.viewCount}
-              />
-            ))
+            myProject
+              .slice() // 원본 배열을 변경하지 않기 위해 복사본을 만듭니다.
+              .sort((a, b) => b.id - a.id) // id를 역순으로 정렬합니다.
+              .map((data) => (
+                <ProjectBox
+                  id={data.id}
+                  key={data.id}
+                  name={data.name}
+                  content={data.content}
+                  currentPeople={data.currentPeople}
+                  requiredPeople={data.requiredPeople}
+                  imgUrl={data.imgUrl}
+                  viewCount={data.viewCount}
+                />
+              ))
           ) : selected === 1 ? (
             <S.NoContents>참여했던 프로젝트가 없습니다.</S.NoContents>
           ) : null}

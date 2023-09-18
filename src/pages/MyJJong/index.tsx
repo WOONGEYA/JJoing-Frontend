@@ -14,10 +14,6 @@ const MyJJong = () => {
     setSearchValue(newValue);
   };
 
-  const filteredProjects = dummy.filter((data) =>
-    data.title.toLowerCase().includes(searchValue.toLowerCase()),
-  );
-
   React.useEffect(() => {
     const fetchedData = async () => {
       try {
