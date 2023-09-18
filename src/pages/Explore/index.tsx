@@ -69,6 +69,7 @@ const Explore = () => {
           <S.ProjectContainer>
             {myProject.map((data) => (
               <ProjectBox
+                id={data.id}
                 key={data.id}
                 name={data.name}
                 content={data.content}

@@ -96,3 +96,5 @@ export const Like = styled.div`
   color: ${theme.secondary};
   ${font.$callout}
 `;
+
+export const NavigateContainer = styled.div``;

@@ -3,7 +3,6 @@ import Header from 'components/Header';
 import MemberIcon from 'assets/MemberIcon';
 import * as S from './style';
 import dummy from 'fixtures/detail.dummy';
-import ProjectBox from 'components/ProjectBox';
 import theme from 'styles/theme';
 
 interface MembersPropsType {
@@ -81,20 +80,6 @@ const Detail = () => {
           <S.SubCallOut>🤝 협업 툴</S.SubCallOut>
           <CategoryList categories={cooperation} />
         </S.ProjectBox>
-        <S.Title>다른 프로젝트들 😎</S.Title>
-        <S.Projects>
-          {/* {dummy
-            .filter((data) => data.id <= 3)
-            .map((data) => (
-              <ProjectBox
-                key={data.id}
-                title={data.title}
-                description={data.description}
-                currentPeople={data.currentPeople}
-                requiredPeople={data.requiredPeople}
-              />
-            ))} */}
-        </S.Projects>
       </S.Container>
     </>
   );

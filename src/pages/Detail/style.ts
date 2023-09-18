@@ -15,7 +15,7 @@ const getBackgroundColor = (props: any) => {
 
 export const Container = styled.div`
   width: 100vw;
-  height: 120rem;
+  height: 73rem;
   padding: 140px 204px 0;
   box-sizing: border-box;
   display: flex;
@@ -25,7 +25,7 @@ export const Container = styled.div`
 
 export const ProjectBox = styled.div`
   width: 100%;
-  height: 58rem;
+  height: 60rem;
   box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.15);
   padding: 48px 42px 40px;
   box-sizing: border-box;

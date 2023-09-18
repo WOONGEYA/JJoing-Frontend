@@ -165,6 +165,7 @@ const MyPage = () => {
           {selected === 0 && myProject && myProject.length > 0 ? (
             myProject.map((data) => (
               <ProjectBox
+                id={data.id}
                 key={data.id}
                 name={data.name}
                 content={data.content}
@@ -180,6 +181,7 @@ const MyPage = () => {
           {selected === 1 && myProject && myProject.length > 0 ? (
             myProject.map((data) => (
               <ProjectBox
+                id={data.id}
                 key={data.id}
                 name={data.name}
                 content={data.content}

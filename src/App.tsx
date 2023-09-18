@@ -30,7 +30,7 @@ const App = () => {
             <Route path='/other' element={<OthersPage />} />
             <Route path='/mypage' element={<MyPage />} />
             <Route path='/login/oauth2/code/google' element={<LoginPage />} />
-            <Route path='/detail' element={<Detail />} />
+            <Route path='/detail/:id' element={<Detail />} />
             <Route path='/explore' element={<Explore />} />
             <Route path='/' element={<Main />} />
             <Route path='/notify' element={<Notify />} />
