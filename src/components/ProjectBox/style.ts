@@ -20,6 +20,7 @@ export const Image = styled.img`
   display: block;
   object-fit: cover;
   box-sizing: inherit;
+  position: absolute;
 `;
 
 export const Info = styled.div`
@@ -54,6 +55,7 @@ export const Footer = styled.div`
   width: calc(100% - 32px);
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
   border-top: 1px solid ${theme.grey[400]};
 `;
@@ -70,6 +72,12 @@ export const InfoContainer = styled.div`
   gap: 8px;
 `;
 
+export const MemberCount = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
 export const ImageContainer = styled.div`
   padding-top: 170px;
   width: 100%;
@@ -77,3 +85,16 @@ export const ImageContainer = styled.div`
   text-decoration: none;
   background-color: ${theme.grey[300]};
 `;
+
+export const HeartCount = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 3px;
+`;
+
+export const Like = styled.div`
+  color: ${theme.secondary};
+  ${font.$callout}
+`;
+
+export const NavigateContainer = styled.div``;

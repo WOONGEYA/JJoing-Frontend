@@ -110,6 +110,7 @@ export const Tab = styled.div<{ id: number; selected: number }>`
   border-bottom: 2px solid ${theme.grey[500]};
   ${font.$body};
   transition: 0.25s ease-in;
+  cursor: pointer;
 `;
 
 export const UserWrapper = styled.div`
@@ -136,7 +137,7 @@ export const NoContents = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${font.$title02};
+  ${font.$title03};
   width: 100%;
   height: 20vh;
 `;

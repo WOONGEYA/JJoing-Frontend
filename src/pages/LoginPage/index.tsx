@@ -18,7 +18,7 @@ const LoginPage = () => {
       );
       return response.data;
     } catch (error) {
-      console.error('error error error');
+      console.error('');
       throw error;
     }
   };
@@ -28,7 +28,6 @@ const LoginPage = () => {
       try {
         const data = await postCode(encodedValue);
         const { accessToken, refreshToken } = data;
-
         navigate('/');
 
         localStorage.setItem('accessToken', accessToken);

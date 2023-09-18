@@ -38,4 +38,5 @@ export const ProjectContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
+  cursor: pointer;
 `;

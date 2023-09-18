@@ -14,10 +14,6 @@ const MyJJong = () => {
     setSearchValue(newValue);
   };
 
-  const filteredProjects = dummy.filter((data) =>
-    data.title.toLowerCase().includes(searchValue.toLowerCase()),
-  );
-
   React.useEffect(() => {
     const fetchedData = async () => {
       try {
@@ -39,15 +35,15 @@ const MyJJong = () => {
           <Search value={searchValue} onChange={handleSearchChange} />
         </S.Header>
         <S.Projects>
-          {filteredProjects.map((data, index) => (
+          {/* {filteredProjects.map((data, index) => (
             <ProjectBox
               key={index}
-              title={data.title}
+              name={data.name}
               description={data.description}
               currentPeople={data.currentPeople}
               requiredPeople={data.requiredPeople}
             />
-          ))}
+          ))} */}
         </S.Projects>
       </S.Container>
       <Footer />

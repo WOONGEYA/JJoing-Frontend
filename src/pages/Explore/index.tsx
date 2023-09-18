@@ -1,60 +1,31 @@
-import React from 'react';
-import Layout from 'components/Layout';
-import Dropdown from 'components/Dropdown';
+import React, { useEffect } from 'react';
 import ProjectBox from 'components/ProjectBox';
-import instance from 'apis/httpClient';
+import Dropdown from 'components/Dropdown';
 import * as S from './style';
+import Layout from 'components/Layout';
+import instance from 'apis/httpClient';
 
 const dropdownOptions = [
   {
     id: '0',
-    currentOption: '개발 분야',
-    options: ['Web', 'iOS', 'Android', '게임', '기타'],
-  },
-  {
-    id: '1',
-    currentOption: '모집 직군',
-    options: ['Front-end', 'Back-end', 'Designer', '기타'],
-  },
-  {
-    id: '2',
-    currentOption: '정렬 기준',
-    options: ['인기순', '조회수 많은 순', '최신순'],
+    currentOption: '정렬 기준 선택',
+    options: ['인기순', '마이쫑 많은 순', '최신순'],
   },
 ];
 
-interface ProjectDataType {
+interface NewProject {
   id: number;
   name: string;
   content: string;
+  currentPeople: number;
+  requiredPeople: number;
+  viewCount: number;
+  imgUrl: string;
 }
 
 const Explore = () => {
   const [isOpened, setIsOpened] = React.useState([false, false, false]);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [projectData, setProjectData] = React.useState<ProjectDataType[]>([]);
-  const accessToken = localStorage.getItem('accessToken');
-
-  React.useEffect(() => {
-    fetchAllProjects();
-  }, []);
-
-  const fetchAllProjects = async () => {
-    try {
-      const response = (
-        await instance.get('/project', {
-          headers: {
-            Authorization: accessToken,
-          },
-        })
-      ).data;
-
-      setProjectData(response);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [myProject, setMyProject] = React.useState<NewProject[]>([]);
 
   const handleDropdown = (e: React.MouseEvent<HTMLDivElement>) => {
     const { id } = e.currentTarget;
@@ -63,6 +34,12 @@ const Explore = () => {
     copy[parsedId] = !copy[parsedId];
     setIsOpened(copy);
   };
+
+  useEffect(() => {
+    instance.get('/project').then((res) => {
+      setMyProject(res.data);
+    });
+  }, []);
 
   return (
     <Layout>
@@ -81,24 +58,18 @@ const Explore = () => {
         <S.ProjectList>
           <S.Title>프로젝트 목록 😎</S.Title>
           <S.ProjectContainer>
-            {!isLoading ? (
-              projectData ? (
-                // 지금 요청받은 데이터가 좀 달라서 any는 임시방편으로 사용함
-                projectData.map((data: any) => (
-                  <ProjectBox
-                    key={data.id}
-                    title={data.name}
-                    description={data.content}
-                    currentPeople={data.currentPeople}
-                    requiredPeople={data.requiredPeople}
-                  />
-                ))
-              ) : (
-                <h1>프로젝트가 없습니다.</h1>
-              )
-            ) : (
-              <h1>불러오는 중...</h1>
-            )}
+            {myProject.map((data) => (
+              <ProjectBox
+                id={data.id}
+                key={data.id}
+                name={data.name}
+                content={data.content}
+                currentPeople={data.currentPeople}
+                requiredPeople={data.requiredPeople}
+                imgUrl={data.imgUrl}
+                viewCount={data.viewCount}
+              />
+            ))}
           </S.ProjectContainer>
         </S.ProjectList>
       </S.Contents>

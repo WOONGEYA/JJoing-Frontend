@@ -32,6 +32,7 @@ export const MenuList = styled.div`
 export const MenuItem = styled.div`
   color: ${theme.black};
   ${font.$body};
+  cursor: pointer;
 `;
 
 export const ProfileContainer = styled.div`

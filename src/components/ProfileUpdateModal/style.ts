@@ -59,8 +59,9 @@ export const ProfileImage = styled.label<{ url: string }>`
     ),
     url(${({ url }) => url}) lightgray 50% / cover no-repeat;
   border-radius: 50%;
-  height: 100%;
-  width: 100%;
+  height: 105%;
+  width: 105%;
+  position: absolute;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

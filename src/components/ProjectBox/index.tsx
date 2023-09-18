@@ -1,36 +1,56 @@
 import * as S from './style';
 import Member from 'assets/MemberIcon';
+import Heart from 'assets/Heart';
+import { useNavigate } from 'react-router-dom';
 
 interface ProjectBoxPropsType {
-  title: string;
-  description: string;
+  content: string;
   currentPeople: number;
   requiredPeople: number;
+  name: string;
+  imgUrl: string;
+  viewCount: number;
+  id: number;
 }
 
 const ProjectBox = ({
-  title,
-  description,
+  name,
+  content,
   currentPeople,
   requiredPeople,
+  imgUrl,
+  viewCount,
+  id,
 }: ProjectBoxPropsType) => {
+  const navigate = useNavigate();
+
   return (
     <S.Container>
-      <S.ImageContainer>
-        <S.Image />
-      </S.ImageContainer>
-      <S.Info>
+      <S.NavigateContainer
+        onClick={() => {
+          navigate(`/detail/${id}`);
+        }}
+      >
+        <S.ImageContainer>
+          <S.Image src={imgUrl} />
+        </S.ImageContainer>
         <S.InfoContainer>
-          <S.Title>{title}</S.Title>
-          <S.Description>{description}</S.Description>
+          <S.Title>{name}</S.Title>
+          <S.Description>{content}</S.Description>
         </S.InfoContainer>
-        <S.Footer>
+      </S.NavigateContainer>
+      <S.Footer>
+        <S.MemberCount>
           <Member />
           <S.People>
             {currentPeople}/{requiredPeople}
           </S.People>
-        </S.Footer>
-      </S.Info>
+        </S.MemberCount>
+        <S.HeartCount>
+          <Heart />
+          <S.Like>{viewCount}</S.Like>
+        </S.HeartCount>
+      </S.Footer>
     </S.Container>
   );
 };

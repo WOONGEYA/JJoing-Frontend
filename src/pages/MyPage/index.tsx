@@ -3,15 +3,14 @@ import GithubIcon from 'assets/GithubIcon';
 import EmailIcon from 'assets/EmailIcon';
 import Layout from 'components/Layout';
 import useModal from 'hooks/useModal';
-import ProfileUpdateModal from 'components/ProfileUpdataModal';
 import ProjectBox from 'components/ProjectBox';
-import dummy from 'fixtures/detail.dummy';
 import * as S from './style';
 import { Link } from 'react-router-dom';
 import Button from 'components/Button';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import instance from 'apis/httpClient';
+import ProfileUpdateModal from 'components/ProfileUpdateModal';
 
 const MyPage = () => {
   interface UserProfile {
@@ -25,7 +24,18 @@ const MyPage = () => {
     major: string;
   }
 
+  interface NewProject {
+    id: number;
+    name: string;
+    content: string;
+    currentPeople: number;
+    requiredPeople: number;
+    viewCount: number;
+    imgUrl: string;
+  }
+
   const [selected, setSelected] = React.useState(0);
+  const [myProject, setMyProject] = React.useState<NewProject[] | null>([]);
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
     null,
   );
@@ -50,23 +60,6 @@ const MyPage = () => {
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await instance.get('/project', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        console.log('data:', response.data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
-  React.useEffect(() => {
-    const fetchUserData = async () => {
-      try {
         const response = await instance.get('/user', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -82,23 +75,17 @@ const MyPage = () => {
   }, []);
 
   React.useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await instance.get('/user', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        setUserProfile(response.data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    fetchUserData();
+    instance
+      .get('/project/my', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then((response) => {
+        setMyProject(response.data);
+        console.log(response.data);
+      });
   }, []);
-
-  console.log('유저 정보', userProfile);
 
   return (
     <Layout>
@@ -130,9 +117,6 @@ const MyPage = () => {
                       : '(분야를 추가해주세요)'}
                   </S.UserPosition>
                 </div>
-                <S.Follow>
-                  {/* 팔로워 {follower} 팔로잉 {following} */}
-                </S.Follow>
                 <S.StatusMessage>
                   {userProfile?.statusMessage
                     ? userProfile?.statusMessage
@@ -178,34 +162,44 @@ const MyPage = () => {
           </S.Search>
         </S.TabContainer>
         <S.Projects>
-          {selected === 0 &&
-            (dummy ? (
-              dummy.map((data) => (
+          {selected === 0 && myProject && myProject.length > 0 ? (
+            myProject
+              .slice() // 원본 배열을 변경하지 않기 위해 복사본을 만듭니다.
+              .sort((a, b) => b.id - a.id) // id를 역순으로 정렬합니다.
+              .map((data) => (
                 <ProjectBox
+                  id={data.id}
                   key={data.id}
-                  title={data.title}
-                  description={data.description}
+                  name={data.name}
+                  content={data.content}
                   currentPeople={data.currentPeople}
                   requiredPeople={data.requiredPeople}
+                  imgUrl={data.imgUrl}
+                  viewCount={data.viewCount}
                 />
               ))
-            ) : (
-              <S.NoContents>참여중인 프로젝트가 없습니다.</S.NoContents>
-            ))}
-          {selected === 1 &&
-            (dummy ? (
-              dummy.map((data) => (
+          ) : selected === 0 ? (
+            <S.NoContents>참여중인 프로젝트가 없습니다.</S.NoContents>
+          ) : null}
+          {selected === 1 && myProject && myProject.length > 0 ? (
+            myProject
+              .slice() // 원본 배열을 변경하지 않기 위해 복사본을 만듭니다.
+              .sort((a, b) => b.id - a.id) // id를 역순으로 정렬합니다.
+              .map((data) => (
                 <ProjectBox
+                  id={data.id}
                   key={data.id}
-                  title={data.title}
-                  description={data.description}
+                  name={data.name}
+                  content={data.content}
                   currentPeople={data.currentPeople}
                   requiredPeople={data.requiredPeople}
+                  imgUrl={data.imgUrl}
+                  viewCount={data.viewCount}
                 />
               ))
-            ) : (
-              <S.NoContents>참여했던 프로젝트가 없습니다.</S.NoContents>
-            ))}
+          ) : selected === 1 ? (
+            <S.NoContents>참여했던 프로젝트가 없습니다.</S.NoContents>
+          ) : null}
         </S.Projects>
       </S.Contents>
     </Layout>

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
 import MemberIcon from 'assets/MemberIcon';
 import * as S from './style';
 import dummy from 'fixtures/detail.dummy';
-import ProjectBox from 'components/ProjectBox';
 import theme from 'styles/theme';
+import { useParams } from 'react-router-dom';
+import instance from 'apis/httpClient';
 
 interface MembersPropsType {
   images: string[];
@@ -40,7 +41,38 @@ const CategoryList = ({ categories }: CategoryPropsType) => (
   </S.Categories>
 );
 
+interface UserInfo {
+  content: string;
+  coops: string[];
+  currentPeople: number;
+  endDate: string;
+  imgUrl: string;
+  moods: string[];
+  name: string;
+  positions: string[];
+  requiredPeople: number;
+  skills: string[];
+  startDate: string;
+}
+
 const Detail = () => {
+  const { id } = useParams();
+  const [userInfo, setUserInfo] = useState<UserInfo | null>();
+
+  useEffect(() => {
+    const fetchedData = async () => {
+      try {
+        const { data } = await instance.get(`/project/${id}`);
+        setUserInfo(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchedData();
+  }, []);
+
+  console.log('userInfo', userInfo);
+
   const [
     {
       title,
@@ -59,12 +91,12 @@ const Detail = () => {
       <S.Container>
         <S.ProjectBox>
           <S.MainContents>
-            <S.Image />
+            <S.Image src={userInfo?.imgUrl} />
             <S.MainDesc>
-              <S.Title>{title}</S.Title>
+              <S.Title>{userInfo?.name}</S.Title>
               <S.DeadLine>📅 모집 기한</S.DeadLine>
               <S.DeadLine style={{ color: theme.grey[500] }}>
-                {deadline}
+                {userInfo?.startDate} ~ {userInfo?.endDate}
               </S.DeadLine>
               <Members images={memberImage} />
               <S.Button color={theme.primary}>마이쫑에 추가하기</S.Button>
@@ -72,29 +104,15 @@ const Detail = () => {
             </S.MainDesc>
           </S.MainContents>
           <S.CallOut>📋 프로젝트 설명</S.CallOut>
-          <S.Description>{description}</S.Description>
+          <S.Description>{userInfo?.content}</S.Description>
           <S.CallOut>🧑‍💻 업무 카테고리</S.CallOut>
           <S.SubCallOut>👪 개발 분위기</S.SubCallOut>
-          <CategoryList categories={atmosphere} />
+          <CategoryList categories={userInfo?.moods || []} />
           <S.SubCallOut>🛠 사용 기술</S.SubCallOut>
-          <CategoryList categories={stack} />
+          <CategoryList categories={userInfo?.skills || []} />
           <S.SubCallOut>🤝 협업 툴</S.SubCallOut>
-          <CategoryList categories={cooperation} />
+          <CategoryList categories={userInfo?.coops || []} />
         </S.ProjectBox>
-        <S.Title>다른 프로젝트들 😎</S.Title>
-        <S.Projects>
-          {dummy
-            .filter((data) => data.id <= 3)
-            .map((data) => (
-              <ProjectBox
-                key={data.id}
-                title={data.title}
-                description={data.description}
-                currentPeople={data.currentPeople}
-                requiredPeople={data.requiredPeople}
-              />
-            ))}
-        </S.Projects>
       </S.Container>
     </>
   );

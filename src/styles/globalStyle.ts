@@ -45,10 +45,6 @@ table {
 	border-spacing: 0;
 }
 
-input[type=file]{
-	display: none;
-}
-
 a {
 	text-decoration: none;
 }

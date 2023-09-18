@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './style';
 import EditIcon from 'assets/EditIcon';
 import CloseIcon from 'assets/CloseIcon';
@@ -20,12 +20,15 @@ interface UserProfile {
   email: string;
   school: string;
   major: string;
+  age: number;
+  imageUrl: string;
 }
 
 const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
   const [img, setImg] = useRecoilState(accessGoogle);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [imageUrl, setImageUrl] = useState<string>(img);
+  const [newImageUrl, setNewImageUrl] = useState<string>(img);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -44,62 +47,60 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
     fetchUserData();
   }, []);
 
-  const handleProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
-    if (!files) return;
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFile = e.target.files[0];
+      setImageUrl(URL.createObjectURL(selectedFile));
 
-    const reader = new FileReader();
+      const formData = new FormData();
+      formData.append('image', selectedFile);
 
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-      const result = e.target?.result;
-      setImageUrl(result as string);
-    };
+      const blob = new Blob([JSON.stringify(selectedFile)], {
+        type: 'application/json',
+      });
 
-    reader.readAsDataURL(files[0]);
+      formData.append('data', blob);
+
+      try {
+        const { data } = await instance.post('/user/image', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+
+        setNewImageUrl(data.imgUrl);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+    }
   };
 
-  const handleProfileFieldChange = useMemo(
-    () => (field: keyof UserProfile, value: string) => {
-      if (profile === null) return;
+  const handleProfileFieldChange = (
+    field: keyof UserProfile,
+    value: string,
+  ) => {
+    if (profile === null) return;
 
-      const newProfile: UserProfile = { ...profile, [field]: value };
-      setProfile(newProfile);
-    },
-    [profile],
-  );
+    const newProfile: UserProfile = { ...profile, [field]: value };
+    setProfile(newProfile);
+  };
 
-  if (!profile) {
-    return <div>Loading...</div>;
-  }
-
-  console.log('이미지 유알엘', imageUrl);
   const updateProfile = async () => {
     try {
-      await instance.put(
-        '/user',
-        {
-          nickname: profile.nickName,
-          githubUrl: profile.githubUrl,
-          email: profile.email,
-          statusMessage: profile.statusMessage,
-          major: profile.major,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        },
-      );
+      const updateData = {
+        nickName: profile?.nickName,
+        major: profile?.major,
+        githubUrl: profile?.githubUrl,
+        imageUrl: newImageUrl,
+        statusMessage: profile?.statusMessage,
+      };
 
-      await instance.post(
-        '/user/image',
-        { image: imageUrl },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
+      await instance.put('/user', updateData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
-      );
+      });
 
       window.location.reload();
       closeModal();
@@ -107,6 +108,10 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
       console.error('Error updating user profile:', error);
     }
   };
+
+  if (!profile) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <S.ModalContainer>
@@ -118,12 +123,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         <S.ContentTitle>프로필 이미지</S.ContentTitle>
         <S.Profile>
           <S.ProfileImage url={imageUrl} htmlFor='file' />
-          <input
-            type='file'
-            id='file'
-            accept='.jpg, .png, .jpeg'
-            onChange={handleProfileImage}
-          />
+          <input type='file' id='file' onChange={handleImageChange} />
           <EditIcon style={{ position: 'absolute', zIndex: '2' }} />
         </S.Profile>
       </S.Content>
@@ -134,7 +134,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
           width='calc(100% - 32px)'
           name='name'
           type='text'
-          value={profile?.nickName || ''}
+          value={profile.nickName || ''}
           onChange={(e) => handleProfileFieldChange('nickName', e.target.value)}
         />
       </S.Content>
