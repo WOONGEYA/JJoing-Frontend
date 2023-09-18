@@ -12,27 +12,29 @@ import Input from 'components/Input';
 import instance from 'apis/httpClient';
 import ProfileUpdateModal from 'components/ProfileUpdateModal';
 
-const MyPage = () => {
-  interface UserProfile {
-    statusMessage: string;
-    nickName: string;
-    githubUrl: string;
-    name: string;
-    email: string;
-    imgUrl: string;
-    school: string;
-    major: string;
-  }
+interface UserProfile {
+  statusMessage: string;
+  nickName: string;
+  githubUrl: string;
+  name: string;
+  email: string;
+  imgUrl: string;
+  school: string;
+  major: string;
+}
 
-  interface NewProject {
-    id: number;
-    name: string;
-    content: string;
-    currentPeople: number;
-    requiredPeople: number;
-    viewCount: number;
-    imgUrl: string;
-  }
+interface NewProject {
+  id: number;
+  name: string;
+  content: string;
+  currentPeople: number;
+  requiredPeople: number;
+  viewCount: number;
+  imgUrl: string;
+}
+
+const MyPage = () => {
+  const { openModal, closeModal } = useModal();
 
   const [selected, setSelected] = React.useState(0);
   const [myProject, setMyProject] = React.useState<NewProject[] | null>([]);
@@ -44,6 +46,16 @@ const MyPage = () => {
   const handleTabSelect = (e: React.MouseEvent<HTMLDivElement>) => {
     const id = parseInt(e.currentTarget.id);
     setSelected(id);
+  };
+
+  const copyTooltipText = (text: string) => {
+    navigator.clipboard.writeText(text).then(() => alert('복사 완료'));
+  };
+
+  const modalOpen = () => {
+    openModal({
+      component: <ProfileUpdateModal closeModal={closeModal} />,
+    });
   };
 
   React.useEffect(() => {
@@ -93,7 +105,59 @@ const MyPage = () => {
     <Layout>
       <S.Contents>
         <S.UserContainer>
-          {/* ... */}
+          <S.UserContainer>
+            <S.UserInformation>
+              <S.UserWrapper>
+                <S.UserImage>
+                  <S.Image
+                    onClick={modalOpen}
+                    src={userProfile?.imgUrl}
+                    alt='profile'
+                  />
+                </S.UserImage>
+                <S.UserData>
+                  <div>
+                    <S.UserName>
+                      {userProfile?.name}
+                      {userProfile?.nickName ? (
+                        <S.UserNickName>{userProfile?.nickName}</S.UserNickName>
+                      ) : (
+                        <S.UserNickName>(닉네임을 추가해주세요)</S.UserNickName>
+                      )}
+                    </S.UserName>
+                    <S.UserPosition>
+                      {userProfile?.school} /{' '}
+                      {userProfile?.major
+                        ? userProfile?.major
+                        : '(분야를 추가해주세요)'}
+                    </S.UserPosition>
+                  </div>
+                  <S.StatusMessage>
+                    {userProfile?.statusMessage
+                      ? userProfile?.statusMessage
+                      : '(상태 메시지를 추가해주세요)'}
+                  </S.StatusMessage>
+                </S.UserData>
+              </S.UserWrapper>
+              <S.ButtonContainer>
+                <Button value='프로필 편집하기' onClick={modalOpen} />
+              </S.ButtonContainer>
+            </S.UserInformation>
+            <S.UserLinks>
+              <Link to={String(userProfile?.githubUrl)}>
+                <GithubIcon />
+              </Link>
+              <Tooltip
+                value={String(userProfile?.email)}
+                onClick={() => copyTooltipText(String(userProfile?.email))}
+                style={{ cursor: 'pointer' }}
+              >
+                <Link to={`mailto:${String(userProfile?.email)}`}>
+                  <EmailIcon />
+                </Link>
+              </Tooltip>
+            </S.UserLinks>
+          </S.UserContainer>
           <S.TabContainer>
             <S.TabWrapper>
               <S.Tab id={0} selected={selected} onClick={handleTabSelect}>
