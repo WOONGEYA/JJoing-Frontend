@@ -8,16 +8,6 @@ import instance from 'apis/httpClient';
 const dropdownOptions = [
   {
     id: '0',
-    currentOption: '분야 선택',
-    options: ['Web', 'iOS', 'Android'],
-  },
-  {
-    id: '1',
-    currentOption: '직군 선택',
-    options: ['Front-end', 'Back-end', 'Designer'],
-  },
-  {
-    id: '2',
     currentOption: '정렬 기준 선택',
     options: ['인기순', '마이쫑 많은 순', '최신순'],
   },
