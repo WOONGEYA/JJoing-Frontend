@@ -73,17 +73,7 @@ const Detail = () => {
 
   console.log('userInfo', userInfo);
 
-  const [
-    {
-      title,
-      deadline,
-      memberImage,
-      description,
-      atmosphere,
-      stack,
-      cooperation,
-    },
-  ] = dummy;
+  const [{ memberImage }] = dummy;
 
   return (
     <>

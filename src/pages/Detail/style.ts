@@ -36,6 +36,7 @@ export const MainContents = styled.div`
   border-bottom: 1.5px solid ${theme.grey[300]};
   padding: 0 0 20px;
   display: flex;
+  justify-content: center;
   gap: 24px;
   margin-bottom: 18px;
 `;
@@ -45,6 +46,7 @@ export const Image = styled.img`
   height: 370px;
   background-color: #ccc;
   border-radius: 5px;
+  overflow: hidden;
 `;
 
 // MainDescription

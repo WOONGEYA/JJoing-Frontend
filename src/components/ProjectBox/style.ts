@@ -97,4 +97,6 @@ export const Like = styled.div`
   ${font.$callout}
 `;
 
-export const NavigateContainer = styled.div``;
+export const NavigateContainer = styled.div`
+  cursor: pointer;
+`;

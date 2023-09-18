@@ -41,18 +41,6 @@ const MyPage = () => {
   );
   const [userInput, setUserInput] = React.useState<string>('');
 
-  const { openModal, closeModal } = useModal();
-
-  const modalOpen = () => {
-    openModal({
-      component: <ProfileUpdateModal closeModal={closeModal} />,
-    });
-  };
-
-  const copyTooltipText = (text: string) => {
-    navigator.clipboard.writeText(text).then(() => alert('복사 완료'));
-  };
-
   const handleTabSelect = (e: React.MouseEvent<HTMLDivElement>) => {
     const id = parseInt(e.currentTarget.id);
     setSelected(id);
@@ -88,7 +76,6 @@ const MyPage = () => {
       });
   }, []);
 
-  // Modify the project filtering logic to use userInput state
   const filteredProjects = myProject
     ? myProject.filter((project) => {
         const projectName = project.name.toLowerCase();
