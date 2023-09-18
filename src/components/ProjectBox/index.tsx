@@ -1,5 +1,6 @@
 import * as S from './style';
 import Member from 'assets/MemberIcon';
+import Heart from 'assets/Heart';
 
 interface ProjectBoxPropsType {
   content: string;
@@ -7,6 +8,7 @@ interface ProjectBoxPropsType {
   requiredPeople: number;
   name: string;
   imgUrl: string;
+  viewCount: number;
 }
 
 const ProjectBox = ({
@@ -15,6 +17,7 @@ const ProjectBox = ({
   currentPeople,
   requiredPeople,
   imgUrl,
+  viewCount,
 }: ProjectBoxPropsType) => {
   return (
     <S.Container>
@@ -27,10 +30,16 @@ const ProjectBox = ({
           <S.Description>{content}</S.Description>
         </S.InfoContainer>
         <S.Footer>
-          <Member />
-          <S.People>
-            {currentPeople}/{requiredPeople}
-          </S.People>
+          <S.MemberCount>
+            <Member />
+            <S.People>
+              {currentPeople}/{requiredPeople}
+            </S.People>
+          </S.MemberCount>
+          <S.HeartCount>
+            <Heart />
+            <S.Like>{viewCount}</S.Like>
+          </S.HeartCount>
         </S.Footer>
       </S.Info>
     </S.Container>

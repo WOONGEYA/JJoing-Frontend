@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import ProjectBox from 'components/ProjectBox';
 import Dropdown from 'components/Dropdown';
-import dummy from 'fixtures/detail.dummy';
 import * as S from './style';
 import Layout from 'components/Layout';
 import instance from 'apis/httpClient';
@@ -76,6 +75,7 @@ const Explore = () => {
                 currentPeople={data.currentPeople}
                 requiredPeople={data.requiredPeople}
                 imgUrl={data.imgUrl}
+                viewCount={data.viewCount}
               />
             ))}
           </S.ProjectContainer>

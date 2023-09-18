@@ -171,6 +171,7 @@ const MyPage = () => {
                 currentPeople={data.currentPeople}
                 requiredPeople={data.requiredPeople}
                 imgUrl={data.imgUrl}
+                viewCount={data.viewCount}
               />
             ))
           ) : selected === 0 ? (
@@ -185,6 +186,7 @@ const MyPage = () => {
                 currentPeople={data.currentPeople}
                 requiredPeople={data.requiredPeople}
                 imgUrl={data.imgUrl}
+                viewCount={data.viewCount}
               />
             ))
           ) : selected === 1 ? (
