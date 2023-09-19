@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from 'components/Header';
 import * as S from './style';
 import theme from 'styles/theme';
@@ -55,26 +55,19 @@ const Detail = () => {
     fetchedData();
   }, []);
 
-  useEffect(() => {
-    const fetchedData = async () => {
-      try {
-        const { data } = await instance.get(`/project/member/${id}`, {
-          headers: {
-            Authorization: `Barer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        setProjectUsers(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchedData();
-  }, []);
+  console.log('userInfo', userInfo);
 
-  console.log('userImg1', projectUsers, projectUsers?.imgUrl);
-  console.log('userImg2', projectUsers?.imgUrl);
-  console.log('userImg3', projectUsers?.name);
-  console.log('userImg4', projectUsers?.userId);
+  const [
+    {
+      title,
+      deadline,
+      memberImage,
+      description,
+      atmosphere,
+      stack,
+      cooperation,
+    },
+  ] = dummy;
 
   return (
     <>
