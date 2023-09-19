@@ -3,8 +3,6 @@ import Footer from 'components/Footer';
 import Header from 'components/Header';
 import Search from 'components/Search';
 import * as S from './style';
-import dummy from 'fixtures/myjjong.dummy';
-import ProjectBox from 'components/ProjectBox';
 import instance from 'apis/httpClient';
 
 const MyJJong = () => {

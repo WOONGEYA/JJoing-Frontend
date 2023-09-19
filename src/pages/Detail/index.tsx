@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from 'components/Header';
 import MemberIcon from 'assets/MemberIcon';
 import * as S from './style';
@@ -73,17 +73,7 @@ const Detail = () => {
 
   console.log('userInfo', userInfo);
 
-  const [
-    {
-      title,
-      deadline,
-      memberImage,
-      description,
-      atmosphere,
-      stack,
-      cooperation,
-    },
-  ] = dummy;
+  const [{ memberImage }] = dummy;
 
   return (
     <>

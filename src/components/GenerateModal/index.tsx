@@ -3,7 +3,6 @@ import * as S from './style';
 import CloseIcon from 'assets/CloseIcon';
 import Input from 'components/Input';
 import { FlexVertical } from 'styles/flex';
-import UploadImage from 'assets/UploadImage';
 import theme from 'styles/theme';
 import Button from 'components/Button';
 import instance from 'apis/httpClient';

@@ -3,14 +3,12 @@ import GithubIcon from 'assets/GithubIcon';
 import LinkIcon from 'assets/LinkIcon';
 import EmailIcon from 'assets/EmailIcon';
 import profile from 'assets/profile.webp';
-import ProjectBox from 'components/ProjectBox';
 import Layout from 'components/Layout';
 import Button from 'components/Button';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import theme from 'styles/theme';
 import { Link } from 'react-router-dom';
-import dummy from 'fixtures/detail.dummy';
 import profile_data from 'fixtures/profile.dummy';
 import * as S from './style';
 
