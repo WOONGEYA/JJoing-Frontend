@@ -1,37 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
-import MemberIcon from 'assets/MemberIcon';
 import * as S from './style';
-import dummy from 'fixtures/detail.dummy';
 import theme from 'styles/theme';
 import { useParams } from 'react-router-dom';
 import instance from 'apis/httpClient';
-
-interface MembersPropsType {
-  images: string[];
-}
+import MemberIcon from 'assets/MemberIcon';
 
 interface CategoryPropsType {
   categories: string[];
 }
-
-const Members = ({ images }: MembersPropsType) => (
-  <S.Member>
-    <S.MemberTitle>
-      <MemberIcon />
-      <span>멤버</span>
-    </S.MemberTitle>
-    <S.MemberImages>
-      {images.map((image, index) => (
-        <S.MemberProfile
-          key={index}
-          src={image}
-          alt={`MemberIcon ${index + 1}`}
-        />
-      ))}
-    </S.MemberImages>
-  </S.Member>
-);
 
 const CategoryList = ({ categories }: CategoryPropsType) => (
   <S.Categories>
@@ -55,9 +32,16 @@ interface UserInfo {
   startDate: string;
 }
 
+interface Members {
+  userId: number;
+  name: string;
+  imgUrl: string[];
+}
+
 const Detail = () => {
   const { id } = useParams();
   const [userInfo, setUserInfo] = useState<UserInfo | null>();
+  const [projectUsers, setProjectUsers] = useState<Members | null>();
 
   useEffect(() => {
     const fetchedData = async () => {
@@ -71,9 +55,26 @@ const Detail = () => {
     fetchedData();
   }, []);
 
-  console.log('userInfo', userInfo);
+  useEffect(() => {
+    const fetchedData = async () => {
+      try {
+        const { data } = await instance.get(`/project/member/${id}`, {
+          headers: {
+            Authorization: `Barer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        setProjectUsers(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchedData();
+  }, []);
 
-  const [{ memberImage }] = dummy;
+  console.log('userImg1', projectUsers, projectUsers?.imgUrl);
+  console.log('userImg2', projectUsers?.imgUrl);
+  console.log('userImg3', projectUsers?.name);
+  console.log('userImg4', projectUsers?.userId);
 
   return (
     <>
@@ -88,7 +89,22 @@ const Detail = () => {
               <S.DeadLine style={{ color: theme.grey[500] }}>
                 {userInfo?.startDate} ~ {userInfo?.endDate}
               </S.DeadLine>
-              <Members images={memberImage} />
+              <S.Member>
+                <S.MemberTitle>
+                  <MemberIcon />
+                  <span>멤버</span>
+                </S.MemberTitle>
+                <S.MemberImages>
+                  {projectUsers?.imgUrl &&
+                    projectUsers.imgUrl.map((image, index) => (
+                      <S.MemberProfile
+                        key={index}
+                        src={image}
+                        alt={`MemberIcon ${index + 1}`}
+                      />
+                    ))}
+                </S.MemberImages>
+              </S.Member>
               <S.Button color={theme.primary}>마이쫑에 추가하기</S.Button>
               <S.Button color={theme.secondary}>지금 쪼잉하기!!</S.Button>
             </S.MainDesc>
