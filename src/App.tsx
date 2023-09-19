@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import LoginPage from 'pages/LoginPage';
 import Detail from 'pages/Detail';
@@ -35,6 +35,7 @@ const App = () => {
             <Route path='/' element={<Main />} />
             <Route path='/notify' element={<Notify />} />
             <Route path='/myjjong' element={<MyJJong />} />
+            <Route path='*' element={<Navigate replace to='/' />} />
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

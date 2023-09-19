@@ -89,6 +89,7 @@ export const MemberProfile = styled.img`
   width: 36px;
   height: 36px;
   border-radius: 50px;
+  margin-top: 7px;
 `;
 
 export const Button = styled.button`
