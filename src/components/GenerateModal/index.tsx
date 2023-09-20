@@ -56,12 +56,14 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     return `${year}-${month}-${day}`;
   };
 
+  const img: string = process.env.REACT_APP_BASE_IMG || '';
+
   const [userInput, setUserInput] = useState(initialUserInput);
   const [tab, setTab] = useState(true);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [startDate, setStartDate] = useState(getCurrentDate());
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const [newImageUrl, setNewImageUrl] = useState<string>('');
+  const [imageUrl, setImageUrl] = useState<string>(img);
+  const [newImageUrl, setNewImageUrl] = useState<string>(img);
 
   const handleInputChange = (
     field: keyof UserInput,
@@ -74,8 +76,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
   };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const img =
-      'https://blog.kakaocdn.net/dn/bqPYzR/btraWSj02cT/HnIasx6vc09IszobY6Fwe0/img.jpg';
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0];
       setImageUrl(URL.createObjectURL(selectedFile));
@@ -99,16 +99,9 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
 
         console.log('img', data.imgUrl);
         setNewImageUrl(data.imgUrl);
-
-        if (!data.imgUrl) {
-          setNewImageUrl(img);
-        }
       } catch (error) {
         console.error('Error uploading image:', error);
       }
-    } else {
-      setImageUrl(img);
-      setNewImageUrl(img);
     }
   };
 
@@ -148,6 +141,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
       });
 
       closeModal();
+      window.location.reload();
     } catch (error) {
       console.error('Error updating user profile:', error);
     }
@@ -205,11 +199,11 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <S.HeadLine>모집 인원</S.HeadLine>
               <Input
-                min='0'
+                min='1'
                 required
                 placeholder='모집 인원을 알려주세요'
                 type='number'
-                value={userInput.requiredPeople}
+                value={userInput.requiredPeople || 1}
                 onChange={(e) =>
                   handleInputChange('requiredPeople', parseInt(e.target.value))
                 }
