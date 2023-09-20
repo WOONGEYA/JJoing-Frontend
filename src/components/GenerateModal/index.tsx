@@ -180,7 +180,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     <S.Container>
       <S.Header>
         <S.ModalTitle>프로젝트 생성하기 🖨</S.ModalTitle>
-        <CloseIcon onClick={closeModal} />
+        <CloseIcon onClick={closeModal} style={{ cursor: 'pointer' }} />
       </S.Header>
       <S.ModalContents>
         {tab ? (

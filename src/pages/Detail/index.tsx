@@ -7,6 +7,8 @@ import instance from 'apis/httpClient';
 import MemberIcon from 'assets/MemberIcon';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
+import useModal from 'hooks/useModal';
+import SendProfile from 'components/SendProfile';
 
 interface CategoryPropsType {
   categories: string[];
@@ -46,7 +48,14 @@ const Detail = () => {
   const [projectUsers, setProjectUsers] = useState<Member[] | null>(null);
   const user = useRecoilValue(userKey);
 
-  console.log(user);
+  const { openModal, closeModal } = useModal();
+
+  const modalOpen = () => {
+    openModal({
+      component: <SendProfile pageId={Number(id)} closeModal={closeModal} />,
+    });
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -63,7 +72,6 @@ const Detail = () => {
     const fetchData = async () => {
       try {
         const { data } = await instance.get(`/project/member/${id}`);
-        console.log(data);
         setProjectUsers(data);
       } catch (error) {
         console.log(error);
@@ -102,7 +110,9 @@ const Detail = () => {
               </S.Member>
               {user && projectUsers && user !== projectUsers[0]?.userId && (
                 <>
-                  <S.Button color={theme.primary}>마이쫑에 추가하기</S.Button>
+                  <S.Button color={theme.primary} onClick={modalOpen}>
+                    마이쫑에 추가하기
+                  </S.Button>
                   <S.Button color={theme.secondary}>지금 쪼잉하기!!</S.Button>
                 </>
               )}
