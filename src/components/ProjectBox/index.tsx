@@ -11,6 +11,7 @@ interface ProjectBoxPropsType {
   imgUrl: string;
   viewCount: number;
   id: number;
+  likeCount: number;
 }
 
 const ProjectBox = ({
@@ -21,6 +22,7 @@ const ProjectBox = ({
   imgUrl,
   viewCount,
   id,
+  likeCount,
 }: ProjectBoxPropsType) => {
   const navigate = useNavigate();
 
@@ -48,7 +50,7 @@ const ProjectBox = ({
         </S.MemberCount>
         <S.HeartCount>
           <Heart />
-          <S.Like>{viewCount}</S.Like>
+          <S.Like>{likeCount}</S.Like>
         </S.HeartCount>
       </S.Footer>
     </S.Container>

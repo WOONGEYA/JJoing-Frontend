@@ -31,6 +31,7 @@ interface Project {
   requiredPeople: number;
   viewCount: number;
   imgUrl: string;
+  likeCount: number;
 }
 
 const MyPage = () => {
@@ -85,7 +86,6 @@ const MyPage = () => {
       })
       .then((response) => {
         setMyProject(response.data);
-        console.log('start page', response.data);
       });
   }, []);
 
@@ -124,7 +124,6 @@ const MyPage = () => {
       })
       .then((response) => {
         setEndMyProject(response.data);
-        console.log('end page', response.data);
       });
   }, []);
 
@@ -220,6 +219,7 @@ const MyPage = () => {
                     requiredPeople={data.requiredPeople}
                     imgUrl={data.imgUrl}
                     viewCount={data.viewCount}
+                    likeCount={data.likeCount}
                   />
                 ))
             ) : selected === 0 ? (
@@ -239,6 +239,7 @@ const MyPage = () => {
                     requiredPeople={data.requiredPeople}
                     imgUrl={data.imgUrl}
                     viewCount={data.viewCount}
+                    likeCount={data.likeCount}
                   />
                 ))
             ) : selected === 1 ? (
