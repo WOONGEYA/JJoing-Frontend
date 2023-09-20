@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { API_URL } from 'constants/config';
 
 const instance: AxiosInstance = axios.create({
@@ -8,15 +8,17 @@ const instance: AxiosInstance = axios.create({
 });
 
 instance.interceptors.request.use(
-  (response) => {
+  (config) => {
     const accessToken = localStorage.getItem('accessToken');
+
     if (accessToken) {
-      response.headers.set('token', accessToken);
+      config.headers.Authorization = accessToken;
     }
-    return response;
+
+    return config;
   },
 
-  (error: AxiosError) => {
+  (error) => {
     return error;
   },
 );
@@ -27,9 +29,7 @@ instance.interceptors.response.use(
   },
 
   (error) => {
-    if (error) {
-      return error;
-    }
+    return error;
   },
 );
 
