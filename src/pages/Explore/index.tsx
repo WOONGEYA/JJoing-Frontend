@@ -8,8 +8,13 @@ import instance from 'apis/httpClient';
 const dropdownOptions = [
   {
     id: '0',
-    currentOption: '정렬 기준 선택',
-    options: ['인기순', '마이쫑 많은 순', '최신순'],
+    currentOption: '정렬 기준',
+    options: ['조회수 순', '인기 순', '최신순'],
+  },
+  {
+    id: '1',
+    currentOption: '모집 중',
+    options: ['모집중', '모집 종료', '프로젝트 종료'],
   },
 ];
 interface NewProject {
@@ -40,6 +45,35 @@ const Explore = () => {
     });
   }, []);
 
+  // useEffect(() => {
+  //   const fetchData = async (criteria: string, state: string) => {
+  //     try {
+  //       const response = await instance.get(
+  //         `/project?criteria=${criteria}&state=${state}`,
+  //       );
+  //       setMyProject(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching filtered data:', error);
+  //     }
+  //   };
+
+  //   fetchData('new', 'finding');
+  // }, []);
+
+  const sortMethod = () => {
+    const fetchData = async (state: string) => {
+      try {
+        const response = await instance.get(
+          `/project?criteria=criteria&state=${state}`,
+          { params: { state } },
+        );
+        setMyProject(response.data);
+      } catch (error) {
+        console.error('Error fetching filtered data:', error);
+      }
+    };
+  };
+
   return (
     <Layout>
       <S.Contents>
@@ -54,23 +88,20 @@ const Explore = () => {
             />
           ))}
         </S.Filter>
-        <S.ProjectList>
-          <S.Title>프로젝트 목록 😎</S.Title>
-          <S.ProjectContainer>
-            {myProject.map((data) => (
-              <ProjectBox
-                id={data.id}
-                key={data.id}
-                name={data.name}
-                content={data.content}
-                currentPeople={data.currentPeople}
-                requiredPeople={data.requiredPeople}
-                imgUrl={data.imgUrl}
-                viewCount={data.viewCount}
-              />
-            ))}
-          </S.ProjectContainer>
-        </S.ProjectList>
+        <S.ProjectContainer>
+          {myProject.map((data) => (
+            <ProjectBox
+              id={data.id}
+              key={data.id}
+              name={data.name}
+              content={data.content}
+              currentPeople={data.currentPeople}
+              requiredPeople={data.requiredPeople}
+              imgUrl={data.imgUrl}
+              viewCount={data.viewCount}
+            />
+          ))}
+        </S.ProjectContainer>
       </S.Contents>
     </Layout>
   );
