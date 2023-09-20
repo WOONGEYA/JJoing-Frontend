@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
 import * as S from './style';
 import theme from 'styles/theme';
@@ -32,19 +32,19 @@ interface UserInfo {
   startDate: string;
 }
 
-interface Members {
+interface Member {
   userId: number;
   name: string;
-  imgUrl: string[];
+  imgUrl: string;
 }
 
 const Detail = () => {
   const { id } = useParams();
-  const [userInfo, setUserInfo] = useState<UserInfo | null>();
-  const [projectUsers, setProjectUsers] = useState<Members | null>();
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [projectUsers, setProjectUsers] = useState<Member[] | null>(null);
 
   useEffect(() => {
-    const fetchedData = async () => {
+    const fetchData = async () => {
       try {
         const { data } = await instance.get(`/project/${id}`);
         setUserInfo(data);
@@ -52,10 +52,20 @@ const Detail = () => {
         console.log(error);
       }
     };
-    fetchedData();
-  }, []);
+    fetchData();
+  }, [id]);
 
-  console.log('userInfo', userInfo);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await instance.get(`/project/member/${id}`);
+        setProjectUsers(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [id]);
 
   return (
     <>
@@ -63,7 +73,7 @@ const Detail = () => {
       <S.Container>
         <S.ProjectBox>
           <S.MainContents>
-            <S.Image src={userInfo?.imgUrl} />
+            <S.Image src={userInfo?.imgUrl} alt={userInfo?.name} />
             <S.MainDesc>
               <S.Title>{userInfo?.name}</S.Title>
               <S.DeadLine>📅 모집 기한</S.DeadLine>
@@ -76,14 +86,13 @@ const Detail = () => {
                   <span>멤버</span>
                 </S.MemberTitle>
                 <S.MemberImages>
-                  {projectUsers?.imgUrl &&
-                    projectUsers.imgUrl.map((image, index) => (
-                      <S.MemberProfile
-                        key={index}
-                        src={image}
-                        alt={`MemberIcon ${index + 1}`}
-                      />
-                    ))}
+                  {projectUsers?.map((image) => (
+                    <S.MemberProfile
+                      key={image.userId}
+                      src={image.imgUrl}
+                      alt={image.name}
+                    />
+                  ))}
                 </S.MemberImages>
               </S.Member>
               <S.Button color={theme.primary}>마이쫑에 추가하기</S.Button>
