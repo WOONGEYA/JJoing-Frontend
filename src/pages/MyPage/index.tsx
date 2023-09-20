@@ -23,7 +23,7 @@ interface UserProfile {
   major: string;
 }
 
-interface NewProject {
+interface Project {
   id: number;
   name: string;
   content: string;
@@ -37,7 +37,8 @@ const MyPage = () => {
   const { openModal, closeModal } = useModal();
 
   const [selected, setSelected] = React.useState(0);
-  const [myProject, setMyProject] = React.useState<NewProject[] | null>([]);
+  const [myProject, setMyProject] = React.useState<Project[] | null>([]);
+  const [endMyProject, setEndMyProject] = React.useState<Project[] | null>();
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
     null,
   );
@@ -84,7 +85,7 @@ const MyPage = () => {
       })
       .then((response) => {
         setMyProject(response.data);
-        console.log(response.data);
+        console.log('start page', response.data);
       });
   }, []);
 
@@ -100,6 +101,32 @@ const MyPage = () => {
         );
       })
     : [];
+
+  const filteredEndProjects = endMyProject
+    ? endMyProject.filter((project) => {
+        const projectName = project.name.toLowerCase();
+        const projectContent = project.content.toLowerCase();
+        const searchQuery = userInput.toLowerCase();
+
+        return (
+          projectName.includes(searchQuery) ||
+          projectContent.includes(searchQuery)
+        );
+      })
+    : [];
+
+  React.useEffect(() => {
+    instance
+      .get('/project/my/end', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then((response) => {
+        setEndMyProject(response.data);
+        console.log('end page', response.data);
+      });
+  }, []);
 
   return (
     <Layout>
@@ -198,7 +225,7 @@ const MyPage = () => {
             ) : selected === 0 ? (
               <S.NoContents>참여중인 프로젝트가 없습니다.</S.NoContents>
             ) : null}
-            {selected === 1 && filteredProjects.length > 0 ? (
+            {selected === 1 && filteredEndProjects.length > 0 ? (
               filteredProjects
                 .slice()
                 .sort((a, b) => b.id - a.id)
