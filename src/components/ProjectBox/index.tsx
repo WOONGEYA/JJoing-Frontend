@@ -23,13 +23,30 @@ const ProjectBox = ({
   currentPeople,
   requiredPeople,
   imgUrl,
-  viewCount,
   id,
   likeCount,
 }: ProjectBoxPropsType) => {
   const navigate = useNavigate();
 
   const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    const fetchLikeStatus = async () => {
+      try {
+        const response = await instance.get(`/like/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+
+        setIsLiked(response.data.isLiked);
+      } catch (error) {
+        console.error('좋아요 상태를 가져오는 데 실패했습니다.', error);
+      }
+    };
+
+    fetchLikeStatus();
+  }, [id]);
 
   const addHeart = () => {
     try {
@@ -94,7 +111,6 @@ const ProjectBox = ({
               style={{
                 marginTop: '2px',
                 cursor: 'pointer',
-                backgroundColor: 'red',
               }}
               onClick={deleteHeart}
             />
