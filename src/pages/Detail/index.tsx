@@ -5,6 +5,8 @@ import theme from 'styles/theme';
 import { useParams } from 'react-router-dom';
 import instance from 'apis/httpClient';
 import MemberIcon from 'assets/MemberIcon';
+import { useRecoilValue } from 'recoil';
+import { userKey } from 'apis/recoil';
 
 interface CategoryPropsType {
   categories: string[];
@@ -42,7 +44,9 @@ const Detail = () => {
   const { id } = useParams();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [projectUsers, setProjectUsers] = useState<Member[] | null>(null);
+  const user = useRecoilValue(userKey);
 
+  console.log(user);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -59,6 +63,7 @@ const Detail = () => {
     const fetchData = async () => {
       try {
         const { data } = await instance.get(`/project/member/${id}`);
+        console.log(data);
         setProjectUsers(data);
       } catch (error) {
         console.log(error);
@@ -95,8 +100,12 @@ const Detail = () => {
                   ))}
                 </S.MemberImages>
               </S.Member>
-              <S.Button color={theme.primary}>마이쫑에 추가하기</S.Button>
-              <S.Button color={theme.secondary}>지금 쪼잉하기!!</S.Button>
+              {user && projectUsers && user !== projectUsers[0]?.userId && (
+                <>
+                  <S.Button color={theme.primary}>마이쫑에 추가하기</S.Button>
+                  <S.Button color={theme.secondary}>지금 쪼잉하기!!</S.Button>
+                </>
+              )}
             </S.MainDesc>
           </S.MainContents>
           <S.CallOut>📋 프로젝트 설명</S.CallOut>

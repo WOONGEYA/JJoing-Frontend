@@ -36,13 +36,13 @@ export const MainContents = styled.div`
   border-bottom: 1.5px solid ${theme.grey[300]};
   padding: 0 0 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 24px;
   margin-bottom: 18px;
 `;
 
 export const Image = styled.img`
-  width: 100%;
+  width: 65%;
   height: 370px;
   background-color: #ccc;
   border-radius: 5px;
@@ -52,6 +52,7 @@ export const Image = styled.img`
 // MainDescription
 export const MainDesc = styled.div`
   padding: 0;
+  width: 35%;
 `;
 
 export const Title = styled.h2`
@@ -148,4 +149,9 @@ export const Projects = styled.div`
   width: 100%;
   display: flex;
   gap: 24px;
+`;
+
+export const Gap = styled.div`
+  width: 350px;
+  height: 42px;
 `;
