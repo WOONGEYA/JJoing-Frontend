@@ -3,10 +3,11 @@ import Header from 'components/Header';
 import * as S from './style';
 import * as Flex from 'styles/flex';
 import trash from 'assets/trash.svg';
-import NotifyBox from 'components/NotifyBox';
 import notifications from 'fixtures/notify.dummy';
 import NoNotify from 'components/NoNotify/index';
 import Search from 'components/Search';
+import instance from 'apis/httpClient';
+import NotifyBox from 'components/NotifyBox';
 
 interface Notification {
   user: string;
@@ -14,26 +15,43 @@ interface Notification {
   timestamp: string;
 }
 
+interface alarmList {
+  id: number;
+  title: string;
+  content: string;
+}
+
 function Notify() {
   const [notificationData, setNotificationData] =
     useState<Notification[]>(notifications);
   const [userInput, setUserInput] = useState<string>('');
+  const [alarmList, setAlarmList] = useState<alarmList[]>([]);
 
   function handleDeleteAll() {
     setNotificationData([]);
   }
 
-  function handleDeleteOne(index: number) {
-    const newNotifications = [...notificationData];
-    newNotifications.splice(index, 1);
-    setNotificationData(newNotifications);
-  }
-
-  const filteredNotifications = notificationData.filter(
-    (notification) =>
-      notification.user.toLowerCase().includes(userInput.toLowerCase()) ||
-      notification.project.toLowerCase().includes(userInput.toLowerCase()),
+  const filteredNotifications = alarmList.filter((alarmList) =>
+    alarmList.title.toLowerCase().includes(userInput.toLowerCase()),
   );
+
+  console.log(alarmList[0]?.title);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await instance.get('/notification', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        setAlarmList(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -42,9 +60,7 @@ function Notify() {
         <S.NotifiHeader>
           <Search value={userInput} onChange={setUserInput} />{' '}
           <Flex.FlexVertical style={{ gap: '12px' }}>
-            <S.NotifiAmount>
-              알림 {filteredNotifications.length} / 100
-            </S.NotifiAmount>
+            <S.NotifiAmount>{alarmList.length} / 100</S.NotifiAmount>
             <S.DeleteNotifi onClick={handleDeleteAll}>
               <S.Icon src={trash} alt='Trash' />
               모든 알림 삭제하기
@@ -55,11 +71,12 @@ function Notify() {
           <NoNotify />
         ) : (
           <S.Notifications>
-            {filteredNotifications.map((notification, index) => (
+            {alarmList.map((data, index) => (
               <NotifyBox
-                notification={notification}
                 key={index}
-                onDelete={() => handleDeleteOne(index)}
+                id={data.id}
+                title={data.title}
+                content={data.content}
               />
             ))}
           </S.Notifications>

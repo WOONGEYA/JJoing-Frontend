@@ -49,3 +49,14 @@ export const Else = styled.div`
   flex-direction: column;
   justify-content: right;
 `;
+
+export const SubTitle = styled.div`
+  font-size: ${font.$title04};
+  color: ${theme.grey[600]};
+`;
+
+export const TitleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+`;

@@ -4,7 +4,6 @@ import Input from 'components/Input';
 import Button from 'components/Button';
 import React from 'react';
 import instance from 'apis/httpClient';
-import { error } from 'console';
 
 interface GenerateModalProps {
   pageId: number;
@@ -37,15 +36,13 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
 
     console.log('눌러짐');
 
-    instance
-      .post(`application/${pageId}`, sendData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
+    instance.post(`application/${pageId}`, sendData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
+
+    closeModal();
   };
 
   return (
@@ -76,7 +73,7 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
           onChange={onChange}
         />
       </S.Content>
-      <Button value='저장' onClick={onSubmit} />
+      <Button value='신청하기' onClick={onSubmit} />
     </S.ModalContainer>
   );
 };
