@@ -41,7 +41,7 @@ const ProjectBox = ({
 
         setIsLiked(response.data.isLiked);
       } catch (error) {
-        console.error('좋아요 상태를 가져오는 데 실패했습니다.', error);
+        console.log('좋아요 가져오기 실패');
       }
     };
 
@@ -50,7 +50,6 @@ const ProjectBox = ({
 
   const addHeart = () => {
     try {
-      console.log(id);
       instance
         .post(`/like/${id}`, null, {
           headers: {
@@ -59,7 +58,6 @@ const ProjectBox = ({
         })
         .then(() => {
           setIsLiked(true);
-          console.log('하트 성공');
         });
     } catch (error) {
       setIsLiked(false);
@@ -76,7 +74,6 @@ const ProjectBox = ({
         })
         .then(() => {
           setIsLiked(false);
-          console.log('하트 삭제');
         });
     } catch (error) {
       setIsLiked(true);

@@ -9,25 +9,25 @@ interface NotifyBoxProps {
   content?: string;
 }
 
-const onDelete = ({ id }: NotifyBoxProps) => {
-  const fetchData = async () => {
-    try {
-      const { data } = await instance.delete(`/notification/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+function NotifyBox({ id, title, content }: NotifyBoxProps) {
+  const onDelete = ({ id }: NotifyBoxProps) => {
+    const fetchData = async () => {
+      try {
+        const { data } = await instance.delete(`/notification/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        console.log(data);
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
   };
 
-  window.location.reload();
-  fetchData();
-};
-
-function NotifyBox({ id, title, content }: NotifyBoxProps) {
   return (
     <S.Container>
       <S.Element>
