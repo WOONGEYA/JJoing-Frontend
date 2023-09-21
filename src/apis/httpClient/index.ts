@@ -27,9 +27,7 @@ instance.interceptors.response.use(
   },
 
   (error) => {
-    if (error) {
-      return error;
-    }
+    return error;
   },
 );
 

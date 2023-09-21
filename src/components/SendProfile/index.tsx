@@ -6,6 +6,7 @@ import React from 'react';
 import instance from 'apis/httpClient';
 import { error } from 'console';
 import { toast } from 'react-toastify';
+import { isAxiosError } from 'axios';
 
 interface GenerateModalProps {
   pageId: number;
@@ -30,22 +31,20 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
     }
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const sendData = {
       introduce: produdce,
       position: userSkills,
     };
 
-    try {
-      instance.post(`application/${pageId}`, sendData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-      toast.success('프로젝트 신청에 성공했습니다.');
-    } catch {
-      toast.error('이미 신청한 프로젝트입니다.');
-    }
+    const res = await instance.post(`application/${pageId}`, sendData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
+
+    if (!isAxiosError(res)) toast.success('프로젝트 신청에 성공했습니다!');
+    else toast.error('이미 신청한 프로젝트입니다!');
   };
 
   return (
