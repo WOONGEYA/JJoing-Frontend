@@ -7,6 +7,7 @@ import theme from 'styles/theme';
 import Button from 'components/Button';
 import instance from 'apis/httpClient';
 import EditIcon from 'assets/EditIcon';
+import { toast } from 'react-toastify';
 
 interface GenerateModalProps {
   closeModal: () => void;
@@ -27,7 +28,7 @@ interface UserInput {
 
 const initialUserInput: UserInput = {
   name: '',
-  requiredPeople: 0,
+  requiredPeople: 1,
   startDate: '',
   endDate: '',
   skills: [],
@@ -69,6 +70,13 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     field: keyof UserInput,
     value: UserInput[keyof UserInput],
   ) => {
+    if (field === 'endDate') {
+      if (value < startDate) {
+        toast.error('날짜 형식에 맞지 않습니다.');
+        return;
+      }
+    }
+
     setUserInput((prevInput) => ({
       ...prevInput,
       [field]: value,
@@ -141,6 +149,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
       });
 
       closeModal();
+      window.location.reload();
     } catch (error) {
       console.error('Error updating user profile:', error);
     }
@@ -198,7 +207,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <S.HeadLine>모집 인원</S.HeadLine>
               <Input
-                min='0'
+                min='1'
                 required
                 placeholder='모집 인원을 알려주세요'
                 type='number'
