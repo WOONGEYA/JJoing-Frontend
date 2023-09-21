@@ -1,45 +1,13 @@
 import { useEffect, useState } from 'react';
-import Header from 'components/Header';
-import MemberIcon from 'assets/MemberIcon';
-import * as S from './style';
-import dummy from 'fixtures/detail.dummy';
-import theme from 'styles/theme';
 import { useParams } from 'react-router-dom';
+import MemberIcon from 'assets/MemberIcon';
+import theme from 'styles/theme';
 import instance from 'apis/httpClient';
-
-interface MembersPropsType {
-  images: string[];
-}
-
-interface CategoryPropsType {
-  categories: string[];
-}
-
-const Members = ({ images }: MembersPropsType) => (
-  <S.Member>
-    <S.MemberTitle>
-      <MemberIcon />
-      <span>멤버</span>
-    </S.MemberTitle>
-    <S.MemberImages>
-      {images.map((image, index) => (
-        <S.MemberProfile
-          key={index}
-          src={image}
-          alt={`MemberIcon ${index + 1}`}
-        />
-      ))}
-    </S.MemberImages>
-  </S.Member>
-);
-
-const CategoryList = ({ categories }: CategoryPropsType) => (
-  <S.Categories>
-    {categories.map((value, index) => (
-      <S.Category key={index}>{value}</S.Category>
-    ))}
-  </S.Categories>
-);
+import Layout from 'components/Layout';
+import CalendarIcon from 'assets/CalendarIcon';
+import Button from 'components/Button';
+import Tag from 'components/Tag';
+import * as S from './style';
 
 interface UserInfo {
   content: string;
@@ -59,52 +27,108 @@ const Detail = () => {
   const { id } = useParams();
   const [userInfo, setUserInfo] = useState<UserInfo | null>();
 
+  const getProjectData = async () => {
+    try {
+      const { data } = await instance.get(`/project/${id}`);
+      setUserInfo(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log();
+
   useEffect(() => {
-    const fetchedData = async () => {
-      try {
-        const { data } = await instance.get(`/project/${id}`);
-        setUserInfo(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchedData();
+    getProjectData();
   }, []);
 
-  console.log('userInfo', userInfo);
-
-  const [{ memberImage }] = dummy;
+  console.log(userInfo?.moods);
 
   return (
-    <>
-      <Header />
-      <S.Container>
-        <S.ProjectBox>
-          <S.MainContents>
-            <S.Image src={userInfo?.imgUrl} />
-            <S.MainDesc>
-              <S.Title>{userInfo?.name}</S.Title>
-              <S.DeadLine>📅 모집 기한</S.DeadLine>
-              <S.DeadLine style={{ color: theme.grey[500] }}>
-                {userInfo?.startDate} ~ {userInfo?.endDate}
-              </S.DeadLine>
-              <Members images={memberImage} />
-              <S.Button color={theme.primary}>마이쫑에 추가하기</S.Button>
-              <S.Button color={theme.secondary}>지금 쪼잉하기!!</S.Button>
-            </S.MainDesc>
-          </S.MainContents>
-          <S.CallOut>📋 프로젝트 설명</S.CallOut>
-          <S.Description>{userInfo?.content}</S.Description>
-          <S.CallOut>🧑‍💻 업무 카테고리</S.CallOut>
-          <S.SubCallOut>👪 개발 분위기</S.SubCallOut>
-          <CategoryList categories={userInfo?.moods || []} />
-          <S.SubCallOut>🛠 사용 기술</S.SubCallOut>
-          <CategoryList categories={userInfo?.skills || []} />
-          <S.SubCallOut>🤝 협업 툴</S.SubCallOut>
-          <CategoryList categories={userInfo?.coops || []} />
-        </S.ProjectBox>
-      </S.Container>
-    </>
+    <Layout>
+      <S.Contents>
+        <S.ProjectLayout>
+          <S.ProjectInfo>
+            <S.ProjectImageContainer>
+              <S.ProjectImage src={userInfo?.imgUrl} />
+            </S.ProjectImageContainer>
+            <S.ProjectBasicInfo>
+              <S.ProjectName>{userInfo?.name}</S.ProjectName>
+              <S.RecruitInfo>
+                <S.Deadline>
+                  <S.DeadlineText>
+                    <CalendarIcon />
+                    모집 기한
+                  </S.DeadlineText>
+                  <S.DeadlineDate>
+                    {userInfo?.startDate} ~ {userInfo?.endDate}
+                  </S.DeadlineDate>
+                </S.Deadline>
+                <S.Recruiting>
+                  <S.RecruitingText>
+                    <MemberIcon color={theme.black} />
+                    모집 인원
+                  </S.RecruitingText>
+                  <S.RecruitingMember>
+                    {userInfo?.currentPeople}/{userInfo?.requiredPeople}
+                  </S.RecruitingMember>
+                </S.Recruiting>
+              </S.RecruitInfo>
+              <S.ProjectMember>
+                <S.MemberText>
+                  <MemberIcon />
+                  멤버
+                </S.MemberText>
+                <S.Members>
+                  <S.MemberProfile />
+                  <S.MemberProfile />
+                  <S.MemberProfile />
+                  <S.MemberProfile />
+                </S.Members>
+              </S.ProjectMember>
+              <S.Buttons>
+                <Button
+                  value='마이쫑에 추가하기'
+                  background={theme.secondary}
+                />
+                <Button value='지금 쪼잉하기!' background={theme.primary} />
+              </S.Buttons>
+            </S.ProjectBasicInfo>
+          </S.ProjectInfo>
+          <S.ProjectDetail>
+            <S.Description>
+              <S.DescriptionText>프로젝트 설명</S.DescriptionText>
+              <S.DescriptionContent>{userInfo?.content}</S.DescriptionContent>
+            </S.Description>
+            <S.Category>
+              <S.CategoryContainer>
+                <S.CategoryText>개발 분위기</S.CategoryText>
+                <S.TagContainer>
+                  {userInfo?.moods.map((mood) => (
+                    <Tag key={mood} value={mood} />
+                  ))}
+                </S.TagContainer>
+              </S.CategoryContainer>
+              <S.CategoryContainer>
+                <S.CategoryText>사용 기술</S.CategoryText>
+                <S.TagContainer>
+                  {userInfo?.skills.map((skill) => (
+                    <Tag key={skill} value={skill} />
+                  ))}
+                </S.TagContainer>
+              </S.CategoryContainer>
+              <S.CategoryContainer>
+                <S.CategoryText>협업 툴</S.CategoryText>
+                <S.TagContainer>
+                  {userInfo?.coops.map((coop) => (
+                    <Tag key={coop} value={coop} />
+                  ))}
+                </S.TagContainer>
+              </S.CategoryContainer>
+            </S.Category>
+          </S.ProjectDetail>
+        </S.ProjectLayout>
+      </S.Contents>
+    </Layout>
   );
 };
 
