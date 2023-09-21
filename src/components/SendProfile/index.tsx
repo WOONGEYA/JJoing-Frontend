@@ -4,6 +4,8 @@ import Input from 'components/Input';
 import Button from 'components/Button';
 import React from 'react';
 import instance from 'apis/httpClient';
+import { error } from 'console';
+import { toast } from 'react-toastify';
 
 interface GenerateModalProps {
   pageId: number;
@@ -34,15 +36,16 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
       position: userSkills,
     };
 
-    console.log('눌러짐');
-
-    instance.post(`application/${pageId}`, sendData, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    });
-
-    closeModal();
+    try {
+      instance.post(`application/${pageId}`, sendData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
+      toast.success('프로젝트 신청에 성공했습니다.');
+    } catch {
+      toast.error('이미 신청한 프로젝트입니다.');
+    }
   };
 
   return (
@@ -55,25 +58,27 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
         <S.ContentTitle>자기소개</S.ContentTitle>
         <Input
           placeholder='자기소개를 력해주세요.'
-          width='calc(100% - 32px)'
+          width='calc(100% - 25px)'
           name='produce'
           type='text'
           value={produdce}
           onChange={onChange}
+          required
         />
       </S.Content>
       <S.Content>
         <S.ContentTitle>분야</S.ContentTitle>
         <Input
           placeholder='분야를 입력해주세요.'
-          width='calc(100% - 32px)'
+          width='calc(100% - 25px)'
           name='skills'
           type='text'
           value={userSkills}
           onChange={onChange}
+          required
         />
       </S.Content>
-      <Button value='신청하기' onClick={onSubmit} />
+      <Button value='신청' onClick={onSubmit} />
     </S.ModalContainer>
   );
 };

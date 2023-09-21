@@ -45,7 +45,7 @@ interface Member {
 const Detail = () => {
   const { id } = useParams();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-  const [projectUsers, setProjectUsers] = useState<Member[] | null>(null);
+  const [projectUsers, setProjectUsers] = useState<Member[]>([]);
   const user = useRecoilValue(userKey);
 
   const { openModal, closeModal } = useModal();
@@ -80,6 +80,7 @@ const Detail = () => {
     fetchData();
   }, [id]);
 
+  console.log(projectUsers);
   return (
     <>
       <Header />
@@ -108,7 +109,11 @@ const Detail = () => {
                   ))}
                 </S.MemberImages>
               </S.Member>
-              {user && projectUsers && user !== projectUsers[0]?.userId && (
+              {user === projectUsers[0]?.userId ? (
+                <S.Button color={theme.primary} onClick={modalOpen}>
+                  신청목록 조회하기
+                </S.Button>
+              ) : (
                 <>
                   <S.Button color={theme.primary} onClick={modalOpen}>
                     마이쫑에 추가하기

@@ -23,7 +23,9 @@ export const Image = styled.div`
   margin-right: 16px;
 `;
 
-export const Element = styled.div``;
+export const Element = styled.div`
+  margin-left: 3px;
+`;
 
 export const Desciption = styled.h1`
   ${font.$body};
@@ -53,6 +55,7 @@ export const Else = styled.div`
 export const SubTitle = styled.div`
   font-size: ${font.$title04};
   color: ${theme.grey[600]};
+  margin-left: 4px;
 `;
 
 export const TitleBox = styled.div`

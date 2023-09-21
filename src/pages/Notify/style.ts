@@ -45,6 +45,7 @@ export const DeleteNotifi = styled.button`
   border-radius: 4px;
   ${shadow.shadow2};
   background-color: ${theme.white};
+  cursor: pointer;
   :hover {
     background-color: ${theme.grey[500]};
   }
