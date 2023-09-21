@@ -4,6 +4,7 @@ import Input from 'components/Input';
 import Button from 'components/Button';
 import React from 'react';
 import instance from 'apis/httpClient';
+import { error } from 'console';
 
 interface GenerateModalProps {
   pageId: number;
@@ -34,11 +35,17 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
       position: userSkills,
     };
 
-    instance.post(`application/${pageId}`, sendData, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    });
+    console.log('눌러짐');
+
+    instance
+      .post(`application/${pageId}`, sendData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
   };
 
   return (
