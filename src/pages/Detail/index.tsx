@@ -110,9 +110,12 @@ const Detail = () => {
                 </S.MemberImages>
               </S.Member>
               {user === projectUsers[0]?.userId ? (
-                <S.Button color={theme.primary} onClick={modalOpen}>
-                  신청목록 조회하기
-                </S.Button>
+                <>
+                  <S.ButtonGap />
+                  <S.Button color={theme.primary} onClick={modalOpen}>
+                    신청목록 조회하기
+                  </S.Button>
+                </>
               ) : (
                 <>
                   <S.Button color={theme.primary} onClick={modalOpen}>

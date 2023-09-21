@@ -93,10 +93,17 @@ export const MemberProfile = styled.img`
   margin-top: 7px;
 `;
 
+export const ButtonGap = styled.button`
+  width: 350px;
+  height: 41px;
+  border: none;
+  background-color: white;
+`;
+
 export const Button = styled.button`
   cursor: pointer;
   color: white;
-  width: 350px;
+  width: 332px;
   height: 42px;
   border-radius: 6px;
   border: none;
