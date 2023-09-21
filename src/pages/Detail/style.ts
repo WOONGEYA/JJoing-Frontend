@@ -43,7 +43,7 @@ export const MainContents = styled.div`
 
 export const Image = styled.img`
   width: 65%;
-  height: 370px;
+  height: 383px;
   background-color: #ccc;
   border-radius: 5px;
   overflow: hidden;
@@ -93,11 +93,9 @@ export const MemberProfile = styled.img`
   margin-top: 7px;
 `;
 
-export const ButtonGap = styled.button`
-  width: 350px;
-  height: 41px;
-  border: none;
-  background-color: white;
+export const ButtonGap = styled.div`
+  width: 332px;
+  height: 54px;
 `;
 
 export const Button = styled.button`

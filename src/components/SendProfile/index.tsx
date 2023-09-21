@@ -4,7 +4,6 @@ import Input from 'components/Input';
 import Button from 'components/Button';
 import React from 'react';
 import instance from 'apis/httpClient';
-import { error } from 'console';
 import { toast } from 'react-toastify';
 import { isAxiosError } from 'axios';
 
@@ -43,8 +42,13 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
       },
     });
 
-    if (!isAxiosError(res)) toast.success('프로젝트 신청에 성공했습니다!');
-    else toast.error('이미 신청한 프로젝트입니다!');
+    if (!isAxiosError(res)) {
+      toast.success('프로젝트 신청에 성공했습니다!');
+      closeModal();
+    } else {
+      toast.error('이미 신청한 프로젝트입니다!');
+      closeModal();
+    }
   };
 
   return (
