@@ -2,6 +2,17 @@ import styled from 'styled-components';
 import { font } from 'styles/font';
 import theme from 'styles/theme';
 
+export const Image = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  box-sizing: inherit;
+  transition: all 0.2s ease-out;
+`;
+
 export const Container = styled.div`
   min-width: 328px;
   width: 328px;
@@ -9,18 +20,14 @@ export const Container = styled.div`
   box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   background-color: ${theme.white};
-`;
-
-export const Image = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  box-sizing: inherit;
-  position: absolute;
+  &:hover {
+    transition: 0.2s ease-in-out;
+    box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+  }
+  &:hover ${Image} {
+    transform: scale(1.2);
+  }
 `;
 
 export const Info = styled.div`
@@ -79,11 +86,12 @@ export const MemberCount = styled.div`
 `;
 
 export const ImageContainer = styled.div`
-  padding-top: 170px;
+  padding-top: 50%;
   width: 100%;
   position: relative;
   text-decoration: none;
   background-color: ${theme.grey[300]};
+  overflow: hidden;
 `;
 
 export const HeartCount = styled.div`
