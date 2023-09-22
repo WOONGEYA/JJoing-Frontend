@@ -22,7 +22,7 @@ export const Container = styled.div`
   background-color: ${theme.white};
   &:hover {
     transition: 0.2s ease-in-out;
-    box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.3);
     transform: translateY(-5px);
   }
   &:hover ${Image} {
