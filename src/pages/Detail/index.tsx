@@ -23,9 +23,16 @@ interface UserInfo {
   startDate: string;
 }
 
+interface Members {
+  userId: number;
+  name: string;
+  imgUrl: string[];
+}
+
 const Detail = () => {
   const { id } = useParams();
   const [userInfo, setUserInfo] = useState<UserInfo | null>();
+  const [projectUsers, setProjectUsers] = useState<Members | null>();
 
   const getProjectData = async () => {
     try {
@@ -35,13 +42,10 @@ const Detail = () => {
       console.log(error);
     }
   };
-  console.log();
 
   useEffect(() => {
     getProjectData();
   }, []);
-
-  console.log(userInfo?.moods);
 
   return (
     <Layout>

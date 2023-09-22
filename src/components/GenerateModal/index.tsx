@@ -112,20 +112,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     }
   };
 
-  const handleCompletion = () => {
-    console.log(
-      '유저 업데이트',
-      userInput?.name,
-      userInput?.content,
-      userInput?.requiredPeople,
-      userInput?.endDate,
-      userInput?.skills,
-      userInput?.coops,
-      userInput?.moods,
-      userInput?.positions,
-      newImageUrl,
-    );
-  };
   const handleAddItem = (
     field: keyof UserInput,
     value: string,
@@ -165,6 +151,36 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     } catch (error) {
       console.error('Error updating user profile:', error);
     }
+  };
+
+  const deletePosition = (indexToDelete: number) => {
+    setUserInput((prevInput) => ({
+      ...prevInput,
+      positions: prevInput.positions.filter(
+        (_, index) => index !== indexToDelete,
+      ),
+    }));
+  };
+
+  const deleteMoods = (indexToDelete: number) => {
+    setUserInput((prevInput) => ({
+      ...prevInput,
+      moods: prevInput.moods.filter((_, index) => index !== indexToDelete),
+    }));
+  };
+
+  const deleteCoops = (indexToDelete: number) => {
+    setUserInput((prevInput) => ({
+      ...prevInput,
+      coops: prevInput.coops.filter((_, index) => index !== indexToDelete),
+    }));
+  };
+
+  const deleteSkills = (indexToDelete: number) => {
+    setUserInput((prevInput) => ({
+      ...prevInput,
+      skills: prevInput.skills.filter((_, index) => index !== indexToDelete),
+    }));
   };
 
   return (
@@ -234,7 +250,19 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
               />
               <S.TagArea>
                 {userInput.positions.map((tag, index) => (
-                  <S.Tag key={index}>{tag}</S.Tag>
+                  <S.Tag key={index}>
+                    {tag}
+                    <CloseIcon
+                      style={{
+                        right: 0,
+                        marginLeft: '10px',
+                        cursor: 'pointer',
+                        width: '15px',
+                        height: '15px',
+                      }}
+                      onClick={() => deletePosition(index)}
+                    />
+                  </S.Tag>
                 ))}
               </S.TagArea>
             </S.InputArea>
@@ -264,7 +292,19 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
               />
               <S.TagArea>
                 {userInput.moods.map((tag, index) => (
-                  <S.Tag key={index}>{tag}</S.Tag>
+                  <S.Tag key={index}>
+                    {tag}
+                    <CloseIcon
+                      style={{
+                        right: 0,
+                        marginLeft: '10px',
+                        cursor: 'pointer',
+                        width: '15px',
+                        height: '15px',
+                      }}
+                      onClick={() => deleteMoods(index)}
+                    />
+                  </S.Tag>
                 ))}
               </S.TagArea>
             </S.InputArea>
@@ -281,7 +321,19 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
               />
               <S.TagArea>
                 {userInput.skills.map((tag, index) => (
-                  <S.Tag key={index}>{tag}</S.Tag>
+                  <S.Tag key={index}>
+                    {tag}
+                    <CloseIcon
+                      style={{
+                        right: 0,
+                        marginLeft: '10px',
+                        cursor: 'pointer',
+                        width: '15px',
+                        height: '15px',
+                      }}
+                      onClick={() => deleteSkills(index)}
+                    />
+                  </S.Tag>
                 ))}
               </S.TagArea>
             </S.InputArea>
@@ -298,7 +350,19 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
               />
               <S.TagArea>
                 {userInput.coops.map((tag, index) => (
-                  <S.Tag key={index}>{tag}</S.Tag>
+                  <S.Tag key={index}>
+                    {tag}
+                    <CloseIcon
+                      style={{
+                        right: 0,
+                        marginLeft: '10px',
+                        cursor: 'pointer',
+                        width: '15px',
+                        height: '15px',
+                      }}
+                      onClick={() => deleteCoops(index)}
+                    />
+                  </S.Tag>
                 ))}
               </S.TagArea>
             </S.InputArea>
