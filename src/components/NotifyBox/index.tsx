@@ -1,31 +1,22 @@
 import * as S from './style';
 import * as F from 'styles/flex';
 import trash from 'assets/trash.svg';
-import instance from 'apis/httpClient';
+import useModal from 'hooks/useModal';
+import DeleteConfirm from 'components/DeleteConfirm';
 
 interface NotifyBoxProps {
-  id?: number;
-  title?: string;
-  content?: string;
+  id: number;
+  title: string;
+  content: string;
 }
 
 function NotifyBox({ id, title, content }: NotifyBoxProps) {
-  const onDelete = ({ id }: NotifyBoxProps) => {
-    const fetchData = async () => {
-      try {
-        const { data } = await instance.delete(`/notification/${id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        console.log(data);
-        window.location.reload();
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const { openModal, closeModal } = useModal();
 
-    fetchData();
+  const modalOpen = () => {
+    openModal({
+      component: <DeleteConfirm id={id} closeModal={closeModal} />,
+    });
   };
 
   return (
@@ -44,7 +35,7 @@ function NotifyBox({ id, title, content }: NotifyBoxProps) {
         <S.Icon
           src={trash}
           style={{ marginRight: '30px', cursor: 'pointer' }}
-          onClick={() => onDelete({ id })}
+          onClick={modalOpen}
         />
       </S.Else>
     </S.Container>

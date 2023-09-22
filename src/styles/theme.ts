@@ -18,6 +18,8 @@ const grey = {
 
 const red = '#FF0000';
 
+const orange = '#F4493C';
+
 export default {
   primary,
   secondary,
@@ -25,4 +27,5 @@ export default {
   black,
   white,
   red,
+  orange,
 };
