@@ -56,6 +56,9 @@ export const CancleButton = styled.div`
   border-radius: 0.3rem;
   color: white;
   cursor: pointer;
+  &:hover {
+    background-color: ${theme.grey[600]};
+  }
 `;
 
 export const SuccessButton = styled.div`
@@ -68,4 +71,7 @@ export const SuccessButton = styled.div`
   justify-content: center;
   border-radius: 0.3rem;
   cursor: pointer;
+  &:hover {
+    background-color: ${theme.orange};
+  }
 `;
