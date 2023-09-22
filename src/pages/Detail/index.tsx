@@ -6,9 +6,10 @@ import { useParams } from 'react-router-dom';
 import instance from 'apis/httpClient';
 import MemberIcon from 'assets/MemberIcon';
 import { useRecoilValue } from 'recoil';
-import { userKey } from 'apis/recoil';
+import { selectingId, userKey } from 'apis/recoil';
 import useModal from 'hooks/useModal';
 import SendProfile from 'components/SendProfile';
+import EndProjectModal from 'components/EndProjectModal';
 
 interface CategoryPropsType {
   categories: string[];
@@ -47,12 +48,27 @@ const Detail = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [projectUsers, setProjectUsers] = useState<Member[]>([]);
   const user = useRecoilValue(userKey);
+  const selectId = useRecoilValue(selectingId);
 
   const { openModal, closeModal } = useModal();
 
-  const modalOpen = () => {
+  const JJoingNow = () => {
     openModal({
       component: <SendProfile pageId={Number(id)} closeModal={closeModal} />,
+    });
+  };
+
+  const EndProject = () => {
+    openModal({
+      component: (
+        <EndProjectModal closeModal={closeModal} pageId={Number(id)} />
+      ),
+    });
+  };
+
+  const seeJjoingList = () => {
+    instance.get(`/application/project/${id}`).then((res) => {
+      console.log(res.data);
     });
   };
 
@@ -111,15 +127,21 @@ const Detail = () => {
               </S.Member>
               {user === projectUsers[0]?.userId ? (
                 <>
-                  <S.Button color={theme.secondary}>프로젝트 마감하기</S.Button>
-                  <S.Button color={theme.primary} onClick={modalOpen}>
+                  {selectId === 1 ? (
+                    <S.ButtonGap></S.ButtonGap>
+                  ) : (
+                    <S.Button color={theme.secondary} onClick={EndProject}>
+                      프로젝트 마감하기
+                    </S.Button>
+                  )}
+                  <S.Button color={theme.primary} onClick={seeJjoingList}>
                     신청목록 조회하기
                   </S.Button>
                 </>
               ) : (
                 <>
                   <S.ButtonGap />
-                  <S.Button color={theme.secondary} onClick={modalOpen}>
+                  <S.Button color={theme.secondary} onClick={JJoingNow}>
                     지금 쪼잉하기!!
                   </S.Button>
                 </>

@@ -2,31 +2,24 @@ import instance from 'apis/httpClient';
 import * as S from './style';
 import { toast } from 'react-toastify';
 
-interface NotifyBoxProps {
-  id?: number;
-  title?: string;
-  content?: string;
-}
-
 interface GenerateModalProps {
   closeModal: () => void;
-  id: number;
+  pageId: number;
 }
 
-const EndProjectModal = ({ closeModal, id }: GenerateModalProps) => {
-  const onDelete = () => {
+const EndProjectModal = ({ closeModal, pageId }: GenerateModalProps) => {
+  const onEnd = () => {
     const fetchData = async () => {
       try {
-        const { data } = await instance.delete(`/notification/${id}`, {
+        const { data } = await instance.put(`/project/close/${pageId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
-        console.log(data);
-        toast.success('알림을 삭제했습니다.');
+        toast.success('프로젝트가 마감되었습니다.');
         window.location.reload();
       } catch (error) {
-        console.log(error);
+        toast.error('프로젝트 마감실패.');
       }
     };
 
@@ -36,17 +29,17 @@ const EndProjectModal = ({ closeModal, id }: GenerateModalProps) => {
   return (
     <S.ModalContainer>
       <S.ModalTextWrapper>
-        <S.MainText>정말 해당 알림을 삭제하시겠습니까?</S.MainText>
-        <S.SubText>삭제한 알림은 복구할 수 없습니다.</S.SubText>
+        <S.MainText>정말 해당 프로젝트를 마감하시겠습니까?</S.MainText>
+        <S.SubText>마감한 프로젝트는 복구할 수 없습니다.</S.SubText>
         <S.ButtonsWrapper>
-          <S.CancleButton // 클릭시에 나오게 하려면 () => closeModal
+          <S.CancleButton
             onClick={() => {
               closeModal();
             }}
           >
             취소
           </S.CancleButton>
-          <S.SuccessButton onClick={onDelete}>삭제</S.SuccessButton>
+          <S.SuccessButton onClick={onEnd}>마감</S.SuccessButton>
         </S.ButtonsWrapper>
       </S.ModalTextWrapper>
     </S.ModalContainer>

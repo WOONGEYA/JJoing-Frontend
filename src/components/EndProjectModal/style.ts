@@ -72,6 +72,6 @@ export const SuccessButton = styled.div`
   border-radius: 0.3rem;
   cursor: pointer;
   &:hover {
-    background-color: ${theme.orange};
+    background-color: ${theme.red};
   }
 `;

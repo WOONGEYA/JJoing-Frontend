@@ -2,12 +2,6 @@ import instance from 'apis/httpClient';
 import * as S from './style';
 import { toast } from 'react-toastify';
 
-interface NotifyBoxProps {
-  id?: number;
-  title?: string;
-  content?: string;
-}
-
 interface GenerateModalProps {
   closeModal: () => void;
   id: number;

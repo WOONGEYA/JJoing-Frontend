@@ -21,6 +21,7 @@ interface NewProject {
   viewCount: number;
   imgUrl: string;
   likeCount: number;
+  selectId: number;
 }
 
 const Explore = () => {
@@ -69,6 +70,7 @@ const Explore = () => {
                 imgUrl={data.imgUrl}
                 viewCount={data.viewCount}
                 likeCount={data.likeCount}
+                selectId={0}
               />
             ))}
           </S.ProjectContainer>
