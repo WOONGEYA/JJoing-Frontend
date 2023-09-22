@@ -1,3 +1,4 @@
+import React from 'react';
 import instance from 'apis/httpClient';
 import * as S from './style';
 import { toast } from 'react-toastify';
@@ -8,22 +9,18 @@ interface GenerateModalProps {
 }
 
 const EndProjectModal = ({ closeModal, pageId }: GenerateModalProps) => {
-  const onEnd = () => {
-    const fetchData = async () => {
-      try {
-        const { data } = await instance.put(`/project/close/${pageId}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-        toast.success('프로젝트가 마감되었습니다.');
-        window.location.reload();
-      } catch (error) {
-        toast.error('프로젝트 마감실패.');
-      }
-    };
-
-    fetchData();
+  const onEnd = async () => {
+    await instance.put(
+      `/project/close/${pageId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      },
+    );
+    console.log('성공');
+    toast.success('프로젝트 마감완료');
   };
 
   return (
