@@ -111,17 +111,17 @@ const Detail = () => {
               </S.Member>
               {user === projectUsers[0]?.userId ? (
                 <>
-                  <S.ButtonGap />
+                  <S.Button color={theme.secondary}>프로젝트 마감하기</S.Button>
                   <S.Button color={theme.primary} onClick={modalOpen}>
                     신청목록 조회하기
                   </S.Button>
                 </>
               ) : (
                 <>
-                  <S.Button color={theme.primary} onClick={modalOpen}>
-                    마이쫑에 추가하기
+                  <S.ButtonGap />
+                  <S.Button color={theme.secondary} onClick={modalOpen}>
+                    지금 쪼잉하기!!
                   </S.Button>
-                  <S.Button color={theme.secondary}>지금 쪼잉하기!!</S.Button>
                 </>
               )}
             </S.MainDesc>
