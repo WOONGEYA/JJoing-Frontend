@@ -148,7 +148,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
         },
       });
 
-      toast.success('프로젝트 등록 성공');
       closeModal();
       window.location.reload();
     } catch (error) {

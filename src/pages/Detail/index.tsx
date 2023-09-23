@@ -96,7 +96,7 @@ const Detail = () => {
     fetchData();
   }, [id]);
 
-  console.log(projectUsers);
+  console.log('projectUsers', projectUsers);
   return (
     <>
       <Header />

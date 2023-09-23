@@ -15,7 +15,7 @@ interface User {
 }
 
 const ProjectJoinList = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const [userData, setUserData] = useState<User[]>([]);
 
   useEffect(() => {
@@ -39,21 +39,27 @@ const ProjectJoinList = () => {
     <>
       <Header />
       <S.JJoingContainer>
-        {userData.map((data) => (
-          <S.Container key={data.id} onClick={OpenJjoingList}>
-            <S.Element>
-              <F.FlexVertical>
-                <S.TitleBox>
-                  <S.Element>
-                    <S.Desciption>자기소개: {data.introduce}</S.Desciption>
-                    <S.Position>분야: {data.position}</S.Position>
-                  </S.Element>
-                  <S.SubTitle>이름: {data.userName}</S.SubTitle>
-                </S.TitleBox>
-              </F.FlexVertical>
-            </S.Element>
-          </S.Container>
-        ))}
+        <S.MainTitle>신청된 쪼잉</S.MainTitle>
+        {userData.map((data) =>
+          data.userName.length > 0 ? (
+            <S.Container key={data.id} onClick={OpenJjoingList}>
+              <S.Element>
+                <F.FlexVertical>
+                  <S.TitleBox>
+                    {' '}
+                    <S.Element>
+                      <S.Desciption>자기소개: {data.introduce}</S.Desciption>
+                      <S.Position>분야: {data.position}</S.Position>
+                    </S.Element>
+                    <S.SubTitle>이름: {data.userName}</S.SubTitle>
+                  </S.TitleBox>
+                </F.FlexVertical>
+              </S.Element>
+            </S.Container>
+          ) : (
+            <div key={data.id}>없음</div>
+          ),
+        )}
       </S.JJoingContainer>
     </>
   );

@@ -9,6 +9,14 @@ export const JJoingContainer = styled.div`
   padding-top: 20vh;
 `;
 
+export const MainTitle = styled.div`
+  width: 60%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  ${font.$title01}
+`;
 export const Container = styled.div`
   margin: 0 auto;
   width: 60%;

@@ -21,6 +21,7 @@ const EndProjectModal = ({ closeModal, pageId }: GenerateModalProps) => {
     );
     console.log('성공');
     toast.success('프로젝트 마감완료');
+    closeModal();
   };
 
   return (
