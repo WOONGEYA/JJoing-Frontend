@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import { font } from 'styles/font';
 import theme from 'styles/theme';
 
+interface ButtonProps {
+  color: string;
+}
+
 export const ModalContainer = styled.div`
   max-width: 504px;
   width: 65vw;
@@ -13,8 +17,7 @@ export const ModalContainer = styled.div`
   align-items: flex-end;
   gap: 20px;
   border-radius: 12px;
-  height: 15rem;
-  background-color: skyblue;
+  height: 19rem;
 `;
 
 export const TitleContainer = styled.div`
@@ -49,4 +52,25 @@ export const Profile = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 1rem;
+`;
+
+export const Button = styled.div<ButtonProps>`
+  width: 90px;
+  height: 35px;
+  background-color: ${(props) => props.color};
+  border-radius: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
 `;
