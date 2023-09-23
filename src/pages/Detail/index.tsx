@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from 'components/Header';
 import * as S from './style';
 import theme from 'styles/theme';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import instance from 'apis/httpClient';
 import MemberIcon from 'assets/MemberIcon';
 import { useRecoilValue } from 'recoil';
@@ -10,6 +10,7 @@ import { selectingId, userKey } from 'apis/recoil';
 import useModal from 'hooks/useModal';
 import SendProfile from 'components/SendProfile';
 import EndProjectModal from 'components/EndProjectModal';
+import ProjectJoinList from 'pages/ProjectJoinList';
 
 interface CategoryPropsType {
   categories: string[];
@@ -49,6 +50,7 @@ const Detail = () => {
   const [projectUsers, setProjectUsers] = useState<Member[]>([]);
   const user = useRecoilValue(userKey);
   const selectId = useRecoilValue(selectingId);
+  const navigate = useNavigate();
 
   const { openModal, closeModal } = useModal();
 
@@ -67,9 +69,7 @@ const Detail = () => {
   };
 
   const seeJjoingList = () => {
-    instance.get(`/application/project/${id}`).then((res) => {
-      console.log(res.data);
-    });
+    navigate(`/seeMyProjectJoing/${id}`);
   };
 
   useEffect(() => {

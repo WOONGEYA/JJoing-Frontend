@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Main from 'pages/Main';
 import Notify from 'pages/Notify';
 import MyJJong from 'pages/MyJJong';
+import ProjectJoinList from 'pages/ProjectJoinList';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +49,10 @@ const App = () => {
               <Route path='/' element={<Main />} />
               <Route path='/notify' element={<Notify />} />
               <Route path='/myjjong' element={<MyJJong />} />
+              <Route
+                path='/seeMyProjectJoing/:id'
+                element={<ProjectJoinList />}
+              />
               <Route path='*' element={<Navigate replace to='/' />} />
             </Routes>
           </BrowserRouter>
