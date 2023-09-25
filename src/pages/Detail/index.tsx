@@ -1,11 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import MemberIcon from 'assets/MemberIcon';
+import React from 'react';
 import theme from 'styles/theme';
+import { useNavigate, useParams } from 'react-router-dom';
 import instance from 'apis/httpClient';
+import MemberIcon from 'assets/MemberIcon';
+import { useRecoilValue } from 'recoil';
+import { selectingId, userKey } from 'apis/recoil';
+import useModal from 'hooks/useModal';
+import SendProfile from 'components/SendProfile';
+import EndProjectModal from 'components/EndProjectModal';
 import Layout from 'components/Layout';
 import CalendarIcon from 'assets/CalendarIcon';
-import Button from 'components/Button';
 import Tag from 'components/Tag';
 import * as S from './style';
 
@@ -23,18 +27,41 @@ interface UserInfo {
   startDate: string;
 }
 
-interface Members {
+interface Member {
   userId: number;
   name: string;
-  imgUrl: string[];
+  imgUrl: string;
 }
 
 const Detail = () => {
   const { id } = useParams();
-  const [userInfo, setUserInfo] = useState<UserInfo | null>();
-  const [projectUsers, setProjectUsers] = useState<Members | null>();
+  const [userInfo, setUserInfo] = React.useState<UserInfo | null>(null);
+  const [projectUsers, setProjectUsers] = React.useState<Member[]>([]);
+  const user = useRecoilValue(userKey);
+  const selectId = useRecoilValue(selectingId);
+  const navigate = useNavigate();
 
-  const getProjectData = async () => {
+  const { openModal, closeModal } = useModal();
+
+  const JJoingNow = () => {
+    openModal({
+      component: <SendProfile pageId={Number(id)} closeModal={closeModal} />,
+    });
+  };
+
+  const EndProject = () => {
+    openModal({
+      component: (
+        <EndProjectModal closeModal={closeModal} pageId={Number(id)} />
+      ),
+    });
+  };
+
+  const seeJjoingList = () => {
+    navigate(`/seeMyProjectJoing/${id}`);
+  };
+
+  const getProject = async () => {
     try {
       const { data } = await instance.get(`/project/${id}`);
       setUserInfo(data);
@@ -43,9 +70,19 @@ const Detail = () => {
     }
   };
 
-  useEffect(() => {
-    getProjectData();
-  }, []);
+  const getProjectMember = async () => {
+    try {
+      const { data } = await instance.get(`/project/member/${id}`);
+      setProjectUsers(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {
+    getProject();
+    getProjectMember();
+  }, [id]);
 
   return (
     <Layout>
@@ -83,18 +120,37 @@ const Detail = () => {
                   멤버
                 </S.MemberText>
                 <S.Members>
-                  <S.MemberProfile />
-                  <S.MemberProfile />
-                  <S.MemberProfile />
-                  <S.MemberProfile />
+                  {projectUsers?.map((image) => (
+                    <S.MemberProfile
+                      key={image.userId}
+                      src={image.imgUrl}
+                      alt={image.name}
+                    />
+                  ))}
                 </S.Members>
               </S.ProjectMember>
               <S.Buttons>
-                <Button
-                  value='마이쫑에 추가하기'
-                  background={theme.secondary}
-                />
-                <Button value='지금 쪼잉하기!' background={theme.primary} />
+                {user === projectUsers[0]?.userId ? (
+                  <>
+                    {selectId === 1 ? (
+                      <S.ButtonGap></S.ButtonGap>
+                    ) : (
+                      <S.Button color={theme.secondary} onClick={EndProject}>
+                        프로젝트 마감하기
+                      </S.Button>
+                    )}
+                    <S.Button color={theme.primary} onClick={seeJjoingList}>
+                      신청목록 조회하기
+                    </S.Button>
+                  </>
+                ) : (
+                  <>
+                    <S.ButtonGap />
+                    <S.Button color={theme.secondary} onClick={JJoingNow}>
+                      지금 쪼잉하기!!
+                    </S.Button>
+                  </>
+                )}
               </S.Buttons>
             </S.ProjectBasicInfo>
           </S.ProjectInfo>

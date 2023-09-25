@@ -56,6 +56,7 @@ instance.interceptors.response.use(
     };
 
     if (status === 403) {
+      window.location.reload;
       handleAccessTokenRequest();
     }
 

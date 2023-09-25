@@ -5,7 +5,6 @@ import theme from 'styles/theme';
 
 export const Container = styled.div`
   width: 100vw;
-  height: 120rem;
   padding: 140px 204px 0;
   box-sizing: border-box;
 `;
@@ -45,6 +44,7 @@ export const DeleteNotifi = styled.button`
   border-radius: 4px;
   ${shadow.shadow2};
   background-color: ${theme.white};
+  cursor: pointer;
   :hover {
     background-color: ${theme.grey[500]};
   }

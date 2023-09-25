@@ -109,7 +109,7 @@ export const Members = styled.div`
   gap: 8px;
 `;
 
-export const MemberProfile = styled.div`
+export const MemberProfile = styled.img`
   width: 38px;
   height: 38px;
   border: 1px solid ${theme.black};
@@ -159,4 +159,20 @@ export const CategoryContainer = styled.div`
 export const TagContainer = styled.div`
   display: flex;
   gap: 8px;
+`;
+
+export const ButtonGap = styled.div`
+  width: 332px;
+  height: 54px;
+`;
+
+export const Button = styled.button`
+  cursor: pointer;
+  color: white;
+  width: 332px;
+  height: 42px;
+  border-radius: 6px;
+  border: none;
+  margin-top: 12px;
+  ${font.$body};
 `;

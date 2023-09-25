@@ -5,12 +5,13 @@ interface SVGAttributeProps extends React.SVGAttributes<HTMLOrSVGElement> {
   width?: number;
   height?: number;
   color?: string;
+  backgroundColor?: string;
 }
 
 const BellIcon = ({
   width = 18,
   height = 18,
-  color = theme.secondary,
+  color = theme.red,
   ...rest
 }: SVGAttributeProps) => {
   return (
