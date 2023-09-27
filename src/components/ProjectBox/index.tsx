@@ -5,8 +5,6 @@ import RedHeart from 'assets/RedHeart';
 import { useNavigate } from 'react-router-dom';
 import instance from 'apis/httpClient';
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { selectingId } from 'apis/recoil';
 
 interface ProjectBoxPropsType {
   content: string;
@@ -28,12 +26,10 @@ const ProjectBox = ({
   imgUrl,
   id,
   likeCount,
-  selectId,
 }: ProjectBoxPropsType) => {
   const navigate = useNavigate();
 
   const [isLiked, setIsLiked] = useState(false);
-  const [selectedId, setSelectedId] = useRecoilState(selectingId);
 
   useEffect(() => {
     const fetchLikeStatus = async () => {
@@ -84,10 +80,6 @@ const ProjectBox = ({
       setIsLiked(true);
     }
   };
-
-  useEffect(() => {
-    setSelectedId(selectId);
-  }, [selectedId]);
 
   return (
     <S.Container>

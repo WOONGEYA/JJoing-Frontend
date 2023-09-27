@@ -10,7 +10,6 @@ import { selectingId, userKey } from 'apis/recoil';
 import useModal from 'hooks/useModal';
 import SendProfile from 'components/SendProfile';
 import EndProjectModal from 'components/EndProjectModal';
-import ProjectJoinList from 'pages/ProjectJoinList';
 
 interface CategoryPropsType {
   categories: string[];
@@ -36,6 +35,7 @@ interface UserInfo {
   requiredPeople: number;
   skills: string[];
   startDate: string;
+  state: string;
 }
 
 interface Member {
@@ -96,7 +96,6 @@ const Detail = () => {
     fetchData();
   }, [id]);
 
-  console.log('projectUsers', projectUsers);
   return (
     <>
       <Header />
@@ -127,7 +126,7 @@ const Detail = () => {
               </S.Member>
               {user === projectUsers[0]?.userId ? (
                 <>
-                  {selectId === 1 ? (
+                  {userInfo?.state === 'FOUND' ? (
                     <S.ButtonGap></S.ButtonGap>
                   ) : (
                     <S.Button color={theme.secondary} onClick={EndProject}>
