@@ -114,6 +114,7 @@ export const MemberProfile = styled.img`
   height: 38px;
   border: 1px solid ${theme.black};
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 export const Buttons = styled.div`

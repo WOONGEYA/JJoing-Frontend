@@ -84,6 +84,10 @@ const Detail = () => {
     getProjectMember();
   }, [id]);
 
+  const goOthersPage = (userId: number) => {
+    navigate(`/others/${userId}`);
+  };
+
   return (
     <Layout>
       <S.Contents>
@@ -125,6 +129,7 @@ const Detail = () => {
                       key={image.userId}
                       src={image.imgUrl}
                       alt={image.name}
+                      onClick={() => goOthersPage(image.userId)}
                     />
                   ))}
                 </S.Members>
