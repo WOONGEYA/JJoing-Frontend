@@ -8,6 +8,7 @@ import NoNotify from 'components/NoNotify/index';
 import Search from 'components/Search';
 import instance from 'apis/httpClient';
 import NotifyBox from 'components/NotifyBox';
+import { toast } from 'react-toastify';
 
 interface Notification {
   user: string;
@@ -27,9 +28,21 @@ function Notify() {
   const [userInput, setUserInput] = useState<string>('');
   const [alarmList, setAlarmList] = useState<alarmList[]>([]);
 
-  function handleDeleteAll() {
-    setNotificationData([]);
-  }
+  const handleDeleteAll = () => {
+    const fetchData = async () => {
+      try {
+        await instance.delete('/notification', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        window.location.reload();
+      } catch (error) {
+        toast.error('알림 삭제 실패');
+      }
+    };
+    fetchData();
+  };
 
   const filteredNotifications = alarmList.filter((alarmList) =>
     alarmList.title.toLowerCase().includes(userInput.toLowerCase()),
