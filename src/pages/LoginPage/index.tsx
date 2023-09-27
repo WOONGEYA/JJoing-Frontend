@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import instance from 'apis/httpClient';
+import { toast } from 'react-toastify';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -29,12 +30,14 @@ const LoginPage = () => {
         const data = await postCode(encodedValue);
         const { accessToken, refreshToken } = data;
         navigate('/');
+        toast.success('로그인 성공!');
 
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
       } catch (error) {
         console.error(error);
         navigate('/');
+        toast.error('학교 계정으로 로그인하세요.');
       }
     };
 
