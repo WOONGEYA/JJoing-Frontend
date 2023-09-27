@@ -139,10 +139,21 @@ const Detail = () => {
                 </>
               ) : (
                 <>
-                  <S.ButtonGap />
-                  <S.Button color={theme.secondary} onClick={JJoingNow}>
-                    지금 쪼잉하기!!
-                  </S.Button>
+                  {userInfo?.state === 'FOUND' ? (
+                    <>
+                      <S.ButtonGap />
+                      <S.Button color={theme.secondary}>
+                        프로젝트 모집이 마감되었습니다
+                      </S.Button>
+                    </>
+                  ) : (
+                    <>
+                      <S.ButtonGap />
+                      <S.Button color={theme.secondary} onClick={JJoingNow}>
+                        지금 쪼잉하기!!
+                      </S.Button>
+                    </>
+                  )}
                 </>
               )}
             </S.MainDesc>
