@@ -1,27 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import Header from 'components/Header';
-import * as S from './style';
+import React from 'react';
 import theme from 'styles/theme';
 import { useNavigate, useParams } from 'react-router-dom';
 import instance from 'apis/httpClient';
 import MemberIcon from 'assets/MemberIcon';
 import { useRecoilValue } from 'recoil';
-import { userKey } from 'apis/recoil';
+import { selectingId, userKey } from 'apis/recoil';
 import useModal from 'hooks/useModal';
 import SendProfile from 'components/SendProfile';
 import EndProjectModal from 'components/EndProjectModal';
-
-interface CategoryPropsType {
-  categories: string[];
-}
-
-const CategoryList = ({ categories }: CategoryPropsType) => (
-  <S.Categories>
-    {categories.map((value, index) => (
-      <S.Category key={index}>{value}</S.Category>
-    ))}
-  </S.Categories>
-);
+import Layout from 'components/Layout';
+import CalendarIcon from 'assets/CalendarIcon';
+import Tag from 'components/Tag';
+import * as S from './style';
 
 interface UserInfo {
   content: string;
@@ -35,7 +25,6 @@ interface UserInfo {
   requiredPeople: number;
   skills: string[];
   startDate: string;
-  state: string;
 }
 
 interface Member {
@@ -46,9 +35,10 @@ interface Member {
 
 const Detail = () => {
   const { id } = useParams();
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-  const [projectUsers, setProjectUsers] = useState<Member[]>([]);
+  const [userInfo, setUserInfo] = React.useState<UserInfo | null>(null);
+  const [projectUsers, setProjectUsers] = React.useState<Member[]>([]);
   const user = useRecoilValue(userKey);
+  const selectId = useRecoilValue(selectingId);
   const navigate = useNavigate();
 
   const { openModal, closeModal } = useModal();
@@ -71,112 +61,134 @@ const Detail = () => {
     navigate(`/seeMyProjectJoing/${id}`);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await instance.get(`/project/${id}`);
-        setUserInfo(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, [id]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await instance.get(`/project/member/${id}`);
-        setProjectUsers(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, [id]);
-
-  const click = (userId: number) => {
-    navigate(`/others/${userId}`);
-    instance.get(`/project/${userId}/user`).then((res) => {
-      console.log('project others', res.data);
-    });
+  const getProject = async () => {
+    try {
+      const { data } = await instance.get(`/project/${id}`);
+      setUserInfo(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  const getProjectMember = async () => {
+    try {
+      const { data } = await instance.get(`/project/member/${id}`);
+      setProjectUsers(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {
+    getProject();
+    getProjectMember();
+  }, [id]);
+
   return (
-    <>
-      <Header />
-      <S.Container>
-        <S.ProjectBox>
-          <S.MainContents>
-            <S.Image src={userInfo?.imgUrl} alt={userInfo?.name} />
-            <S.MainDesc>
-              <S.Title>{userInfo?.name}</S.Title>
-              <S.DeadLine>📅 모집 기한</S.DeadLine>
-              <S.DeadLine style={{ color: theme.grey[500] }}>
-                {userInfo?.startDate} ~ {userInfo?.endDate}
-              </S.DeadLine>
-              <S.Member>
-                <S.MemberTitle>
+    <Layout>
+      <S.Contents>
+        <S.ProjectLayout>
+          <S.ProjectInfo>
+            <S.ProjectImageContainer>
+              <S.ProjectImage src={userInfo?.imgUrl} />
+            </S.ProjectImageContainer>
+            <S.ProjectBasicInfo>
+              <S.ProjectName>{userInfo?.name}</S.ProjectName>
+              <S.RecruitInfo>
+                <S.Deadline>
+                  <S.DeadlineText>
+                    <CalendarIcon />
+                    모집 기한
+                  </S.DeadlineText>
+                  <S.DeadlineDate>
+                    {userInfo?.startDate} ~ {userInfo?.endDate}
+                  </S.DeadlineDate>
+                </S.Deadline>
+                <S.Recruiting>
+                  <S.RecruitingText>
+                    <MemberIcon color={theme.black} />
+                    모집 인원
+                  </S.RecruitingText>
+                  <S.RecruitingMember>
+                    {userInfo?.currentPeople}/{userInfo?.requiredPeople}
+                  </S.RecruitingMember>
+                </S.Recruiting>
+              </S.RecruitInfo>
+              <S.ProjectMember>
+                <S.MemberText>
                   <MemberIcon />
-                  <span>멤버</span>
-                </S.MemberTitle>
-                <S.MemberImages>
+                  멤버
+                </S.MemberText>
+                <S.Members>
                   {projectUsers?.map((image) => (
                     <S.MemberProfile
                       key={image.userId}
                       src={image.imgUrl}
                       alt={image.name}
-                      onClick={() => click(image.userId)}
                     />
                   ))}
-                </S.MemberImages>
-              </S.Member>
-              {user === projectUsers[0]?.userId ? (
-                <>
-                  {userInfo?.state === 'FOUND' ? (
-                    <S.ButtonGap></S.ButtonGap>
-                  ) : (
-                    <S.Button color={theme.secondary} onClick={EndProject}>
-                      프로젝트 마감하기
+                </S.Members>
+              </S.ProjectMember>
+              <S.Buttons>
+                {user === projectUsers[0]?.userId ? (
+                  <>
+                    {selectId === 1 ? (
+                      <S.ButtonGap></S.ButtonGap>
+                    ) : (
+                      <S.Button color={theme.secondary} onClick={EndProject}>
+                        프로젝트 마감하기
+                      </S.Button>
+                    )}
+                    <S.Button color={theme.primary} onClick={seeJjoingList}>
+                      신청목록 조회하기
                     </S.Button>
-                  )}
-                  <S.Button color={theme.primary} onClick={seeJjoingList}>
-                    신청목록 조회하기
-                  </S.Button>
-                </>
-              ) : (
-                <>
-                  {userInfo?.state === 'FOUND' ? (
-                    <>
-                      <S.ButtonGap />
-                      <S.Button color={theme.secondary}>
-                        프로젝트 모집이 마감되었습니다
-                      </S.Button>
-                    </>
-                  ) : (
-                    <>
-                      <S.ButtonGap />
-                      <S.Button color={theme.secondary} onClick={JJoingNow}>
-                        지금 쪼잉하기!!
-                      </S.Button>
-                    </>
-                  )}
-                </>
-              )}
-            </S.MainDesc>
-          </S.MainContents>
-          <S.CallOut>📋 프로젝트 설명</S.CallOut>
-          <S.Description>{userInfo?.content}</S.Description>
-          <S.CallOut>🧑‍💻 업무 카테고리</S.CallOut>
-          <S.SubCallOut>👪 개발 분위기</S.SubCallOut>
-          <CategoryList categories={userInfo?.moods || []} />
-          <S.SubCallOut>🛠 사용 기술</S.SubCallOut>
-          <CategoryList categories={userInfo?.skills || []} />
-          <S.SubCallOut>🤝 협업 툴</S.SubCallOut>
-          <CategoryList categories={userInfo?.coops || []} />
-        </S.ProjectBox>
-      </S.Container>
-    </>
+                  </>
+                ) : (
+                  <>
+                    <S.ButtonGap />
+                    <S.Button color={theme.secondary} onClick={JJoingNow}>
+                      지금 쪼잉하기!!
+                    </S.Button>
+                  </>
+                )}
+              </S.Buttons>
+            </S.ProjectBasicInfo>
+          </S.ProjectInfo>
+          <S.ProjectDetail>
+            <S.Description>
+              <S.DescriptionText>프로젝트 설명</S.DescriptionText>
+              <S.DescriptionContent>{userInfo?.content}</S.DescriptionContent>
+            </S.Description>
+            <S.Category>
+              <S.CategoryContainer>
+                <S.CategoryText>개발 분위기</S.CategoryText>
+                <S.TagContainer>
+                  {userInfo?.moods.map((mood) => (
+                    <Tag key={mood} value={mood} />
+                  ))}
+                </S.TagContainer>
+              </S.CategoryContainer>
+              <S.CategoryContainer>
+                <S.CategoryText>사용 기술</S.CategoryText>
+                <S.TagContainer>
+                  {userInfo?.skills.map((skill) => (
+                    <Tag key={skill} value={skill} />
+                  ))}
+                </S.TagContainer>
+              </S.CategoryContainer>
+              <S.CategoryContainer>
+                <S.CategoryText>협업 툴</S.CategoryText>
+                <S.TagContainer>
+                  {userInfo?.coops.map((coop) => (
+                    <Tag key={coop} value={coop} />
+                  ))}
+                </S.TagContainer>
+              </S.CategoryContainer>
+            </S.Category>
+          </S.ProjectDetail>
+        </S.ProjectLayout>
+      </S.Contents>
+    </Layout>
   );
 };
 
