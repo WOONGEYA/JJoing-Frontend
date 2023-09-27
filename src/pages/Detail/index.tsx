@@ -152,7 +152,7 @@ const Detail = () => {
                   <>
                     <S.ButtonGap />
                     <S.Button color={theme.secondary} onClick={JJoingNow}>
-                      지금 쪼잉하기!!
+                      지금 쪼잉하기
                     </S.Button>
                   </>
                 )}

@@ -120,7 +120,6 @@ export const MemberProfile = styled.img`
 export const Buttons = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
 `;
 
 export const Description = styled.div`
@@ -170,10 +169,11 @@ export const ButtonGap = styled.div`
 export const Button = styled.button`
   cursor: pointer;
   color: white;
-  width: 332px;
+  width: 343px;
   height: 42px;
   border-radius: 6px;
   border: none;
   margin-top: 12px;
   ${font.$body};
+  background-color: ${(props) => props.color};
 `;
