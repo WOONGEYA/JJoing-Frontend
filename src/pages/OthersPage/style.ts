@@ -29,8 +29,7 @@ export const UserContainer = styled.div`
   display: flex;
   gap: 20px;
   flex-direction: column;
-  max-width: 1032px;
-  width: calc(100% - 2rem);
+  width: 100%;
 `;
 
 export const UserImage = styled.div`
@@ -44,13 +43,16 @@ export const Image = styled.img`
   border-radius: 50%;
   display: block;
   object-fit: cover;
-  cursor: pointer;
   background-color: ${theme.grey[300]};
 `;
 
 export const UserName = styled.h1`
   color: ${theme.grey[900]};
   ${font.$title03};
+`;
+export const UserNickName = styled.div`
+  color: ${theme.grey[600]};
+  ${font.$title04};
 `;
 
 export const UserPosition = styled.h2`
@@ -66,7 +68,7 @@ export const StatusMessage = styled.h3`
 `;
 
 export const UserData = styled.div`
-  width: 328px;
+  width: 339px;
   display: flex;
   flex-direction: column;
 `;
@@ -107,6 +109,7 @@ export const Tab = styled.div<{ id: number; selected: number }>`
   border-bottom: 2px solid ${theme.grey[500]};
   ${font.$body};
   transition: 0.25s ease-in;
+  cursor: pointer;
 `;
 
 export const UserWrapper = styled.div`
@@ -133,7 +136,7 @@ export const NoContents = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${font.$title02};
+  ${font.$title03};
   width: 100%;
   height: 20vh;
 `;

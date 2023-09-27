@@ -41,7 +41,7 @@ const App = () => {
           <Modal />
           <BrowserRouter>
             <Routes>
-              <Route path='/other' element={<OthersPage />} />
+              <Route path='/others/:id' element={<OthersPage />} />
               <Route path='/mypage' element={<MyPage />} />
               <Route path='/login/oauth2/code/google' element={<LoginPage />} />
               <Route path='/detail/:id' element={<Detail />} />

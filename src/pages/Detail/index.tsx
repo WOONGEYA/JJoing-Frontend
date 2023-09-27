@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import instance from 'apis/httpClient';
 import MemberIcon from 'assets/MemberIcon';
 import { useRecoilValue } from 'recoil';
-import { selectingId, userKey } from 'apis/recoil';
+import { userKey } from 'apis/recoil';
 import useModal from 'hooks/useModal';
 import SendProfile from 'components/SendProfile';
 import EndProjectModal from 'components/EndProjectModal';
@@ -49,7 +49,6 @@ const Detail = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [projectUsers, setProjectUsers] = useState<Member[]>([]);
   const user = useRecoilValue(userKey);
-  const selectId = useRecoilValue(selectingId);
   const navigate = useNavigate();
 
   const { openModal, closeModal } = useModal();
@@ -96,6 +95,13 @@ const Detail = () => {
     fetchData();
   }, [id]);
 
+  const click = (userId: number) => {
+    navigate(`/others/${userId}`);
+    instance.get(`/project/${userId}/user`).then((res) => {
+      console.log('project others', res.data);
+    });
+  };
+
   return (
     <>
       <Header />
@@ -120,6 +126,7 @@ const Detail = () => {
                       key={image.userId}
                       src={image.imgUrl}
                       alt={image.name}
+                      onClick={() => click(image.userId)}
                     />
                   ))}
                 </S.MemberImages>

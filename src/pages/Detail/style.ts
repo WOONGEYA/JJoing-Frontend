@@ -90,6 +90,7 @@ export const MemberProfile = styled.img`
   height: 36px;
   border-radius: 50px;
   margin-top: 7px;
+  cursor: pointer;
 `;
 
 export const ButtonGap = styled.div`
