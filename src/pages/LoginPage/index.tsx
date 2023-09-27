@@ -1,7 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import instance from 'apis/httpClient';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { styled } from 'styled-components';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -30,7 +32,6 @@ const LoginPage = () => {
         const data = await postCode(encodedValue);
         const { accessToken, refreshToken } = data;
         navigate('/');
-        toast.success('로그인 성공!');
 
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
@@ -44,7 +45,11 @@ const LoginPage = () => {
     fetchAndNavigate();
   }, [encodedValue]);
 
-  return <></>;
+  return (
+    <>
+      <ToastContainer position='bottom-left' />
+    </>
+  );
 };
 
 export default LoginPage;
