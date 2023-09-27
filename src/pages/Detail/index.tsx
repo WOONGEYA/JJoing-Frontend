@@ -3,8 +3,6 @@ import theme from 'styles/theme';
 import { useNavigate, useParams } from 'react-router-dom';
 import instance from 'apis/httpClient';
 import MemberIcon from 'assets/MemberIcon';
-import { useRecoilValue } from 'recoil';
-import { selectingId, userKey } from 'apis/recoil';
 import useModal from 'hooks/useModal';
 import SendProfile from 'components/SendProfile';
 import EndProjectModal from 'components/EndProjectModal';
@@ -12,6 +10,8 @@ import Layout from 'components/Layout';
 import CalendarIcon from 'assets/CalendarIcon';
 import Tag from 'components/Tag';
 import * as S from './style';
+import { useRecoilValue } from 'recoil';
+import { userKey } from 'apis/recoil';
 
 interface UserInfo {
   content: string;
@@ -25,6 +25,7 @@ interface UserInfo {
   requiredPeople: number;
   skills: string[];
   startDate: string;
+  state: string;
 }
 
 interface Member {
@@ -37,9 +38,8 @@ const Detail = () => {
   const { id } = useParams();
   const [userInfo, setUserInfo] = React.useState<UserInfo | null>(null);
   const [projectUsers, setProjectUsers] = React.useState<Member[]>([]);
-  const user = useRecoilValue(userKey);
-  const selectId = useRecoilValue(selectingId);
   const navigate = useNavigate();
+  const user = useRecoilValue(userKey);
 
   const { openModal, closeModal } = useModal();
 
@@ -137,7 +137,7 @@ const Detail = () => {
               <S.Buttons>
                 {user === projectUsers[0]?.userId ? (
                   <>
-                    {selectId === 1 ? (
+                    {userInfo?.state === 'FOUND' ? (
                       <S.ButtonGap></S.ButtonGap>
                     ) : (
                       <S.Button color={theme.secondary} onClick={EndProject}>
@@ -150,10 +150,21 @@ const Detail = () => {
                   </>
                 ) : (
                   <>
-                    <S.ButtonGap />
-                    <S.Button color={theme.secondary} onClick={JJoingNow}>
-                      지금 쪼잉하기
-                    </S.Button>
+                    {userInfo?.state === 'FOUND' ? (
+                      <>
+                        <S.ButtonGap />
+                        <S.Button color={theme.secondary}>
+                          프로젝트 모집이 마감되었습니다
+                        </S.Button>
+                      </>
+                    ) : (
+                      <>
+                        <S.ButtonGap />
+                        <S.Button color={theme.secondary} onClick={JJoingNow}>
+                          지금 쪼잉하기
+                        </S.Button>
+                      </>
+                    )}
                   </>
                 )}
               </S.Buttons>

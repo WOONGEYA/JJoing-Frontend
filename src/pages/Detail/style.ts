@@ -170,7 +170,7 @@ export const Button = styled.button`
   cursor: pointer;
   color: white;
   width: 343px;
-  height: 42px;
+  height: 40px;
   border-radius: 6px;
   border: none;
   margin-top: 12px;
