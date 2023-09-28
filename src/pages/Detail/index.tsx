@@ -1,22 +1,17 @@
-import { useEffect, useState } from 'react';
-import Header from 'components/Header';
-import * as S from './style';
+import React from 'react';
 import theme from 'styles/theme';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import instance from 'apis/httpClient';
 import MemberIcon from 'assets/MemberIcon';
-
-interface CategoryPropsType {
-  categories: string[];
-}
-
-const CategoryList = ({ categories }: CategoryPropsType) => (
-  <S.Categories>
-    {categories.map((value, index) => (
-      <S.Category key={index}>{value}</S.Category>
-    ))}
-  </S.Categories>
-);
+import { useRecoilValue } from 'recoil';
+import { selectingId, userKey } from 'apis/recoil';
+import useModal from 'hooks/useModal';
+import SendProfile from 'components/SendProfile';
+import EndProjectModal from 'components/EndProjectModal';
+import Layout from 'components/Layout';
+import CalendarIcon from 'assets/CalendarIcon';
+import Tag from 'components/Tag';
+import * as S from './style';
 
 interface UserInfo {
   content: string;
@@ -32,75 +27,153 @@ interface UserInfo {
   startDate: string;
 }
 
-interface Members {
+interface Member {
   userId: number;
   name: string;
-  imgUrl: string[];
+  imgUrl: string;
 }
 
 const Detail = () => {
   const { id } = useParams();
-  const [userInfo, setUserInfo] = useState<UserInfo | null>();
-  const [projectUsers, setProjectUsers] = useState<Members | null>();
+  const [userInfo, setUserInfo] = React.useState<UserInfo | null>(null);
+  const [projectUsers, setProjectUsers] = React.useState<Member[]>([]);
+  const user = useRecoilValue(userKey);
+  const selectId = useRecoilValue(selectingId);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchedData = async () => {
-      try {
-        const { data } = await instance.get(`/project/${id}`);
-        setUserInfo(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchedData();
-  }, []);
+  const { openModal, closeModal } = useModal();
 
-  console.log('userInfo', userInfo);
+  const JJoingNow = () => {
+    openModal({
+      component: <SendProfile pageId={Number(id)} closeModal={closeModal} />,
+    });
+  };
+
+  const EndProject = () => {
+    openModal({
+      component: (
+        <EndProjectModal closeModal={closeModal} pageId={Number(id)} />
+      ),
+    });
+  };
+
+  const seeJjoingList = () => {
+    navigate(`/seeMyProjectJoing/${id}`);
+  };
+
+  const getProject = async () => {
+    try {
+      const { data } = await instance.get(`/project/${id}`);
+      setUserInfo(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <>
-      <Header />
-      <S.Container>
-        <S.ProjectBox>
-          <S.MainContents>
-            <S.Image src={userInfo?.imgUrl} />
-            <S.MainDesc>
-              <S.Title>{userInfo?.name}</S.Title>
-              <S.DeadLine>📅 모집 기한</S.DeadLine>
-              <S.DeadLine style={{ color: theme.grey[500] }}>
-                {userInfo?.startDate} ~ {userInfo?.endDate}
-              </S.DeadLine>
-              <S.Member>
-                <S.MemberTitle>
+    <Layout>
+      <S.Contents>
+        <S.ProjectLayout>
+          <S.ProjectInfo>
+            <S.ProjectImageContainer>
+              <S.ProjectImage src={userInfo?.imgUrl} />
+            </S.ProjectImageContainer>
+            <S.ProjectBasicInfo>
+              <S.ProjectName>{userInfo?.name}</S.ProjectName>
+              <S.RecruitInfo>
+                <S.Deadline>
+                  <S.DeadlineText>
+                    <CalendarIcon />
+                    모집 기한
+                  </S.DeadlineText>
+                  <S.DeadlineDate>
+                    {userInfo?.startDate} ~ {userInfo?.endDate}
+                  </S.DeadlineDate>
+                </S.Deadline>
+                <S.Recruiting>
+                  <S.RecruitingText>
+                    <MemberIcon color={theme.black} />
+                    모집 인원
+                  </S.RecruitingText>
+                  <S.RecruitingMember>
+                    {userInfo?.currentPeople}/{userInfo?.requiredPeople}
+                  </S.RecruitingMember>
+                </S.Recruiting>
+              </S.RecruitInfo>
+              <S.ProjectMember>
+                <S.MemberText>
                   <MemberIcon />
-                  <span>멤버</span>
-                </S.MemberTitle>
-                <S.MemberImages>
-                  {projectUsers?.imgUrl &&
-                    projectUsers.imgUrl.map((image, index) => (
-                      <S.MemberProfile
-                        key={index}
-                        src={image}
-                        alt={`MemberIcon ${index + 1}`}
-                      />
-                    ))}
-                </S.MemberImages>
-              </S.Member>
-              <S.Button color={theme.primary}>마이쫑에 추가하기</S.Button>
-              <S.Button color={theme.secondary}>지금 쪼잉하기!!</S.Button>
-            </S.MainDesc>
-          </S.MainContents>
-          <S.CallOut>📋 프로젝트 설명</S.CallOut>
-          <S.Description>{userInfo?.content}</S.Description>
-          <S.CallOut>🧑‍💻 업무 카테고리</S.CallOut>
-          <S.SubCallOut>👪 개발 분위기</S.SubCallOut>
-          <CategoryList categories={userInfo?.moods || []} />
-          <S.SubCallOut>🛠 사용 기술</S.SubCallOut>
-          <CategoryList categories={userInfo?.skills || []} />
-          <S.SubCallOut>🤝 협업 툴</S.SubCallOut>
-          <CategoryList categories={userInfo?.coops || []} />
-        </S.ProjectBox>
-      </S.Container>
-    </>
+                  멤버
+                </S.MemberText>
+                <S.Members>
+                  {projectUsers?.map((image) => (
+                    <S.MemberProfile
+                      key={image.userId}
+                      src={image.imgUrl}
+                      alt={image.name}
+                    />
+                  ))}
+                </S.Members>
+              </S.ProjectMember>
+              <S.Buttons>
+                {user === projectUsers[0]?.userId ? (
+                  <>
+                    {selectId === 1 ? (
+                      <S.ButtonGap></S.ButtonGap>
+                    ) : (
+                      <S.Button color={theme.secondary} onClick={EndProject}>
+                        프로젝트 마감하기
+                      </S.Button>
+                    )}
+                    <S.Button color={theme.primary} onClick={seeJjoingList}>
+                      신청목록 조회하기
+                    </S.Button>
+                  </>
+                ) : (
+                  <>
+                    <S.ButtonGap />
+                    <S.Button color={theme.secondary} onClick={JJoingNow}>
+                      지금 쪼잉하기!!
+                    </S.Button>
+                  </>
+                )}
+              </S.Buttons>
+            </S.ProjectBasicInfo>
+          </S.ProjectInfo>
+          <S.ProjectDetail>
+            <S.Description>
+              <S.DescriptionText>프로젝트 설명</S.DescriptionText>
+              <S.DescriptionContent>{userInfo?.content}</S.DescriptionContent>
+            </S.Description>
+            <S.Category>
+              <S.CategoryContainer>
+                <S.CategoryText>개발 분위기</S.CategoryText>
+                <S.TagContainer>
+                  {userInfo?.moods.map((mood) => (
+                    <Tag key={mood} value={mood} />
+                  ))}
+                </S.TagContainer>
+              </S.CategoryContainer>
+              <S.CategoryContainer>
+                <S.CategoryText>사용 기술</S.CategoryText>
+                <S.TagContainer>
+                  {userInfo?.skills.map((skill) => (
+                    <Tag key={skill} value={skill} />
+                  ))}
+                </S.TagContainer>
+              </S.CategoryContainer>
+              <S.CategoryContainer>
+                <S.CategoryText>협업 툴</S.CategoryText>
+                <S.TagContainer>
+                  {userInfo?.coops.map((coop) => (
+                    <Tag key={coop} value={coop} />
+                  ))}
+                </S.TagContainer>
+              </S.CategoryContainer>
+            </S.Category>
+          </S.ProjectDetail>
+        </S.ProjectLayout>
+      </S.Contents>
+    </Layout>
   );
 };
 

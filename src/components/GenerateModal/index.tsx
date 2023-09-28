@@ -7,6 +7,7 @@ import theme from 'styles/theme';
 import Button from 'components/Button';
 import instance from 'apis/httpClient';
 import EditIcon from 'assets/EditIcon';
+import { toast } from 'react-toastify';
 
 interface GenerateModalProps {
   closeModal: () => void;
@@ -27,7 +28,7 @@ interface UserInput {
 
 const initialUserInput: UserInput = {
   name: '',
-  requiredPeople: 0,
+  requiredPeople: 1,
   startDate: '',
   endDate: '',
   skills: [],
@@ -56,17 +57,26 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     return `${year}-${month}-${day}`;
   };
 
+  const img: string = process.env.REACT_APP_BASE_IMG || '';
+
   const [userInput, setUserInput] = useState(initialUserInput);
   const [tab, setTab] = useState(true);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [startDate, setStartDate] = useState(getCurrentDate());
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const [newImageUrl, setNewImageUrl] = useState<string>('');
+  const [imageUrl, setImageUrl] = useState<string>(img);
+  const [newImageUrl, setNewImageUrl] = useState<string>(img);
 
   const handleInputChange = (
     field: keyof UserInput,
     value: UserInput[keyof UserInput],
   ) => {
+    if (field === 'endDate') {
+      if (value < startDate) {
+        toast.error('날짜 형식에 맞지 않습니다.');
+        return;
+      }
+    }
+
     setUserInput((prevInput) => ({
       ...prevInput,
       [field]: value,
@@ -74,8 +84,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
   };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const img =
-      'https://blog.kakaocdn.net/dn/bqPYzR/btraWSj02cT/HnIasx6vc09IszobY6Fwe0/img.jpg';
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0];
       setImageUrl(URL.createObjectURL(selectedFile));
@@ -99,16 +107,9 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
 
         console.log('img', data.imgUrl);
         setNewImageUrl(data.imgUrl);
-
-        if (!data.imgUrl) {
-          setNewImageUrl(img);
-        }
       } catch (error) {
         console.error('Error uploading image:', error);
       }
-    } else {
-      setImageUrl(img);
-      setNewImageUrl(img);
     }
   };
 
@@ -148,8 +149,9 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
       });
 
       closeModal();
+      window.location.reload();
     } catch (error) {
-      console.error('Error updating user profile:', error);
+      toast.success('프로젝트 등록 실패');
     }
   };
 
@@ -187,7 +189,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     <S.Container>
       <S.Header>
         <S.ModalTitle>프로젝트 생성하기 🖨</S.ModalTitle>
-        <CloseIcon onClick={closeModal} />
+        <CloseIcon onClick={closeModal} style={{ cursor: 'pointer' }} />
       </S.Header>
       <S.ModalContents>
         {tab ? (
@@ -205,7 +207,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <S.HeadLine>모집 인원</S.HeadLine>
               <Input
-                min='0'
+                min='1'
                 required
                 placeholder='모집 인원을 알려주세요'
                 type='number'

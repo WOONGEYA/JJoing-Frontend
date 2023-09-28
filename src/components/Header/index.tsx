@@ -3,7 +3,7 @@ import BellIcon from 'assets/BellIcon';
 import LogoIcon from 'assets/LogoIcon';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { accessGoogle } from 'apis/recoil';
+import { accessGoogle, userKey } from 'apis/recoil';
 import { OAUTH_URL } from 'constants/config';
 import instance from 'apis/httpClient';
 import * as S from './style';
@@ -15,6 +15,7 @@ const Header = () => {
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
   const [img, setImg] = useRecoilState(accessGoogle);
   const { openModal, closeModal } = useModal();
+  const [user, setUser] = useRecoilState(userKey);
 
   const modalOpen = () => {
     openModal({
@@ -34,6 +35,7 @@ const Header = () => {
             },
           });
 
+          setUser(response.data.id);
           setImg(response.data.imgUrl);
         } catch (error) {
           console.error('Error fetching user data:', error);

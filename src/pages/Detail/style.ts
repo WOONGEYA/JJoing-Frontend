@@ -1,150 +1,178 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import theme from 'styles/theme';
 import { font } from 'styles/font';
 
-const getBackgroundColor = (props: any) => {
-  if (props.color === theme.primary)
-    return css`
-      background-color: ${theme.primary};
-    `;
-  else if (props.color === theme.secondary)
-    return css`
-      background-color: ${theme.secondary};
-    `;
-};
-
-export const Container = styled.div`
-  width: 100vw;
-  height: 73rem;
-  padding: 140px 204px 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+export const Contents = styled.div`
+  max-width: 1032px;
+  width: calc(100% - 2rem);
+  padding: 64px calc((100% - 1032px) / 2) 128px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
-export const ProjectBox = styled.div`
-  width: 100%;
-  height: 60rem;
-  box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.15);
-  padding: 48px 42px 40px;
-  box-sizing: border-box;
-`;
-
-export const MainContents = styled.div`
-  width: 100%;
-  border-bottom: 1.5px solid ${theme.grey[300]};
-  padding: 0 0 20px;
+export const ProjectLayout = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 32px;
+`;
+
+export const ProjectInfo = styled.div`
+  display: flex;
   gap: 24px;
-  margin-bottom: 18px;
-`;
-
-export const Image = styled.img`
   width: 100%;
-  height: 370px;
-  background-color: #ccc;
-  border-radius: 5px;
-  overflow: hidden;
 `;
 
-// MainDescription
-export const MainDesc = styled.div`
-  padding: 0;
+export const ProjectImageContainer = styled.div`
+  position: relative;
+  flex: 1 0 0;
 `;
 
-export const Title = styled.h2`
+export const ProjectImage = styled.img`
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+export const ProjectDetail = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+`;
+
+export const ProjectBasicInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1 0 0;
+`;
+
+export const ProjectName = styled.p`
   ${font.$title01};
-  color: ${theme.grey[800]};
-  margin-bottom: 18px;
+  color: ${theme.black};
 `;
 
-export const DeadLine = styled.h3`
-  ${font.$subhead};
-  color: ${theme.grey[500]};
-`;
-
-export const Member = styled.div`
-  margin-top: 90px;
-  margin-bottom: 28px;
-`;
-export const MemberIcon = styled.img`
-  width: 16px;
-`;
-
-export const MemberTitle = styled.div`
+export const Deadline = styled.div`
   display: flex;
-  gap: 5px;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 0 0;
+`;
+
+export const Recruiting = styled(Deadline)``;
+
+export const DeadlineText = styled.div`
+  ${font.$callout};
+  color: ${theme.black};
+  display: flex;
+  gap: 8px;
+  align-items: center;
+`;
+export const RecruitingText = styled(DeadlineText)``;
+
+export const DeadlineDate = styled.p`
+  ${font.$callout};
+  color: ${theme.grey[700]};
+`;
+
+export const RecruitingMember = styled(DeadlineDate)``;
+
+export const RecruitInfo = styled.div`
+  display: flex;
+  gap: 24px;
+`;
+
+export const ProjectMember = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: stretch;
+`;
+
+export const MemberText = styled.div`
+  display: flex;
+  gap: 4px;
+  ${font.$callout};
   color: ${theme.secondary};
-  ${font.$footnote};
+  align-items: center;
 `;
 
-export const MemberImages = styled.div`
+export const Members = styled.div`
   display: flex;
-  gap: 3px;
+  gap: 8px;
 `;
 
 export const MemberProfile = styled.img`
-  width: 36px;
-  height: 36px;
-  border-radius: 50px;
+  width: 38px;
+  height: 38px;
+  border: 1px solid ${theme.black};
+  border-radius: 50%;
+`;
+
+export const Buttons = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+export const Description = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+`;
+
+export const DescriptionText = styled.p`
+  color: ${theme.secondary};
+  ${font.$title03};
+`;
+
+export const DescriptionContent = styled.p`
+  color: ${theme.grey[600]};
+  ${font.$body};
+`;
+
+export const Category = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+export const CategoryText = styled.p`
+  color: ${theme.grey[800]};
+  ${font.$headline};
+`;
+
+export const CategoryContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+export const TagContainer = styled.div`
+  display: flex;
+  gap: 8px;
+`;
+
+export const ButtonGap = styled.div`
+  width: 332px;
+  height: 54px;
 `;
 
 export const Button = styled.button`
   cursor: pointer;
   color: white;
-  width: 350px;
+  width: 332px;
   height: 42px;
   border-radius: 6px;
   border: none;
   margin-top: 12px;
-  ${getBackgroundColor};
   ${font.$body};
-`;
-
-export const CallOut = styled.h2`
-  ${font.$title03};
-`;
-
-export const Description = styled.h3`
-  color: ${theme.grey[600]};
-  ${font.$body};
-  width: 90%;
-  margin-bottom: 30px;
-`;
-
-export const SubCallOut = styled.h3`
-  color: ${theme.grey[800]};
-  ${font.$headline};
-  margin-top: 16px;
-`;
-
-export const Categories = styled.div`
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  width: 330px;
-  padding: 12px 0;
-`;
-
-export const Category = styled.div`
-  cursor: pointer;
-  flex-shrink: 0;
-  width: fit-content;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
-  border-radius: 999px;
-  padding: 0 14px;
-  box-sizing: border-box;
-  ${font.$footnote};
-`;
-
-export const Projects = styled.div`
-  width: 100%;
-  display: flex;
-  gap: 24px;
 `;

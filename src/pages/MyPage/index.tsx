@@ -23,7 +23,7 @@ interface UserProfile {
   major: string;
 }
 
-interface NewProject {
+interface Project {
   id: number;
   name: string;
   content: string;
@@ -31,13 +31,16 @@ interface NewProject {
   requiredPeople: number;
   viewCount: number;
   imgUrl: string;
+  likeCount: number;
+  selectId: number;
 }
 
 const MyPage = () => {
   const { openModal, closeModal } = useModal();
 
   const [selected, setSelected] = React.useState(0);
-  const [myProject, setMyProject] = React.useState<NewProject[] | null>([]);
+  const [myProject, setMyProject] = React.useState<Project[] | null>([]);
+  const [endMyProject, setEndMyProject] = React.useState<Project[] | null>();
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
     null,
   );
@@ -84,12 +87,23 @@ const MyPage = () => {
       })
       .then((response) => {
         setMyProject(response.data);
-        console.log(response.data);
       });
   }, []);
 
   const filteredProjects = myProject
     ? myProject.filter((project) => {
+        const projectName = project.name.toLowerCase();
+        const projectContent = project.content.toLowerCase();
+        const searchQuery = userInput.toLowerCase();
+        return (
+          projectName.includes(searchQuery) ||
+          projectContent.includes(searchQuery)
+        );
+      })
+    : [];
+
+  const filteredEndProjects = endMyProject
+    ? endMyProject.filter((project) => {
         const projectName = project.name.toLowerCase();
         const projectContent = project.content.toLowerCase();
         const searchQuery = userInput.toLowerCase();
@@ -100,6 +114,19 @@ const MyPage = () => {
         );
       })
     : [];
+
+  React.useEffect(() => {
+    instance
+      .get('/project/my/end', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then((response) => {
+        console.log('end', response.data);
+        setEndMyProject(response.data);
+      });
+  }, []);
 
   return (
     <Layout>
@@ -173,8 +200,8 @@ const MyPage = () => {
                 type='search'
                 width={296}
                 placeholder='검색어를 입력해주세요.'
-                value={userInput} // Pass user input value
-                onChange={(e) => setUserInput(e.target.value)} // Update user input state
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
               />
             </S.Search>
           </S.TabContainer>
@@ -193,13 +220,15 @@ const MyPage = () => {
                     requiredPeople={data.requiredPeople}
                     imgUrl={data.imgUrl}
                     viewCount={data.viewCount}
+                    likeCount={data.likeCount}
+                    selectId={0}
                   />
                 ))
             ) : selected === 0 ? (
               <S.NoContents>참여중인 프로젝트가 없습니다.</S.NoContents>
             ) : null}
-            {selected === 1 && filteredProjects.length > 0 ? (
-              filteredProjects
+            {selected === 1 && filteredEndProjects.length > 0 ? (
+              filteredEndProjects
                 .slice()
                 .sort((a, b) => b.id - a.id)
                 .map((data) => (
@@ -212,6 +241,8 @@ const MyPage = () => {
                     requiredPeople={data.requiredPeople}
                     imgUrl={data.imgUrl}
                     viewCount={data.viewCount}
+                    likeCount={data.likeCount}
+                    selectId={1}
                   />
                 ))
             ) : selected === 1 ? (

@@ -3,8 +3,23 @@ import { font } from 'styles/font';
 import { shadow } from 'styles/shadow';
 import theme from 'styles/theme';
 
-export const Container = styled.div`
+export const JJoingContainer = styled.div`
   width: 100%;
+  height: 100vh;
+  padding-top: 20vh;
+`;
+
+export const MainTitle = styled.div`
+  width: 60%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  ${font.$title01}
+`;
+export const Container = styled.div`
+  margin: 0 auto;
+  width: 60%;
   height: 92px;
   border-radius: 4px;
   ${shadow.shadow2};
@@ -13,6 +28,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
 `;
 
 export const Image = styled.div`
@@ -29,6 +45,12 @@ export const Element = styled.div`
 
 export const Desciption = styled.h1`
   ${font.$body};
+`;
+
+export const Position = styled.div`
+  margin-top: 5px;
+  ${font.$callout};
+  color: ${theme.grey[700]};
 `;
 
 export const CallOut = styled.h2`
