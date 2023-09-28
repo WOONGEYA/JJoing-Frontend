@@ -9,6 +9,7 @@ import instance from 'apis/httpClient';
 import * as S from './style';
 import useModal from 'hooks/useModal';
 import GenerateModal from 'components/GenerateModal';
+import { toast } from 'react-toastify';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -52,6 +53,10 @@ const Header = () => {
     window.location.reload();
   };
 
+  const loginAlert = () => {
+    toast.error('로그인 후에 이용해 주세요');
+  };
+
   return (
     <S.HeaderContainer>
       <S.HeaderWrapper>
@@ -59,10 +64,19 @@ const Header = () => {
           <Link to='/'>
             <LogoIcon height={24} />
           </Link>
-          <Link to='/explore'>
-            <S.MenuItem>프로젝트 목록</S.MenuItem>
-          </Link>
-          <S.MenuItem onClick={modalOpen}>새 프로젝트</S.MenuItem>
+          <>
+            <Link to='/explore'>
+              <S.MenuItem>프로젝트 목록</S.MenuItem>
+            </Link>
+          </>
+
+          {localStorage.accessToken ? (
+            <S.MenuItem onClick={modalOpen}>새 프로젝트</S.MenuItem>
+          ) : (
+            <>
+              <S.MenuItem onClick={loginAlert}>새 프로젝트</S.MenuItem>
+            </>
+          )}
         </S.MenuList>
         <S.ProfileContainer>
           {localStorage.accessToken ? (
