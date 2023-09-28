@@ -69,21 +69,6 @@ const Detail = () => {
       console.log(error);
     }
   };
-
-  const getProjectMember = async () => {
-    try {
-      const { data } = await instance.get(`/project/member/${id}`);
-      setProjectUsers(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  React.useEffect(() => {
-    getProject();
-    getProjectMember();
-  }, [id]);
-
   return (
     <Layout>
       <S.Contents>
