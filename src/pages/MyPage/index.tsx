@@ -11,6 +11,7 @@ import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import instance from 'apis/httpClient';
 import ProfileUpdateModal from 'components/ProfileUpdateModal';
+import { useQuery } from 'react-query';
 
 interface UserProfile {
   statusMessage: string;
@@ -115,18 +116,25 @@ const MyPage = () => {
       })
     : [];
 
-  React.useEffect(() => {
-    instance
-      .get('/project/my/end', {
+  const { data, error } = useQuery(
+    '/project/my/end',
+    async () => {
+      const response = await instance.get('/project/my/end', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
-      })
-      .then((response) => {
-        console.log('end', response.data);
-        setEndMyProject(response.data);
       });
-  }, []);
+      return response.data;
+    },
+    {
+      onSuccess: (data) => {
+        setEndMyProject(data);
+      },
+      onError: (error) => {
+        console.error(error);
+      },
+    },
+  );
 
   return (
     <Layout>

@@ -70,13 +70,11 @@ const Header = () => {
             </Link>
           </>
 
-          {localStorage.accessToken ? (
-            <S.MenuItem onClick={modalOpen}>새 프로젝트</S.MenuItem>
-          ) : (
-            <>
-              <S.MenuItem onClick={loginAlert}>새 프로젝트</S.MenuItem>
-            </>
-          )}
+          <S.MenuItem
+            onClick={localStorage.accessToken ? modalOpen : loginAlert}
+          >
+            새 프로젝트
+          </S.MenuItem>
         </S.MenuList>
         <S.ProfileContainer>
           {localStorage.accessToken ? (

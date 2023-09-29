@@ -138,7 +138,7 @@ const Detail = () => {
                 {user === projectUsers[0]?.userId ? (
                   <>
                     {userInfo?.state === 'FOUND' ? (
-                      <S.ButtonGap></S.ButtonGap>
+                      <S.ButtonGap />
                     ) : (
                       <S.Button color={theme.secondary} onClick={EndProject}>
                         프로젝트 마감하기
@@ -150,21 +150,15 @@ const Detail = () => {
                   </>
                 ) : (
                   <>
-                    {userInfo?.state === 'FOUND' ? (
-                      <>
-                        <S.ButtonGap />
-                        <S.Button color={theme.secondary}>
-                          프로젝트 모집이 마감되었습니다
-                        </S.Button>
-                      </>
-                    ) : (
-                      <>
-                        <S.ButtonGap />
-                        <S.Button color={theme.secondary} onClick={JJoingNow}>
-                          지금 쪼잉하기
-                        </S.Button>
-                      </>
-                    )}
+                    <S.ButtonGap />
+                    <S.Button
+                      color={theme.secondary}
+                      onClick={() => userInfo?.state !== 'FOUND' && JJoingNow()}
+                    >
+                      {userInfo?.state === 'FOUND'
+                        ? '프로젝트 모집이 마감되었습니다'
+                        : '지금 쪼잉하기'}
+                    </S.Button>
                   </>
                 )}
               </S.Buttons>
