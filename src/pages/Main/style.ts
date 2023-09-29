@@ -1,52 +1,45 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from 'styles/theme';
 import { font } from 'styles/font';
-
-export const Banner = styled.div`
-  width: 100%;
-  height: 500px;
-  background-color: black;
-`;
+import { shadow } from 'styles/shadow';
+import theme from 'styles/theme';
 
 export const Container = styled.div`
-  min-height: 100vh;
+  width: 100vw;
+`;
+
+export const MainBox = styled.div`
   width: 100%;
-  background: ${theme.grey[100]};
+  height: 100vh;
+  ${shadow.shadow1}
 `;
 
-export const Contents = styled.div``;
-
-export const Projects = styled.div`
-  max-width: 1032px;
-  width: calc(100% - 2rem);
-  padding: 64px calc((100% - 1032px) / 2) 128px;
-  display: flex;
-  flex-direction: column;
-  gap: 64px;
-  margin-left: auto;
-  margin-right: auto;
+export const MainContents = styled.div`
+  padding: 241px 204px;
+  box-sizing: border-box;
 `;
 
-export const TrendingContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 36px;
+export const Title = styled.p`
+  ${font.$hugeTitle};
 `;
 
-export const Trending = styled.div`
-  display: flex;
-  overflow-x: scroll;
-  gap: 24px;
-  height: 365px;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+export const Emphasis = styled.span`
+  ${Title};
+  color: ${theme.primary};
+  font-weight: 700;
 `;
 
-export const Title = styled.span`
-  ${font.$title01}
+export const SubTitle = styled.span`
+  ${font.$subTitle};
+  margin-top: 12px;
 `;
 
-export const RecommendedContainer = styled(TrendingContainer)``;
-
-export const Recommended = styled(Trending)``;
+export const Button = styled(Link)`
+  ${shadow.shadow2};
+  border-radius: 20px;
+  padding: 12px 47px;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: ${theme.black};
+  ${font.$callout};
+`;

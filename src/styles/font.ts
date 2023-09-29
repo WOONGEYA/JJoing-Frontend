@@ -22,4 +22,6 @@ export const font = {
   $subhead: fontGenerator(400, 13, 150, 0),
   $footnote: fontGenerator(400, 12, 150, 0),
   $caption: fontGenerator(400, 11, 150, 0),
+  $hugeTitle: fontGenerator(500, 50, 150, 0),
+  $subTitle: fontGenerator(300, 25, 150, 0),
 };

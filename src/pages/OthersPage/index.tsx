@@ -6,9 +6,11 @@ import useModal from 'hooks/useModal';
 import ProjectBox from 'components/ProjectBox';
 import * as S from './style';
 import { Link, useParams } from 'react-router-dom';
+import Button from 'components/Button';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import instance from 'apis/httpClient';
+import ProfileUpdateModal from 'components/ProfileUpdateModal';
 
 interface UserProfile {
   statusMessage: string;
@@ -37,12 +39,8 @@ const MyPage = () => {
   const { openModal, closeModal } = useModal();
   const { id } = useParams();
   const [selected, setSelected] = React.useState(0);
-  const [othersProject, setOthersProject] = React.useState<Project[] | null>(
-    [],
-  );
-  const [endOthersProject, setEndOthersProject] = React.useState<
-    Project[] | null
-  >();
+  const [myProject, setMyProject] = React.useState<Project[] | null>([]);
+  const [endMyProject, setEndMyProject] = React.useState<Project[] | null>();
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
     null,
   );
@@ -57,8 +55,27 @@ const MyPage = () => {
     navigator.clipboard.writeText(text).then(() => alert('복사 완료'));
   };
 
-  const filteredProjects = othersProject
-    ? othersProject.filter((project) => {
+  const modalOpen = () => {
+    openModal({
+      component: <ProfileUpdateModal closeModal={closeModal} />,
+    });
+  };
+
+  React.useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await instance.get(`/user/${id}`);
+        setUserProfile(response.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const filteredProjects = myProject
+    ? myProject.filter((project) => {
         const projectName = project.name.toLowerCase();
         const projectContent = project.content.toLowerCase();
         const searchQuery = userInput.toLowerCase();
@@ -69,8 +86,8 @@ const MyPage = () => {
       })
     : [];
 
-  const filteredEndProjects = endOthersProject
-    ? endOthersProject.filter((project) => {
+  const filteredEndProjects = endMyProject
+    ? endMyProject.filter((project) => {
         const projectName = project.name.toLowerCase();
         const projectContent = project.content.toLowerCase();
         const searchQuery = userInput.toLowerCase();
@@ -82,8 +99,6 @@ const MyPage = () => {
       })
     : [];
 
-  console.log('왜 안돼', othersProject);
-  console.log('왜 안돼2', endOthersProject);
   return (
     <Layout>
       <S.Contents>
