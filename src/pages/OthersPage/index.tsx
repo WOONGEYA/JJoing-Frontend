@@ -2,15 +2,12 @@ import React from 'react';
 import GithubIcon from 'assets/GithubIcon';
 import EmailIcon from 'assets/EmailIcon';
 import Layout from 'components/Layout';
-import useModal from 'hooks/useModal';
 import ProjectBox from 'components/ProjectBox';
 import * as S from './style';
 import { Link, useParams } from 'react-router-dom';
-import Button from 'components/Button';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import instance from 'apis/httpClient';
-import ProfileUpdateModal from 'components/ProfileUpdateModal';
 
 interface UserProfile {
   statusMessage: string;
@@ -36,11 +33,14 @@ interface Project {
 }
 
 const MyPage = () => {
-  const { openModal, closeModal } = useModal();
   const { id } = useParams();
   const [selected, setSelected] = React.useState(0);
-  const [myProject, setMyProject] = React.useState<Project[] | null>([]);
-  const [endMyProject, setEndMyProject] = React.useState<Project[] | null>();
+  const [othersProject, setOthersProject] = React.useState<Project[] | null>(
+    [],
+  );
+  const [endOthersProject, setEndOthersProject] = React.useState<
+    Project[] | null
+  >();
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
     null,
   );
@@ -53,12 +53,6 @@ const MyPage = () => {
 
   const copyTooltipText = (text: string) => {
     navigator.clipboard.writeText(text).then(() => alert('복사 완료'));
-  };
-
-  const modalOpen = () => {
-    openModal({
-      component: <ProfileUpdateModal closeModal={closeModal} />,
-    });
   };
 
   React.useEffect(() => {
@@ -74,8 +68,34 @@ const MyPage = () => {
     fetchUserData();
   }, []);
 
-  const filteredProjects = myProject
-    ? myProject.filter((project) => {
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await instance.get(`/project/${id}/user`);
+        setOthersProject(data);
+      } catch (error) {
+        console.log('실패');
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await instance.get(`/project/${id}/user/end`);
+        setEndOthersProject(data);
+      } catch (error) {
+        console.log('실패');
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  const filteredProjects = othersProject
+    ? othersProject.filter((project) => {
         const projectName = project.name.toLowerCase();
         const projectContent = project.content.toLowerCase();
         const searchQuery = userInput.toLowerCase();
@@ -86,8 +106,8 @@ const MyPage = () => {
       })
     : [];
 
-  const filteredEndProjects = endMyProject
-    ? endMyProject.filter((project) => {
+  const filteredEndProjects = endOthersProject
+    ? endOthersProject.filter((project) => {
         const projectName = project.name.toLowerCase();
         const projectContent = project.content.toLowerCase();
         const searchQuery = userInput.toLowerCase();
