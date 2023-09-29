@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import instance from 'apis/httpClient';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { styled } from 'styled-components';
 
 const LoginPage = () => {
   const navigate = useNavigate();

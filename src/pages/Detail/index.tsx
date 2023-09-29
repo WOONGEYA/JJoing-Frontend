@@ -138,7 +138,7 @@ const Detail = () => {
                 {user === projectUsers[0]?.userId ? (
                   <>
                     {userInfo?.state === 'FOUND' ? (
-                      <S.ButtonGap />
+                      <S.ButtonGap></S.ButtonGap>
                     ) : (
                       <S.Button color={theme.secondary} onClick={EndProject}>
                         프로젝트 마감하기
