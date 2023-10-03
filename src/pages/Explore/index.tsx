@@ -11,7 +11,7 @@ const dropdownOptions = [
   {
     id: '0',
     currentOption: '정렬 기준 선택',
-    options: ['인기순', '마이쫑 많은 순', '최신순'],
+    options: ['조회수 많은 순', '마이쫑 많은 순', '최신순'],
   },
 ];
 interface NewProject {
@@ -41,11 +41,11 @@ const Explore = () => {
   const projectSort = useRecoilValue(sortProject);
 
   useEffect(() => {
-    if (projectSort === '인기순') {
+    if (projectSort === '마이쫑 많은 순') {
       instance.get('/project', { params: { criteria: 'like' } }).then((res) => {
         setMyProject(res.data);
       });
-    } else if (projectSort === '마이쫑 많은 순') {
+    } else if (projectSort === '조회수 많은 순') {
       instance.get('/project', { params: { criteria: 'view' } }).then((res) => {
         setMyProject(res.data);
       });
