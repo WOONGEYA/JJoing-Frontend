@@ -42,4 +42,11 @@ export const Button = styled(Link)`
   text-decoration: none;
   color: ${theme.black};
   ${font.$callout};
+  &:hover {
+    background-color: ${theme.grey[300]};
+    transition: 0.2s ease-in-out;
+  }
+  &:active {
+    background-color: ${theme.grey[600]};
+  }
 `;

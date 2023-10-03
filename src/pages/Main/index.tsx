@@ -1,17 +1,8 @@
 import React from 'react';
 import Layout from 'components/Layout';
 import * as S from './style';
-import useModal from 'hooks/useModal';
-import GenerateModal from 'components/GenerateModal';
 
 const Main = () => {
-  const { openModal, closeModal } = useModal();
-  const modalOpen = () => {
-    openModal({
-      component: <GenerateModal closeModal={closeModal} />,
-    });
-  };
-
   return (
     <Layout>
       <S.Container>
