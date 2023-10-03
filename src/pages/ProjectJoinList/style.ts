@@ -5,7 +5,6 @@ import theme from 'styles/theme';
 
 export const JJoingContainer = styled.div`
   width: 100%;
-  height: 100vh;
   padding-top: 20vh;
 `;
 
@@ -29,6 +28,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  margin-bottom: 15px;
 `;
 
 export const Image = styled.div`

@@ -19,3 +19,8 @@ export const selectingId = atom({
   key: 'selectedId',
   default: 0,
 });
+
+export const sortProject = atom({
+  key: 'sortProject',
+  default: '',
+});

@@ -4,6 +4,8 @@ import Dropdown from 'components/Dropdown';
 import * as S from './style';
 import Layout from 'components/Layout';
 import instance from 'apis/httpClient';
+import { useRecoilValue } from 'recoil';
+import { sortProject } from 'apis/recoil';
 
 const dropdownOptions = [
   {
@@ -37,10 +39,20 @@ const Explore = () => {
   };
 
   useEffect(() => {
-    instance.get('/project').then((res) => {
+    const 최신순 = instance.get('/project').then((res) => {
       setMyProject(res.data);
     });
   }, []);
+
+  const projectSort = useRecoilValue(sortProject);
+
+  // if (projectSort === '인기순') {
+
+  // } else if (projectSort === '마이쫑 많은 순') {
+
+  // } else {
+
+  // }
 
   return (
     <Layout>

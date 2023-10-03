@@ -46,7 +46,6 @@ const ProjectJoinList = () => {
               <S.Element>
                 <F.FlexVertical>
                   <S.TitleBox>
-                    {' '}
                     <S.Element>
                       <S.Desciption>자기소개: {data.introduce}</S.Desciption>
                       <S.Position>분야: {data.position}</S.Position>
@@ -57,7 +56,9 @@ const ProjectJoinList = () => {
               </S.Element>
             </S.Container>
           ) : (
-            <div key={data.id}>없음</div>
+            <div key={data.id}>
+              <div>sdfsdf</div>
+            </div>
           ),
         )}
       </S.JJoingContainer>
