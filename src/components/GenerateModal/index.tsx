@@ -207,11 +207,11 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <S.HeadLine>모집 인원</S.HeadLine>
               <Input
-                min='2'
+                min='0'
                 required
                 placeholder='모집 인원을 알려주세요'
                 type='number'
-                value={userInput.requiredPeople}
+                value={userInput.requiredPeople || 1}
                 onChange={(e) =>
                   handleInputChange('requiredPeople', parseInt(e.target.value))
                 }
