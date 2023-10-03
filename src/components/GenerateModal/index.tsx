@@ -28,7 +28,7 @@ interface UserInput {
 
 const initialUserInput: UserInput = {
   name: '',
-  requiredPeople: 1,
+  requiredPeople: 2,
   startDate: '',
   endDate: '',
   skills: [],
