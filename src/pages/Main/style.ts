@@ -1,3 +1,4 @@
+import exp from 'constants';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { font } from 'styles/font';
@@ -42,4 +43,37 @@ export const Button = styled(Link)`
   text-decoration: none;
   color: ${theme.black};
   ${font.$callout};
+`;
+
+export const CoverImage = styled.img`
+  width: 830px;
+  position: absolute;
+  right: 40px;
+`;
+
+export const Content = styled.div`
+  width: 100%;
+  margin-top: 118px;
+  display: flex;
+  align-items: center;
+`;
+
+export const Photo = styled.div`
+  width: 440px;
+  height: 290px;
+  border-radius: 30px;
+  ${shadow.shadow2};
+`;
+
+export const TextArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 290px;
+  margin-left: 88px;
+`;
+
+export const Title2 = styled.div`
+  ${font.$title01};
+  margin-top: 24px;
+  width: 504px;
 `;
