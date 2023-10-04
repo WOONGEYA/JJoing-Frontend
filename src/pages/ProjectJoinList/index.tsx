@@ -6,6 +6,7 @@ import * as F from 'styles/flex';
 import useModal from 'hooks/useModal';
 import ShowJJoingPerson from 'components/ShowJJoingPerson';
 import Header from 'components/Header';
+import NoNotify from 'components/NoNotify';
 
 interface User {
   id: number;
@@ -57,7 +58,9 @@ const ProjectJoinList = () => {
             </S.Container>
           ))
         ) : (
-          <></>
+          <S.NoJJoingContainer>
+            <NoNotify />
+          </S.NoJJoingContainer>
         )}
       </S.JJoingContainer>
     </>

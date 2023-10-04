@@ -85,3 +85,11 @@ export const TitleBox = styled.div`
   flex-direction: column;
   gap: 6px;
 `;
+
+export const NoJJoingContainer = styled.div`
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

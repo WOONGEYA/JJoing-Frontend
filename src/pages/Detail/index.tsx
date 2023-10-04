@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import theme from 'styles/theme';
 import { useNavigate, useParams } from 'react-router-dom';
 import instance from 'apis/httpClient';
@@ -38,6 +38,7 @@ const Detail = () => {
   const { id } = useParams();
   const [userInfo, setUserInfo] = React.useState<UserInfo | null>(null);
   const [projectUsers, setProjectUsers] = React.useState<Member[]>([]);
+  const [isEnd, setIsEnd] = useState(false);
   const navigate = useNavigate();
   const user = useRecoilValue(userKey);
 
@@ -87,6 +88,42 @@ const Detail = () => {
   const goOthersPage = (userId: number) => {
     navigate(`/others/${userId}`);
   };
+
+  const addHeart = () => {
+    try {
+      instance.post(`/like/${id}`, null, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    } catch (error) {
+      console.log('좋아요 가져오기 실패');
+    }
+  };
+
+  const deleteHeart = () => {
+    try {
+      instance.delete(`/like/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    } catch (error) {
+      console.log('실패');
+    }
+  };
+
+  useEffect(() => {
+    instance.get(`/like/check/${id}/project`).then((res) => {
+      setIsEnd(res.data);
+    });
+  }, []);
 
   return (
     <Layout>
@@ -150,7 +187,16 @@ const Detail = () => {
                   </>
                 ) : (
                   <>
-                    <S.ButtonGap />
+                    {isEnd === true ? (
+                      <S.Button color={theme.red} onClick={deleteHeart}>
+                        마이쪼잉에 삭제하기
+                      </S.Button>
+                    ) : (
+                      <S.Button color={theme.primary} onClick={addHeart}>
+                        마이쪼잉에 추가하기
+                      </S.Button>
+                    )}
+
                     <S.Button
                       color={theme.secondary}
                       onClick={() => userInfo?.state !== 'FOUND' && JJoingNow()}

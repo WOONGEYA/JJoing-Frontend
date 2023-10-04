@@ -95,7 +95,7 @@ const Header = () => {
                     <Link to='/mypage'>
                       <S.Option>내 프로필</S.Option>
                     </Link>
-                    <Link to='/like'>
+                    <Link to='/myjjong'>
                       <S.Option>마이쫑</S.Option>
                     </Link>
                     <S.Option onClick={handleLogout}>로그아웃</S.Option>

@@ -50,44 +50,6 @@ const ProjectBox = ({
     fetchLikeStatus();
   }, [id]);
 
-  const addHeart = () => {
-    try {
-      instance
-        .post(`/like/${id}`, null, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then(() => {
-          setLikes((prev) => prev + 1);
-        });
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
-    } catch (error) {
-      console.log('좋아요 가져오기 실패');
-    }
-  };
-
-  const deleteHeart = () => {
-    try {
-      instance
-        .delete(`/like/${id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then(() => {
-          setLikes((prev) => prev - 1);
-        });
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
-    } catch (error) {
-      console.log('실패');
-    }
-  };
-
   return (
     <S.Container>
       <S.NavigateContainer
@@ -110,7 +72,7 @@ const ProjectBox = ({
             {currentPeople}/{requiredPeople}
           </S.People>
         </S.MemberCount>
-        <S.HeartCount onClick={likeState ? deleteHeart : addHeart}>
+        <S.HeartCount>
           {likeState ? (
             <RedHeart style={{ marginTop: '2px', cursor: 'pointer' }} />
           ) : (
