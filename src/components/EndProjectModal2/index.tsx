@@ -7,17 +7,13 @@ interface GenerateModalProps {
   pageId: number;
 }
 
-const EndProjectModal = ({ closeModal, pageId }: GenerateModalProps) => {
-  const onEnd = async () => {
-    await instance.put(
-      `/project/close/${pageId}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
+const EndProjectModal2 = ({ closeModal, pageId }: GenerateModalProps) => {
+  const onDelete = async () => {
+    await instance.delete(`/project/${pageId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
-    );
+    });
     closeModal();
     window.location.reload();
   };
@@ -25,8 +21,8 @@ const EndProjectModal = ({ closeModal, pageId }: GenerateModalProps) => {
   return (
     <S.ModalContainer>
       <S.ModalTextWrapper>
-        <S.MainText>정말 해당 프로젝트를 마감하시겠습니까?</S.MainText>
-        <S.SubText>마감한 프로젝트는 복구할 수 없습니다.</S.SubText>
+        <S.MainText>정말 해당 프로젝트를 삭제하시겠습니까?</S.MainText>
+        <S.SubText>삭제한 프로젝트는 복구할 수 없습니다.</S.SubText>
         <S.ButtonsWrapper>
           <S.CancleButton
             onClick={() => {
@@ -35,11 +31,11 @@ const EndProjectModal = ({ closeModal, pageId }: GenerateModalProps) => {
           >
             취소
           </S.CancleButton>
-          <S.SuccessButton onClick={onEnd}>마감</S.SuccessButton>
+          <S.SuccessButton onClick={onDelete}>삭제</S.SuccessButton>
         </S.ButtonsWrapper>
       </S.ModalTextWrapper>
     </S.ModalContainer>
   );
 };
 
-export default EndProjectModal;
+export default EndProjectModal2;

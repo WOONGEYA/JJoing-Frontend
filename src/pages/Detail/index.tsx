@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import theme from 'styles/theme';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import instance from 'apis/httpClient';
 import MemberIcon from 'assets/MemberIcon';
 import useModal from 'hooks/useModal';
@@ -13,6 +13,7 @@ import * as S from './style';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import NumberIcon from 'assets/NumberIcon.svg';
+import EndProjectModal2 from 'components/EndProjectModal2';
 
 interface UserInfo {
   content: string;
@@ -59,6 +60,14 @@ const Detail = () => {
     });
   };
 
+  const EndProject2 = () => {
+    openModal({
+      component: (
+        <EndProjectModal2 closeModal={closeModal} pageId={Number(id)} />
+      ),
+    });
+  };
+
   const seeJjoingList = () => {
     navigate(`/seeMyProjectJoing/${id}`);
   };
@@ -68,7 +77,7 @@ const Detail = () => {
       const { data } = await instance.get(`/project/${id}`);
       setUserInfo(data);
     } catch (error) {
-      console.log('에러');
+      navigate('/explore');
     }
   };
 
@@ -82,8 +91,8 @@ const Detail = () => {
   };
 
   React.useEffect(() => {
-    getProject();
-    getProjectMember();
+    getProject().catch((error) => navigate('/explore'));
+    getProjectMember().catch((error) => console.log('/explore'));
   }, [id]);
 
   const goOthersPage = (userId: number) => {
@@ -131,6 +140,10 @@ const Detail = () => {
     setIsTrue((prev) => !prev);
   };
 
+  if (projectUsers.length <= 0) {
+    navigate('/explore');
+  }
+
   return (
     <Layout>
       <S.Contents>
@@ -146,12 +159,8 @@ const Detail = () => {
                 {isTrue && (
                   <S.DropdownContainer>
                     <S.Options>
-                      <Link to='/mypage'>
-                        <S.Option>수정</S.Option>
-                      </Link>
-                      <Link to='/myjjong'>
-                        <S.Option>삭제</S.Option>
-                      </Link>
+                      <S.Option>수정</S.Option>
+                      <S.Option onClick={EndProject2}>삭제</S.Option>
                     </S.Options>
                   </S.DropdownContainer>
                 )}
@@ -193,7 +202,9 @@ const Detail = () => {
                 </S.Members>
               </S.ProjectMember>
               <S.Buttons>
-                {user === projectUsers[0]?.userId ? (
+                {Array.isArray(projectUsers) &&
+                projectUsers.length > 0 &&
+                user === projectUsers[0]?.userId ? (
                   <>
                     {userInfo?.state === 'FOUND' ? (
                       <S.ButtonGap></S.ButtonGap>
@@ -208,7 +219,7 @@ const Detail = () => {
                   </>
                 ) : (
                   <>
-                    {isEnd === true ? (
+                    {typeof isEnd === 'boolean' && isEnd === true ? (
                       <S.Button color={theme.orange} onClick={deleteHeart}>
                         마이쪼잉에 삭제하기
                       </S.Button>
