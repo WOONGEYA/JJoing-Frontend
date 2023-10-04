@@ -5,6 +5,10 @@ import { font } from 'styles/font';
 import { shadow } from 'styles/shadow';
 import theme from 'styles/theme';
 
+interface TabButtonProps {
+  active?: boolean;
+}
+
 export const Container = styled.div`
   width: 100vw;
 `;
@@ -76,4 +80,46 @@ export const Title2 = styled.div`
   ${font.$title01};
   margin-top: 24px;
   width: 504px;
+`;
+
+export const Tabs = styled.div`
+  width: 43px;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+`;
+
+export const TabButton = styled.button<TabButtonProps>`
+  width: 46px;
+  height: 46px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background-color: ${({ active }) => (active ? theme.primary : 'white')};
+  color: ${({ active }) => (active ? 'white' : theme.primary)};
+  border: ${({ active }) => (active ? 'none' : `2px solid ${theme.primary}`)};
+`;
+
+export const Image = styled.img`
+  width: 512px;
+  height: 512px;
+  margin-left: 8px;
+`;
+
+export const Description = styled.div`
+  height: 100%;
+`;
+
+export const SmallTitle = styled.h1`
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: ${theme.primary};
+`;
+
+export const Caption = styled.p`
+  ${font.$title02};
 `;
