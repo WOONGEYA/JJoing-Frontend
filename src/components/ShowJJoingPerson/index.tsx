@@ -3,7 +3,6 @@ import * as S from './style';
 import CloseIcon from 'assets/CloseIcon';
 import Input from 'components/Input';
 import theme from 'styles/theme';
-import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 interface User {
@@ -29,6 +28,7 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
       .then(() => {
         toast.error('쪼잉을 거절했습니다.');
         closeModal();
+        window.location.reload();
       });
   };
 
@@ -42,6 +42,7 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
       .then(() => {
         toast.success('쪼잉이 완료되었습니다.');
         closeModal();
+        window.location.reload();
       });
   };
 

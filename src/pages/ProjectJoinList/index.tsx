@@ -40,8 +40,8 @@ const ProjectJoinList = () => {
       <Header />
       <S.JJoingContainer>
         <S.MainTitle>신청된 쪼잉</S.MainTitle>
-        {userData.map((data) =>
-          data.userName.length > 0 ? (
+        {userData.length > 0 ? (
+          userData.map((data) => (
             <S.Container key={data.id} onClick={OpenJjoingList}>
               <S.Element>
                 <F.FlexVertical>
@@ -55,11 +55,9 @@ const ProjectJoinList = () => {
                 </F.FlexVertical>
               </S.Element>
             </S.Container>
-          ) : (
-            <div key={data.id}>
-              <div>sdfsdf</div>
-            </div>
-          ),
+          ))
+        ) : (
+          <></>
         )}
       </S.JJoingContainer>
     </>

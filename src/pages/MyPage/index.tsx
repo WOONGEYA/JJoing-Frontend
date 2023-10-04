@@ -33,6 +33,7 @@ interface Project {
   imgUrl: string;
   likeCount: number;
   selectId: number;
+  likeState: boolean;
 }
 
 const MyPage = () => {
@@ -221,7 +222,7 @@ const MyPage = () => {
                     imgUrl={data.imgUrl}
                     viewCount={data.viewCount}
                     likeCount={data.likeCount}
-                    selectId={0}
+                    likeState={data.likeState}
                   />
                 ))
             ) : selected === 0 ? (
@@ -242,7 +243,7 @@ const MyPage = () => {
                     imgUrl={data.imgUrl}
                     viewCount={data.viewCount}
                     likeCount={data.likeCount}
-                    selectId={1}
+                    likeState={data.likeState}
                   />
                 ))
             ) : selected === 1 ? (

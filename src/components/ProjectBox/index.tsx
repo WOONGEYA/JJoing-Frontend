@@ -15,7 +15,7 @@ interface ProjectBoxPropsType {
   viewCount: number;
   id: number;
   likeCount: number;
-  selectId: number;
+  likeState: boolean;
 }
 
 const ProjectBox = ({
@@ -26,21 +26,22 @@ const ProjectBox = ({
   imgUrl,
   id,
   likeCount,
+  likeState,
 }: ProjectBoxPropsType) => {
   const navigate = useNavigate();
 
-  const [isLiked, setIsLiked] = useState(false);
+  const [likes, setLikes] = useState(likeCount);
 
   useEffect(() => {
     const fetchLikeStatus = async () => {
       try {
-        const response = await instance.get(`/like/${id}`, {
+        const response = await instance.get(`/like/${id}/liker`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
 
-        setIsLiked(response.data.isLiked);
+        console.log('좋아요', response.data);
       } catch (error) {
         console.log('좋아요 가져오기 실패');
       }
@@ -58,10 +59,13 @@ const ProjectBox = ({
           },
         })
         .then(() => {
-          setIsLiked(true);
+          setLikes((prev) => prev + 1);
         });
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     } catch (error) {
-      setIsLiked(false);
+      console.log('좋아요 가져오기 실패');
     }
   };
 
@@ -74,10 +78,13 @@ const ProjectBox = ({
           },
         })
         .then(() => {
-          setIsLiked(false);
+          setLikes((prev) => prev - 1);
         });
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
     } catch (error) {
-      setIsLiked(true);
+      console.log('실패');
     }
   };
 
@@ -103,22 +110,13 @@ const ProjectBox = ({
             {currentPeople}/{requiredPeople}
           </S.People>
         </S.MemberCount>
-        <S.HeartCount>
-          {isLiked ? (
-            <RedHeart
-              style={{
-                marginTop: '2px',
-                cursor: 'pointer',
-              }}
-              onClick={deleteHeart}
-            />
+        <S.HeartCount onClick={likeState ? deleteHeart : addHeart}>
+          {likeState ? (
+            <RedHeart style={{ marginTop: '2px', cursor: 'pointer' }} />
           ) : (
-            <Heart
-              style={{ marginTop: '2px', cursor: 'pointer' }}
-              onClick={addHeart}
-            />
+            <Heart style={{ marginTop: '2px', cursor: 'pointer' }} />
           )}
-          <S.Like>{likeCount}</S.Like>
+          <span>{likes}</span>
         </S.HeartCount>
       </S.Footer>
     </S.Container>
