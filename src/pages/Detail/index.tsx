@@ -14,6 +14,7 @@ import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import NumberIcon from 'assets/NumberIcon.svg';
 import EndProjectModal2 from 'components/EndProjectModal2';
+import GenerateModalEdit from 'components/GenerateModalEdit';
 
 interface UserInfo {
   content: string;
@@ -99,6 +100,14 @@ const Detail = () => {
     navigate(`/others/${userId}`);
   };
 
+  const EditProject = () => {
+    openModal({
+      component: (
+        <GenerateModalEdit closeModal={closeModal} pageId={Number(id)} />
+      ),
+    });
+  };
+
   const addHeart = () => {
     try {
       instance.post(`/like/${id}`, null, {
@@ -159,7 +168,7 @@ const Detail = () => {
                 {isTrue && (
                   <S.DropdownContainer>
                     <S.Options>
-                      <S.Option>수정</S.Option>
+                      <S.Option onClick={EditProject}>수정</S.Option>
                       <S.Option onClick={EndProject2}>삭제</S.Option>
                     </S.Options>
                   </S.DropdownContainer>
