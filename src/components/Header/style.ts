@@ -84,3 +84,15 @@ export const DropdownContainer = styled.div`
   position: absolute;
   cursor: pointer;
 `;
+
+export const BellCount = styled.div`
+  position: absolute;
+  color: ${theme.red};
+  font-size: ${font.$body};
+  left: 25px;
+  bottom: 15px;
+`;
+
+export const BellContainer = styled.div`
+  position: relative;
+`;

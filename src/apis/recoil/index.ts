@@ -24,3 +24,13 @@ export const sortProject = atom({
   key: 'sortProject',
   default: '',
 });
+
+export const sortProject2 = atom({
+  key: 'sortProject2',
+  default: '',
+});
+
+export const alaram = atom({
+  key: 'alarm',
+  default: 0,
+});

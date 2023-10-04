@@ -51,3 +51,8 @@ export const ProjectContainer = styled.div`
   gap: 24px;
   cursor: pointer;
 `;
+
+export const FilterContainer = styled.div`
+  display: flex;
+  gap: 1.5rem;
+`;

@@ -2,7 +2,7 @@ import React from 'react';
 import DropIcon from 'assets/DropIcon';
 import * as S from './style';
 import { useRecoilState } from 'recoil';
-import { sortProject } from 'apis/recoil';
+import { sortProject, sortProject2 } from 'apis/recoil';
 
 interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
   currentOption?: string | undefined;
@@ -20,11 +20,13 @@ const Dropdown = ({
   const [selectedOption, setSelectedOption] = React.useState(currentOption);
 
   const [projectSort, setProjectSort] = useRecoilState(sortProject);
+  const [projectSort2, setProjectSort2] = useRecoilState(sortProject2);
   const handleOptionValue = (e: React.MouseEvent<HTMLDivElement>) => {
     const { textContent } = e.currentTarget;
     if (textContent === null) return;
     setSelectedOption(textContent);
     setProjectSort(textContent);
+    setProjectSort2(textContent);
   };
 
   return (

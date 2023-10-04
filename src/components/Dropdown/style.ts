@@ -8,7 +8,7 @@ export const DropdownContainer = styled.div`
   border-radius: 4px;
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
   user-select: none;
-  width: 150px;
+  width: 160px;
 `;
 
 export const Container = styled.div`

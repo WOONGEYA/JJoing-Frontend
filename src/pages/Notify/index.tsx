@@ -9,12 +9,8 @@ import Search from 'components/Search';
 import instance from 'apis/httpClient';
 import NotifyBox from 'components/NotifyBox';
 import { toast } from 'react-toastify';
-
-interface Notification {
-  user: string;
-  project: string;
-  timestamp: string;
-}
+import { useRecoilState } from 'recoil';
+import { alaram } from 'apis/recoil';
 
 interface alarmList {
   id: number;
@@ -23,10 +19,9 @@ interface alarmList {
 }
 
 function Notify() {
-  const [notificationData, setNotificationData] =
-    useState<Notification[]>(notifications);
   const [userInput, setUserInput] = useState<string>('');
   const [alarmList, setAlarmList] = useState<alarmList[]>([]);
+  const [useAlaram, setUseAlaram] = useRecoilState(alaram);
 
   const handleDeleteAll = () => {
     const fetchData = async () => {
@@ -64,12 +59,13 @@ function Notify() {
     fetchData();
   }, []);
 
+  setUseAlaram(alarmList.length);
   return (
     <>
       <Header />
       <S.Container>
         <S.NotifiHeader>
-          <Search value={userInput} onChange={setUserInput} />{' '}
+          <Search value={userInput} onChange={setUserInput} />
           <Flex.FlexVertical style={{ gap: '12px' }}>
             <S.NotifiAmount>{alarmList.length} / 100</S.NotifiAmount>
             <S.DeleteNotifi onClick={handleDeleteAll}>
