@@ -4,6 +4,9 @@ import MainCover from 'assets/pngs/MainCover.png';
 import tab01 from 'assets/pngs/tab01.png';
 import tab02 from 'assets/pngs/tab02.png';
 import tab03 from 'assets/pngs/tab03.png';
+import card01 from 'assets/pngs/card01.png';
+import card02 from 'assets/pngs/card02.png';
+import card03 from 'assets/pngs/card03.png';
 import { useState } from 'react';
 
 type Item = {
@@ -38,7 +41,7 @@ const items: Item[] = [
 ];
 
 const Main = () => {
-  const [currentItem, setCurrentItem] = useState<Item | null>(null);
+  const [currentItem, setCurrentItem] = useState<Item>(items[0]);
 
   const handleButtonClick = (item: Item) => {
     setCurrentItem(item);
@@ -125,6 +128,47 @@ const Main = () => {
               </S.Description>
             </>
           )}
+        </S.MainBox>
+        <S.MainBox
+          style={{
+            padding: '220px 204px',
+            boxSizing: 'border-box',
+            boxShadow: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '64px',
+          }}
+        >
+          <S.Card>
+            <S.CardTitle>
+              내가 원하는 분야의
+              <br /> 프로젝트를 빠르게
+              <br /> 찾을 수 있도록
+            </S.CardTitle>
+            <S.GoProjects to='/explore'>프로젝트 둘러보기</S.GoProjects>
+            <S.CardImage src={card01} />
+          </S.Card>
+          <S.Card>
+            <S.CardTitle>
+              원하는 분위기의
+              <br /> 프로젝트 팀을
+              <br /> 찾을 수 있게
+            </S.CardTitle>
+            <S.GoProjects to='/explore'>프로젝트 둘러보기</S.GoProjects>
+            <S.CardImage src={card02} />
+          </S.Card>
+          <S.Card>
+            <S.CardTitle>
+              협업으로 통해 내 실력을
+              <br />
+              더 높이
+              <br />
+              끌어올릴 수 있게
+            </S.CardTitle>
+            <S.GoProjects to='/explore'>프로젝트 둘러보기</S.GoProjects>
+            <S.CardImage src={card03} style={{ width: '150px' }} />
+          </S.Card>
         </S.MainBox>
       </S.Container>
     </Layout>

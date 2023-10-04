@@ -122,4 +122,41 @@ export const SmallTitle = styled.h1`
 
 export const Caption = styled.p`
   ${font.$title02};
+  width: 80%;
+`;
+
+export const Card = styled.div`
+  width: 292px;
+  height: 392px;
+  border-radius: 40px;
+  ${shadow.shadow1};
+  padding: 48px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  align-items: center;
+`;
+
+export const CardTitle = styled.h1`
+  width: 100%;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 150%;
+`;
+
+export const GoProjects = styled(Link)`
+  width: 100%;
+  font-size: 23px;
+  font-weight: 300;
+  line-height: 150%;
+  text-decoration: none;
+  color: ${theme.secondary};
+  ${font.$callout};
+`;
+
+export const CardImage = styled.img`
+  width: 100px;
+  height: 100px;
+  margin-top: 38px;
 `;
