@@ -8,6 +8,8 @@ import { Link, useParams } from 'react-router-dom';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import instance from 'apis/httpClient';
+import { useRecoilState } from 'recoil';
+import { keys } from 'apis/recoil';
 
 interface UserProfile {
   statusMessage: string;
@@ -94,6 +96,9 @@ const MyPage = () => {
 
     fetchData();
   }, [id]);
+
+  const [userKey, setUserKey] = useRecoilState(keys);
+  setUserKey(0);
 
   const filteredProjects = othersProject
     ? othersProject.filter((project) => {

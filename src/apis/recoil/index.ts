@@ -34,3 +34,8 @@ export const alaram = atom({
   key: 'alarm',
   default: 0,
 });
+
+export const keys = atom({
+  key: 'key',
+  default: 0,
+});

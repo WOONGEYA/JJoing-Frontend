@@ -1,12 +1,13 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './style';
 import instance from 'apis/httpClient';
 import { useEffect, useState } from 'react';
-import * as F from 'styles/flex';
 import useModal from 'hooks/useModal';
 import ShowJJoingPerson from 'components/ShowJJoingPerson';
 import Header from 'components/Header';
 import NoNotify from 'components/NoNotify';
+import { useRecoilValue } from 'recoil';
+import { keys } from 'apis/recoil';
 
 interface User {
   id: number;
@@ -16,6 +17,7 @@ interface User {
   phone: string;
   school: string;
   userImg: string;
+  userId: number;
 }
 
 const ProjectJoinList = () => {
@@ -38,7 +40,12 @@ const ProjectJoinList = () => {
 
   const { openModal, closeModal } = useModal();
 
-  console.log('userData', userData);
+  const userKey = useRecoilValue(keys);
+  const navigate = useNavigate();
+
+  if (userKey !== 0) {
+    navigate(`/others/${userKey}`);
+  }
   return (
     <>
       <Header />
