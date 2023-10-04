@@ -51,7 +51,7 @@ instance.interceptors.response.use(
         const { accessToken } = await getUpdatedAccessToken();
         setUpdatedAccessToken(accessToken);
       } catch (error) {
-        console.log(error);
+        console.log('에러');
       }
     };
 

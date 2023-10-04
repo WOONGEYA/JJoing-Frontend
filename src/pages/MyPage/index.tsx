@@ -124,7 +124,6 @@ const MyPage = () => {
         },
       })
       .then((response) => {
-        console.log('end', response.data);
         setEndMyProject(response.data);
       });
   }, []);

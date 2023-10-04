@@ -105,7 +105,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
           },
         });
 
-        console.log('img', data.imgUrl);
         setNewImageUrl(data.imgUrl);
       } catch (error) {
         console.error('Error uploading image:', error);

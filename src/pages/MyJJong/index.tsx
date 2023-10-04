@@ -27,7 +27,7 @@ const MyJJong = () => {
         const response = (await instance.get('/like/my')).data;
         setProjectJJoing(response);
       } catch (error) {
-        console.log(error);
+        console.log('에러');
       }
     };
     fetchedData();

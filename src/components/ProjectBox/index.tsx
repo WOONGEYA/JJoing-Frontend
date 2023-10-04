@@ -40,8 +40,6 @@ const ProjectBox = ({
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
-
-        console.log('좋아요', response.data);
       } catch (error) {
         console.log('좋아요 가져오기 실패');
       }

@@ -16,11 +16,10 @@ const DeleteConfirm = ({ closeModal, id }: GenerateModalProps) => {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
-        console.log(data);
         toast.success('알림을 삭제했습니다.');
         window.location.reload();
       } catch (error) {
-        console.log(error);
+        console.log('에러');
       }
     };
 

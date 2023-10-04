@@ -21,7 +21,6 @@ const ProjectJoinList = () => {
 
   useEffect(() => {
     instance.get(`/application/project/${id}`).then((res) => {
-      console.log('res', res.data);
       setUserData(res.data);
     });
   }, [id]);

@@ -48,8 +48,6 @@ function Notify() {
     alarmList.title.toLowerCase().includes(userInput.toLowerCase()),
   );
 
-  console.log(alarmList[0]?.title);
-
   React.useEffect(() => {
     const fetchData = async () => {
       try {
@@ -60,7 +58,7 @@ function Notify() {
         });
         setAlarmList(data);
       } catch (error) {
-        console.log(error);
+        console.log('에러');
       }
     };
     fetchData();

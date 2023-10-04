@@ -67,7 +67,7 @@ const Detail = () => {
       const { data } = await instance.get(`/project/${id}`);
       setUserInfo(data);
     } catch (error) {
-      console.log(error);
+      console.log('에러');
     }
   };
 
@@ -76,7 +76,7 @@ const Detail = () => {
       const { data } = await instance.get(`/project/member/${id}`);
       setProjectUsers(data);
     } catch (error) {
-      console.log(error);
+      console.log('에러');
     }
   };
 
