@@ -48,7 +48,6 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
       .then(() => {
         toast.success('쪼잉이 완료되었습니다.');
         closeModal();
-        window.location.reload();
       });
   };
 
