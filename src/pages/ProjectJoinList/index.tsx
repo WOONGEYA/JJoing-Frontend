@@ -14,6 +14,8 @@ interface User {
   userName: string;
   position: string;
   phone: string;
+  school: string;
+  userImg: string;
 }
 
 const ProjectJoinList = () => {
@@ -48,18 +50,13 @@ const ProjectJoinList = () => {
         {userData.length > 0 ? (
           userData.map((data) => (
             <S.Container key={data.id} onClick={OpenJjoingList}>
-              <S.Element>
-                <F.FlexVertical>
-                  <S.TitleBox>
-                    <S.Element>
-                      <S.Desciption>자기소개: {data.introduce}</S.Desciption>
-                      <S.Position>분야: {data.position}</S.Position>
-                    </S.Element>
-                    <S.SubTitle>이름: {data.userName}</S.SubTitle>
-                    <S.SubTitle>전화번호: {data.phone}</S.SubTitle>
-                  </S.TitleBox>
-                </F.FlexVertical>
-              </S.Element>
+              <S.ProfileImg src={data.userImg} alt='' />
+              <S.UserInfoContainer>
+                <div>{data.userName}</div>
+                <S.UserInfo>
+                  {data.school} / {data.position}
+                </S.UserInfo>
+              </S.UserInfoContainer>
             </S.Container>
           ))
         ) : (

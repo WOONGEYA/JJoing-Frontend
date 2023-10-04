@@ -188,7 +188,7 @@ const Detail = () => {
                 ) : (
                   <>
                     {isEnd === true ? (
-                      <S.Button color={theme.red} onClick={deleteHeart}>
+                      <S.Button color={theme.orange} onClick={deleteHeart}>
                         마이쪼잉에 삭제하기
                       </S.Button>
                     ) : (

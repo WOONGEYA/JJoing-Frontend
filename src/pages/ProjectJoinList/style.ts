@@ -28,7 +28,6 @@ export const Container = styled.div`
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   cursor: pointer;
   margin-bottom: 15px;
   margin-top: 40px;
@@ -99,4 +98,25 @@ export const NoJJoingContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const ProfileImg = styled.img`
+  width: 60px;
+  height: 60px;
+  border-radius: 0.2rem;
+  background-color: orange;
+`;
+
+export const UserInfoContainer = styled.div`
+  width: 250px;
+  height: 60px;
+  margin-left: 15px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+`;
+
+export const UserInfo = styled.div`
+  color: ${theme.grey[600]};
+  ${font.$title04}
 `;
