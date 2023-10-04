@@ -10,6 +10,9 @@ interface User {
   introduce: string;
   userName: string;
   position: string;
+  phone: string;
+  school: string;
+  userImg: string;
 }
 
 interface GenerateModalProps {
@@ -53,19 +56,24 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
         <CloseIcon cursor='pointer' onClick={() => closeModal()} />
       </S.TitleContainer>
       <S.Content>
-        <S.ContentTitle>이름: {userData[0].userName}</S.ContentTitle>
-      </S.Content>
-      <S.Content>
         <S.ContentTitle>한줄 소개</S.ContentTitle>
-        <Input width={'95%'} value={userData[0].introduce} readOnly />
+        <S.Description value={userData[0].introduce} readOnly />
       </S.Content>
       <S.Content>
-        <S.ContentTitle>분야</S.ContentTitle>
-        <Input width={'95%'} value={userData[0].position} readOnly />
+        <S.ContentTitle>전화번호</S.ContentTitle>
+        <Input width={'95%'} value={userData[0].phone} readOnly />
       </S.Content>
       <S.Content>
-        <S.ContentTitle>전화 번호</S.ContentTitle>
-        <Input width={'95%'} value={userData[0].introduce} readOnly />
+        <S.GoProfileText>프로필 바로가기</S.GoProfileText>
+        <S.Container>
+          <S.ProfileImg src={userData[0].userImg} alt='' />
+          <S.UserInfoContainer>
+            <div>{userData[0].userName}</div>
+            <S.UserInfo>
+              {userData[0].school} / {userData[0].position}
+            </S.UserInfo>
+          </S.UserInfoContainer>
+        </S.Container>
       </S.Content>
       <S.ButtonWrapper>
         <S.Button color={theme.grey[600]} onClick={DeleteJJoing}>

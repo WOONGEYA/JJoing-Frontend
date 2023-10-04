@@ -3,7 +3,6 @@ import Header from 'components/Header';
 import * as S from './style';
 import * as Flex from 'styles/flex';
 import trash from 'assets/trash.svg';
-import notifications from 'fixtures/notify.dummy';
 import NoNotify from 'components/NoNotify/index';
 import Search from 'components/Search';
 import instance from 'apis/httpClient';
