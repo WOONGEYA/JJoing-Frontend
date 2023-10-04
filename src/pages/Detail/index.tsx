@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import theme from 'styles/theme';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import instance from 'apis/httpClient';
 import MemberIcon from 'assets/MemberIcon';
 import useModal from 'hooks/useModal';
@@ -12,6 +12,7 @@ import Tag from 'components/Tag';
 import * as S from './style';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
+import NumberIcon from 'assets/NumberIcon.svg';
 
 interface UserInfo {
   content: string;
@@ -125,6 +126,11 @@ const Detail = () => {
     });
   }, []);
 
+  const [isTrue, setIsTrue] = useState(false);
+  const toggle = () => {
+    setIsTrue((prev) => !prev);
+  };
+
   return (
     <Layout>
       <S.Contents>
@@ -134,7 +140,22 @@ const Detail = () => {
               <S.ProjectImage src={userInfo?.imgUrl} />
             </S.ProjectImageContainer>
             <S.ProjectBasicInfo>
-              <S.ProjectName>{userInfo?.name}</S.ProjectName>
+              <S.ProjectName>
+                {userInfo?.name}
+                <S.SvgIcon src={NumberIcon} alt='SVG' onClick={toggle} />
+                {isTrue && (
+                  <S.DropdownContainer>
+                    <S.Options>
+                      <Link to='/mypage'>
+                        <S.Option>수정</S.Option>
+                      </Link>
+                      <Link to='/myjjong'>
+                        <S.Option>삭제</S.Option>
+                      </Link>
+                    </S.Options>
+                  </S.DropdownContainer>
+                )}
+              </S.ProjectName>
               <S.RecruitInfo>
                 <S.Deadline>
                   <S.DeadlineText>

@@ -57,6 +57,11 @@ export const ProjectBasicInfo = styled.div`
 export const ProjectName = styled.p`
   ${font.$title01};
   color: ${theme.black};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 68.5%;
+  position: relative;
 `;
 
 export const Deadline = styled.div`
@@ -176,4 +181,38 @@ export const Button = styled.button`
   margin-top: 12px;
   ${font.$body};
   background-color: ${(props) => props.color};
+`;
+
+export const SvgIcon = styled.img`
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+`;
+
+export const DropdownContainer = styled.div`
+  top: 100%;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+`;
+
+export const Options = styled.div`
+  width: 120px;
+  z-index: 3;
+  background-color: ${theme.white};
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  text-decoration: none;
+`;
+
+export const Option = styled.div`
+  color: ${theme.black};
+  padding: 8px 16px;
+  cursor: pointer;
+  ${font.$callout};
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background-color: ${theme.grey[200]};
+  }
 `;
