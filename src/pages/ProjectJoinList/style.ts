@@ -8,17 +8,19 @@ export const JJoingContainer = styled.div`
   padding-top: 20vh;
 `;
 
-export const MainTitle = styled.div`
-  width: 60%;
+export const TitleContainer = styled.div`
+  width: 72%;
   height: 100px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-around;
   margin: 0 auto;
-  ${font.$title01}
+  ${font.$title01};
+  flex-direction: column;
 `;
 export const Container = styled.div`
   margin: 0 auto;
-  width: 60%;
+  width: 72%;
   height: 92px;
   border-radius: 4px;
   ${shadow.shadow2};
@@ -29,6 +31,7 @@ export const Container = styled.div`
   justify-content: space-between;
   cursor: pointer;
   margin-bottom: 15px;
+  margin-top: 40px;
 `;
 
 export const Image = styled.div`
@@ -74,10 +77,14 @@ export const Else = styled.div`
   justify-content: right;
 `;
 
+export const MainTitle = styled.div`
+  color: ${theme.grey};
+`;
+
 export const SubTitle = styled.div`
-  font-size: ${font.$title04};
+  font-size: ${font.$callout};
   color: ${theme.grey[600]};
-  margin-left: 4px;
+  font-weight: 400;
 `;
 
 export const TitleBox = styled.div`

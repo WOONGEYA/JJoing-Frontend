@@ -17,7 +17,7 @@ export const ModalContainer = styled.div`
   align-items: flex-end;
   gap: 20px;
   border-radius: 12px;
-  height: 19rem;
+  height: 23rem;
 `;
 
 export const TitleContainer = styled.div`

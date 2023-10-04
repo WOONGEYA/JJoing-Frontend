@@ -63,6 +63,10 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
         <S.ContentTitle>분야</S.ContentTitle>
         <Input width={'95%'} value={userData[0].position} readOnly />
       </S.Content>
+      <S.Content>
+        <S.ContentTitle>전화 번호</S.ContentTitle>
+        <Input width={'95%'} value={userData[0].introduce} readOnly />
+      </S.Content>
       <S.ButtonWrapper>
         <S.Button color={theme.grey[600]} onClick={DeleteJJoing}>
           거절하기

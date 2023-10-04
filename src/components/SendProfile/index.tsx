@@ -15,6 +15,7 @@ interface GenerateModalProps {
 const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
   const [produdce, setProdudce] = React.useState<string>('');
   const [userSkills, setUserSkills] = React.useState<string>('');
+  const [phone, setPhone] = React.useState<string>('');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -28,12 +29,17 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
     if (name === 'skills') {
       setUserSkills(value);
     }
+
+    if (name === 'phone') {
+      setPhone(value);
+    }
   };
 
   const onSubmit = async () => {
     const sendData = {
       introduce: produdce,
       position: userSkills,
+      phone: phone,
     };
 
     const res = await instance.post(`application/${pageId}`, sendData, {
@@ -77,6 +83,18 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
           name='skills'
           type='text'
           value={userSkills}
+          onChange={onChange}
+          required
+        />
+      </S.Content>
+      <S.Content>
+        <S.ContentTitle>전화번호</S.ContentTitle>
+        <Input
+          placeholder='전화번호를 입력해주세요.'
+          width='calc(100% - 25px)'
+          name='phone'
+          type='text'
+          value={phone}
           onChange={onChange}
           required
         />
