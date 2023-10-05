@@ -12,9 +12,9 @@ import Tag from 'components/Tag';
 import * as S from './style';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
-import NumberIcon from 'assets/NumberIcon.svg';
-import EndProjectModal2 from 'components/EndProjectModal2';
 import GenerateModalEdit from 'components/GenerateModalEdit';
+import NumberIcon from 'assets/NumberIcon.svg';
+import { toast } from 'react-toastify';
 
 interface UserInfo {
   content: string;
@@ -61,14 +61,6 @@ const Detail = () => {
     });
   };
 
-  const EndProject2 = () => {
-    openModal({
-      component: (
-        <EndProjectModal2 closeModal={closeModal} pageId={Number(id)} />
-      ),
-    });
-  };
-
   const seeJjoingList = () => {
     navigate(`/seeMyProjectJoing/${id}`);
   };
@@ -78,7 +70,7 @@ const Detail = () => {
       const { data } = await instance.get(`/project/${id}`);
       setUserInfo(data);
     } catch (error) {
-      navigate('/explore');
+      console.log('에러');
     }
   };
 
@@ -92,20 +84,12 @@ const Detail = () => {
   };
 
   React.useEffect(() => {
-    getProject().catch((error) => navigate('/explore'));
-    getProjectMember().catch((error) => console.log('/explore'));
+    getProject();
+    getProjectMember();
   }, [id]);
 
   const goOthersPage = (userId: number) => {
     navigate(`/others/${userId}`);
-  };
-
-  const EditProject = () => {
-    openModal({
-      component: (
-        <GenerateModalEdit closeModal={closeModal} pageId={Number(id)} />
-      ),
-    });
   };
 
   const addHeart = () => {
@@ -145,13 +129,28 @@ const Detail = () => {
   }, []);
 
   const [isTrue, setIsTrue] = useState(false);
+
   const toggle = () => {
     setIsTrue((prev) => !prev);
   };
 
-  if (projectUsers.length <= 0) {
+  const EditProject = () => {
+    openModal({
+      component: (
+        <GenerateModalEdit closeModal={closeModal} pageId={Number(id)} />
+      ),
+    });
+  };
+
+  const onDelete = async () => {
+    await instance.delete(`/project/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
     navigate('/explore');
-  }
+    toast.error('프로젝트가 삭제되었습니다');
+  };
 
   return (
     <Layout>
@@ -169,7 +168,7 @@ const Detail = () => {
                   <S.DropdownContainer>
                     <S.Options>
                       <S.Option onClick={EditProject}>수정</S.Option>
-                      <S.Option onClick={EndProject2}>삭제</S.Option>
+                      <S.Option onClick={onDelete}>삭제</S.Option>
                     </S.Options>
                   </S.DropdownContainer>
                 )}
@@ -211,9 +210,7 @@ const Detail = () => {
                 </S.Members>
               </S.ProjectMember>
               <S.Buttons>
-                {Array.isArray(projectUsers) &&
-                projectUsers.length > 0 &&
-                user === projectUsers[0]?.userId ? (
+                {user === projectUsers[0]?.userId ? (
                   <>
                     {userInfo?.state === 'FOUND' ? (
                       <S.ButtonGap></S.ButtonGap>
@@ -228,7 +225,7 @@ const Detail = () => {
                   </>
                 ) : (
                   <>
-                    {typeof isEnd === 'boolean' && isEnd === true ? (
+                    {isEnd === true ? (
                       <S.Button color={theme.orange} onClick={deleteHeart}>
                         마이쪼잉에 삭제하기
                       </S.Button>

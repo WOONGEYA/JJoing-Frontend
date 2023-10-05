@@ -66,7 +66,7 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
       <S.Content>
         <S.ContentTitle>자기소개</S.ContentTitle>
         <Input
-          placeholder='자기소개를 력해주세요.'
+          placeholder='자기소개를 입력해주세요.'
           width='calc(100% - 25px)'
           name='produce'
           type='text'

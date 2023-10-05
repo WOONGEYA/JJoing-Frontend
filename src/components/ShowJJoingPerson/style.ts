@@ -102,7 +102,6 @@ export const Container = styled.div`
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  cursor: pointer;
   margin-bottom: 10px;
 `;
 

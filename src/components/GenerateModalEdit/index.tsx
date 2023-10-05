@@ -197,7 +197,7 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
   return (
     <S.Container>
       <S.Header>
-        <S.ModalTitle>프로젝트 생성하기 🖨</S.ModalTitle>
+        <S.ModalTitle>프로젝트 수정하기 🖨</S.ModalTitle>
         <CloseIcon onClick={closeModal} style={{ cursor: 'pointer' }} />
       </S.Header>
       <S.ModalContents>

@@ -4,8 +4,6 @@ import CloseIcon from 'assets/CloseIcon';
 import Input from 'components/Input';
 import theme from 'styles/theme';
 import { toast } from 'react-toastify';
-import { useRecoilState } from 'recoil';
-import { keys } from 'apis/recoil';
 
 interface User {
   id: number;
@@ -51,13 +49,6 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
       });
   };
 
-  const [userKey, setUserKey] = useRecoilState(keys);
-
-  const gotoOtherPage = () => {
-    setUserKey(userData[0].userId);
-    closeModal();
-  };
-
   return (
     <S.ModalContainer>
       <S.TitleContainer>
@@ -73,8 +64,8 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
         <Input width={'95%'} value={userData[0].phone} readOnly />
       </S.Content>
       <S.Content>
-        <S.GoProfileText>프로필 바로가기</S.GoProfileText>
-        <S.Container onClick={gotoOtherPage}>
+        <S.GoProfileText>프로필 정보</S.GoProfileText>
+        <S.Container>
           <S.ProfileImg src={userData[0].userImg} alt='' />
           <S.UserInfoContainer>
             <div>{userData[0].userName}</div>

@@ -48,13 +48,13 @@ const ProjectBox = ({
     fetchLikeStatus();
   }, [id]);
 
+  const goToDetail = () => {
+    navigate(`/detail/${id}`);
+  };
+
   return (
     <S.Container>
-      <S.NavigateContainer
-        onClick={() => {
-          navigate(`/detail/${id}`);
-        }}
-      >
+      <S.NavigateContainer onClick={goToDetail}>
         <S.ImageContainer>
           <S.Image src={imgUrl} />
         </S.ImageContainer>
