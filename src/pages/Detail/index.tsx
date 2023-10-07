@@ -105,6 +105,7 @@ const Detail = () => {
       }, 100);
     } catch (error) {
       console.log('좋아요 가져오기 실패');
+      toast.error('로그인 후 다시 시도해 주세요');
     }
   };
 
