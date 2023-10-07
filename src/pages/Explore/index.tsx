@@ -60,19 +60,22 @@ const Explore = () => {
   const projectSort = useRecoilValue(sortProject);
   const projectSort2 = useRecoilValue(sortProject2);
 
-  console.log('projectSort2', projectSort2);
   useEffect(() => {
-    instance.get('/project').then((res) => {
-      setMyProject(res.data);
-    });
+    instance
+      .get('/project', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then((res) => {
+        setMyProject(res.data);
+      });
   }, []);
   useEffect(() => {
     if (projectSort === '마이쫑 많은 순') {
       instance
         .get('/project', {
-          params: {
-            criteria: 'like',
-          },
+          params: { criteria: 'like' },
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
