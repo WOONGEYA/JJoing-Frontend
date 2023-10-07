@@ -61,15 +61,9 @@ const Explore = () => {
   const projectSort2 = useRecoilValue(sortProject2);
 
   useEffect(() => {
-    instance
-      .get('/project', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-      .then((res) => {
-        setMyProject(res.data);
-      });
+    instance.get('/project').then((res) => {
+      setMyProject(res.data);
+    });
   }, []);
   useEffect(() => {
     if (projectSort === '마이쫑 많은 순') {
