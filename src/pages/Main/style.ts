@@ -1,4 +1,3 @@
-import exp from 'constants';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { font } from 'styles/font';
@@ -11,6 +10,11 @@ interface TabButtonProps {
 
 export const Container = styled.div`
   width: 100vw;
+`;
+
+export const FirstBox = styled.div`
+  width: 100%;
+  height: calc(100vh - 60px);
 `;
 
 export const MainBox = styled.div`
@@ -59,7 +63,7 @@ export const Button = styled(Link)`
 export const CoverImage = styled.img`
   width: 830px;
   position: absolute;
-  right: 40px;
+  right: 10vw;
 `;
 
 export const Content = styled.div`

@@ -49,7 +49,7 @@ const Main = () => {
   return (
     <Layout>
       <S.Container>
-        <S.MainBox>
+        <S.FirstBox>
           <S.CoverImage src={MainCover} />
           <S.MainContents>
             <S.Title>프로젝트를 함께할 팀원을</S.Title>
@@ -60,7 +60,7 @@ const Main = () => {
             <S.Title style={{ marginBottom: '28px' }}></S.Title>
             <S.Button to='/explore'>쪼잉 시작하기</S.Button>
           </S.MainContents>
-        </S.MainBox>
+        </S.FirstBox>
         <S.MainBox
           style={{
             padding: '220px 204px',
