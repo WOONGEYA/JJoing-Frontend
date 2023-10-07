@@ -68,11 +68,7 @@ const Detail = () => {
 
   const getProject = async () => {
     try {
-      const { data } = await instance.get(`/project/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
+      const { data } = await instance.get(`/project/${id}`);
       setUserInfo(data);
     } catch (error) {
       console.log('에러');
@@ -81,11 +77,7 @@ const Detail = () => {
 
   const getProjectMember = async () => {
     try {
-      const { data } = await instance.get(`/project/member/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
+      const { data } = await instance.get(`/project/member/${id}`);
       setProjectUsers(data);
     } catch (error) {
       console.log('에러');
