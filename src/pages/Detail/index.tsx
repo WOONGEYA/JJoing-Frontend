@@ -95,14 +95,17 @@ const Detail = () => {
 
   const addHeart = () => {
     try {
-      instance.post(`/like/${id}`, null, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
+      instance
+        .post(`/like/${id}`, null, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then(() => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 100);
+        });
     } catch (error) {
       console.log('좋아요 가져오기 실패');
       toast.error('로그인 후 다시 시도해 주세요');
@@ -111,14 +114,17 @@ const Detail = () => {
 
   const deleteHeart = () => {
     try {
-      instance.delete(`/like/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
+      instance
+        .delete(`/like/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then(() => {
+          setTimeout(() => {
+            window.location.reload();
+          }, 100);
+        });
     } catch (error) {
       console.log('실패');
     }
