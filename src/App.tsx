@@ -53,6 +53,7 @@ const App = () => {
                 path='/seeMyProjectJoing/:id'
                 element={<ProjectJoinList />}
               />
+              <Route path='*' element={<Navigate replace to='/' />} />
             </Routes>
           </BrowserRouter>
         </QueryClientProvider>

@@ -137,26 +137,30 @@ const Explore = () => {
       <S.Contents>
         <S.Banner />
         <S.FilterContainer>
-          <S.Filter>
-            {dropdownOptions.map((option) => (
-              <Dropdown
-                key={option.id}
-                isOpened={isOpened[parseInt(option.id)]}
-                {...option}
-                onClick={handleDropdown}
-              />
-            ))}
-          </S.Filter>
-          <S.Filter>
-            {dropdownOptions2.map((option) => (
-              <Dropdown
-                key={option.id}
-                isOpened={isOpened2[parseInt(option.id)]}
-                {...option}
-                onClick={handleDropdown2}
-              />
-            ))}
-          </S.Filter>
+          {localStorage.getItem('accessToken') ? (
+            <>
+              <S.Filter>
+                {dropdownOptions.map((option) => (
+                  <Dropdown
+                    key={option.id}
+                    isOpened={isOpened[parseInt(option.id)]}
+                    {...option}
+                    onClick={handleDropdown}
+                  />
+                ))}
+              </S.Filter>
+              <S.Filter>
+                {dropdownOptions2.map((option) => (
+                  <Dropdown
+                    key={option.id}
+                    isOpened={isOpened2[parseInt(option.id)]}
+                    {...option}
+                    onClick={handleDropdown2}
+                  />
+                ))}
+              </S.Filter>
+            </>
+          ) : null}
         </S.FilterContainer>
         <S.ProjectList>
           <S.Title>프로젝트 목록 😎</S.Title>
