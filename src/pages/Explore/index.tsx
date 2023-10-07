@@ -61,9 +61,15 @@ const Explore = () => {
   const projectSort2 = useRecoilValue(sortProject2);
 
   useEffect(() => {
-    instance.get('/project').then((res) => {
-      setMyProject(res.data);
-    });
+    instance
+      .get('/project', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then((res) => {
+        setMyProject(res.data);
+      });
   }, []);
   useEffect(() => {
     if (projectSort === '마이쫑 많은 순') {
@@ -126,9 +132,15 @@ const Explore = () => {
         });
     }
     if (projectSort2 === '전체 프로젝트') {
-      instance.get('/project').then((res) => {
-        setMyProject(res.data);
-      });
+      instance
+        .get('/project', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then((res) => {
+          setMyProject(res.data);
+        });
     }
   }, [projectSort2]);
 
