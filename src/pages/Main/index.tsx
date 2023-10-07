@@ -54,7 +54,7 @@ const Main = () => {
           <S.MainContents>
             <S.Title>프로젝트를 함께할 팀원을</S.Title>
             <S.Title>
-              <S.Emphasis>쪼잉에서</S.Emphasis>에서 찾아보세요!
+              <S.Emphasis>쪼잉</S.Emphasis>에서 찾아보세요!
             </S.Title>
             <S.SubTitle>관심 분야의 프로젝트를 쉽게 찾을 수 있어요.</S.SubTitle>
             <S.Title style={{ marginBottom: '28px' }}></S.Title>
