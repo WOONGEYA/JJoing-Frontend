@@ -91,7 +91,11 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         statusMessage: profile?.statusMessage,
       };
 
-      await instance.put('/user', updateData);
+      await instance.put('/user', updateData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
 
       closeModal();
     } catch (error) {
