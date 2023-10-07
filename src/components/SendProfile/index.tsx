@@ -52,8 +52,6 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
       toast.success('프로젝트 신청에 성공했습니다!');
       closeModal();
     } else {
-      if (!localStorage.getItem('accessToken'))
-        toast.error('로그인 후 다시 시도해 주세요');
       toast.error('이미 신청한 프로젝트입니다!');
       closeModal();
     }
