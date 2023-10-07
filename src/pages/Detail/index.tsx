@@ -229,11 +229,15 @@ const Detail = () => {
                 </S.Members>
               </S.ProjectMember>
               <S.Buttons>
-                {!localStorage.getItem('accessToken') ? null : user ===
-                  projectUsers[0]?.userId ? (
+                {!localStorage.getItem('accessToken') ? (
+                  <S.ButtonGap></S.ButtonGap>
+                ) : user === projectUsers[0]?.userId ? (
                   <>
                     {userInfo?.state === 'FOUND' ? (
-                      <S.ButtonGap></S.ButtonGap>
+                      <>
+                        <S.ButtonGap></S.ButtonGap>
+                        <S.ButtonGap></S.ButtonGap>
+                      </>
                     ) : (
                       <S.Button color={theme.secondary} onClick={EndProject}>
                         프로젝트 마감하기
