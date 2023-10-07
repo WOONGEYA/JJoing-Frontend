@@ -164,7 +164,7 @@ const Detail = () => {
       },
     });
     navigate('/explore');
-    toast.error('프로젝트가 삭제되었습니다');
+    toast.success('프로젝트가 삭제되었습니다');
   };
 
   const userId = useRecoilValue(userKey);

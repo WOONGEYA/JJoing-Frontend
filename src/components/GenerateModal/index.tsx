@@ -101,6 +101,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
         const { data } = await instance.post('/project/image', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
 
