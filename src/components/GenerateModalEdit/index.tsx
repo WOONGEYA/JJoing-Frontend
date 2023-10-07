@@ -18,7 +18,7 @@ interface UserInput {
   name: string;
   requiredPeople: number;
   startDate: string;
-  endDate: string;
+  endDate: string[];
   skills: string[];
   content: string;
   moods: string[];
@@ -31,7 +31,7 @@ const initialUserInput: UserInput = {
   name: '',
   requiredPeople: 2,
   startDate: '',
-  endDate: '',
+  endDate: [],
   skills: [],
   content: '',
   moods: [],
