@@ -102,6 +102,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
       });
 
       closeModal();
+      window.location.reload();
     } catch (error) {
       console.error('Error updating user profile:', error);
     }
