@@ -24,7 +24,13 @@ const MyJJong = () => {
   React.useEffect(() => {
     const fetchedData = async () => {
       try {
-        const response = (await instance.get('/like/my')).data;
+        const response = (
+          await instance.get('/like/my', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          })
+        ).data;
         setProjectJJoing(response);
       } catch (error) {
         console.log('에러');

@@ -30,7 +30,7 @@ const ProjectBox = ({
 }: ProjectBoxPropsType) => {
   const navigate = useNavigate();
 
-  const [likes, setLikes] = useState(likeCount);
+  const [likes] = useState(likeCount);
 
   useEffect(() => {
     const fetchLikeStatus = async () => {

@@ -29,6 +29,7 @@ interface UserInfo {
   skills: string[];
   startDate: string;
   state: string;
+  id: number;
 }
 
 interface Member {
@@ -39,7 +40,7 @@ interface Member {
 
 const Detail = () => {
   const { id } = useParams();
-  const [userInfo, setUserInfo] = React.useState<UserInfo | null>(null);
+  const [userInfo, setUserInfo] = React.useState<UserInfo>();
   const [projectUsers, setProjectUsers] = React.useState<Member[]>([]);
   const [isEnd, setIsEnd] = useState(false);
   const navigate = useNavigate();
@@ -67,7 +68,11 @@ const Detail = () => {
 
   const getProject = async () => {
     try {
-      const { data } = await instance.get(`/project/${id}`);
+      const { data } = await instance.get(`/project/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
       setUserInfo(data);
     } catch (error) {
       console.log('에러');
@@ -76,7 +81,11 @@ const Detail = () => {
 
   const getProjectMember = async () => {
     try {
-      const { data } = await instance.get(`/project/member/${id}`);
+      const { data } = await instance.get(`/project/member/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
       setProjectUsers(data);
     } catch (error) {
       console.log('에러');
@@ -123,9 +132,15 @@ const Detail = () => {
   };
 
   useEffect(() => {
-    instance.get(`/like/check/${id}/project`).then((res) => {
-      setIsEnd(res.data);
-    });
+    instance
+      .get(`/like/check/${id}/project`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then((res) => {
+        setIsEnd(res.data);
+      });
   }, []);
 
   const [isTrue, setIsTrue] = useState(false);
@@ -152,6 +167,10 @@ const Detail = () => {
     toast.error('프로젝트가 삭제되었습니다');
   };
 
+  const userId = useRecoilValue(userKey);
+
+  console.log('userKey', userId);
+
   return (
     <Layout>
       <S.Contents>
@@ -163,7 +182,9 @@ const Detail = () => {
             <S.ProjectBasicInfo>
               <S.ProjectName>
                 {userInfo?.name}
-                <S.SvgIcon src={NumberIcon} alt='SVG' onClick={toggle} />
+                {projectUsers[0]?.userId === userId && (
+                  <S.SvgIcon src={NumberIcon} alt='SVG' onClick={toggle} />
+                )}
                 {isTrue && (
                   <S.DropdownContainer>
                     <S.Options>

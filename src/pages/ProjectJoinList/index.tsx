@@ -23,9 +23,15 @@ const ProjectJoinList = () => {
   const [userData, setUserData] = useState<User[]>([]);
 
   useEffect(() => {
-    instance.get(`/application/project/${id}`).then((res) => {
-      setUserData(res.data);
-    });
+    instance
+      .get(`/application/project/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then((res) => {
+        setUserData(res.data);
+      });
   }, [id]);
 
   const OpenJjoingList = () => {

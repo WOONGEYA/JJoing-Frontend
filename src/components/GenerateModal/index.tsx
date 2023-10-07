@@ -98,12 +98,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
       formData.append('data', blob);
 
       try {
-        const { data } = await instance.post('/project/image', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
+        const { data } = await instance.post('/project/image', formData);
 
         setNewImageUrl(data.imgUrl);
       } catch (error) {
