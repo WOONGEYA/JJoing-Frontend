@@ -65,11 +65,7 @@ const MyPage = () => {
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await instance.get('/user', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
+        const response = await instance.get('/user');
         setUserProfile(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
