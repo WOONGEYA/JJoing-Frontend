@@ -65,7 +65,6 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         const { data } = await instance.post('/user/image', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
 
@@ -102,7 +101,6 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         },
       });
 
-      window.location.reload();
       closeModal();
     } catch (error) {
       console.error('Error updating user profile:', error);

@@ -98,7 +98,11 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
       formData.append('data', blob);
 
       try {
-        const { data } = await instance.post('/project/image', formData);
+        const { data } = await instance.post('/project/image', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
 
         setNewImageUrl(data.imgUrl);
       } catch (error) {

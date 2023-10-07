@@ -25,11 +25,7 @@ function Notify() {
   const handleDeleteAll = () => {
     const fetchData = async () => {
       try {
-        await instance.delete('/notification', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
+        await instance.delete('/notification');
         window.location.reload();
       } catch (error) {
         toast.error('알림 삭제 실패');
@@ -45,11 +41,7 @@ function Notify() {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await instance.get('/notification', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
+        const { data } = await instance.get('/notification');
         setAlarmList(data);
       } catch (error) {
         console.log('에러');
