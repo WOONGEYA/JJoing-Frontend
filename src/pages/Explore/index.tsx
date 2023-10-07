@@ -126,24 +126,15 @@ const Explore = () => {
       instance
         .get('/project', {
           params: { state: 'FOUND' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
         })
         .then((res) => {
           setMyProject(res.data);
         });
     }
     if (projectSort2 === '전체 프로젝트') {
-      instance
-        .get('/project', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
+      instance.get('/project').then((res) => {
+        setMyProject(res.data);
+      });
     }
   }, [projectSort2]);
 
