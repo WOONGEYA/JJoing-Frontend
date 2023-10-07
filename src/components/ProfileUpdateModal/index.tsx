@@ -62,7 +62,11 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
       formData.append('data', blob);
 
       try {
-        const { data } = await instance.post('/user/image', formData);
+        const { data } = await instance.post('/user/image', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
 
         setNewImageUrl(data.imgUrl);
       } catch (error) {
