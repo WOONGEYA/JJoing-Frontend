@@ -13,9 +13,9 @@ import * as S from './style';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import GenerateModalEdit from 'components/GenerateModalEdit';
-import NumberIcon from 'assets/NumberIcon.svg';
 import { toast } from 'react-toastify';
 import ArrowIcon from 'assets/ArrowIcon';
+import KebabIcon from 'assets/KebabIcon';
 
 interface UserInfo {
   content: string;
@@ -185,7 +185,7 @@ const Detail = () => {
               <S.Top>
                 <S.ProjectName>{userInfo?.name}</S.ProjectName>
                 {projectUsers[0]?.userId === userId && (
-                  <S.SvgIcon src={NumberIcon} alt='SVG' onClick={toggle} />
+                  <KebabIcon onClick={toggle} />
                 )}
                 {isTrue && (
                   <S.DropdownContainer>
