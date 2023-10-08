@@ -15,6 +15,7 @@ import { userKey } from 'apis/recoil';
 import GenerateModalEdit from 'components/GenerateModalEdit';
 import NumberIcon from 'assets/NumberIcon.svg';
 import { toast } from 'react-toastify';
+import ArrowIcon from 'assets/ArrowIcon';
 
 interface UserInfo {
   content: string;
@@ -172,6 +173,9 @@ const Detail = () => {
   return (
     <Layout>
       <S.Contents>
+        <S.ArrowContainer to='/explore'>
+          <ArrowIcon />
+        </S.ArrowContainer>
         <S.ProjectLayout>
           <S.ProjectInfo>
             <S.ProjectImageContainer>

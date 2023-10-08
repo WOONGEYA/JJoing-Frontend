@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import theme from 'styles/theme';
 import { font } from 'styles/font';
+import { Link } from 'react-router-dom';
 
 export const Contents = styled.div`
   max-width: 1032px;
@@ -215,4 +216,9 @@ export const Option = styled.div`
   &:hover {
     background-color: ${theme.grey[200]};
   }
+`;
+
+export const ArrowContainer = styled(Link)`
+  position: absolute;
+  margin-left: -5%;
 `;
