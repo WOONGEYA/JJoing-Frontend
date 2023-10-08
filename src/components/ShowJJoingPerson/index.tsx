@@ -53,12 +53,16 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
       })
       .then(() => {
         toast.success('쪼잉이 완료되었습니다.');
+        window.location.reload();
         closeModal();
       });
   };
 
-  const isUserMember = member.map((m) => m.userId === userData[0]?.userId);
+  const isUserMember = member.map(
+    (el, index) => el.userId === userData[index]?.userId,
+  );
 
+  console.log('isUserMember', isUserMember);
   console.log('member', member);
   console.log('userData', userData[0]);
   return (
@@ -88,14 +92,16 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
         </S.Container>
       </S.Content>
       <S.ButtonWrapper>
-        <S.Button color={theme.grey[600]} onClick={DeleteJJoing}>
-          거절하기
-        </S.Button>
-        {!isUserMember && (
-          <S.Button color={theme.primary} onClick={JJoingNow}>
-            쪼잉하기
+        <S.ButtonWrapper>
+          <S.Button color={theme.grey[600]} onClick={DeleteJJoing}>
+            거절하기
           </S.Button>
-        )}
+          {isUserMember.includes(false) && (
+            <S.Button color={theme.primary} onClick={JJoingNow}>
+              쪼잉하기
+            </S.Button>
+          )}
+        </S.ButtonWrapper>
       </S.ButtonWrapper>
     </S.ModalContainer>
   );
