@@ -10,8 +10,8 @@ import Layout from 'components/Layout';
 import CalendarIcon from 'assets/CalendarIcon';
 import Tag from 'components/Tag';
 import * as S from './style';
-import { useRecoilValue } from 'recoil';
-import { userKey } from 'apis/recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { members, userKey } from 'apis/recoil';
 import GenerateModalEdit from 'components/GenerateModalEdit';
 import NumberIcon from 'assets/NumberIcon.svg';
 import { toast } from 'react-toastify';
@@ -75,10 +75,12 @@ const Detail = () => {
     }
   };
 
+  const [member, setMember] = useRecoilState(members);
   const getProjectMember = async () => {
     try {
       const { data } = await instance.get(`/project/member/${id}`);
       setProjectUsers(data);
+      setMember(data);
     } catch (error) {
       console.log('에러');
     }
@@ -166,8 +168,6 @@ const Detail = () => {
   };
 
   const userId = useRecoilValue(userKey);
-
-  console.log('userKey', userId);
 
   return (
     <Layout>

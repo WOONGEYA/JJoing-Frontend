@@ -4,6 +4,8 @@ import CloseIcon from 'assets/CloseIcon';
 import Input from 'components/Input';
 import theme from 'styles/theme';
 import { toast } from 'react-toastify';
+import { useRecoilValue } from 'recoil';
+import { members } from 'apis/recoil';
 
 interface User {
   id: number;
@@ -21,7 +23,13 @@ interface GenerateModalProps {
   userData: User[];
 }
 
+interface Member {
+  userId: number;
+}
+
 const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
+  const member: Member[] = useRecoilValue(members);
+
   const DeleteJJoing = () => {
     instance
       .put(`/application/${userData[0].id}/reject`, {
@@ -49,6 +57,10 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
       });
   };
 
+  const isUserMember = member.map((m) => m.userId === userData[0]?.userId);
+
+  console.log('member', member);
+  console.log('userData', userData[0]);
   return (
     <S.ModalContainer>
       <S.TitleContainer>
@@ -79,9 +91,11 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
         <S.Button color={theme.grey[600]} onClick={DeleteJJoing}>
           거절하기
         </S.Button>
-        <S.Button color={theme.primary} onClick={JJoingNow}>
-          쪼잉하기
-        </S.Button>
+        {!isUserMember && (
+          <S.Button color={theme.primary} onClick={JJoingNow}>
+            쪼잉하기
+          </S.Button>
+        )}
       </S.ButtonWrapper>
     </S.ModalContainer>
   );

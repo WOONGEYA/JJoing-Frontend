@@ -34,3 +34,8 @@ export const alaram = atom({
   key: 'alarm',
   default: 0,
 });
+
+export const members = atom({
+  key: 'memebers',
+  default: [],
+});

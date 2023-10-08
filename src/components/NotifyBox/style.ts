@@ -13,6 +13,9 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  &:nth-last-child(1) {
+    margin-bottom: 50px;
+  }
 `;
 
 export const Image = styled.div`
@@ -25,6 +28,7 @@ export const Image = styled.div`
 
 export const Element = styled.div`
   margin-left: 3px;
+  cursor: pointer;
 `;
 
 export const Desciption = styled.h1`

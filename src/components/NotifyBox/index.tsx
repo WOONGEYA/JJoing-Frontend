@@ -3,6 +3,7 @@ import * as F from 'styles/flex';
 import trash from 'assets/trash.svg';
 import useModal from 'hooks/useModal';
 import DeleteConfirm from 'components/DeleteConfirm';
+import { useNavigate } from 'react-router-dom';
 
 interface NotifyBoxProps {
   id: number;
@@ -19,9 +20,16 @@ function NotifyBox({ id, title, content }: NotifyBoxProps) {
     });
   };
 
+  const navigate = useNavigate();
+
+  const gotoNotify = () => {
+    navigate(`/detail/${id}`);
+  };
+
+  console.log(id);
   return (
     <S.Container>
-      <S.Element>
+      <S.Element onClick={gotoNotify}>
         <F.FlexVertical>
           <S.TitleBox>
             <S.Element>

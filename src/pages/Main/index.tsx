@@ -46,6 +46,7 @@ const Main = () => {
   const handleButtonClick = (item: Item) => {
     setCurrentItem(item);
   };
+
   return (
     <Layout>
       <S.Container>

@@ -43,6 +43,7 @@ function Notify() {
       try {
         const { data } = await instance.get('/notification');
         setAlarmList(data);
+        console.log('alarm', data);
       } catch (error) {
         console.log('에러');
       }
