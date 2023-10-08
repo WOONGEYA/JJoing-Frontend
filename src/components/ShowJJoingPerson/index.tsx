@@ -62,9 +62,6 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
     (el, index) => el.userId === userData[index]?.userId,
   );
 
-  console.log('isUserMember', isUserMember);
-  console.log('member', member);
-  console.log('userData', userData[0]);
   return (
     <S.ModalContainer>
       <S.TitleContainer>
