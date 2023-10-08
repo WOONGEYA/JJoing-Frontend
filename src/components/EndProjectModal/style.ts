@@ -62,7 +62,7 @@ export const CancleButton = styled.div`
 `;
 
 export const SuccessButton = styled.div`
-  background-color: ${theme.orange};
+  background-color: ${theme.warning};
   color: white;
   width: 140px;
   height: 40px;

@@ -1,8 +1,10 @@
 const primary = '#38B57D';
 const secondary = '#264466';
+const warning = '#F4493C';
 
 const black = '#000000';
 const white = '#FFFFFF';
+const red = '#FF0000';
 
 const grey = {
   '100': '#F8F9FA',
@@ -16,16 +18,12 @@ const grey = {
   '900': '#212529',
 };
 
-const red = '#FF0000';
-
-const orange = '#F4493C';
-
 export default {
   primary,
   secondary,
-  grey,
+  warning,
   black,
   white,
   red,
-  orange,
+  grey,
 };

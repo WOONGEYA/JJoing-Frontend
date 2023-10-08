@@ -1,4 +1,3 @@
-import exp from 'constants';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { font } from 'styles/font';
@@ -13,6 +12,11 @@ export const Container = styled.div`
   width: 100vw;
 `;
 
+export const FirstBox = styled.div`
+  width: 100%;
+  height: calc(100vh - 60px);
+`;
+
 export const MainBox = styled.div`
   width: 100%;
   height: 100vh;
@@ -21,6 +25,8 @@ export const MainBox = styled.div`
 
 export const MainContents = styled.div`
   padding: 241px 204px;
+  z-index: 2;
+  position: relative;
   box-sizing: border-box;
 `;
 
@@ -59,7 +65,7 @@ export const Button = styled(Link)`
 export const CoverImage = styled.img`
   width: 830px;
   position: absolute;
-  right: 40px;
+  right: 15vw;
 `;
 
 export const Content = styled.div`

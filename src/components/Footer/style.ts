@@ -11,34 +11,14 @@ export const FooterWrapper = styled.div`
   max-width: 1032px;
   width: calc(100% - 2rem);
   display: flex;
-  padding: 32px 0;
+  padding: 40px 0;
   margin: auto;
   flex-direction: column;
 `;
 
-export const Headlines = styled.div`
-  color: ${theme.grey[600]};
-  display: flex;
-  gap: 24px;
-  ${font.$body}
-  justify-content: end;
-`;
-
-export const Headline = styled.h3`
-  color: ${theme.grey[600]};
-  ${font.$body}
-`;
-
-export const Line = styled.div`
-  width: 100%;
-  border-bottom: 1px solid ${theme.grey[600]};
-`;
-
 export const LogoContainer = styled.div`
-  display: inline-flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
+  display: flex;
 `;
 
 export const Service = styled.h2`
@@ -46,29 +26,26 @@ export const Service = styled.h2`
   ${font.$title03}
 `;
 
-export const Information = styled.div`
+export const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: center;
+  align-self: stretch;
 `;
 
-export const Tel = styled.h4`
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+export const Top = styled(Bottom)``;
+
+export const Copyright = styled.span`
   ${font.$headline};
-  color: ${theme.grey[700]};
-`;
-
-export const Email = styled(Tel)``;
-
-export const Founders = styled(Tel)``;
-
-export const Location = styled(Tel)``;
-
-export const Copyright = styled(Tel)`
   color: ${theme.grey[600]};
 `;
 
-export const InformationContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+export const Team = styled(Copyright)`
+  color: ${theme.grey[800]};
 `;

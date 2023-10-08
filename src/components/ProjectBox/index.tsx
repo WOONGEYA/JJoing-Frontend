@@ -1,10 +1,10 @@
 import * as S from './style';
 import Member from 'assets/MemberIcon';
-import Heart from 'assets/Heart';
-import RedHeart from 'assets/RedHeart';
+import LikeIcon from 'assets/LikeIcon';
 import { useNavigate } from 'react-router-dom';
 import instance from 'apis/httpClient';
 import { useEffect, useState } from 'react';
+import theme from 'styles/theme';
 
 interface ProjectBoxPropsType {
   content: string;
@@ -71,11 +71,11 @@ const ProjectBox = ({
           </S.People>
         </S.MemberCount>
         <S.HeartCount>
-          {likeState ? (
-            <RedHeart style={{ marginTop: '2px', cursor: 'pointer' }} />
-          ) : (
-            <Heart style={{ marginTop: '2px', cursor: 'pointer' }} />
-          )}
+          <LikeIcon
+            color={likeState ? theme.red : theme.secondary}
+            style={{ marginTop: '2px', cursor: 'pointer' }}
+          />
+
           <span>{likes}</span>
         </S.HeartCount>
       </S.Footer>

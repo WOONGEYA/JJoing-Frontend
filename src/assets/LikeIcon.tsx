@@ -7,9 +7,9 @@ interface SVGAttributeProps extends React.SVGAttributes<HTMLOrSVGElement> {
   color?: string;
 }
 
-const BellIcon = ({
-  width = 18,
-  height = 18,
+const LikeIcon = ({
+  width = 16,
+  height = 16,
   color = theme.secondary,
   ...rest
 }: SVGAttributeProps) => {
@@ -30,4 +30,4 @@ const BellIcon = ({
   );
 };
 
-export default BellIcon;
+export default LikeIcon;
