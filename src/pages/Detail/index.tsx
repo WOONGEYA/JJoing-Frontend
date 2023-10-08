@@ -233,43 +233,43 @@ const Detail = () => {
                 </S.Members>
               </S.ProjectMember>
               <S.Buttons>
-                {!localStorage.getItem('accessToken') ? (
-                  <S.ButtonGap></S.ButtonGap>
-                ) : user === projectUsers[0]?.userId ? (
+                {user === projectUsers[0]?.userId ? (
                   <>
-                    {userInfo?.state === 'FOUND' ? (
-                      <>
-                        <S.ButtonGap></S.ButtonGap>
-                        <S.ButtonGap></S.ButtonGap>
-                      </>
-                    ) : (
-                      <S.Button color={theme.secondary} onClick={EndProject}>
-                        프로젝트 마감하기
-                      </S.Button>
-                    )}
+                    <S.Button
+                      color={
+                        userInfo?.state === 'FOUND'
+                          ? theme.grey[600]
+                          : theme.secondary
+                      }
+                      onClick={EndProject}
+                      cursor={userInfo?.state === 'FOUND' ? 'default' : ''}
+                    >
+                      프로젝트 마감하기
+                    </S.Button>
                     <S.Button color={theme.primary} onClick={seeJjoingList}>
                       신청목록 조회하기
                     </S.Button>
                   </>
                 ) : (
                   <>
-                    {isEnd === true ? (
-                      <S.Button color={theme.warning} onClick={deleteHeart}>
-                        마이쪼잉에 삭제하기
+                    {userInfo?.state === 'FOUND' ? (
+                      <S.Button color={theme.grey[600]} cursor='default'>
+                        모집이 마감되었습니다.
                       </S.Button>
                     ) : (
-                      <S.Button color={theme.primary} onClick={addHeart}>
-                        마이쪼잉에 추가하기
+                      <S.Button color={theme.primary} onClick={JJoingNow}>
+                        지금 쪼잉하기!
                       </S.Button>
                     )}
-                    <S.Button
-                      color={theme.secondary}
-                      onClick={() => userInfo?.state !== 'FOUND' && JJoingNow()}
-                    >
-                      {userInfo?.state === 'FOUND'
-                        ? '프로젝트 모집이 마감되었습니다'
-                        : '지금 쪼잉하기'}
-                    </S.Button>
+                    {isEnd === true ? (
+                      <S.Button color={theme.warning} onClick={deleteHeart}>
+                        마이쫑에서 삭제하기
+                      </S.Button>
+                    ) : (
+                      <S.Button color={theme.secondary} onClick={addHeart}>
+                        마이쫑에 추가하기
+                      </S.Button>
+                    )}
                   </>
                 )}
               </S.Buttons>

@@ -51,7 +51,7 @@ export const ProjectDetail = styled.div`
 export const ProjectBasicInfo = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
   flex: 1 0 0;
 `;
 
@@ -125,7 +125,7 @@ export const MemberProfile = styled.img`
 
 export const Buttons = styled.div`
   display: flex;
-  flex-direction: column;
+  gap: 24px;
 `;
 
 export const Description = styled.div`
@@ -167,21 +167,17 @@ export const TagContainer = styled.div`
   gap: 8px;
 `;
 
-export const ButtonGap = styled.div`
-  width: 332px;
-  height: 54px;
-`;
-
-export const Button = styled.button`
-  cursor: pointer;
+export const Button = styled.button<{ cursor?: string }>`
+  cursor: ${({ cursor }) => (!cursor ? 'pointer' : cursor)};
   color: white;
-  width: 343px;
-  height: 40px;
-  border-radius: 6px;
-  border: none;
-  margin-top: 12px;
+  border-radius: 4px;
   ${font.$body};
   background-color: ${(props) => props.color};
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 0 0;
 `;
 
 export const SvgIcon = styled.img`
