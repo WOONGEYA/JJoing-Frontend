@@ -16,9 +16,7 @@ const grey = {
   '900': '#212529',
 };
 
-const red = '#FF0000';
-
-const orange = '#F4493C';
+const warning = '#F4493C';
 
 export default {
   primary,
@@ -26,6 +24,5 @@ export default {
   grey,
   black,
   white,
-  red,
-  orange,
+  warning,
 };
