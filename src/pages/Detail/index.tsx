@@ -182,8 +182,8 @@ const Detail = () => {
               <S.ProjectImage src={userInfo?.imgUrl} />
             </S.ProjectImageContainer>
             <S.ProjectBasicInfo>
-              <S.ProjectName>
-                {userInfo?.name}
+              <S.Top>
+                <S.ProjectName>{userInfo?.name}</S.ProjectName>
                 {projectUsers[0]?.userId === userId && (
                   <S.SvgIcon src={NumberIcon} alt='SVG' onClick={toggle} />
                 )}
@@ -195,7 +195,7 @@ const Detail = () => {
                     </S.Options>
                   </S.DropdownContainer>
                 )}
-              </S.ProjectName>
+              </S.Top>
               <S.RecruitInfo>
                 <S.Deadline>
                   <S.DeadlineText>
@@ -239,6 +239,9 @@ const Detail = () => {
                   </S.Button>
                 ) : user === projectUsers[0]?.userId ? (
                   <>
+                    <S.Button color={theme.primary} onClick={seeJjoingList}>
+                      신청목록 확인하기
+                    </S.Button>
                     <S.Button
                       color={
                         userInfo?.state === 'FOUND'
@@ -248,10 +251,7 @@ const Detail = () => {
                       onClick={EndProject}
                       cursor={userInfo?.state === 'FOUND' ? 'default' : ''}
                     >
-                      프로젝트 마감하기
-                    </S.Button>
-                    <S.Button color={theme.primary} onClick={seeJjoingList}>
-                      신청목록 조회하기
+                      모집 마감하기
                     </S.Button>
                   </>
                 ) : (
