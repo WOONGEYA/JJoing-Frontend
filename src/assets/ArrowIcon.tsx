@@ -18,7 +18,7 @@ const path = {
 const ArrowIcon = ({
   width = 48,
   height = 48,
-  color = theme.secondary,
+  color = theme.black,
   direction = 'left',
   ...rest
 }: SVGAttributeProps) => {
