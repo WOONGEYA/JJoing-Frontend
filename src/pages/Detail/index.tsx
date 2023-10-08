@@ -233,7 +233,11 @@ const Detail = () => {
                 </S.Members>
               </S.ProjectMember>
               <S.Buttons>
-                {user === projectUsers[0]?.userId ? (
+                {!localStorage.getItem('accessToken') ? (
+                  <S.Button color={theme.grey[600]} cursor='default'>
+                    로그인을 하셔야 이용하실 수 있어요.
+                  </S.Button>
+                ) : user === projectUsers[0]?.userId ? (
                   <>
                     <S.Button
                       color={
