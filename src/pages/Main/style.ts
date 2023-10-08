@@ -25,6 +25,8 @@ export const MainBox = styled.div`
 
 export const MainContents = styled.div`
   padding: 241px 204px;
+  z-index: 2;
+  position: relative;
   box-sizing: border-box;
 `;
 
@@ -63,7 +65,7 @@ export const Button = styled(Link)`
 export const CoverImage = styled.img`
   width: 830px;
   position: absolute;
-  right: 10vw;
+  right: 15vw;
 `;
 
 export const Content = styled.div`
