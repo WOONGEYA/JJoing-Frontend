@@ -16,8 +16,8 @@ const path = {
 };
 
 const ArrowIcon = ({
-  width = 32,
-  height = 32,
+  width = 48,
+  height = 48,
   color = theme.secondary,
   direction = 'left',
   ...rest
