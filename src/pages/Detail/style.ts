@@ -63,6 +63,7 @@ export const ProjectName = styled.p`
   align-items: center;
   width: 68.5%;
   position: relative;
+  width: 100%;
 `;
 
 export const Deadline = styled.div`

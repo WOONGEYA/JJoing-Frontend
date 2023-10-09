@@ -170,9 +170,6 @@ const Detail = () => {
 
   const userId = useRecoilValue(userKey);
 
-  const alreadyJoin = projectUsers.some((data) => data.userId === userId);
-
-  console.log(alreadyJoin);
   return (
     <Layout>
       <S.Contents>
@@ -236,22 +233,9 @@ const Detail = () => {
                 </S.Members>
               </S.ProjectMember>
               <S.Buttons>
-                {alreadyJoin ? (
-                  <S.ButtonGap></S.ButtonGap>
-                ) : (
-                  <S.Button
-                    color={theme.secondary}
-                    onClick={() => userInfo?.state !== 'FOUND' && JJoingNow()}
-                  >
-                    {userInfo?.state === 'FOUND'
-                      ? '프로젝트 모집이 마감되었습니다'
-                      : '지금 쪼잉하기'}
-                  </S.Button>
-                )}
-
                 {!localStorage.getItem('accessToken') ? (
                   <S.Button color={theme.grey[600]} cursor='default'>
-                    로그인을 하셔야 이용하실 수 있어요.
+                    로그인 후 이용해주세요
                   </S.Button>
                 ) : user === projectUsers[0]?.userId ? (
                   <>
@@ -274,11 +258,11 @@ const Detail = () => {
                   <>
                     {userInfo?.state === 'FOUND' ? (
                       <S.Button color={theme.grey[600]} cursor='default'>
-                        모집이 마감되었습니다.
+                        모집이 마감되었습니다
                       </S.Button>
                     ) : (
                       <S.Button color={theme.primary} onClick={JJoingNow}>
-                        지금 쪼잉하기!
+                        지금 쪼잉하기
                       </S.Button>
                     )}
                     {isEnd === true ? (
