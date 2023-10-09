@@ -47,6 +47,10 @@ const LoginPage = () => {
 
       navigate('/');
     },
+    onError: () => {
+      toast.error('학교계정으로 로그인해주세요');
+      navigate('/');
+    },
   });
 
   useEffect(() => {
