@@ -13,9 +13,9 @@ import * as S from './style';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { members, userKey } from 'apis/recoil';
 import GenerateModalEdit from 'components/GenerateModalEdit';
-import NumberIcon from 'assets/NumberIcon.svg';
 import { toast } from 'react-toastify';
 import ArrowIcon from 'assets/ArrowIcon';
+import KebabIcon from 'assets/KebabIcon';
 
 interface UserInfo {
   content: string;
@@ -182,10 +182,10 @@ const Detail = () => {
               <S.ProjectImage src={userInfo?.imgUrl} />
             </S.ProjectImageContainer>
             <S.ProjectBasicInfo>
-              <S.ProjectName>
-                {userInfo?.name}
+              <S.Top>
+                <S.ProjectName>{userInfo?.name}</S.ProjectName>
                 {projectUsers[0]?.userId === userId && (
-                  <S.SvgIcon src={NumberIcon} alt='SVG' onClick={toggle} />
+                  <KebabIcon onClick={toggle} />
                 )}
                 {isTrue && (
                   <S.DropdownContainer>
@@ -195,7 +195,7 @@ const Detail = () => {
                     </S.Options>
                   </S.DropdownContainer>
                 )}
-              </S.ProjectName>
+              </S.Top>
               <S.RecruitInfo>
                 <S.Deadline>
                   <S.DeadlineText>
@@ -239,6 +239,9 @@ const Detail = () => {
                   </S.Button>
                 ) : user === projectUsers[0]?.userId ? (
                   <>
+                    <S.Button color={theme.primary} onClick={seeJjoingList}>
+                      신청목록 확인하기
+                    </S.Button>
                     <S.Button
                       color={
                         userInfo?.state === 'FOUND'
@@ -248,10 +251,7 @@ const Detail = () => {
                       onClick={EndProject}
                       cursor={userInfo?.state === 'FOUND' ? 'default' : ''}
                     >
-                      프로젝트 마감하기
-                    </S.Button>
-                    <S.Button color={theme.primary} onClick={seeJjoingList}>
-                      신청목록 조회하기
+                      모집 마감하기
                     </S.Button>
                   </>
                 ) : (

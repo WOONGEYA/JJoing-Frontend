@@ -64,26 +64,30 @@ const Explore = () => {
   const fetchProjects = React.useCallback(() => {
     const params: { state?: string; criteria?: string } = {};
 
-    if (projectSort === '진행중인 프로젝트') {
-      params.state = 'FINDING';
-    } else if (projectSort === '끝난 프로젝트') {
-      params.state = 'FOUND';
-    }
+    if (!localStorage.getItem('accessToken')) {
+      instance.get('/project').then((res) => setMyProject(res.data));
+    } else {
+      if (projectSort === '진행중인 프로젝트') {
+        params.state = 'FINDING';
+      } else if (projectSort === '끝난 프로젝트') {
+        params.state = 'FOUND';
+      }
 
-    if (projectSort2 === '조회수 많은 순') {
-      params.criteria = 'view';
-    } else if (projectSort2 === '마이쫑 많은 순') {
-      params.criteria = 'like';
-    }
+      if (projectSort2 === '조회수 많은 순') {
+        params.criteria = 'view';
+      } else if (projectSort2 === '마이쫑 많은 순') {
+        params.criteria = 'like';
+      }
 
-    instance
-      .get('/project', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-        params,
-      })
-      .then((res) => setMyProject(res.data));
+      instance
+        .get('/project', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+          params,
+        })
+        .then((res) => setMyProject(res.data));
+    }
   }, [projectSort, projectSort2]);
 
   useEffect(() => {

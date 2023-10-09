@@ -55,7 +55,7 @@ export const ProjectBasicInfo = styled.div`
   flex: 1 0 0;
 `;
 
-export const ProjectName = styled.p`
+export const ProjectName = styled.span`
   ${font.$title01};
   color: ${theme.black};
   display: flex;
@@ -218,4 +218,11 @@ export const Option = styled.div`
 export const ArrowContainer = styled(Link)`
   position: absolute;
   margin-left: -5%;
+`;
+
+export const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
 `;

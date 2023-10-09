@@ -73,6 +73,7 @@ const ProjectBox = ({
         <S.HeartCount>
           <LikeIcon
             color={likeState ? theme.red : theme.secondary}
+            filled={likeState}
             style={{ marginTop: '2px', cursor: 'pointer' }}
           />
 
