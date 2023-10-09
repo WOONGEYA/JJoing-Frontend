@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import instance from 'apis/httpClient';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useMutation } from 'react-query';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -14,34 +15,44 @@ const LoginPage = () => {
   const encodedValue = encodeURIComponent(encodedCode);
 
   const postCode = async (encodedValue: string) => {
-    try {
-      const response = await instance.post(
-        `/login/google?code=${encodedValue}`,
-      );
-      return response.data;
-    } catch (error) {
-      console.error('');
-      throw error;
-    }
+    return (await instance.post(`/login/google?code=${encodedValue}`)).data;
   };
 
+  // useEffect(() => {
+  //   const fetchAndNavigate = async () => {
+  //     try {
+  //       const data = await postCode(encodedValue);
+  //       const { accessToken, refreshToken } = data;
+  //       navigate('/');
+
+  //       localStorage.setItem('accessToken', accessToken);
+  //       localStorage.setItem('refreshToken', refreshToken);
+  //     } catch (error) {
+  //       console.error(error);
+  //       navigate('/');
+  //       toast.error('학교 계정으로 로그인하세요.');
+  //     }
+  //   };
+
+  //   fetchAndNavigate();
+  // }, [encodedValue]);
+
+  const { mutate } = useMutation(() => postCode(encodedValue), {
+    onSuccess: (data) => {
+      console.log(data);
+      const { accessToken, refreshToken } = data;
+
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+
+      navigate('/');
+    },
+  });
+
   useEffect(() => {
-    const fetchAndNavigate = async () => {
-      try {
-        const data = await postCode(encodedValue);
-        const { accessToken, refreshToken } = data;
-        navigate('/');
-
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-      } catch (error) {
-        console.error(error);
-        navigate('/');
-        toast.error('학교 계정으로 로그인하세요.');
-      }
-    };
-
-    fetchAndNavigate();
+    if (encodedValue) {
+      mutate();
+    }
   }, [encodedValue]);
 
   return <ToastContainer position='bottom-left' />;
