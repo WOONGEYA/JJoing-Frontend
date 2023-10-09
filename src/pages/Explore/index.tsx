@@ -6,19 +6,20 @@ import Layout from 'components/Layout';
 import instance from 'apis/httpClient';
 import { useRecoilValue } from 'recoil';
 import { sortProject, sortProject2 } from 'apis/recoil';
+import Dropdown2 from 'components/Dropdown2';
 
 const dropdownOptions = [
   {
     id: '0',
-    currentOption: '마이쫑 많은 순',
-    options: ['조회수 많은 순', '마이쫑 많은 순', '최신순'],
+    currentOption: '최신순',
+    options: ['최신순', '조회수 많은 순', '마이쫑 많은 순'],
   },
 ];
 
 const dropdownOptions2 = [
   {
     id: '0',
-    currentOption: '진행중인 프로젝트',
+    currentOption: '전체 프로젝트',
     options: ['전체 프로젝트', '진행중인 프로젝트', '끝난 프로젝트'],
   },
 ];
@@ -65,46 +66,9 @@ const Explore = () => {
       setMyProject(res.data);
     });
   }, []);
-  useEffect(() => {
-    if (projectSort === '마이쫑 많은 순') {
-      instance
-        .get('/project', {
-          params: { criteria: 'like' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-    if (projectSort === '조회수 많은 순') {
-      instance
-        .get('/project', {
-          params: { criteria: 'view' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-    if (projectSort === '최신순') {
-      instance
-        .get('/project', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-  }, [projectSort]);
 
   useEffect(() => {
-    if (projectSort2 === '진행중인 프로젝트') {
+    if (projectSort === '진행중인 프로젝트') {
       instance
         .get('/project', {
           params: { state: 'FINDING' },
@@ -116,7 +80,7 @@ const Explore = () => {
           setMyProject(res.data);
         });
     }
-    if (projectSort2 === '끝난 프로젝트') {
+    if (projectSort === '끝난 프로젝트') {
       instance
         .get('/project', {
           params: { state: 'FOUND' },
@@ -125,12 +89,132 @@ const Explore = () => {
           setMyProject(res.data);
         });
     }
-    if (projectSort2 === '전체 프로젝트') {
+    if (projectSort === '전체 프로젝트') {
       instance.get('/project').then((res) => {
         setMyProject(res.data);
       });
     }
+  }, [projectSort]);
+
+  useEffect(() => {
+    if (
+      projectSort === '진행중인 프로젝트' &&
+      projectSort2 === '마이쫑 많은 순'
+    ) {
+      instance
+        .get('/project', {
+          params: { criteria: 'like', state: 'FINDING' },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then((res) => {
+          setMyProject(res.data);
+        });
+    }
+    if (
+      projectSort === '진행중인 프로젝트' &&
+      projectSort2 === '조회수 많은 순'
+    ) {
+      instance
+        .get('/project', {
+          params: { criteria: 'view', state: 'FINDING' },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then((res) => {
+          setMyProject(res.data);
+        });
+    }
+    if (projectSort === '진행중인 프로젝트' && projectSort2 === '최신순') {
+      instance
+        .get('/project', {
+          params: { state: 'FINDING' },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then((res) => {
+          setMyProject(res.data);
+        });
+    }
+    if (projectSort === '끝난 프로젝트' && projectSort2 === '마이쫑 많은 순') {
+      instance
+        .get('/project', {
+          params: { criteria: 'like', state: 'FOUND' },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then((res) => {
+          setMyProject(res.data);
+        });
+    }
+    if (projectSort === '끝난 프로젝트' && projectSort2 === '조회수 많은 순') {
+      instance
+        .get('/project', {
+          params: { criteria: 'view', state: 'FOUND' },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then((res) => {
+          setMyProject(res.data);
+        });
+    }
+    if (projectSort === '끝난 프로젝트' && projectSort2 === '최신순') {
+      instance
+        .get('/project', {
+          params: { state: 'FOUND' },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then((res) => {
+          setMyProject(res.data);
+        });
+    }
+
+    if (projectSort === '전체 프로젝트' && projectSort2 === '마이쫑 많은 순') {
+      instance
+        .get('/project', {
+          params: { criteria: 'like' },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then((res) => {
+          setMyProject(res.data);
+        });
+    }
+    if (projectSort === '전체 프로젝트' && projectSort2 === '조회수 많은 순') {
+      instance
+        .get('/project', {
+          params: { criteria: 'view' },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then((res) => {
+          setMyProject(res.data);
+        });
+    }
+    if (projectSort === '전체 프로젝트' && projectSort2 === '최신순') {
+      instance
+        .get('/project', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then((res) => {
+          setMyProject(res.data);
+        });
+    }
   }, [projectSort2]);
+
+  console.log('projectSort', projectSort);
+  console.log('projectSort2', projectSort2);
 
   return (
     <Layout>
@@ -151,7 +235,7 @@ const Explore = () => {
               </S.Filter>
               <S.Filter>
                 {dropdownOptions.map((option) => (
-                  <Dropdown
+                  <Dropdown2
                     key={option.id}
                     isOpened={isOpened[parseInt(option.id)]}
                     {...option}
