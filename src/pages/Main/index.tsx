@@ -53,9 +53,9 @@ const Main = () => {
         <S.FirstBox>
           <S.CoverImage src={MainCover} />
           <S.MainContents>
-            <S.Title>프로젝트를 함께할 팀원을</S.Title>
+            <S.Title>각 소마고의 학교 계정을 통해</S.Title>
             <S.Title>
-              <S.Emphasis>쪼잉</S.Emphasis>에서 찾아보세요!
+              <S.Emphasis>쪼잉</S.Emphasis>에서 프로젝트 맴버를 찾아보세요!
             </S.Title>
             <S.SubTitle>관심 분야의 프로젝트를 쉽게 찾을 수 있어요.</S.SubTitle>
             <S.Title style={{ marginBottom: '28px' }}></S.Title>
