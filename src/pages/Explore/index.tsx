@@ -61,160 +61,34 @@ const Explore = () => {
   const projectSort = useRecoilValue(sortProject);
   const projectSort2 = useRecoilValue(sortProject2);
 
-  useEffect(() => {
-    instance.get('/project').then((res) => {
-      setMyProject(res.data);
-    });
-  }, []);
+  const fetchProjects = React.useCallback(() => {
+    const params: { state?: string; criteria?: string } = {};
 
-  useEffect(() => {
     if (projectSort === '진행중인 프로젝트') {
-      instance
-        .get('/project', {
-          params: { state: 'FINDING' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
+      params.state = 'FINDING';
+    } else if (projectSort === '끝난 프로젝트') {
+      params.state = 'FOUND';
     }
-    if (projectSort === '끝난 프로젝트') {
-      instance
-        .get('/project', {
-          params: { state: 'FOUND' },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
+
+    if (projectSort2 === '조회수 많은 순') {
+      params.criteria = 'view';
+    } else if (projectSort2 === '마이쫑 많은 순') {
+      params.criteria = 'like';
     }
-    if (projectSort === '전체 프로젝트') {
-      instance.get('/project').then((res) => {
-        setMyProject(res.data);
-      });
-    }
-  }, [projectSort]);
+
+    instance
+      .get('/project', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+        params,
+      })
+      .then((res) => setMyProject(res.data));
+  }, [projectSort, projectSort2]);
 
   useEffect(() => {
-    if (
-      projectSort === '진행중인 프로젝트' &&
-      projectSort2 === '마이쫑 많은 순'
-    ) {
-      instance
-        .get('/project', {
-          params: { criteria: 'like', state: 'FINDING' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-    if (
-      projectSort === '진행중인 프로젝트' &&
-      projectSort2 === '조회수 많은 순'
-    ) {
-      instance
-        .get('/project', {
-          params: { criteria: 'view', state: 'FINDING' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-    if (projectSort === '진행중인 프로젝트' && projectSort2 === '최신순') {
-      instance
-        .get('/project', {
-          params: { state: 'FINDING' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-    if (projectSort === '끝난 프로젝트' && projectSort2 === '마이쫑 많은 순') {
-      instance
-        .get('/project', {
-          params: { criteria: 'like', state: 'FOUND' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-    if (projectSort === '끝난 프로젝트' && projectSort2 === '조회수 많은 순') {
-      instance
-        .get('/project', {
-          params: { criteria: 'view', state: 'FOUND' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-    if (projectSort === '끝난 프로젝트' && projectSort2 === '최신순') {
-      instance
-        .get('/project', {
-          params: { state: 'FOUND' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-
-    if (projectSort === '전체 프로젝트' && projectSort2 === '마이쫑 많은 순') {
-      instance
-        .get('/project', {
-          params: { criteria: 'like' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-    if (projectSort === '전체 프로젝트' && projectSort2 === '조회수 많은 순') {
-      instance
-        .get('/project', {
-          params: { criteria: 'view' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-    if (projectSort === '전체 프로젝트' && projectSort2 === '최신순') {
-      instance
-        .get('/project', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-  }, [projectSort2]);
-
-  console.log('projectSort', projectSort);
-  console.log('projectSort2', projectSort2);
+    fetchProjects();
+  }, [fetchProjects]);
 
   return (
     <Layout>
