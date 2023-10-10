@@ -29,13 +29,3 @@ export const sortProject2 = atom({
   key: 'sortProject2',
   default: '',
 });
-
-export const alaram = atom({
-  key: 'alarm',
-  default: 0,
-});
-
-export const members = atom({
-  key: 'memebers',
-  default: [],
-});

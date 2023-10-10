@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import BellIcon from 'assets/BellIcon';
 import LogoIcon from 'assets/LogoIcon';
 import { Link, useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { accessGoogle, alaram, userKey } from 'apis/recoil';
+import { useRecoilState } from 'recoil';
+import { accessGoogle, userKey } from 'apis/recoil';
 import { OAUTH_URL } from 'constants/config';
 import instance from 'apis/httpClient';
 import * as S from './style';
@@ -17,7 +17,7 @@ const Header = () => {
   const [img, setImg] = useRecoilState(accessGoogle);
   const { openModal, closeModal } = useModal();
   const [user, setUser] = useRecoilState(userKey);
-  const alaramCount = useRecoilValue(alaram);
+  const [alaramCount, setAlaramCount] = React.useState();
 
   const modalOpen = () => {
     openModal({
@@ -83,11 +83,7 @@ const Header = () => {
               <Link to='/notify'>
                 <S.BellContainer>
                   <BellIcon cursor='pointer' />
-                  {alaramCount > 0 ? (
-                    <S.BellCount>{alaramCount}</S.BellCount>
-                  ) : (
-                    <></>
-                  )}
+                  <S.BellCount>{alaramCount}</S.BellCount>
                 </S.BellContainer>
               </Link>
               <S.Profile
