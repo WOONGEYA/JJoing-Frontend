@@ -4,8 +4,7 @@ import CloseIcon from 'assets/CloseIcon';
 import Input from 'components/Input';
 import theme from 'styles/theme';
 import { toast } from 'react-toastify';
-import { useRecoilValue } from 'recoil';
-import { members } from 'apis/recoil';
+import { useEffect, useState } from 'react';
 
 interface User {
   id: number;
@@ -23,12 +22,8 @@ interface GenerateModalProps {
   userData: User[];
 }
 
-interface Member {
-  userId: number;
-}
-
 const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
-  const member: Member[] = useRecoilValue(members);
+  const [isMember, setIsMember] = useState(null);
 
   const DeleteJJoing = () => {
     instance
@@ -58,9 +53,11 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
       });
   };
 
-  const isUserMember = member.map(
-    (el, index) => el.userId === userData[index]?.userId,
-  );
+  useEffect(() => {
+    instance.get(`/project/member/check/${userData[0].id}`, {}).then((res) => {
+      setIsMember(res.data);
+    });
+  }, []);
 
   return (
     <S.ModalContainer>
@@ -89,16 +86,16 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
         </S.Container>
       </S.Content>
       <S.ButtonWrapper>
-        <S.ButtonWrapper>
-          <S.Button color={theme.grey[600]} onClick={DeleteJJoing}>
-            거절하기
-          </S.Button>
-          {isUserMember.includes(false) && (
+        {isMember === false && (
+          <S.ButtonWrapper>
+            <S.Button color={theme.grey[600]} onClick={DeleteJJoing}>
+              거절하기
+            </S.Button>
             <S.Button color={theme.primary} onClick={JJoingNow}>
               쪼잉하기
             </S.Button>
-          )}
-        </S.ButtonWrapper>
+          </S.ButtonWrapper>
+        )}
       </S.ButtonWrapper>
     </S.ModalContainer>
   );
