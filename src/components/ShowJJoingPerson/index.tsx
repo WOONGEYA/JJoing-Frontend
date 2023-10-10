@@ -23,7 +23,7 @@ interface GenerateModalProps {
 }
 
 const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
-  const [isMember, setIsMember] = useState();
+  const [isMember, setIsMember] = useState(null);
 
   const DeleteJJoing = () => {
     instance
@@ -86,16 +86,16 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
         </S.Container>
       </S.Content>
       <S.ButtonWrapper>
-        <S.ButtonWrapper>
-          <S.Button color={theme.grey[600]} onClick={DeleteJJoing}>
-            거절하기
-          </S.Button>
-          {!isMember && (
+        {isMember === false && (
+          <S.ButtonWrapper>
+            <S.Button color={theme.grey[600]} onClick={DeleteJJoing}>
+              거절하기
+            </S.Button>
             <S.Button color={theme.primary} onClick={JJoingNow}>
               쪼잉하기
             </S.Button>
-          )}
-        </S.ButtonWrapper>
+          </S.ButtonWrapper>
+        )}
       </S.ButtonWrapper>
     </S.ModalContainer>
   );

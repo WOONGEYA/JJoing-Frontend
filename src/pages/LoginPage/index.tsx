@@ -19,28 +19,8 @@ const LoginPage = () => {
     return data;
   };
 
-  // useEffect(() => {
-  //   const fetchAndNavigate = async () => {
-  //     try {
-  //       const data = await postCode(encodedValue);
-  //       const { accessToken, refreshToken } = data;
-  //       navigate('/');
-
-  //       localStorage.setItem('accessToken', accessToken);
-  //       localStorage.setItem('refreshToken', refreshToken);
-  //     } catch (error) {
-  //       console.error(error);
-  //       navigate('/');
-  //       toast.error('학교 계정으로 로그인하세요.');
-  //     }
-  //   };
-
-  //   fetchAndNavigate();
-  // }, [encodedValue]);
-
   const { mutate: loginMutate } = useMutation(() => postCode(encodedValue), {
     onSuccess: (data) => {
-      console.log(data);
       const { accessToken, refreshToken } = data;
 
       localStorage.setItem('accessToken', accessToken);
