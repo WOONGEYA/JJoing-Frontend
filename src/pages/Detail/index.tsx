@@ -185,15 +185,17 @@ const Detail = () => {
               <S.Top>
                 <S.ProjectName>{userInfo?.name}</S.ProjectName>
                 {projectUsers[0]?.userId === userId && (
-                  <KebabIcon onClick={toggle} />
-                )}
-                {isTrue && (
-                  <S.DropdownContainer>
-                    <S.Options>
-                      <S.Option onClick={EditProject}>수정</S.Option>
-                      <S.Option onClick={onDelete}>삭제</S.Option>
-                    </S.Options>
-                  </S.DropdownContainer>
+                  <S.TabKey onClick={toggle}>
+                    <KebabIcon />
+                    {isTrue && (
+                      <S.DropdownContainer>
+                        <S.Options>
+                          <S.Option onClick={EditProject}>수정</S.Option>
+                          <S.Option onClick={onDelete}>삭제</S.Option>
+                        </S.Options>
+                      </S.DropdownContainer>
+                    )}
+                  </S.TabKey>
                 )}
               </S.Top>
               <S.RecruitInfo>
@@ -234,7 +236,7 @@ const Detail = () => {
               </S.ProjectMember>
               <S.Buttons>
                 {!localStorage.getItem('accessToken') ? (
-                  <S.Button color={theme.grey[600]} cursor='default'>
+                  <S.Button color={theme.grey[600]} cursor='pointer'>
                     로그인 후 이용해주세요
                   </S.Button>
                 ) : user === projectUsers[0]?.userId ? (

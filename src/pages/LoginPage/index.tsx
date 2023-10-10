@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import instance from 'apis/httpClient';
 import { toast, ToastContainer } from 'react-toastify';
@@ -7,7 +7,6 @@ import { useMutation } from 'react-query';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const encodedCode = searchParams.get('code') ?? '';
@@ -15,7 +14,9 @@ const LoginPage = () => {
   const encodedValue = encodeURIComponent(encodedCode);
 
   const postCode = async (encodedValue: string) => {
-    return (await instance.post(`/login/google?code=${encodedValue}`)).data;
+    const { data } = await instance.post(`/login/google?code=${encodedValue}`);
+
+    return data;
   };
 
   // useEffect(() => {
@@ -37,14 +38,13 @@ const LoginPage = () => {
   //   fetchAndNavigate();
   // }, [encodedValue]);
 
-  const { mutate } = useMutation(() => postCode(encodedValue), {
+  const { mutate: loginMutate } = useMutation(() => postCode(encodedValue), {
     onSuccess: (data) => {
       console.log(data);
       const { accessToken, refreshToken } = data;
 
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
-
       navigate('/');
     },
     onError: () => {
@@ -54,9 +54,7 @@ const LoginPage = () => {
   });
 
   useEffect(() => {
-    if (encodedValue) {
-      mutate();
-    }
+    loginMutate();
   }, [encodedValue]);
 
   return <ToastContainer position='bottom-left' />;

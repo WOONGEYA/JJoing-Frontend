@@ -152,13 +152,15 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
         imgUrl: newImageUrl, // 이미지 9
       };
 
-      await instance.put('/project', newProject, {
+      await instance.put(`/project/${pageId}`, newProject, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
       });
 
+      console.log(newProject);
       closeModal();
+      window.location.reload();
     } catch (error) {
       toast.success('프로젝트 등록 실패');
     }
