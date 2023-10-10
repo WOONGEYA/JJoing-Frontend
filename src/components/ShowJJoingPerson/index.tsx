@@ -54,9 +54,8 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
   };
 
   useEffect(() => {
-    instance.get(`/project/member/check/${userData[0].id}`).then((res) => {
+    instance.get(`/project/member/check/${userData[0].id}`, {}).then((res) => {
       setIsMember(res.data);
-      console.log('id', res.data);
     });
   }, []);
 

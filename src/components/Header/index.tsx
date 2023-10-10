@@ -17,7 +17,7 @@ const Header = () => {
   const [img, setImg] = useRecoilState(accessGoogle);
   const { openModal, closeModal } = useModal();
   const [user, setUser] = useRecoilState(userKey);
-  const [alaramCount, setAlaramCount] = React.useState();
+  const [alaramCount, setAlaramCount] = React.useState(0);
 
   const modalOpen = () => {
     openModal({
@@ -58,6 +58,17 @@ const Header = () => {
     toast.error('로그인 후에 이용해 주세요');
   };
 
+  useEffect(() => {
+    instance
+      .get('/notification/count', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then((res) => {
+        setAlaramCount(res.data);
+      });
+  }, [alaramCount]);
   return (
     <S.HeaderContainer>
       <S.HeaderWrapper>
@@ -83,7 +94,9 @@ const Header = () => {
               <Link to='/notify'>
                 <S.BellContainer>
                   <BellIcon cursor='pointer' />
-                  <S.BellCount>{alaramCount}</S.BellCount>
+                  <S.BellCount>
+                    {alaramCount > 0 ? alaramCount : ''}
+                  </S.BellCount>
                 </S.BellContainer>
               </Link>
               <S.Profile
