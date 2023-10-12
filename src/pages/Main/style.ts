@@ -20,7 +20,12 @@ export const FirstBox = styled.div`
 export const MainBox = styled.div`
   width: 100%;
   height: 100vh;
-  ${shadow.shadow1}
+  padding: 220px 204px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 64px;
 `;
 
 export const MainContents = styled.div`
