@@ -10,7 +10,7 @@ import Layout from 'components/Layout';
 import CalendarIcon from 'assets/CalendarIcon';
 import Tag from 'components/Tag';
 import * as S from './style';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import GenerateModalEdit from 'components/GenerateModalEdit';
 import { toast } from 'react-toastify';
@@ -168,8 +168,6 @@ const Detail = () => {
 
   const userId = useRecoilValue(userKey);
 
-  console.log('userKey', userId);
-
   return (
     <Layout>
       <S.Contents>
@@ -185,15 +183,17 @@ const Detail = () => {
               <S.Top>
                 <S.ProjectName>{userInfo?.name}</S.ProjectName>
                 {projectUsers[0]?.userId === userId && (
-                  <KebabIcon onClick={toggle} />
-                )}
-                {isTrue && (
-                  <S.DropdownContainer>
-                    <S.Options>
-                      <S.Option onClick={EditProject}>수정</S.Option>
-                      <S.Option onClick={onDelete}>삭제</S.Option>
-                    </S.Options>
-                  </S.DropdownContainer>
+                  <S.TabKey onClick={toggle}>
+                    <KebabIcon />
+                    {isTrue && (
+                      <S.DropdownContainer>
+                        <S.Options>
+                          <S.Option onClick={EditProject}>수정</S.Option>
+                          <S.Option onClick={onDelete}>삭제</S.Option>
+                        </S.Options>
+                      </S.DropdownContainer>
+                    )}
+                  </S.TabKey>
                 )}
               </S.Top>
               <S.RecruitInfo>
@@ -234,8 +234,8 @@ const Detail = () => {
               </S.ProjectMember>
               <S.Buttons>
                 {!localStorage.getItem('accessToken') ? (
-                  <S.Button color={theme.grey[600]} cursor='default'>
-                    먼저 로그인을 해 주세요.
+                  <S.Button color={theme.grey[600]} cursor='pointer'>
+                    로그인 후 이용해주세요
                   </S.Button>
                 ) : user === projectUsers[0]?.userId ? (
                   <>
@@ -258,11 +258,11 @@ const Detail = () => {
                   <>
                     {userInfo?.state === 'FOUND' ? (
                       <S.Button color={theme.grey[600]} cursor='default'>
-                        모집이 마감되었습니다.
+                        모집이 마감되었습니다
                       </S.Button>
                     ) : (
                       <S.Button color={theme.primary} onClick={JJoingNow}>
-                        지금 쪼잉하기!
+                        지금 쪼잉하기
                       </S.Button>
                     )}
                     {isEnd === true ? (

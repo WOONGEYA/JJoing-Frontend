@@ -6,19 +6,20 @@ import Layout from 'components/Layout';
 import instance from 'apis/httpClient';
 import { useRecoilValue } from 'recoil';
 import { sortProject, sortProject2 } from 'apis/recoil';
+import Dropdown2 from 'components/Dropdown2';
 
 const dropdownOptions = [
   {
     id: '0',
-    currentOption: '마이쫑 많은 순',
-    options: ['조회수 많은 순', '마이쫑 많은 순', '최신순'],
+    currentOption: '최신순',
+    options: ['최신순', '조회수 많은 순', '마이쫑 많은 순'],
   },
 ];
 
 const dropdownOptions2 = [
   {
     id: '0',
-    currentOption: '진행중인 프로젝트',
+    currentOption: '전체 프로젝트',
     options: ['전체 프로젝트', '진행중인 프로젝트', '끝난 프로젝트'],
   },
 ];
@@ -60,77 +61,38 @@ const Explore = () => {
   const projectSort = useRecoilValue(sortProject);
   const projectSort2 = useRecoilValue(sortProject2);
 
-  useEffect(() => {
-    instance.get('/project').then((res) => {
-      setMyProject(res.data);
-    });
-  }, []);
-  useEffect(() => {
-    if (projectSort === '마이쫑 많은 순') {
-      instance
-        .get('/project', {
-          params: { criteria: 'like' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-    if (projectSort === '조회수 많은 순') {
-      instance
-        .get('/project', {
-          params: { criteria: 'view' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-    if (projectSort === '최신순') {
+  const fetchProjects = React.useCallback(() => {
+    const params: { state?: string; criteria?: string } = {};
+
+    if (!localStorage.getItem('accessToken')) {
+      instance.get('/project').then((res) => setMyProject(res.data));
+    } else {
+      if (projectSort === '진행중인 프로젝트') {
+        params.state = 'FINDING';
+      } else if (projectSort === '끝난 프로젝트') {
+        params.state = 'FOUND';
+      }
+
+      if (projectSort2 === '조회수 많은 순') {
+        params.criteria = 'view';
+      } else if (projectSort2 === '마이쫑 많은 순') {
+        params.criteria = 'like';
+      }
+
       instance
         .get('/project', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
+          params,
         })
-        .then((res) => {
-          setMyProject(res.data);
-        });
+        .then((res) => setMyProject(res.data));
     }
-  }, [projectSort]);
+  }, [projectSort, projectSort2]);
 
   useEffect(() => {
-    if (projectSort2 === '진행중인 프로젝트') {
-      instance
-        .get('/project', {
-          params: { state: 'FINDING' },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-    if (projectSort2 === '끝난 프로젝트') {
-      instance
-        .get('/project', {
-          params: { state: 'FOUND' },
-        })
-        .then((res) => {
-          setMyProject(res.data);
-        });
-    }
-    if (projectSort2 === '전체 프로젝트') {
-      instance.get('/project').then((res) => {
-        setMyProject(res.data);
-      });
-    }
-  }, [projectSort2]);
+    fetchProjects();
+  }, [fetchProjects]);
 
   return (
     <Layout>
@@ -140,22 +102,22 @@ const Explore = () => {
           {localStorage.getItem('accessToken') ? (
             <>
               <S.Filter>
-                {dropdownOptions.map((option) => (
-                  <Dropdown
-                    key={option.id}
-                    isOpened={isOpened[parseInt(option.id)]}
-                    {...option}
-                    onClick={handleDropdown}
-                  />
-                ))}
-              </S.Filter>
-              <S.Filter>
                 {dropdownOptions2.map((option) => (
                   <Dropdown
                     key={option.id}
                     isOpened={isOpened2[parseInt(option.id)]}
                     {...option}
                     onClick={handleDropdown2}
+                  />
+                ))}
+              </S.Filter>
+              <S.Filter>
+                {dropdownOptions.map((option) => (
+                  <Dropdown2
+                    key={option.id}
+                    isOpened={isOpened[parseInt(option.id)]}
+                    {...option}
+                    onClick={handleDropdown}
                   />
                 ))}
               </S.Filter>

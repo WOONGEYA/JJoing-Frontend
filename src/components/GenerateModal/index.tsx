@@ -205,7 +205,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <S.HeadLine>모집 인원</S.HeadLine>
               <Input
-                min='0'
+                min='2'
+                max='10'
                 required
                 placeholder='모집 인원을 알려주세요'
                 type='number'

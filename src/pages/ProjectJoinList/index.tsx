@@ -6,6 +6,7 @@ import useModal from 'hooks/useModal';
 import ShowJJoingPerson from 'components/ShowJJoingPerson';
 import Header from 'components/Header';
 import NoNotify from 'components/NoNotify';
+import { useQuery } from 'react-query';
 
 interface User {
   id: number;
@@ -19,20 +20,24 @@ interface User {
 }
 
 const ProjectJoinList = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
+  const parsedId = Number(id);
   const [userData, setUserData] = useState<User[]>([]);
 
-  useEffect(() => {
-    instance
-      .get(`/application/project/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-      .then((res) => {
-        setUserData(res.data);
-      });
-  }, [id]);
+  const isUser = async (id: number) => {
+    const { data } = await instance.get(`/application/project/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
+    return data;
+  };
+
+  useQuery(['isUser', parsedId], () => isUser(parsedId), {
+    onSuccess: (data) => {
+      setUserData(data);
+    },
+  });
 
   const OpenJjoingList = () => {
     openModal({

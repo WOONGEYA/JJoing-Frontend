@@ -9,7 +9,6 @@ import instance from 'apis/httpClient';
 import NotifyBox from 'components/NotifyBox';
 import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
-import { alaram } from 'apis/recoil';
 
 interface alarmList {
   id: number;
@@ -20,7 +19,6 @@ interface alarmList {
 function Notify() {
   const [userInput, setUserInput] = useState<string>('');
   const [alarmList, setAlarmList] = useState<alarmList[]>([]);
-  const [useAlaram, setUseAlaram] = useRecoilState(alaram);
 
   const handleDeleteAll = () => {
     const fetchData = async () => {
@@ -43,6 +41,7 @@ function Notify() {
       try {
         const { data } = await instance.get('/notification');
         setAlarmList(data);
+        console.log('alarm', data);
       } catch (error) {
         console.log('에러');
       }
@@ -50,7 +49,6 @@ function Notify() {
     fetchData();
   }, []);
 
-  setUseAlaram(alarmList.length);
   return (
     <>
       <Header />

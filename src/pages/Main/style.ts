@@ -118,6 +118,7 @@ export const TabButton = styled.button<TabButtonProps>`
   background-color: ${({ active }) => (active ? theme.primary : 'white')};
   color: ${({ active }) => (active ? 'white' : theme.primary)};
   border: ${({ active }) => (active ? 'none' : `2px solid ${theme.primary}`)};
+  cursor: pointer;
 `;
 
 export const Image = styled.img`

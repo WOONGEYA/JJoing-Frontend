@@ -4,6 +4,7 @@ import CloseIcon from 'assets/CloseIcon';
 import Input from 'components/Input';
 import theme from 'styles/theme';
 import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
 
 interface User {
   id: number;
@@ -22,6 +23,8 @@ interface GenerateModalProps {
 }
 
 const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
+  const [isMember, setIsMember] = useState(null);
+
   const DeleteJJoing = () => {
     instance
       .put(`/application/${userData[0].id}/reject`, {
@@ -45,9 +48,16 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
       })
       .then(() => {
         toast.success('쪼잉이 완료되었습니다.');
+        window.location.reload();
         closeModal();
       });
   };
+
+  useEffect(() => {
+    instance.get(`/project/member/check/${userData[0].id}`, {}).then((res) => {
+      setIsMember(res.data);
+    });
+  }, []);
 
   return (
     <S.ModalContainer>
@@ -76,12 +86,16 @@ const ShowJJoingPerson = ({ closeModal, userData }: GenerateModalProps) => {
         </S.Container>
       </S.Content>
       <S.ButtonWrapper>
-        <S.Button color={theme.grey[600]} onClick={DeleteJJoing}>
-          거절하기
-        </S.Button>
-        <S.Button color={theme.primary} onClick={JJoingNow}>
-          쪼잉하기
-        </S.Button>
+        {isMember === false && (
+          <S.ButtonWrapper>
+            <S.Button color={theme.grey[600]} onClick={DeleteJJoing}>
+              거절하기
+            </S.Button>
+            <S.Button color={theme.primary} onClick={JJoingNow}>
+              쪼잉하기
+            </S.Button>
+          </S.ButtonWrapper>
+        )}
       </S.ButtonWrapper>
     </S.ModalContainer>
   );

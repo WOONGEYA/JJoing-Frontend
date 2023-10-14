@@ -61,6 +61,9 @@ export const ProjectName = styled.span`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 68.5%;
+  position: relative;
+  width: 100%;
 `;
 
 export const Deadline = styled.div`
@@ -185,10 +188,8 @@ export const SvgIcon = styled.img`
 `;
 
 export const DropdownContainer = styled.div`
-  top: 100%;
   position: absolute;
-  right: 0;
-  cursor: pointer;
+  margin: 0.5rem 0 0 0.5rem;
 `;
 
 export const Options = styled.div`
@@ -222,4 +223,8 @@ export const Top = styled.div`
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
+`;
+
+export const TabKey = styled.div`
+  position: relative;
 `;
