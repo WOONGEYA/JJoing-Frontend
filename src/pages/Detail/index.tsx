@@ -242,17 +242,19 @@ const Detail = () => {
                     <S.Button color={theme.primary} onClick={seeJjoingList}>
                       신청목록 확인하기
                     </S.Button>
-                    <S.Button
-                      color={
-                        userInfo?.state === 'FOUND'
-                          ? theme.grey[600]
-                          : theme.secondary
-                      }
-                      onClick={EndProject}
-                      cursor={userInfo?.state === 'FOUND' ? 'default' : ''}
-                    >
-                      모집 마감하기
-                    </S.Button>
+                    {userInfo?.state === 'FINDING' ? (
+                      <S.Button
+                        color={theme.secondary}
+                        cursor={'pointer'}
+                        onClick={EndProject}
+                      >
+                        모집 마감하기
+                      </S.Button>
+                    ) : (
+                      <S.Button color={theme.grey[600]} cursor={'default'}>
+                        마감된 프로젝트입니다
+                      </S.Button>
+                    )}
                   </>
                 ) : (
                   <>
