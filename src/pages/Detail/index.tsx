@@ -10,7 +10,7 @@ import Layout from 'components/Layout';
 import CalendarIcon from 'assets/CalendarIcon';
 import Tag from 'components/Tag';
 import * as S from './style';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import GenerateModalEdit from 'components/GenerateModalEdit';
 import { toast } from 'react-toastify';
@@ -261,6 +261,12 @@ const Detail = () => {
                     {userInfo?.state === 'FOUND' ? (
                       <S.Button color={theme.grey[600]} cursor='default'>
                         모집이 마감되었습니다
+                      </S.Button>
+                    ) : projectUsers
+                        .map((data) => data.userId)
+                        .includes(userId) ? (
+                      <S.Button color={theme.grey[600]} cursor='default'>
+                        이미 참여중인 프로젝트입니다
                       </S.Button>
                     ) : (
                       <S.Button color={theme.primary} onClick={JJoingNow}>
