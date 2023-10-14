@@ -10,7 +10,7 @@ import Layout from 'components/Layout';
 import CalendarIcon from 'assets/CalendarIcon';
 import Tag from 'components/Tag';
 import * as S from './style';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import GenerateModalEdit from 'components/GenerateModalEdit';
 import { toast } from 'react-toastify';
@@ -242,23 +242,31 @@ const Detail = () => {
                     <S.Button color={theme.primary} onClick={seeJjoingList}>
                       신청목록 확인하기
                     </S.Button>
-                    <S.Button
-                      color={
-                        userInfo?.state === 'FOUND'
-                          ? theme.grey[600]
-                          : theme.secondary
-                      }
-                      onClick={EndProject}
-                      cursor={userInfo?.state === 'FOUND' ? 'default' : ''}
-                    >
-                      모집 마감하기
-                    </S.Button>
+                    {userInfo?.state === 'FINDING' ? (
+                      <S.Button
+                        color={theme.secondary}
+                        cursor={'pointer'}
+                        onClick={EndProject}
+                      >
+                        모집 마감하기
+                      </S.Button>
+                    ) : (
+                      <S.Button color={theme.grey[600]} cursor={'default'}>
+                        마감된 프로젝트입니다
+                      </S.Button>
+                    )}
                   </>
                 ) : (
                   <>
                     {userInfo?.state === 'FOUND' ? (
                       <S.Button color={theme.grey[600]} cursor='default'>
                         모집이 마감되었습니다
+                      </S.Button>
+                    ) : projectUsers
+                        .map((data) => data.userId)
+                        .includes(userId) ? (
+                      <S.Button color={theme.grey[600]} cursor='default'>
+                        이미 참여중인 프로젝트입니다
                       </S.Button>
                     ) : (
                       <S.Button color={theme.primary} onClick={JJoingNow}>

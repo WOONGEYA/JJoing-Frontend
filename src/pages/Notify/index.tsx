@@ -8,12 +8,12 @@ import Search from 'components/Search';
 import instance from 'apis/httpClient';
 import NotifyBox from 'components/NotifyBox';
 import { toast } from 'react-toastify';
-import { useRecoilState } from 'recoil';
 
 interface alarmList {
   id: number;
   title: string;
   content: string;
+  projectId: number;
 }
 
 function Notify() {
@@ -36,12 +36,13 @@ function Notify() {
     alarmList.title.toLowerCase().includes(userInput.toLowerCase()),
   );
 
+  console.log('alarmList', alarmList);
+
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await instance.get('/notification');
         setAlarmList(data);
-        console.log('alarm', data);
       } catch (error) {
         console.log('에러');
       }
@@ -67,12 +68,13 @@ function Notify() {
           <NoNotify />
         ) : (
           <S.Notifications>
-            {alarmList.map((data, index) => (
+            {alarmList.reverse().map((data, index) => (
               <NotifyBox
                 key={index}
                 id={data.id}
                 title={data.title}
                 content={data.content}
+                projectId={data.projectId}
               />
             ))}
           </S.Notifications>

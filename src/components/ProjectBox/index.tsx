@@ -74,7 +74,7 @@ const ProjectBox = ({
           <LikeIcon
             color={likeState ? theme.red : theme.secondary}
             filled={likeState}
-            style={{ marginTop: '2px', cursor: 'pointer' }}
+            style={{ cursor: 'pointer' }}
           />
 
           <span>{likes}</span>
