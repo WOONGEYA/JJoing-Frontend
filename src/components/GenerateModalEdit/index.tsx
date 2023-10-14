@@ -158,9 +158,7 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
         },
       });
 
-      console.log(newProject);
       closeModal();
-      window.location.reload();
     } catch (error) {
       toast.success('프로젝트 등록 실패');
     }
@@ -345,7 +343,7 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
                         width: '15px',
                         height: '15px',
                       }}
-                      onClick={() => deleteSkills(index)}
+                      onClick={() => deleteCoops(index)}
                     />
                   </S.Tag>
                 ))}
