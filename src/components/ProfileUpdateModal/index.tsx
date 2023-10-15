@@ -47,6 +47,13 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
     fetchUserData();
   }, []);
 
+  const limitLinesOfText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
+    if (e.target.scrollHeight === e.target.clientHeight) {
+      handleProfileFieldChange('statusMessage', value);
+    }
+  };
+
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0];
@@ -167,9 +174,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
           rows={3}
           wrap='hard'
           maxLength={100}
-          onChange={(e) =>
-            handleProfileFieldChange('statusMessage', e.target.value)
-          }
+          onChange={limitLinesOfText}
         />
       </S.Content>
       <S.Content>
