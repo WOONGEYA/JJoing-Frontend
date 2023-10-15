@@ -249,20 +249,7 @@ const MyPage = () => {
               filteredProjects
                 .slice()
                 .sort((a, b) => b.id - a.id)
-                .map((data) => (
-                  <ProjectBox
-                    id={data.id}
-                    key={data.id}
-                    name={data.name}
-                    content={data.content}
-                    currentPeople={data.currentPeople}
-                    requiredPeople={data.requiredPeople}
-                    imgUrl={data.imgUrl}
-                    viewCount={data.viewCount}
-                    likeCount={data.likeCount}
-                    likeState={data.likeState}
-                  />
-                ))
+                .map((data) => <ProjectBox key={data.id} {...data} />)
             ) : selected === 0 ? (
               <S.NoContents>참여중인 프로젝트가 없습니다.</S.NoContents>
             ) : null}
@@ -270,20 +257,7 @@ const MyPage = () => {
               filteredEndProjects
                 .slice()
                 .sort((a, b) => b.id - a.id)
-                .map((data) => (
-                  <ProjectBox
-                    id={data.id}
-                    key={data.id}
-                    name={data.name}
-                    content={data.content}
-                    currentPeople={data.currentPeople}
-                    requiredPeople={data.requiredPeople}
-                    imgUrl={data.imgUrl}
-                    viewCount={data.viewCount}
-                    likeCount={data.likeCount}
-                    likeState={data.likeState}
-                  />
-                ))
+                .map((data) => <ProjectBox key={data.id} {...data} />)
             ) : selected === 1 ? (
               <S.NoContents>참여했던 프로젝트가 없습니다.</S.NoContents>
             ) : null}
