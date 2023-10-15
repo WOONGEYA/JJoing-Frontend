@@ -42,7 +42,7 @@ export const ContentTitle = styled.h2`
   ${font.$headline};
 `;
 
-export const Profile = styled.div`
+export const Profile = styled.label`
   width: 100px;
   height: 100px;
   position: relative;
@@ -51,7 +51,7 @@ export const Profile = styled.div`
   justify-content: center;
 `;
 
-export const ProfileImage = styled.label<{ url: string }>`
+export const ProfileImage = styled.div<{ url: string }>`
   background: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.6) 0%,
@@ -59,8 +59,8 @@ export const ProfileImage = styled.label<{ url: string }>`
     ),
     url(${({ url }) => url}) lightgray 50% / cover no-repeat;
   border-radius: 50%;
-  height: 105%;
-  width: 105%;
+  height: 100%;
+  width: 100%;
   position: absolute;
   background-position: center;
   background-repeat: no-repeat;
@@ -70,10 +70,13 @@ export const ProfileImage = styled.label<{ url: string }>`
 
 export const Description = styled.textarea`
   width: 98.5%;
-  height: 80px;
   resize: none;
   ${shadow.shadow2};
-  padding: 16px 12px;
+  padding: 12px 16px;
   box-sizing: border-box;
   border-radius: 4px;
+`;
+
+export const FileInput = styled.input`
+  visibility: hidden;
 `;
