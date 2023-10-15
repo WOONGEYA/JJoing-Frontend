@@ -123,5 +123,5 @@ export const UserInfoContainer = styled.div`
 
 export const UserInfo = styled.div`
   color: ${theme.grey[600]};
-  ${font.$title04}
+  ${font.$subhead}
 `;
