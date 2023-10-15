@@ -30,8 +30,6 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
   const [imageUrl, setImageUrl] = useState<string>(img);
   const [newImageUrl, setNewImageUrl] = useState<string>(img);
 
-  const ref = React.useRef(null);
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -110,7 +108,6 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
     }
   };
 
-  console.log(ref);
   if (!profile) {
     return <div>Loading...</div>;
   }
@@ -167,7 +164,6 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
       <S.Content>
         <S.ContentTitle>상태 메시지</S.ContentTitle>
         <S.Description
-          ref={ref}
           name='name'
           placeholder='상태 메세지를 입력해주세요.'
           value={profile.statusMessage || ''}
