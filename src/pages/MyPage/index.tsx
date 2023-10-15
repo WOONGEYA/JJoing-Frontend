@@ -36,6 +36,11 @@ interface Project {
   likeState: boolean;
 }
 
+interface FollowInfo {
+  followCount: number;
+  followingCount: number;
+}
+
 const MyPage = () => {
   const { openModal, closeModal } = useModal();
 
@@ -46,6 +51,7 @@ const MyPage = () => {
     null,
   );
   const [userInput, setUserInput] = React.useState<string>('');
+  const [followInfo, setFollowInfo] = React.useState<FollowInfo>();
 
   const handleTabSelect = (e: React.MouseEvent<HTMLDivElement>) => {
     const id = parseInt(e.currentTarget.id);
@@ -124,6 +130,39 @@ const MyPage = () => {
       });
   }, []);
 
+  const getUserId = async () => {
+    const { data } = await instance.get('/user', {
+      headers: { Authorization: localStorage.getItem('accessToken') },
+    });
+    return data.id;
+  };
+
+  const getFollowingCount = async () => {
+    const id = await getUserId();
+    const { data } = await instance.get(`/follow/${id}/following/count`, {
+      headers: { Authorization: localStorage.getItem('accessToken') },
+    });
+    return data;
+  };
+
+  const getFollowCount = async () => {
+    const id = await getUserId();
+    const { data } = await instance.get(`/follow/${id}/follower/count`, {
+      headers: { Authorization: localStorage.getItem('accessToken') },
+    });
+    return data;
+  };
+
+  const updateFollowInfo = async () => {
+    const followCount = await getFollowCount();
+    const followingCount = await getFollowingCount();
+    setFollowInfo({ followCount, followingCount });
+  };
+
+  React.useEffect(() => {
+    updateFollowInfo();
+  });
+
   return (
     <Layout>
       <S.Contents>
@@ -149,13 +188,16 @@ const MyPage = () => {
                       </S.UserNickName>
                     </S.Names>
                     <S.UserPosition>
-                      {userProfile?.school} /
+                      {userProfile?.school} /{' '}
                       {userProfile?.major
                         ? userProfile?.major
                         : '(분야를 추가해주세요)'}
                     </S.UserPosition>
                   </div>
-                  <S.Follow>팔로우 0 팔로잉 0</S.Follow>
+                  <S.Follow>
+                    팔로우 {followInfo?.followCount} 팔로잉{' '}
+                    {followInfo?.followingCount}
+                  </S.Follow>
                   <S.StatusMessage>
                     {userProfile?.statusMessage
                       ? userProfile?.statusMessage
