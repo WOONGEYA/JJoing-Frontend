@@ -126,18 +126,7 @@ const Explore = () => {
           <S.Title>프로젝트 목록 😎</S.Title>
           <S.ProjectContainer>
             {myProject.map((data) => (
-              <ProjectBox
-                id={data.id}
-                key={data.id}
-                name={data.name}
-                content={data.content}
-                currentPeople={data.currentPeople}
-                requiredPeople={data.requiredPeople}
-                imgUrl={data.imgUrl}
-                viewCount={data.viewCount}
-                likeCount={data.likeCount}
-                likeState={data.likeState}
-              />
+              <ProjectBox key={data.id} {...data} />
             ))}
           </S.ProjectContainer>
         </S.ProjectList>
