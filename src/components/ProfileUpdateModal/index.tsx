@@ -30,6 +30,8 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
   const [imageUrl, setImageUrl] = useState<string>(img);
   const [newImageUrl, setNewImageUrl] = useState<string>(img);
 
+  const ref = React.useRef(null);
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -108,10 +110,10 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
     }
   };
 
+  console.log(ref);
   if (!profile) {
     return <div>Loading...</div>;
   }
-
   return (
     <S.ModalContainer>
       <S.TitleContainer>
@@ -120,10 +122,10 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
       </S.TitleContainer>
       <S.Content>
         <S.ContentTitle>프로필 이미지</S.ContentTitle>
-        <S.Profile>
-          <S.ProfileImage url={imageUrl} htmlFor='file' />
-          <input type='file' id='file' onChange={handleImageChange} />
-          <EditIcon style={{ position: 'absolute', zIndex: '2' }} />
+        <S.Profile htmlFor='file'>
+          <S.ProfileImage url={imageUrl} />
+          <S.FileInput type='file' id='file' onChange={handleImageChange} />
+          <EditIcon style={{ position: 'absolute', cursor: 'pointer' }} />
         </S.Profile>
       </S.Content>
       <S.Content>
@@ -153,7 +155,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
       <S.Content>
         <S.ContentTitle>이메일 주소</S.ContentTitle>
         <Input
-          placeholder=''
+          placeholder='이메일을 입력해주세요.'
           width='calc(100% - 32px)'
           name='name'
           type='text'
@@ -165,8 +167,13 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
       <S.Content>
         <S.ContentTitle>상태 메시지</S.ContentTitle>
         <S.Description
+          ref={ref}
           name='name'
+          placeholder='상태 메세지를 입력해주세요.'
           value={profile.statusMessage || ''}
+          rows={3}
+          wrap='hard'
+          maxLength={100}
           onChange={(e) =>
             handleProfileFieldChange('statusMessage', e.target.value)
           }
