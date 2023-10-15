@@ -120,7 +120,7 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
       <S.Content>
         <S.ContentTitle>프로필 이미지</S.ContentTitle>
         <S.Profile htmlFor='file'>
-          <S.ProfileImage url={imageUrl} />
+          <S.ProfileImage $url={imageUrl} />
           <S.FileInput type='file' id='file' onChange={handleImageChange} />
           <EditIcon style={{ position: 'absolute', cursor: 'pointer' }} />
         </S.Profile>

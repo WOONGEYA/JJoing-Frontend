@@ -51,13 +51,13 @@ export const Profile = styled.label`
   justify-content: center;
 `;
 
-export const ProfileImage = styled.div<{ url: string }>`
+export const ProfileImage = styled.div<{ $url: string }>`
   background: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.6) 0%,
       rgba(0, 0, 0, 0.6) 100%
     ),
-    url(${({ url }) => url}) lightgray 50% / cover no-repeat;
+    url(${({ $url }) => $url}) lightgray 50% / cover no-repeat;
   border-radius: 50%;
   height: 100%;
   width: 100%;
