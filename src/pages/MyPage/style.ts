@@ -74,7 +74,7 @@ export const StatusMessage = styled.h3`
 export const UserData = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 `;
 
 export const UserInformation = styled.div`

@@ -140,21 +140,22 @@ const MyPage = () => {
                 </S.UserImage>
                 <S.UserData>
                   <div>
-                    <S.UserName>
-                      {userProfile?.name}
-                      {userProfile?.nickName ? (
-                        <S.UserNickName>{userProfile?.nickName}</S.UserNickName>
-                      ) : (
-                        <S.UserNickName>(닉네임을 추가해주세요)</S.UserNickName>
-                      )}
-                    </S.UserName>
+                    <S.Names>
+                      <S.UserName>{userProfile?.nickName}</S.UserName>
+                      <S.UserNickName>
+                        {userProfile?.name
+                          ? userProfile?.name
+                          : '닉네임을 추가해주세요'}
+                      </S.UserNickName>
+                    </S.Names>
                     <S.UserPosition>
-                      {userProfile?.school} /{' '}
+                      {userProfile?.school} /
                       {userProfile?.major
                         ? userProfile?.major
                         : '(분야를 추가해주세요)'}
                     </S.UserPosition>
                   </div>
+                  <S.Follow>팔로우 0 팔로잉 0</S.Follow>
                   <S.StatusMessage>
                     {userProfile?.statusMessage
                       ? userProfile?.statusMessage
