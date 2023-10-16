@@ -5,7 +5,7 @@ import { shadow } from 'styles/shadow';
 import theme from 'styles/theme';
 
 interface TabButtonProps {
-  active?: boolean;
+  $active?: boolean;
 }
 
 export const Container = styled.div`
@@ -115,9 +115,9 @@ export const TabButton = styled.button<TabButtonProps>`
   align-items: center;
   justify-content: center;
   font-size: 20px;
-  background-color: ${({ active }) => (active ? theme.primary : 'white')};
-  color: ${({ active }) => (active ? 'white' : theme.primary)};
-  border: ${({ active }) => (active ? 'none' : `2px solid ${theme.primary}`)};
+  background-color: ${({ $active }) => ($active ? theme.primary : 'white')};
+  color: ${({ $active }) => ($active ? 'white' : theme.primary)};
+  border: ${({ $active }) => ($active ? 'none' : `2px solid ${theme.primary}`)};
   cursor: pointer;
 `;
 

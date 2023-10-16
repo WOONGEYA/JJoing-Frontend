@@ -75,7 +75,7 @@ const Main = () => {
             {items.map((item) => (
               <S.TabButton
                 key={item.id}
-                active={currentItem?.id === item.id}
+                $active={currentItem?.id === item.id}
                 onClick={() => handleButtonClick(item)}
               >
                 {item.id}
