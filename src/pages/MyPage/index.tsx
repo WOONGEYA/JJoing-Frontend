@@ -139,17 +139,13 @@ const MyPage = () => {
 
   const getFollowingCount = async () => {
     const id = await getUserId();
-    const { data } = await instance.get(`/follow/${id}/following/count`, {
-      headers: { Authorization: localStorage.getItem('accessToken') },
-    });
+    const { data } = await instance.get(`/follow/${id}/following/count`);
     return data;
   };
 
   const getFollowCount = async () => {
     const id = await getUserId();
-    const { data } = await instance.get(`/follow/${id}/follower/count`, {
-      headers: { Authorization: localStorage.getItem('accessToken') },
-    });
+    const { data } = await instance.get(`/follow/${id}/follower/count`);
     return data;
   };
 
