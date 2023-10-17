@@ -52,7 +52,7 @@ export const UserName = styled.h1`
 `;
 export const UserNickName = styled.div`
   color: ${theme.grey[600]};
-  ${font.$title04};
+  ${font.$subhead};
 `;
 
 export const UserPosition = styled.h2`

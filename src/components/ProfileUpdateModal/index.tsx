@@ -47,6 +47,13 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
     fetchUserData();
   }, []);
 
+  const limitLinesOfText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
+    if (e.target.scrollHeight === e.target.clientHeight) {
+      handleProfileFieldChange('statusMessage', value);
+    }
+  };
+
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0];
@@ -120,10 +127,10 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
       </S.TitleContainer>
       <S.Content>
         <S.ContentTitle>프로필 이미지</S.ContentTitle>
-        <S.Profile>
-          <S.ProfileImage url={imageUrl} htmlFor='file' />
-          <input type='file' id='file' onChange={handleImageChange} />
-          <EditIcon style={{ position: 'absolute', zIndex: '2' }} />
+        <S.Profile htmlFor='file'>
+          <S.ProfileImage $url={imageUrl} />
+          <S.FileInput type='file' id='file' onChange={handleImageChange} />
+          <EditIcon style={{ position: 'absolute', cursor: 'pointer' }} />
         </S.Profile>
       </S.Content>
       <S.Content>
@@ -131,7 +138,6 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         <Input
           placeholder='아이디를 입력해주세요.'
           width='calc(100% - 32px)'
-          name='name'
           type='text'
           value={profile.nickName || ''}
           onChange={(e) => handleProfileFieldChange('nickName', e.target.value)}
@@ -142,7 +148,6 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         <Input
           placeholder='깃허브 링크를 입력해주세요'
           width='calc(100% - 32px)'
-          name='name'
           type='text'
           value={profile.githubUrl || ''}
           onChange={(e) =>
@@ -153,9 +158,8 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
       <S.Content>
         <S.ContentTitle>이메일 주소</S.ContentTitle>
         <Input
-          placeholder=''
+          placeholder='이메일을 입력해주세요.'
           width='calc(100% - 32px)'
-          name='name'
           type='text'
           value={profile.email || ''}
           onChange={(e) => handleProfileFieldChange('email', e.target.value)}
@@ -165,11 +169,12 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
       <S.Content>
         <S.ContentTitle>상태 메시지</S.ContentTitle>
         <S.Description
-          name='name'
+          placeholder='상태 메세지를 입력해주세요.'
           value={profile.statusMessage || ''}
-          onChange={(e) =>
-            handleProfileFieldChange('statusMessage', e.target.value)
-          }
+          rows={3}
+          wrap='hard'
+          maxLength={100}
+          onChange={limitLinesOfText}
         />
       </S.Content>
       <S.Content>
@@ -177,13 +182,11 @@ const ProfileUpdateModal = ({ closeModal }: ProfileUpdateModalProps) => {
         <Input
           placeholder='분야를 입력해주세요'
           width='calc(100% - 32px)'
-          name='name'
           type='text'
           value={profile.major || ''}
           onChange={(e) => handleProfileFieldChange('major', e.target.value)}
         />
       </S.Content>
-
       <Button value='저장' onClick={updateProfile} />
     </S.ModalContainer>
   );

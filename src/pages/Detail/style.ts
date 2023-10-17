@@ -166,6 +166,7 @@ export const CategoryContainer = styled.div`
 export const TagContainer = styled.div`
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 `;
 
 export const Button = styled.button<{ cursor?: string }>`

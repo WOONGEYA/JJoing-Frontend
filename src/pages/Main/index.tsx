@@ -62,13 +62,7 @@ const Main = () => {
             <S.Button to='/explore'>쪼잉 시작하기</S.Button>
           </S.MainContents>
         </S.FirstBox>
-        <S.MainBox
-          style={{
-            padding: '220px 204px',
-            boxSizing: 'border-box',
-            boxShadow: 'none',
-          }}
-        >
+        <S.MainBox>
           <S.Title>어떻게 진행되나요?</S.Title>
           <S.Title2 style={{ fontWeight: '200' }}>
             혼자라서 미뤄왔던 프로젝트를 쪼잉으로 도전해보세요 ! 자신의 분야를
@@ -76,20 +70,12 @@ const Main = () => {
             쌓아보세요.
           </S.Title2>
         </S.MainBox>
-        <S.MainBox
-          style={{
-            padding: '220px 204px',
-            boxSizing: 'border-box',
-            boxShadow: 'none',
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
+        <S.MainBox>
           <S.Tabs>
             {items.map((item) => (
               <S.TabButton
                 key={item.id}
-                active={currentItem?.id === item.id}
+                $active={currentItem?.id === item.id}
                 onClick={() => handleButtonClick(item)}
               >
                 {item.id}
@@ -109,17 +95,7 @@ const Main = () => {
             </>
           )}
         </S.MainBox>
-        <S.MainBox
-          style={{
-            padding: '220px 204px',
-            boxSizing: 'border-box',
-            boxShadow: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '64px',
-          }}
-        >
+        <S.MainBox>
           <S.Card>
             <S.CardTitle>
               내가 원하는 분야의
