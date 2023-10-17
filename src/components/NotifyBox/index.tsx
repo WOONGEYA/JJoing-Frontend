@@ -64,7 +64,6 @@ function NotifyBox({ id, title, content, projectId }: NotifyBoxProps) {
 
   const GotoDetail = (projectId: number) => {
     navigate(`/detail/${projectId}`);
-    console.log('안녕');
   };
   return (
     <S.Container>
@@ -72,7 +71,7 @@ function NotifyBox({ id, title, content, projectId }: NotifyBoxProps) {
         onClick={() =>
           projectId !== null && content.includes('일원')
             ? GotoDetail(projectId)
-            : OpenJjoingList
+            : OpenJjoingList()
         }
       >
         <F.FlexVertical>
