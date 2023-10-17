@@ -57,7 +57,7 @@ export const Else = styled.div`
 `;
 
 export const SubTitle = styled.div`
-  font-size: ${font.$title04};
+  font-size: ${font.$subhead};
   color: ${theme.grey[600]};
   margin-left: 4px;
 `;

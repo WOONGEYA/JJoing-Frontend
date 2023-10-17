@@ -8,12 +8,13 @@ import Button from 'components/Button';
 import instance from 'apis/httpClient';
 import EditIcon from 'assets/EditIcon';
 import { toast } from 'react-toastify';
+import { checkPostValid } from 'helper';
 
 interface GenerateModalProps {
   closeModal: () => void;
 }
 
-interface UserInput {
+export interface UserInput {
   name: string;
   requiredPeople: number;
   startDate: string;
@@ -128,28 +129,21 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
 
   const updateProfile = async () => {
     try {
-      const newProject = {
-        name: userInput?.name, // 프로젝트 이름 1
-        content: userInput?.content, // 프로젝트 설명 5
-        requiredPeople: userInput?.requiredPeople, // 모집 인원 2
-        endDate: userInput?.endDate, // 모집 기한 4
-        skills: userInput?.skills, // 사용 기술 7
-        coops: userInput?.coops, // 협업 툴 8
-        moods: userInput?.moods, // 개발 분위기 6
-        positions: userInput?.positions, // 모집 분야 3
-        imgUrl: newImageUrl, // 이미지 9
-      };
-
-      await instance.post('/project', newProject, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-
       closeModal();
       window.location.reload();
-    } catch (error) {
-      toast.success('프로젝트 등록 실패');
+      if (checkPostValid(userInput)) {
+        await instance.post(
+          '/project',
+          { ...userInput, imgUrl: newImageUrl },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+          },
+        );
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -242,7 +236,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <Input
                 required
-                width={216}
                 type='text'
                 placeholder='예시) 프론트, 백엔드, 디자이너'
                 onKeyPress={(e) =>
@@ -284,7 +277,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <Input
                 required
-                width={216}
                 type='text'
                 placeholder='예시) 진중함, 목표지향, 창의적'
                 onKeyPress={(e) =>
@@ -313,7 +305,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <Input
                 required
-                width={216}
                 type='text'
                 placeholder='사용 기술을 적어주세요.'
                 onKeyPress={(e) =>
@@ -342,7 +333,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <Input
                 required
-                width={216}
                 type='text'
                 placeholder='협업할 때 쓰는 툴을 알려주세요.'
                 onKeyPress={(e) =>

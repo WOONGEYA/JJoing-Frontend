@@ -78,7 +78,6 @@ export const UploadImage = styled.label`
 
 export const TagArea = styled.div`
   width: 100%;
-  height: 30px;
   display: flex;
   gap: 8px;
 `;

@@ -88,7 +88,7 @@ export const DropdownContainer = styled.div`
 export const BellCount = styled.div`
   position: absolute;
   color: ${theme.red};
-  font-size: ${font.$title04};
+  font-size: ${font.$subhead};
   left: 25px;
   bottom: 17px;
 `;

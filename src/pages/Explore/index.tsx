@@ -98,48 +98,35 @@ const Explore = () => {
     <Layout>
       <S.Contents>
         <S.Banner />
-        <S.FilterContainer>
-          {localStorage.getItem('accessToken') ? (
-            <>
-              <S.Filter>
-                {dropdownOptions2.map((option) => (
-                  <Dropdown
-                    key={option.id}
-                    isOpened={isOpened2[parseInt(option.id)]}
-                    {...option}
-                    onClick={handleDropdown2}
-                  />
-                ))}
-              </S.Filter>
-              <S.Filter>
-                {dropdownOptions.map((option) => (
-                  <Dropdown2
-                    key={option.id}
-                    isOpened={isOpened[parseInt(option.id)]}
-                    {...option}
-                    onClick={handleDropdown}
-                  />
-                ))}
-              </S.Filter>
-            </>
-          ) : null}
-        </S.FilterContainer>
+        {localStorage.getItem('accessToken') && (
+          <S.FilterContainer>
+            <S.Filter>
+              {dropdownOptions2.map((option) => (
+                <Dropdown
+                  key={option.id}
+                  isOpened={isOpened2[parseInt(option.id)]}
+                  {...option}
+                  onClick={handleDropdown2}
+                />
+              ))}
+            </S.Filter>
+            <S.Filter>
+              {dropdownOptions.map((option) => (
+                <Dropdown2
+                  key={option.id}
+                  isOpened={isOpened[parseInt(option.id)]}
+                  {...option}
+                  onClick={handleDropdown}
+                />
+              ))}
+            </S.Filter>
+          </S.FilterContainer>
+        )}
         <S.ProjectList>
           <S.Title>프로젝트 목록 😎</S.Title>
           <S.ProjectContainer>
             {myProject.map((data) => (
-              <ProjectBox
-                id={data.id}
-                key={data.id}
-                name={data.name}
-                content={data.content}
-                currentPeople={data.currentPeople}
-                requiredPeople={data.requiredPeople}
-                imgUrl={data.imgUrl}
-                viewCount={data.viewCount}
-                likeCount={data.likeCount}
-                likeState={data.likeState}
-              />
+              <ProjectBox key={data.id} {...data} />
             ))}
           </S.ProjectContainer>
         </S.ProjectList>
