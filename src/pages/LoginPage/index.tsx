@@ -25,7 +25,8 @@ const LoginPage = () => {
 
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
-      navigate('/');
+      navigate('/mypage');
+      toast.success('프로필을 수정해 보세요!');
     },
     onError: () => {
       toast.error('학교계정으로 로그인해주세요');
