@@ -76,12 +76,9 @@ const Header = () => {
           <Link to='/'>
             <LogoIcon height={24} />
           </Link>
-          <>
-            <Link to='/explore'>
-              <S.MenuItem>프로젝트 목록</S.MenuItem>
-            </Link>
-          </>
-
+          <Link to='/explore'>
+            <S.MenuItem>프로젝트 목록</S.MenuItem>
+          </Link>
           <S.MenuItem
             onClick={localStorage.accessToken ? modalOpen : loginAlert}
           >
@@ -114,6 +111,9 @@ const Header = () => {
                     </Link>
                     <Link to='/myjjong'>
                       <S.Option>마이쫑</S.Option>
+                    </Link>
+                    <Link to='https://forms.gle/EQoMy6oUTfCmePFm6'>
+                      <S.Option>쪼잉에 문의하기</S.Option>
                     </Link>
                     <S.Option onClick={handleLogout}>로그아웃</S.Option>
                   </S.Options>
