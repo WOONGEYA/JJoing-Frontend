@@ -4,7 +4,7 @@ import LogoIcon from 'assets/LogoIcon';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { accessGoogle, userKey } from 'apis/recoil';
-import { OAUTH_URL } from 'constants/config';
+import { FORM_URL, OAUTH_URL } from 'constants/config';
 import instance from 'apis/httpClient';
 import * as S from './style';
 import useModal from 'hooks/useModal';
@@ -112,9 +112,9 @@ const Header = () => {
                     <Link to='/myjjong'>
                       <S.Option>마이쫑</S.Option>
                     </Link>
-                    <Link to='https://forms.gle/EQoMy6oUTfCmePFm6'>
+                    <a href={FORM_URL}>
                       <S.Option>쪼잉에 문의하기</S.Option>
-                    </Link>
+                    </a>
                     <S.Option onClick={handleLogout}>로그아웃</S.Option>
                   </S.Options>
                 </S.DropdownContainer>
