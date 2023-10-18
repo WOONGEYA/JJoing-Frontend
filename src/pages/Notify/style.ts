@@ -15,7 +15,7 @@ export const NotifiHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 5vh;
+  margin-bottom: 25px;
 `;
 
 export const Icon = styled.img`
