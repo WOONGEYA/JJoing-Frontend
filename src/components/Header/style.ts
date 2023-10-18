@@ -44,7 +44,7 @@ export const ProfileContainer = styled.div`
 export const Login = styled.a`
   padding: 12px 16px;
   text-decoration: none;
-  color: black;
+  color: ${theme.black};
   cursor: pointer;
 `;
 
@@ -95,4 +95,10 @@ export const BellCount = styled.div`
 
 export const BellContainer = styled.div`
   position: relative;
+`;
+
+export const Inquire = styled.a`
+  text-decoration: none;
+  cursor: pointer;
+  color: ${theme.black};
 `;
