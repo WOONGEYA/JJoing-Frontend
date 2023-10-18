@@ -59,7 +59,7 @@ export const Profile = styled.img`
 `;
 
 export const Options = styled.div`
-  width: 120px;
+  width: 140px;
   z-index: 3;
   background-color: ${theme.white};
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
@@ -88,7 +88,7 @@ export const DropdownContainer = styled.div`
 export const BellCount = styled.div`
   position: absolute;
   color: ${theme.red};
-  font-size: ${font.$title04};
+  font-size: ${font.$subhead};
   left: 25px;
   bottom: 17px;
 `;

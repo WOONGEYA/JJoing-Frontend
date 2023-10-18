@@ -4,7 +4,7 @@ import LogoIcon from 'assets/LogoIcon';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { accessGoogle, userKey } from 'apis/recoil';
-import { OAUTH_URL } from 'constants/config';
+import { FORM_URL, OAUTH_URL } from 'constants/config';
 import instance from 'apis/httpClient';
 import * as S from './style';
 import useModal from 'hooks/useModal';
@@ -76,12 +76,9 @@ const Header = () => {
           <Link to='/'>
             <LogoIcon height={24} />
           </Link>
-          <>
-            <Link to='/explore'>
-              <S.MenuItem>프로젝트 목록</S.MenuItem>
-            </Link>
-          </>
-
+          <Link to='/explore'>
+            <S.MenuItem>프로젝트 목록</S.MenuItem>
+          </Link>
           <S.MenuItem
             onClick={localStorage.accessToken ? modalOpen : loginAlert}
           >
@@ -115,6 +112,9 @@ const Header = () => {
                     <Link to='/myjjong'>
                       <S.Option>마이쫑</S.Option>
                     </Link>
+                    <a href={FORM_URL}>
+                      <S.Option>쪼잉에 문의하기</S.Option>
+                    </a>
                     <S.Option onClick={handleLogout}>로그아웃</S.Option>
                   </S.Options>
                 </S.DropdownContainer>

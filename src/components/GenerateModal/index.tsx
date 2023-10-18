@@ -236,7 +236,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <Input
                 required
-                width={216}
                 type='text'
                 placeholder='예시) 프론트, 백엔드, 디자이너'
                 onKeyPress={(e) =>
@@ -278,7 +277,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <Input
                 required
-                width={216}
                 type='text'
                 placeholder='예시) 진중함, 목표지향, 창의적'
                 onKeyPress={(e) =>
@@ -307,7 +305,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <Input
                 required
-                width={216}
                 type='text'
                 placeholder='사용 기술을 적어주세요.'
                 onKeyPress={(e) =>
@@ -336,7 +333,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
             <S.InputArea>
               <Input
                 required
-                width={216}
                 type='text'
                 placeholder='협업할 때 쓰는 툴을 알려주세요.'
                 onKeyPress={(e) =>

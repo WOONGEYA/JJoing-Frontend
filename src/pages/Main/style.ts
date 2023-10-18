@@ -5,11 +5,12 @@ import { shadow } from 'styles/shadow';
 import theme from 'styles/theme';
 
 interface TabButtonProps {
-  active?: boolean;
+  $active?: boolean;
 }
 
 export const Container = styled.div`
-  width: 100vw;
+  max-width: 1032px;
+  margin: 0 auto;
 `;
 
 export const FirstBox = styled.div`
@@ -20,12 +21,13 @@ export const FirstBox = styled.div`
 export const MainBox = styled.div`
   width: 100%;
   height: 100vh;
-  ${shadow.shadow1}
 `;
 
 export const MainContents = styled.div`
-  padding: 241px 204px;
+  padding-top: 10rem;
+  margin-left: 3rem;
   z-index: 2;
+  margin: 0 auto;
   position: relative;
   box-sizing: border-box;
 `;
@@ -65,7 +67,7 @@ export const Button = styled(Link)`
 export const CoverImage = styled.img`
   width: 830px;
   position: absolute;
-  right: 15vw;
+  opacity: 0.4;
 `;
 
 export const Content = styled.div`
@@ -99,7 +101,7 @@ export const Tabs = styled.div`
   width: 43px;
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 50px;
 `;
 
 export const TabButton = styled.button<TabButtonProps>`
@@ -110,20 +112,26 @@ export const TabButton = styled.button<TabButtonProps>`
   align-items: center;
   justify-content: center;
   font-size: 20px;
-  background-color: ${({ active }) => (active ? theme.primary : 'white')};
-  color: ${({ active }) => (active ? 'white' : theme.primary)};
-  border: ${({ active }) => (active ? 'none' : `2px solid ${theme.primary}`)};
+  background-color: ${({ $active }) => ($active ? theme.primary : 'white')};
+  color: ${({ $active }) => ($active ? 'white' : theme.primary)};
+  border: ${({ $active }) => ($active ? 'none' : `2px solid ${theme.primary}`)};
   cursor: pointer;
 `;
 
 export const Image = styled.img`
   width: 512px;
-  height: 512px;
+  min-height: 512px;
   margin-left: 8px;
+`;
+
+export const ImgContainer = styled.div`
+  width: 100%;
+  display: flex;
 `;
 
 export const Description = styled.div`
   height: 100%;
+  margin-top: 2.8rem;
 `;
 
 export const SmallTitle = styled.h1`
@@ -136,7 +144,6 @@ export const SmallTitle = styled.h1`
 
 export const Caption = styled.p`
   ${font.$title02};
-  width: 80%;
 `;
 
 export const Card = styled.div`
@@ -173,4 +180,20 @@ export const CardImage = styled.img`
   width: 100px;
   height: 100px;
   margin-top: 38px;
+`;
+
+export const BoxContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+`;
+
+export const TitleContainer = styled.div``;
+
+export const MainBox2 = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 15rem;
+  margin: 0 auto;
 `;

@@ -9,6 +9,7 @@ export const Contents = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-height: 100vh;
 `;
 
 export const Projects = styled.div`
@@ -49,29 +50,32 @@ export const Image = styled.img`
 
 export const UserName = styled.h1`
   color: ${theme.grey[900]};
-  ${font.$title03};
+  ${font.$title02};
 `;
 export const UserNickName = styled.div`
   color: ${theme.grey[600]};
-  ${font.$title04};
+  ${font.$body};
 `;
 
 export const UserPosition = styled.h2`
   color: ${theme.grey[800]};
-  ${font.$headline};
-  margin-bottom: 9px;
+  ${font.$body};
 `;
 
 export const StatusMessage = styled.h3`
   color: ${theme.grey[600]};
   ${font.$callout};
   white-space: pre-wrap;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 `;
 
 export const UserData = styled.div`
-  width: 339px;
   display: flex;
   flex-direction: column;
+  gap: 4px;
 `;
 
 export const UserInformation = styled.div`
@@ -81,8 +85,7 @@ export const UserInformation = styled.div`
 
 export const Follow = styled.span`
   color: ${theme.grey[800]};
-  ${font.$headline};
-  margin-bottom: 8px;
+  ${font.$body};
 `;
 
 export const ButtonContainer = styled.div`
@@ -140,4 +143,10 @@ export const NoContents = styled.div`
   ${font.$title03};
   width: 100%;
   height: 20vh;
+`;
+
+export const Names = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: center;
 `;

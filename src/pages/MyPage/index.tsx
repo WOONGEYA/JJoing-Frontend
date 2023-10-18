@@ -36,6 +36,11 @@ interface Project {
   likeState: boolean;
 }
 
+interface FollowInfo {
+  followCount: number;
+  followingCount: number;
+}
+
 const MyPage = () => {
   const { openModal, closeModal } = useModal();
 
@@ -46,6 +51,7 @@ const MyPage = () => {
     null,
   );
   const [userInput, setUserInput] = React.useState<string>('');
+  const [followInfo, setFollowInfo] = React.useState<FollowInfo>();
 
   const handleTabSelect = (e: React.MouseEvent<HTMLDivElement>) => {
     const id = parseInt(e.currentTarget.id);
@@ -124,6 +130,35 @@ const MyPage = () => {
       });
   }, []);
 
+  const getUserId = async () => {
+    const { data } = await instance.get('/user', {
+      headers: { Authorization: localStorage.getItem('accessToken') },
+    });
+    return data.id;
+  };
+
+  const getFollowingCount = async () => {
+    const id = await getUserId();
+    const { data } = await instance.get(`/follow/${id}/following/count`);
+    return data;
+  };
+
+  const getFollowCount = async () => {
+    const id = await getUserId();
+    const { data } = await instance.get(`/follow/${id}/follower/count`);
+    return data;
+  };
+
+  const updateFollowInfo = async () => {
+    const followCount = await getFollowCount();
+    const followingCount = await getFollowingCount();
+    setFollowInfo({ followCount, followingCount });
+  };
+
+  React.useEffect(() => {
+    updateFollowInfo();
+  }, []);
+
   return (
     <Layout>
       <S.Contents>
@@ -140,14 +175,14 @@ const MyPage = () => {
                 </S.UserImage>
                 <S.UserData>
                   <div>
-                    <S.UserName>
-                      {userProfile?.name}
-                      {userProfile?.nickName ? (
-                        <S.UserNickName>{userProfile?.nickName}</S.UserNickName>
-                      ) : (
-                        <S.UserNickName>(닉네임을 추가해주세요)</S.UserNickName>
-                      )}
-                    </S.UserName>
+                    <S.Names>
+                      <S.UserName>{userProfile?.nickName}</S.UserName>
+                      <S.UserNickName>
+                        {userProfile?.name
+                          ? userProfile?.name
+                          : '닉네임을 추가해주세요'}
+                      </S.UserNickName>
+                    </S.Names>
                     <S.UserPosition>
                       {userProfile?.school} /{' '}
                       {userProfile?.major
@@ -155,6 +190,10 @@ const MyPage = () => {
                         : '(분야를 추가해주세요)'}
                     </S.UserPosition>
                   </div>
+                  <S.Follow>
+                    팔로우 {followInfo?.followCount} 팔로잉{' '}
+                    {followInfo?.followingCount}
+                  </S.Follow>
                   <S.StatusMessage>
                     {userProfile?.statusMessage
                       ? userProfile?.statusMessage
@@ -206,20 +245,7 @@ const MyPage = () => {
               filteredProjects
                 .slice()
                 .sort((a, b) => b.id - a.id)
-                .map((data) => (
-                  <ProjectBox
-                    id={data.id}
-                    key={data.id}
-                    name={data.name}
-                    content={data.content}
-                    currentPeople={data.currentPeople}
-                    requiredPeople={data.requiredPeople}
-                    imgUrl={data.imgUrl}
-                    viewCount={data.viewCount}
-                    likeCount={data.likeCount}
-                    likeState={data.likeState}
-                  />
-                ))
+                .map((data) => <ProjectBox key={data.id} {...data} />)
             ) : selected === 0 ? (
               <S.NoContents>참여중인 프로젝트가 없습니다.</S.NoContents>
             ) : null}

@@ -9,6 +9,7 @@ export const Contents = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-height: 100vh;
 `;
 
 export const Projects = styled.div`
@@ -52,7 +53,7 @@ export const UserName = styled.h1`
 `;
 export const UserNickName = styled.div`
   color: ${theme.grey[600]};
-  ${font.$title04};
+  ${font.$subhead};
 `;
 
 export const UserPosition = styled.h2`

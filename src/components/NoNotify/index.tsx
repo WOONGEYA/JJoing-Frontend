@@ -4,7 +4,7 @@ import { font } from 'styles/font';
 import theme from 'styles/theme';
 
 const Container = styled.div`
-  width: 100%;
+  max-width: 1032px;
   height: 20rem;
   box-sizing: border-box;
   display: flex;

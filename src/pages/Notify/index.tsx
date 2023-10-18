@@ -36,8 +36,6 @@ function Notify() {
     alarmList.title.toLowerCase().includes(userInput.toLowerCase()),
   );
 
-  console.log('alarmList', alarmList);
-
   React.useEffect(() => {
     const fetchData = async () => {
       try {
