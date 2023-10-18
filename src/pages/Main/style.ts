@@ -1,181 +1,202 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { font } from 'styles/font';
 import { shadow } from 'styles/shadow';
 import theme from 'styles/theme';
-
-interface TabButtonProps {
-  $active?: boolean;
-}
 
 export const Container = styled.div`
   width: 100vw;
 `;
 
-export const FirstBox = styled.div`
-  width: 100%;
+export const Welcome = styled.div`
   height: calc(100vh - 60px);
+  display: flex;
 `;
 
-export const MainBox = styled.div`
-  width: 100%;
-  height: 100vh;
-  padding: 220px 204px;
-  box-sizing: border-box;
+export const Landing = styled.div`
+  width: min(calc(100% - 2rem), 1032px);
+  margin: auto;
+  height: min(80%, 500px);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 64px;
-`;
-
-export const MainContents = styled.div`
-  padding: 241px 204px;
-  z-index: 2;
   position: relative;
-  box-sizing: border-box;
 `;
 
-export const Title = styled.p`
-  ${font.$hugeTitle};
+export const MainImage = styled.img`
+  width: min(100%, 530px);
+`;
+
+export const WelcomeContent = styled.div`
+  max-width: 100%;
+  flex: 1;
+`;
+
+export const Title = styled.h1`
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+  color: ${theme.black};
+  word-break: keep-all;
+  white-space: pre-wrap;
+  margin-bottom: 24px;
 `;
 
 export const Emphasis = styled.span`
-  ${Title};
   color: ${theme.primary};
-  font-weight: 700;
 `;
 
-export const SubTitle = styled.span`
-  ${font.$subTitle};
-  margin-top: 12px;
+export const Subtitle = styled.h2`
+  ${font.$body};
+  color: ${theme.grey[600]};
+  word-break: keep-all;
+  white-space: pre-wrap;
+  margin-bottom: 40px;
 `;
 
-export const Button = styled(Link)`
-  ${shadow.shadow2};
-  border-radius: 20px;
-  padding: 12px 47px;
-  box-sizing: border-box;
-  text-decoration: none;
-  color: ${theme.black};
-  ${font.$callout};
-  &:hover {
-    background-color: ${theme.grey[300]};
-    transition: 0.2s ease-in-out;
-  }
-  &:active {
-    background-color: ${theme.grey[600]};
-  }
-`;
-
-export const CoverImage = styled.img`
-  width: 830px;
-  position: absolute;
-  right: 15vw;
-`;
-
-export const Content = styled.div`
-  width: 100%;
-  margin-top: 118px;
+export const Button = styled.span`
   display: flex;
-  align-items: center;
-`;
-
-export const Photo = styled.div`
-  width: 440px;
-  height: 290px;
-  border-radius: 30px;
-  ${shadow.shadow2};
-`;
-
-export const TextArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 290px;
-  margin-left: 88px;
-`;
-
-export const Title2 = styled.div`
-  ${font.$title01};
-  margin-top: 24px;
-  width: 504px;
-`;
-
-export const Tabs = styled.div`
-  width: 43px;
-  display: flex;
-  flex-direction: column;
-  gap: 100px;
-`;
-
-export const TabButton = styled.button<TabButtonProps>`
-  width: 46px;
-  height: 46px;
-  border-radius: 100px;
-  display: flex;
-  align-items: center;
+  width: fit-content;
+  padding: 12px 48px;
   justify-content: center;
-  font-size: 20px;
-  background-color: ${({ $active }) => ($active ? theme.primary : 'white')};
-  color: ${({ $active }) => ($active ? 'white' : theme.primary)};
-  border: ${({ $active }) => ($active ? 'none' : `2px solid ${theme.primary}`)};
-  cursor: pointer;
+  align-items: center;
+  border-radius: 8px;
+  background: ${theme.primary};
+  ${font.$title02}
+  color: ${theme.white};
+`;
+
+export const Merit = styled.div`
+  padding-block: 200px;
+  margin-inline: auto;
+  display: flex;
+  width: min(calc(100% - 2rem), 1032px);
+  gap: 96px;
+  flex-direction: column;
+`;
+
+export const MeritContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  align-self: stretch;
+`;
+
+export const MeritText = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1 0 0;
+`;
+
+export const MainMerit = styled.h1`
+  ${font.$titleLarge};
+`;
+
+export const MeritDescription = styled.h2`
+  ${font.$title03};
+  color: ${theme.grey[600]};
+  word-break: keep-all;
+  white-space: pre-wrap;
+`;
+
+export const MeritImage = styled.div`
+  display: flex;
+  padding: 0px 24px;
+  align-items: center;
+  gap: 32px;
+  width: calc(50% - 60px);
+`;
+
+export const Page = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 48px;
+`;
+
+export const Number = styled.div<{ $active?: string }>`
+  display: flex;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid ${theme.primary};
+  justify-content: center;
+  align-items: center;
+  ${font.$title03};
+  ${({ $active }) =>
+    $active === 'true'
+      ? css`
+          color: ${theme.white};
+          background: ${theme.primary};
+        `
+      : css`
+          color: ${theme.primary};
+          background: ${theme.white};
+        `};
 `;
 
 export const Image = styled.img`
-  width: 512px;
-  height: 512px;
-  margin-left: 8px;
+  width: min(100%, 384px);
 `;
 
-export const Description = styled.div`
-  height: 100%;
+export const Login = styled.span`
+  display: flex;
+  padding: 12px 48px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: ${theme.primary};
+  ${font.$title02}
+  color: ${theme.white}
 `;
 
-export const SmallTitle = styled.h1`
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  color: ${theme.primary};
+export const Help = styled.div`
+  margin-inline: auto;
+  display: flex;
+  width: min(calc(100% - 2rem), 1032px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 96px;
+  margin-bottom: 120px;
 `;
 
-export const Caption = styled.p`
-  ${font.$title02};
-  width: 80%;
-`;
-
-export const Card = styled.div`
-  width: 292px;
-  height: 392px;
-  border-radius: 40px;
-  ${shadow.shadow1};
-  padding: 48px;
-  box-sizing: border-box;
+export const HelpContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 26px;
   align-items: center;
+  gap: 64px;
 `;
 
-export const CardTitle = styled.h1`
-  width: 100%;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 150%;
+export const Tabs = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
 `;
 
-export const GoProjects = styled(Link)`
-  width: 100%;
-  font-size: 23px;
-  font-weight: 300;
-  line-height: 150%;
-  text-decoration: none;
-  color: ${theme.secondary};
-  ${font.$callout};
+export const Tab = styled.div`
+  display: flex;
+  padding: 32px 24px;
+  align-items: flex-start;
+  ${shadow.shadow2}
 `;
 
-export const CardImage = styled.img`
-  width: 100px;
-  height: 100px;
-  margin-top: 38px;
+export const TabContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  flex: 1 0 0;
+`;
+
+export const TabTitle = styled.h1`
+  ${font.$title01};
+  word-break: keep-all;
+  white-space: pre-wrap;
+`;
+
+export const TabImage = styled.img`
+  height: 120px;
 `;
