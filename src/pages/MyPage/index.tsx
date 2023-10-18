@@ -157,7 +157,7 @@ const MyPage = () => {
 
   React.useEffect(() => {
     updateFollowInfo();
-  });
+  }, []);
 
   return (
     <Layout>

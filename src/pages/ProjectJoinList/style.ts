@@ -4,23 +4,20 @@ import { shadow } from 'styles/shadow';
 import theme from 'styles/theme';
 
 export const JJoingContainer = styled.div`
-  width: 100%;
+  max-width: 1032px;
   padding-top: 20vh;
+  margin: 0 auto;
 `;
 
 export const TitleContainer = styled.div`
   width: 72%;
   height: 100px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-around;
-  margin: 0 auto;
   ${font.$title01};
   flex-direction: column;
 `;
 export const Container = styled.div`
   margin: 0 auto;
-  width: 72%;
+  width: 100%;
   height: 92px;
   border-radius: 4px;
   ${shadow.shadow2};

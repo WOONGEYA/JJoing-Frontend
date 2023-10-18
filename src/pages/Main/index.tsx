@@ -9,9 +9,27 @@ import card03 from 'assets/pngs/card03.png';
 import useModal from 'hooks/useModal';
 import LoginModal from 'components/LoginModal';
 import * as S from './style';
+import { useEffect, useState } from 'react';
+import instance from 'apis/httpClient';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+interface UserProfile {
+  statusMessage: string;
+  nickName: string;
+  githubUrl: string;
+  name: string;
+  email: string;
+  imgUrl: string;
+  school: string;
+  major: string;
+}
 
 const Main = () => {
   const { openModal, closeModal } = useModal();
+  const [currentItem, setCurrentItem] = useState<Item>(items[0]);
+  const [redirect, setRedirect] = useState<UserProfile | null>(null);
+  const navigate = useNavigate();
 
   const handleModalOpen = () => {
     openModal({
@@ -19,6 +37,27 @@ const Main = () => {
     });
   };
 
+  useEffect(() => {
+    const getUserId = async () => {
+      const { data } = await instance.get('/user', {
+        headers: { Authorization: localStorage.getItem('accessToken') },
+      });
+      setRedirect(data);
+    };
+  }, []);
+
+  if (
+    (redirect && redirect?.statusMessage == null) ||
+    redirect?.githubUrl == null ||
+    redirect?.major == null
+  ) {
+    if (!localStorage.getItem('hasShownToast')) {
+      navigate('/mypage');
+      toast.success('프로필 정보를 추가해 주세요!');
+      localStorage.setItem('hasShownToast', 'true');
+    }
+  }
+    
   return (
     <Layout>
       <S.Welcome>

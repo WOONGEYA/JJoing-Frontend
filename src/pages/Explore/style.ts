@@ -11,11 +11,12 @@ export const Contents = styled.div`
   gap: 48px;
   margin-left: auto;
   margin-right: auto;
+  min-height: 100vh;
 `;
 
 export const Banner = styled.div`
   height: 100px;
-  background-color: ${theme.grey[500]};
+  background-color: ${theme.grey[400]};
   border-radius: 8px;
 `;
 
