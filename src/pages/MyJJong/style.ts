@@ -3,21 +3,16 @@ import { font } from 'styles/font';
 import theme from 'styles/theme';
 
 export const Container = styled.div`
-  width: 100vw;
-  padding: 140px 204px 0;
+  max-width: 1032px;
+  margin: 0 auto;
+  padding-top: 20vh;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 10rem;
+  min-height: 100vh;
 `;
 
 export const Header = styled.div`
   width: 100%;
   height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-bottom: 30px;
 `;
 
@@ -32,9 +27,7 @@ export const Title = styled.div`
 
 export const Projects = styled.div`
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  justify-content: space-between;
+  display: flex;
   gap: 24px;
 `;
 

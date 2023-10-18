@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import GithubIcon from 'assets/GithubIcon';
 import EmailIcon from 'assets/EmailIcon';
 import Layout from 'components/Layout';
@@ -157,7 +157,7 @@ const MyPage = () => {
 
   React.useEffect(() => {
     updateFollowInfo();
-  });
+  }, []);
 
   return (
     <Layout>

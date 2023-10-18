@@ -9,6 +9,7 @@ export const Contents = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-height: 100vh;
 `;
 
 export const Projects = styled.div`

@@ -4,9 +4,10 @@ import { shadow } from 'styles/shadow';
 import theme from 'styles/theme';
 
 export const Container = styled.div`
-  width: 100vw;
-  padding: 140px 204px 0;
+  max-width: 1032px;
+  padding-top: 20vh;
   box-sizing: border-box;
+  margin: 0 auto;
 `;
 
 export const NotifiHeader = styled.div`
@@ -14,7 +15,7 @@ export const NotifiHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 5vh;
 `;
 
 export const Icon = styled.img`

@@ -9,6 +9,7 @@ export const Contents = styled.div`
   padding: 64px calc((100% - 1032px) / 2) 128px;
   margin-left: auto;
   margin-right: auto;
+  min-height: 100vh;
 `;
 
 export const ProjectLayout = styled.div`
