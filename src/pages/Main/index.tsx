@@ -47,18 +47,6 @@ const Main = () => {
     getUserId();
   }, []);
 
-  if (
-    (redirect && redirect?.statusMessage == null) ||
-    redirect?.githubUrl == null ||
-    redirect?.major == null
-  ) {
-    if (!localStorage.getItem('hasShownToast')) {
-      navigate('/mypage');
-      toast.success('프로필 정보를 추가해 주세요!');
-      localStorage.setItem('hasShownToast', 'true');
-    }
-  }
-
   return (
     <Layout>
       <S.Welcome>
