@@ -27,7 +27,6 @@ interface UserProfile {
 
 const Main = () => {
   const { openModal, closeModal } = useModal();
-  const [currentItem, setCurrentItem] = useState<Item>(items[0]);
   const [redirect, setRedirect] = useState<UserProfile | null>(null);
   const navigate = useNavigate();
 
@@ -37,13 +36,15 @@ const Main = () => {
     });
   };
 
+  const getUserId = async () => {
+    const { data } = await instance.get('/user', {
+      headers: { Authorization: localStorage.getItem('accessToken') },
+    });
+    setRedirect(data);
+  };
+
   useEffect(() => {
-    const getUserId = async () => {
-      const { data } = await instance.get('/user', {
-        headers: { Authorization: localStorage.getItem('accessToken') },
-      });
-      setRedirect(data);
-    };
+    getUserId();
   }, []);
 
   if (
@@ -57,7 +58,7 @@ const Main = () => {
       localStorage.setItem('hasShownToast', 'true');
     }
   }
-    
+
   return (
     <Layout>
       <S.Welcome>
