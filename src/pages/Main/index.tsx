@@ -9,43 +9,15 @@ import card03 from 'assets/pngs/card03.png';
 import useModal from 'hooks/useModal';
 import LoginModal from 'components/LoginModal';
 import * as S from './style';
-import { useEffect, useState } from 'react';
-import instance from 'apis/httpClient';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-
-interface UserProfile {
-  statusMessage: string;
-  nickName: string;
-  githubUrl: string;
-  name: string;
-  email: string;
-  imgUrl: string;
-  school: string;
-  major: string;
-}
 
 const Main = () => {
   const { openModal, closeModal } = useModal();
-  const [redirect, setRedirect] = useState<UserProfile | null>(null);
-  const navigate = useNavigate();
 
   const handleModalOpen = () => {
     openModal({
       component: <LoginModal closeModal={closeModal} />,
     });
   };
-
-  const getUserId = async () => {
-    const { data } = await instance.get('/user', {
-      headers: { Authorization: localStorage.getItem('accessToken') },
-    });
-    setRedirect(data);
-  };
-
-  useEffect(() => {
-    getUserId();
-  }, []);
 
   return (
     <Layout>
