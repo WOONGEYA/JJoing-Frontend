@@ -2,15 +2,32 @@ import Layout from 'components/Layout';
 import { MainCover, tab1, tab2, tab3, card1, card2, card3 } from 'assets/png';
 import LoginModal from 'components/LoginModal';
 import useModal from 'hooks/useModal';
+import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 
 const Main = () => {
   const { openModal, closeModal } = useModal();
+  const navigate = useNavigate();
 
   const handleModalOpen = () => {
     openModal({
       component: <LoginModal closeModal={closeModal} />,
     });
+  };
+
+  const checkLoginStatus = () => {
+    const accessToken = localStorage.getItem('accessToken');
+    return accessToken !== null;
+  };
+
+  const handleStartButton = () => {
+    const isUserLoggedIn = checkLoginStatus();
+
+    if (isUserLoggedIn) {
+      navigate('/explore');
+    } else {
+      handleModalOpen();
+    }
   };
 
   return (
@@ -27,7 +44,7 @@ const Main = () => {
                 관심 분야의 프로젝트를 직접 생성하거나 찾아보세요.{'\n'}
                 쪼잉은 더 나은 프로젝트 경험을 위해 시작되었습니다.
               </S.Subtitle>
-              <S.Button onClick={handleModalOpen}>쪼잉 시작하기</S.Button>
+              <S.Button onClick={handleStartButton}>쪼잉 시작하기</S.Button>
             </div>
           </S.WelcomeContent>
           <S.MainImage src={MainCover}></S.MainImage>
@@ -118,7 +135,7 @@ const Main = () => {
               </S.TabContent>
             </S.Tab>
           </S.Tabs>
-          <S.Login onClick={handleModalOpen}>쪼잉 로그인 하러가기</S.Login>
+          <S.Login onClick={handleStartButton}>쪼잉 로그인 하러가기</S.Login>
         </S.HelpContent>
       </S.Help>
     </Layout>
