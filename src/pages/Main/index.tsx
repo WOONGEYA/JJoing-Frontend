@@ -1,33 +1,12 @@
 import Layout from 'components/Layout';
-import MainCover from 'assets/pngs/MainCover.png';
-import tab01 from 'assets/pngs/tab01.png';
-import tab02 from 'assets/pngs/tab02.png';
-import tab03 from 'assets/pngs/tab03.png';
-import card01 from 'assets/pngs/card01.png';
-import card02 from 'assets/pngs/card02.png';
-import card03 from 'assets/pngs/card03.png';
-import useModal from 'hooks/useModal';
+import { MainCover, tab1, tab2, tab3, card1, card2, card3 } from 'assets/png';
 import LoginModal from 'components/LoginModal';
-import * as S from './style';
-import { useEffect, useState } from 'react';
-import instance from 'apis/httpClient';
+import useModal from 'hooks/useModal';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-
-interface UserProfile {
-  statusMessage: string;
-  nickName: string;
-  githubUrl: string;
-  name: string;
-  email: string;
-  imgUrl: string;
-  school: string;
-  major: string;
-}
+import * as S from './style';
 
 const Main = () => {
   const { openModal, closeModal } = useModal();
-  const [redirect, setRedirect] = useState<UserProfile | null>(null);
   const navigate = useNavigate();
 
   const handleModalOpen = () => {
@@ -36,16 +15,20 @@ const Main = () => {
     });
   };
 
-  const getUserId = async () => {
-    const { data } = await instance.get('/user', {
-      headers: { Authorization: localStorage.getItem('accessToken') },
-    });
-    setRedirect(data);
+  const checkLoginStatus = () => {
+    const accessToken = localStorage.getItem('accessToken');
+    return accessToken !== null;
   };
 
-  useEffect(() => {
-    getUserId();
-  }, []);
+  const handleStartButton = () => {
+    const isUserLoggedIn = checkLoginStatus();
+
+    if (isUserLoggedIn) {
+      navigate('/explore');
+    } else {
+      handleModalOpen();
+    }
+  };
 
   return (
     <Layout>
@@ -61,7 +44,7 @@ const Main = () => {
                 관심 분야의 프로젝트를 직접 생성하거나 찾아보세요.{'\n'}
                 쪼잉은 더 나은 프로젝트 경험을 위해 시작되었습니다.
               </S.Subtitle>
-              <S.Button onClick={handleModalOpen}>쪼잉 시작하기</S.Button>
+              <S.Button onClick={handleStartButton}>쪼잉 시작하기</S.Button>
             </div>
           </S.WelcomeContent>
           <S.MainImage src={MainCover}></S.MainImage>
@@ -76,7 +59,7 @@ const Main = () => {
               <S.Number>2</S.Number>
               <S.Number>3</S.Number>
             </S.Page>
-            <S.Image src={tab01} />
+            <S.Image src={tab1} />
           </S.MeritImage>
           <S.MeritText>
             <S.MainMerit>프로젝트 찾기 / 만들기</S.MainMerit>
@@ -102,7 +85,7 @@ const Main = () => {
             </S.MeritText>
           </S.MeritImage>
           <S.MeritText>
-            <S.Image src={tab02} />
+            <S.Image src={tab2} />
           </S.MeritText>
         </S.MeritContainer>
         <S.MeritContainer>
@@ -112,7 +95,7 @@ const Main = () => {
               <S.Number>2</S.Number>
               <S.Number $active='true'>3</S.Number>
             </S.Page>
-            <S.Image src={tab03} />
+            <S.Image src={tab3} />
           </S.MeritImage>
           <S.MeritText>
             <S.MainMerit>프로젝트를 하며 성장하기</S.MainMerit>
@@ -132,7 +115,7 @@ const Main = () => {
                 <S.TabTitle>
                   원하는 분야의 프로젝트를 빠르게 찾을 수 있도록
                 </S.TabTitle>
-                <S.TabImage src={card01} />
+                <S.TabImage src={card1} />
               </S.TabContent>
             </S.Tab>
             <S.Tab>
@@ -140,7 +123,7 @@ const Main = () => {
                 <S.TabTitle>
                   원하는 분위기의 프로젝트 팀을 찾을 수 있도록
                 </S.TabTitle>
-                <S.TabImage src={card02} />
+                <S.TabImage src={card2} />
               </S.TabContent>
             </S.Tab>
             <S.Tab>
@@ -148,11 +131,11 @@ const Main = () => {
                 <S.TabTitle>
                   협업으로 내 실력을 더 높이 끌어올릴 수 있도록
                 </S.TabTitle>
-                <S.TabImage src={card03} />
+                <S.TabImage src={card3} />
               </S.TabContent>
             </S.Tab>
           </S.Tabs>
-          <S.Login onClick={handleModalOpen}>쪼잉 로그인 하러가기</S.Login>
+          <S.Login onClick={handleStartButton}>쪼잉 로그인 하러가기</S.Login>
         </S.HelpContent>
       </S.Help>
     </Layout>

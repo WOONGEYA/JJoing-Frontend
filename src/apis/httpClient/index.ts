@@ -29,6 +29,8 @@ instance.interceptors.response.use(
   },
 
   (error) => {
+    if (error === undefined) return;
+
     const { status } = error.response;
 
     const getUpdatedAccessToken = async () => {
