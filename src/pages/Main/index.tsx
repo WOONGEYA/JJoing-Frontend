@@ -1,13 +1,7 @@
 import Layout from 'components/Layout';
-import MainCover from 'assets/pngs/MainCover.png';
-import tab01 from 'assets/pngs/tab01.png';
-import tab02 from 'assets/pngs/tab02.png';
-import tab03 from 'assets/pngs/tab03.png';
-import card01 from 'assets/pngs/card01.png';
-import card02 from 'assets/pngs/card02.png';
-import card03 from 'assets/pngs/card03.png';
-import useModal from 'hooks/useModal';
+import { MainCover, tab1, tab2, tab3, card1, card2, card3 } from 'assets/png';
 import LoginModal from 'components/LoginModal';
+import useModal from 'hooks/useModal';
 import * as S from './style';
 
 const Main = () => {
@@ -48,7 +42,7 @@ const Main = () => {
               <S.Number>2</S.Number>
               <S.Number>3</S.Number>
             </S.Page>
-            <S.Image src={tab01} />
+            <S.Image src={tab1} />
           </S.MeritImage>
           <S.MeritText>
             <S.MainMerit>프로젝트 찾기 / 만들기</S.MainMerit>
@@ -74,7 +68,7 @@ const Main = () => {
             </S.MeritText>
           </S.MeritImage>
           <S.MeritText>
-            <S.Image src={tab02} />
+            <S.Image src={tab2} />
           </S.MeritText>
         </S.MeritContainer>
         <S.MeritContainer>
@@ -84,7 +78,7 @@ const Main = () => {
               <S.Number>2</S.Number>
               <S.Number $active='true'>3</S.Number>
             </S.Page>
-            <S.Image src={tab03} />
+            <S.Image src={tab3} />
           </S.MeritImage>
           <S.MeritText>
             <S.MainMerit>프로젝트를 하며 성장하기</S.MainMerit>
@@ -104,7 +98,7 @@ const Main = () => {
                 <S.TabTitle>
                   원하는 분야의 프로젝트를 빠르게 찾을 수 있도록
                 </S.TabTitle>
-                <S.TabImage src={card01} />
+                <S.TabImage src={card1} />
               </S.TabContent>
             </S.Tab>
             <S.Tab>
@@ -112,7 +106,7 @@ const Main = () => {
                 <S.TabTitle>
                   원하는 분위기의 프로젝트 팀을 찾을 수 있도록
                 </S.TabTitle>
-                <S.TabImage src={card02} />
+                <S.TabImage src={card2} />
               </S.TabContent>
             </S.Tab>
             <S.Tab>
@@ -120,7 +114,7 @@ const Main = () => {
                 <S.TabTitle>
                   협업으로 내 실력을 더 높이 끌어올릴 수 있도록
                 </S.TabTitle>
-                <S.TabImage src={card03} />
+                <S.TabImage src={card3} />
               </S.TabContent>
             </S.Tab>
           </S.Tabs>
