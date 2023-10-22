@@ -30,24 +30,6 @@ const ProjectBox = ({
 }: ProjectBoxPropsType) => {
   const navigate = useNavigate();
 
-  const [likes] = useState(likeCount);
-
-  useEffect(() => {
-    const fetchLikeStatus = async () => {
-      try {
-        const response = await instance.get(`/like/${id}/liker`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        });
-      } catch (error) {
-        console.log('좋아요 가져오기 실패');
-      }
-    };
-
-    fetchLikeStatus();
-  }, [id]);
-
   const goToDetail = () => {
     navigate(`/detail/${id}`);
   };
@@ -76,8 +58,7 @@ const ProjectBox = ({
             filled={likeState}
             style={{ cursor: 'pointer' }}
           />
-
-          <span>{likes}</span>
+          <span>{likeCount}</span>
         </S.HeartCount>
       </S.Footer>
     </S.Container>
