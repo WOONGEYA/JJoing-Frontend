@@ -3,7 +3,7 @@ import BellIcon from 'assets/BellIcon';
 import LogoIcon from 'assets/LogoIcon';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { accessGoogle, userKey } from 'apis/recoil';
+import { accessGoogle } from 'apis/recoil';
 import { FORM_URL, OAUTH_URL } from 'constants/config';
 import instance from 'apis/httpClient';
 import * as S from './style';
@@ -16,8 +16,7 @@ const Header = () => {
   const [isOpened, setIsOpened] = React.useState<boolean>(false);
   const [img, setImg] = useRecoilState(accessGoogle);
   const { openModal, closeModal } = useModal();
-  const [user, setUser] = useRecoilState(userKey);
-  const [alaramCount, setAlaramCount] = React.useState(0);
+  const [notificationCount, setNotificationCount] = React.useState(0);
 
   const modalOpen = () => {
     openModal({
@@ -31,14 +30,13 @@ const Header = () => {
 
       if (accessToken) {
         try {
-          const response = await instance.get('/user', {
+          const { data } = await instance.get('/user', {
             headers: {
               Authorization: accessToken,
             },
           });
 
-          setUser(response.data.id);
-          setImg(response.data.imgUrl);
+          setImg(data.imgUrl);
         } catch (error) {
           console.error('Error fetching user data:', error);
         }
@@ -59,16 +57,23 @@ const Header = () => {
   };
 
   useEffect(() => {
-    instance
-      .get('/notification/count', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-      .then((res) => {
-        setAlaramCount(res.data);
-      });
-  }, [alaramCount]);
+    const getNotificationCount = async () => {
+      const accessToken = localStorage.getItem('accessToken');
+
+      if (accessToken) {
+        const { data } = await instance.get('/notification/count', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+
+        setNotificationCount(data);
+      }
+    };
+
+    getNotificationCount();
+  }, [notificationCount]);
+
   return (
     <S.HeaderContainer>
       <S.HeaderWrapper>
@@ -92,7 +97,7 @@ const Header = () => {
                 <S.BellContainer>
                   <BellIcon cursor='pointer' />
                   <S.BellCount>
-                    {alaramCount > 0 ? alaramCount : ''}
+                    {notificationCount > 0 ? notificationCount : ''}
                   </S.BellCount>
                 </S.BellContainer>
               </Link>
