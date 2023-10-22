@@ -2,8 +2,6 @@ import * as S from './style';
 import Member from 'assets/MemberIcon';
 import LikeIcon from 'assets/LikeIcon';
 import { useNavigate } from 'react-router-dom';
-import instance from 'apis/httpClient';
-import { useEffect, useState } from 'react';
 import theme from 'styles/theme';
 
 interface ProjectBoxPropsType {

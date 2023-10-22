@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import BellIcon from 'assets/BellIcon';
 import LogoIcon from 'assets/LogoIcon';
 import { Link, useNavigate } from 'react-router-dom';

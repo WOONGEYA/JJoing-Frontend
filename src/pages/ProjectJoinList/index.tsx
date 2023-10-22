@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import * as S from './style';
 import instance from 'apis/httpClient';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useModal from 'hooks/useModal';
 import ShowJJoingPerson from 'components/ShowJJoingPerson';
 import Header from 'components/Header';
