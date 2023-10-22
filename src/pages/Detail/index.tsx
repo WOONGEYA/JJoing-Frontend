@@ -131,15 +131,18 @@ const Detail = () => {
   };
 
   useEffect(() => {
-    instance
-      .get(`/like/check/${id}/project`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-      .then((res) => {
-        setIsEnd(res.data);
-      });
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      instance
+        .get(`/like/check/${id}/project`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        })
+        .then((res) => {
+          setIsEnd(res.data);
+        });
+    }
   }, []);
 
   const [isTrue, setIsTrue] = useState(false);
