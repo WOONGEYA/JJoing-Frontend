@@ -59,11 +59,10 @@ export const Description = styled.p`
 
 export const Footer = styled.div`
   padding: 8px 16px;
-  width: calc(100% - 32px);
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  align-items: center;
+  align-self: stretch;
   border-top: 1px solid ${theme.grey[400]};
 `;
 
@@ -82,7 +81,7 @@ export const InfoContainer = styled.div`
 export const MemberCount = styled.div`
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
 `;
 
 export const ImageContainer = styled.div`
@@ -97,7 +96,7 @@ export const ImageContainer = styled.div`
 export const HeartCount = styled.div`
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 8px;
 `;
 
 export const Like = styled.div`
