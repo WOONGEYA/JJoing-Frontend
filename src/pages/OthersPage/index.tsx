@@ -8,6 +8,7 @@ import { Link, useParams } from 'react-router-dom';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import instance from 'apis/httpClient';
+import Button from 'components/Button';
 
 interface UserProfile {
   statusMessage: string;
@@ -132,14 +133,10 @@ const MyPage = () => {
                 </S.UserImage>
                 <S.UserData>
                   <div>
-                    <S.UserName>
-                      {userProfile?.name}
-                      {userProfile?.nickName ? (
-                        <S.UserNickName>{userProfile?.nickName}</S.UserNickName>
-                      ) : (
-                        <S.UserNickName>(닉네임을 추가해주세요)</S.UserNickName>
-                      )}
-                    </S.UserName>
+                    <S.Names>
+                      <S.UserName>{userProfile?.nickName}</S.UserName>
+                      <S.UserNickName>{userProfile?.name}</S.UserNickName>
+                    </S.Names>
                     <S.UserPosition>
                       {userProfile?.school} /{' '}
                       {userProfile?.major
@@ -147,13 +144,15 @@ const MyPage = () => {
                         : '(분야 정보 없음)'}
                     </S.UserPosition>
                   </div>
+                  <S.Follow></S.Follow>
                   <S.StatusMessage>
-                    {userProfile?.statusMessage
-                      ? userProfile?.statusMessage
-                      : ''}
+                    {userProfile?.statusMessage}
                   </S.StatusMessage>
                 </S.UserData>
               </S.UserWrapper>
+              <S.ButtonContainer>
+                <Button value='팔로우' />
+              </S.ButtonContainer>
             </S.UserInformation>
             <S.UserLinks>
               <Link to={String(userProfile?.githubUrl)}>
