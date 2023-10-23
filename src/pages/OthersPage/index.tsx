@@ -194,6 +194,8 @@ const MyPage = () => {
 
   const checkIsMyFollower = async () => {
     const myFollowerList = await getMyFollowerList();
+    console.log(myFollowerList);
+    console.log(id);
     const isMyFollower = myFollowerList.some(
       (follower: FollowList) => follower.id + 1 === parseInt(id),
     );
