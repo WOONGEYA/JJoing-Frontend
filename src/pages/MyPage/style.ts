@@ -89,6 +89,7 @@ export const ButtonContainer = styled.div`
   width: 152px;
   display: flex;
   flex-direction: column;
+  gap: 12px;
 `;
 
 export const Search = styled.div`
