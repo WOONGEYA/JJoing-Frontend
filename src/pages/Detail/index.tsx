@@ -90,8 +90,20 @@ const Detail = () => {
     getProjectMember();
   }, [id]);
 
-  const goOthersPage = (userId: number) => {
-    navigate(`/others/${userId}`);
+  const getUserId = async () => {
+    const { data } = await instance.get('/user', {
+      headers: { Authorization: localStorage.getItem('accessToken') },
+    });
+    return data.id;
+  };
+
+  const goOthersPage = async (userId: number) => {
+    const id = await getUserId();
+    if (userId === id) {
+      navigate('/mypage');
+    } else {
+      navigate(`/others/${userId}`);
+    }
   };
 
   const addHeart = () => {
