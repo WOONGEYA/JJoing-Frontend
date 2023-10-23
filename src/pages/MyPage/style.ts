@@ -20,10 +20,7 @@ export const Projects = styled.div`
 
 export const UserLinks = styled.div`
   display: flex;
-  padding: 0px 12px;
-  padding-top: 12px;
   gap: 12px;
-  border-top: 1px solid ${theme.grey[500]};
 `;
 
 export const UserContainer = styled.div`

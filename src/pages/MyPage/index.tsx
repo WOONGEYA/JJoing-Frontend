@@ -203,22 +203,22 @@ const MyPage = () => {
               </S.UserWrapper>
               <S.ButtonContainer>
                 <Button value='프로필 편집하기' onClick={modalOpen} />
+                <S.UserLinks>
+                  <Link to={String(userProfile?.githubUrl)}>
+                    <GithubIcon />
+                  </Link>
+                  <Tooltip
+                    value={String(userProfile?.email)}
+                    onClick={() => copyTooltipText(String(userProfile?.email))}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <Link to={`mailto:${String(userProfile?.email)}`}>
+                      <EmailIcon />
+                    </Link>
+                  </Tooltip>
+                </S.UserLinks>
               </S.ButtonContainer>
             </S.UserInformation>
-            <S.UserLinks>
-              <Link to={String(userProfile?.githubUrl)}>
-                <GithubIcon />
-              </Link>
-              <Tooltip
-                value={String(userProfile?.email)}
-                onClick={() => copyTooltipText(String(userProfile?.email))}
-                style={{ cursor: 'pointer' }}
-              >
-                <Link to={`mailto:${String(userProfile?.email)}`}>
-                  <EmailIcon />
-                </Link>
-              </Tooltip>
-            </S.UserLinks>
           </S.UserContainer>
           <S.TabContainer>
             <S.TabWrapper>
