@@ -9,6 +9,7 @@ import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import instance from 'apis/httpClient';
 import Button from 'components/Button';
+import theme from 'styles/theme';
 
 interface UserProfile {
   statusMessage: string;
@@ -34,6 +35,11 @@ interface Project {
   likeState: boolean;
 }
 
+interface FollowInfo {
+  followCount: number;
+  followingCount: number;
+}
+
 const MyPage = () => {
   const { id } = useParams();
   const [selected, setSelected] = React.useState(0);
@@ -47,6 +53,11 @@ const MyPage = () => {
     null,
   );
   const [userInput, setUserInput] = React.useState<string>('');
+  const [followInfo, setFollowInfo] = React.useState<FollowInfo>({
+    followCount: 0,
+    followingCount: 0,
+  });
+  const [followState, setFollowState] = React.useState(false);
 
   const handleTabSelect = (e: React.MouseEvent<HTMLDivElement>) => {
     const id = parseInt(e.currentTarget.id);
@@ -121,6 +132,36 @@ const MyPage = () => {
       })
     : [];
 
+  const getFollowingCount = async () => {
+    const { data } = await instance.get(`/follow/${id}/following/count`);
+    return data;
+  };
+
+  const getFollowCount = async () => {
+    const { data } = await instance.get(`/follow/${id}/follower/count`);
+    return data;
+  };
+
+  const updateFollowInfo = async () => {
+    const followCount = await getFollowCount();
+    const followingCount = await getFollowingCount();
+    setFollowInfo({ followCount, followingCount });
+  };
+
+  React.useEffect(() => {
+    updateFollowInfo();
+  }, []);
+
+  const followUser = async () => {
+    await instance.post(`/follow/${id}`);
+    setFollowState(true);
+  };
+
+  const unfollowUser = async () => {
+    await instance.delete(`/follow/${id}`);
+    setFollowState(false);
+  };
+
   return (
     <Layout>
       <S.Contents>
@@ -144,14 +185,21 @@ const MyPage = () => {
                         : '(분야 정보 없음)'}
                     </S.UserPosition>
                   </div>
-                  <S.Follow></S.Follow>
+                  <S.Follow>
+                    팔로우 {followInfo?.followCount} 팔로잉{' '}
+                    {followInfo?.followingCount}
+                  </S.Follow>
                   <S.StatusMessage>
                     {userProfile?.statusMessage}
                   </S.StatusMessage>
                 </S.UserData>
               </S.UserWrapper>
               <S.ButtonContainer>
-                <Button value='팔로우' />
+                <Button
+                  value={followState ? '팔로우 취소하기' : '팔로우'}
+                  onClick={followState ? unfollowUser : followUser}
+                  background={followState ? theme.grey[500] : theme.primary}
+                />
               </S.ButtonContainer>
             </S.UserInformation>
             <S.UserLinks>
