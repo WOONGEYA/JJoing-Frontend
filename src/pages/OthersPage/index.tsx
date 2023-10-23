@@ -200,22 +200,22 @@ const MyPage = () => {
                   onClick={followState ? unfollowUser : followUser}
                   background={followState ? theme.grey[500] : theme.primary}
                 />
+                <S.UserLinks>
+                  <Link to={String(userProfile?.githubUrl)}>
+                    <GithubIcon />
+                  </Link>
+                  <Tooltip
+                    value={String(userProfile?.email)}
+                    onClick={() => copyTooltipText(String(userProfile?.email))}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <Link to={`mailto:${String(userProfile?.email)}`}>
+                      <EmailIcon />
+                    </Link>
+                  </Tooltip>
+                </S.UserLinks>
               </S.ButtonContainer>
             </S.UserInformation>
-            <S.UserLinks>
-              <Link to={String(userProfile?.githubUrl)}>
-                <GithubIcon />
-              </Link>
-              <Tooltip
-                value={String(userProfile?.email)}
-                onClick={() => copyTooltipText(String(userProfile?.email))}
-                style={{ cursor: 'pointer' }}
-              >
-                <Link to={`mailto:${String(userProfile?.email)}`}>
-                  <EmailIcon />
-                </Link>
-              </Tooltip>
-            </S.UserLinks>
           </S.UserContainer>
           <S.TabContainer>
             <S.TabWrapper>
