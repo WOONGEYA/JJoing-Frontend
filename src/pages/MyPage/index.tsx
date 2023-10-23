@@ -191,7 +191,7 @@ const MyPage = () => {
                     </S.UserPosition>
                   </div>
                   <S.Follow>
-                    팔로우 {followInfo?.followCount} 팔로잉{' '}
+                    팔로우 {followInfo?.followCount} 팔로워{' '}
                     {followInfo?.followingCount}
                   </S.Follow>
                   <S.StatusMessage>

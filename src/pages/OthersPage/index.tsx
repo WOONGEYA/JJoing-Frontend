@@ -40,8 +40,13 @@ interface FollowInfo {
   followingCount: number;
 }
 
+interface FollowList {
+  id: number;
+  name: string;
+}
+
 const MyPage = () => {
-  const { id } = useParams();
+  const { id } = useParams() as { id: string };
   const [selected, setSelected] = React.useState(0);
   const [othersProject, setOthersProject] = React.useState<Project[] | null>(
     [],
@@ -174,6 +179,31 @@ const MyPage = () => {
     setFollowState(false);
   };
 
+  const getUserId = async () => {
+    const { data } = await instance.get('/user', {
+      headers: { Authorization: localStorage.getItem('accessToken') },
+    });
+    return data.id;
+  };
+
+  const getMyFollowerList = async () => {
+    const id = await getUserId();
+    const { data } = await instance.get(`/follow/${id}/follower`);
+    return data;
+  };
+
+  const checkIsMyFollower = async () => {
+    const myFollowerList = await getMyFollowerList();
+    const isMyFollower = myFollowerList.some(
+      (follower: FollowList) => follower.id === parseInt(id),
+    );
+    setFollowState(isMyFollower);
+  };
+
+  React.useEffect(() => {
+    checkIsMyFollower();
+  }, []);
+
   return (
     <Layout>
       <S.Contents>
@@ -198,7 +228,7 @@ const MyPage = () => {
                     </S.UserPosition>
                   </div>
                   <S.Follow>
-                    팔로우 {followInfo?.followCount} 팔로잉{' '}
+                    팔로우 {followInfo?.followCount} 팔로워{' '}
                     {followInfo?.followingCount}
                   </S.Follow>
                   <S.StatusMessage>
