@@ -197,6 +197,7 @@ const MyPage = () => {
     const isMyFollower = myFollowerList.some(
       (follower: FollowList) => follower.id === parseInt(id),
     );
+    console.log(isMyFollower);
     setFollowState(isMyFollower);
   };
 
