@@ -154,11 +154,23 @@ const MyPage = () => {
 
   const followUser = async () => {
     await instance.post(`/follow/${id}`);
+    setFollowInfo((prev) => {
+      return {
+        ...prev,
+        followingCount: prev.followingCount + 1,
+      };
+    });
     setFollowState(true);
   };
 
   const unfollowUser = async () => {
     await instance.delete(`/follow/${id}`);
+    setFollowInfo((prev) => {
+      return {
+        ...prev,
+        followingCount: prev.followingCount - 1,
+      };
+    });
     setFollowState(false);
   };
 
