@@ -10,7 +10,7 @@ import Layout from 'components/Layout';
 import CalendarIcon from 'assets/CalendarIcon';
 import Tag from 'components/Tag';
 import * as S from './style';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import GenerateModalEdit from 'components/GenerateModalEdit';
 import { toast } from 'react-toastify';
@@ -90,20 +90,8 @@ const Detail = () => {
     getProjectMember();
   }, [id]);
 
-  const getUserId = async () => {
-    const { data } = await instance.get('/user', {
-      headers: { Authorization: localStorage.getItem('accessToken') },
-    });
-    return data.id;
-  };
-
-  const goOthersPage = async (userId: number) => {
-    const id = await getUserId();
-    if (userId === id) {
-      navigate('/mypage');
-    } else {
-      navigate(`/others/${userId}`);
-    }
+  const goOthersPage = (userId: number) => {
+    navigate(`/others/${userId}`);
   };
 
   const addHeart = () => {
@@ -143,18 +131,15 @@ const Detail = () => {
   };
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) {
-      instance
-        .get(`/like/check/${id}/project`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then((res) => {
-          setIsEnd(res.data);
-        });
-    }
+    instance
+      .get(`/like/check/${id}/project`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+      .then((res) => {
+        setIsEnd(res.data);
+      });
   }, []);
 
   const [isTrue, setIsTrue] = useState(false);
@@ -257,31 +242,23 @@ const Detail = () => {
                     <S.Button color={theme.primary} onClick={seeJjoingList}>
                       신청목록 확인하기
                     </S.Button>
-                    {userInfo?.state === 'FINDING' ? (
-                      <S.Button
-                        color={theme.secondary}
-                        cursor={'pointer'}
-                        onClick={EndProject}
-                      >
-                        모집 마감하기
-                      </S.Button>
-                    ) : (
-                      <S.Button color={theme.grey[600]} cursor={'default'}>
-                        마감된 프로젝트입니다
-                      </S.Button>
-                    )}
+                    <S.Button
+                      color={
+                        userInfo?.state === 'FOUND'
+                          ? theme.grey[600]
+                          : theme.secondary
+                      }
+                      onClick={EndProject}
+                      cursor={userInfo?.state === 'FOUND' ? 'default' : ''}
+                    >
+                      모집 마감하기
+                    </S.Button>
                   </>
                 ) : (
                   <>
                     {userInfo?.state === 'FOUND' ? (
                       <S.Button color={theme.grey[600]} cursor='default'>
                         모집이 마감되었습니다
-                      </S.Button>
-                    ) : projectUsers
-                        .map((data) => data.userId)
-                        .includes(userId) ? (
-                      <S.Button color={theme.grey[600]} cursor='default'>
-                        이미 참여중인 프로젝트입니다
                       </S.Button>
                     ) : (
                       <S.Button color={theme.primary} onClick={JJoingNow}>
