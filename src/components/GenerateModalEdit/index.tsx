@@ -343,7 +343,7 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
                         width: '15px',
                         height: '15px',
                       }}
-                      onClick={() => deleteCoops(index)}
+                      onClick={() => deleteSkills(index)}
                     />
                   </S.Tag>
                 ))}
