@@ -248,10 +248,16 @@ const Detail = () => {
                           ? theme.grey[600]
                           : theme.secondary
                       }
-                      onClick={EndProject}
+                      onClick={() => {
+                        if (userInfo?.state !== 'FOUND') {
+                          EndProject();
+                        }
+                      }}
                       cursor={userInfo?.state === 'FOUND' ? 'default' : ''}
                     >
-                      모집 마감하기
+                      {userInfo?.state === 'FOUND'
+                        ? '모집이 마감되었습니다'
+                        : '모집 마감하기'}
                     </S.Button>
                   </>
                 ) : (
