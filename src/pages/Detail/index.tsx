@@ -167,6 +167,7 @@ const Detail = () => {
   };
 
   const userId = useRecoilValue(userKey);
+
   return (
     <Layout>
       <S.Contents>
