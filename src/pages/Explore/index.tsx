@@ -90,7 +90,6 @@ const Explore = () => {
   return (
     <Layout>
       <S.Contents>
-        <S.Banner />
         <S.FilterContainer>
           <S.Filter>
             {dropdownOptions2.map((option) => (
