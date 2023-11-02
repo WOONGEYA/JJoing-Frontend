@@ -34,7 +34,7 @@ export const NotifiAmount = styled.span`
 `;
 
 export const DeleteNotifi = styled.button`
-  width: 155px;
+  min-width: 160px;
   height: 38px;
   color: ${theme.grey[800]};
   ${font.$callout};
