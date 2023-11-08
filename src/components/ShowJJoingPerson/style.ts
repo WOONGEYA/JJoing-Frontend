@@ -78,7 +78,7 @@ export const Button = styled.div<ButtonProps>`
 `;
 
 export const Description = styled.textarea`
-  width: 500px;
+  width: 100%;
   height: 80px;
   resize: none;
   ${shadow.shadow2};
@@ -94,7 +94,7 @@ export const GoProfileText = styled.div`
 
 export const Container = styled.div`
   margin: 0 auto;
-  width: 500px;
+  width: 100%;
   height: 92px;
   border-radius: 4px;
   ${shadow.shadow2};
