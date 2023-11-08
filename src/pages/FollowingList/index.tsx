@@ -48,7 +48,7 @@ const FollowingrList = ({ closeModal, id }: ProfileUpdateModalProps) => {
       <S.ScrollContainer>
         {filteredFollower && filteredFollower.length > 0 ? (
           filteredFollower.map((person: IFollower) => (
-            <FollowPeople key={person.id} {...person} />
+            <FollowPeople key={person.id} {...person} closeModal={closeModal} />
           ))
         ) : (
           <S.Icon>검색 결과가 없습니다.</S.Icon>

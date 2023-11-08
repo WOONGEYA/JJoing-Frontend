@@ -5,14 +5,14 @@ import Layout from 'components/Layout';
 import useModal from 'hooks/useModal';
 import ProjectBox from 'components/ProjectBox';
 import * as S from './style';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import instance from 'apis/httpClient';
 import ProfileUpdateModal from 'components/ProfileUpdateModal';
-import { useRecoilValue } from 'recoil';
-import { userKey } from 'apis/recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { gotoUserProfile, gotoUserProfileId, userKey } from 'apis/recoil';
 import FollowerList from 'pages/FollowerList';
 import FollowingrList from 'pages/FollowingList';
 
@@ -176,6 +176,16 @@ const MyPage = () => {
   React.useEffect(() => {
     updateFollowInfo();
   }, []);
+
+  const [gotoUser, setGoToUser] = useRecoilState(gotoUserProfile);
+  const gotoUserId = useRecoilValue(gotoUserProfileId);
+
+  const router = useNavigate();
+
+  if (gotoUser) {
+    router(`/others/${gotoUserId}`);
+    setGoToUser(false);
+  }
 
   return (
     <Layout>

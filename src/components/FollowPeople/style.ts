@@ -20,3 +20,23 @@ export const Container = styled.div`
     margin-top: 5.5rem;
   }
 `;
+
+export const ImgWrapper = styled.img`
+  width: 15%;
+  height: 60px;
+  border-radius: 3px;
+`;
+
+export const UserInfoContainer = styled.div`
+  width: 250px;
+  height: 50px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+`;
+
+export const UserInfo = styled.div`
+  color: ${theme.grey[600]};
+  ${font.$subhead}
+`;

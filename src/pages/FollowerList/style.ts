@@ -73,3 +73,11 @@ export const TopWrapper = styled.div`
   z-index: 3;
   margin: 0 auto;
 `;
+
+export const Icon = styled.div`
+  width: 100%;
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
