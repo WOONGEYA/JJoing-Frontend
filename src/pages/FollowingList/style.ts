@@ -5,7 +5,7 @@ import theme from 'styles/theme';
 
 export const Container = styled.div`
   min-width: 450px;
-  height: 480px;
+  height: 450px;
   background-color: white;
   border-radius: 10px;
   padding: 20px;
@@ -58,7 +58,6 @@ export const ScrollContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding-bottom: 5rem;
 `;
 
 export const InputWrapper = styled.div`
