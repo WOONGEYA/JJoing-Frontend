@@ -46,7 +46,7 @@ interface FollowInfo {
 }
 
 interface FollowList {
-  id: number;
+  id: string;
   name: string;
 }
 
@@ -206,7 +206,7 @@ const MyPage = () => {
   const checkIsMyFollower = async () => {
     const myFollowerList = await getMyFollowerList();
     const isMyFollower = myFollowerList.some(
-      (follower: FollowList) => follower.id === parseInt(id),
+      (follower: FollowList) => Number(follower.id) === parseInt(id),
     );
     setFollowState(isMyFollower);
   };

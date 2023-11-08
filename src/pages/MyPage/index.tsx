@@ -11,11 +11,10 @@ import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import instance from 'apis/httpClient';
 import ProfileUpdateModal from 'components/ProfileUpdateModal';
-import { useQuery } from 'react-query';
-import { followList } from 'apis/api';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
-import FollowerList from 'components/FollowerList';
+import FollowerList from 'pages/FollowerList';
+import FollowingrList from 'pages/FollowingList';
 
 interface UserProfile {
   statusMessage: string;
@@ -67,6 +66,8 @@ const MyPage = () => {
     navigator.clipboard.writeText(text).then(() => alert('복사 완료'));
   };
 
+  const id = useRecoilValue(userKey);
+
   const modalOpen = () => {
     openModal({
       component: <ProfileUpdateModal closeModal={closeModal} />,
@@ -75,13 +76,13 @@ const MyPage = () => {
 
   const followerList = () => {
     openModal({
-      component: <FollowerList closeModal={closeModal} />,
+      component: <FollowerList closeModal={closeModal} id={id} />,
     });
   };
 
   const followingList = () => {
     openModal({
-      component: <FollowerList closeModal={closeModal} />,
+      component: <FollowingrList closeModal={closeModal} id={id} />,
     });
   };
 
@@ -176,14 +177,6 @@ const MyPage = () => {
     updateFollowInfo();
   }, []);
 
-  const id = useRecoilValue(userKey);
-  const { data } = useQuery({
-    queryKey: ['userFollow', id],
-    queryFn: () => followList(id),
-  });
-
-  console.log('이상진', data);
-
   return (
     <Layout>
       <S.Contents>
@@ -220,7 +213,7 @@ const MyPage = () => {
                       팔로워 {followInfo?.followingCount}
                     </S.CountFollow>
                     <S.FowllowGap>
-                      <S.CountFollow onClick={followerList}>
+                      <S.CountFollow onClick={followingList}>
                         팔로우 {followInfo?.followCount}
                       </S.CountFollow>
                     </S.FowllowGap>

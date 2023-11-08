@@ -1,3 +1,4 @@
+import { Bottom } from './../../components/Footer/style';
 import { styled } from 'styled-components';
 import { font } from 'styles/font';
 import theme from 'styles/theme';
@@ -8,12 +9,28 @@ export const Container = styled.div`
   background-color: white;
   border-radius: 10px;
   padding: 20px;
+  overflow: scroll;
 `;
 
 export const TitleContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+`;
+
+export const TitleContainer2 = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  background-color: white;
+`;
+
+export const Search = styled.div`
+  display: flex;
   justify-content: space-between;
 `;
 
@@ -36,6 +53,23 @@ export const Content = styled.div`
 `;
 
 export const ScrollContainer = styled.div`
-  width: 100%;
-  background-color: blue;
+  width: 98%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 5rem;
+`;
+
+export const InputWrapper = styled.div`
+  margin: 20px 0 20px 0;
+`;
+
+export const TopWrapper = styled.div`
+  position: fixed;
+  background-color: white;
+  padding-top: 20px;
+  top: 0;
+  z-index: 3;
+  margin: 0 auto;
 `;

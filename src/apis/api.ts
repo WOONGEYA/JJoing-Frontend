@@ -5,6 +5,11 @@ export const followList = async (id: number) => {
   return data;
 };
 
+export const followingList = async (id: number) => {
+  const { data } = await instance.get(`follow/${id}/following`);
+  return data;
+};
+
 export const userInfo = async (id: number) => {
   const { data } = await instance.get(`/user/${id}`);
   return data;
