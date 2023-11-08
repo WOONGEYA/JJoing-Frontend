@@ -14,6 +14,8 @@ import ProfileUpdateModal from 'components/ProfileUpdateModal';
 import useModal from 'hooks/useModal';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
+import FollowerList from 'pages/FollowerList';
+import FollowingrList from 'pages/FollowingList';
 
 interface UserProfile {
   id: number;
@@ -215,8 +217,21 @@ const MyPage = () => {
     checkIsMyFollower();
   }, []);
 
+  const newId = Number(id);
+
+  const followerList = () => {
+    openModal({
+      component: <FollowerList closeModal={closeModal} id={newId} />,
+    });
+  };
+
+  const followingList = () => {
+    openModal({
+      component: <FollowingrList closeModal={closeModal} id={newId} />,
+    });
+  };
+
   const userId = useRecoilValue(userKey);
-  console.log('userId', userId);
 
   return (
     <Layout>
@@ -242,9 +257,13 @@ const MyPage = () => {
                     </S.UserPosition>
                   </div>
                   <S.Follow>
-                    팔로워 {followInfo?.followingCount}
+                    <S.CountFollow onClick={followerList}>
+                      팔로워 {followInfo?.followingCount}
+                    </S.CountFollow>
                     <S.FowllowGap>
-                      팔로우 {followInfo?.followCount}
+                      <S.CountFollow onClick={followingList}>
+                        팔로우 {followInfo?.followCount}
+                      </S.CountFollow>
                     </S.FowllowGap>
                   </S.Follow>
                   <S.StatusMessage>
