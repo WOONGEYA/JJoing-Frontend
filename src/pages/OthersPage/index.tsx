@@ -10,8 +10,13 @@ import Input from 'components/Input';
 import instance from 'apis/httpClient';
 import Button from 'components/Button';
 import theme from 'styles/theme';
+import ProfileUpdateModal from 'components/ProfileUpdateModal';
+import useModal from 'hooks/useModal';
+import { useRecoilValue } from 'recoil';
+import { userKey } from 'apis/recoil';
 
 interface UserProfile {
+  id: number;
   statusMessage: string;
   nickName: string;
   githubUrl: string;
@@ -41,7 +46,7 @@ interface FollowInfo {
 }
 
 interface FollowList {
-  id: number;
+  id: string;
   name: string;
 }
 
@@ -54,9 +59,7 @@ const MyPage = () => {
   const [endOthersProject, setEndOthersProject] = React.useState<
     Project[] | null
   >();
-  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
-    null,
-  );
+  const [userProfile, setUserProfile] = React.useState<UserProfile>();
   const [userInput, setUserInput] = React.useState<string>('');
   const [followInfo, setFollowInfo] = React.useState<FollowInfo>({
     followCount: 0,
@@ -85,6 +88,14 @@ const MyPage = () => {
 
     fetchUserData();
   }, []);
+
+  const { openModal, closeModal } = useModal();
+
+  const modalOpen = () => {
+    openModal({
+      component: <ProfileUpdateModal closeModal={closeModal} />,
+    });
+  };
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -195,7 +206,7 @@ const MyPage = () => {
   const checkIsMyFollower = async () => {
     const myFollowerList = await getMyFollowerList();
     const isMyFollower = myFollowerList.some(
-      (follower: FollowList) => follower.id === parseInt(id),
+      (follower: FollowList) => Number(follower.id) === parseInt(id),
     );
     setFollowState(isMyFollower);
   };
@@ -203,6 +214,9 @@ const MyPage = () => {
   React.useEffect(() => {
     checkIsMyFollower();
   }, []);
+
+  const userId = useRecoilValue(userKey);
+  console.log('userId', userId);
 
   return (
     <Layout>
@@ -228,8 +242,10 @@ const MyPage = () => {
                     </S.UserPosition>
                   </div>
                   <S.Follow>
-                    팔로우 {followInfo?.followCount} 팔로워{' '}
-                    {followInfo?.followingCount}
+                    팔로워 {followInfo?.followingCount}
+                    <S.FowllowGap>
+                      팔로우 {followInfo?.followCount}
+                    </S.FowllowGap>
                   </S.Follow>
                   <S.StatusMessage>
                     {userProfile?.statusMessage}
@@ -237,25 +253,51 @@ const MyPage = () => {
                 </S.UserData>
               </S.UserWrapper>
               <S.ButtonContainer>
-                <Button
-                  value={followState ? '팔로우 취소하기' : '팔로우'}
-                  onClick={followState ? unfollowUser : followUser}
-                  background={followState ? theme.grey[500] : theme.primary}
-                />
-                <S.UserLinks>
-                  <Link to={String(userProfile?.githubUrl)}>
-                    <GithubIcon />
-                  </Link>
-                  <Tooltip
-                    value={String(userProfile?.email)}
-                    onClick={() => copyTooltipText(String(userProfile?.email))}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <Link to={`mailto:${String(userProfile?.email)}`}>
-                      <EmailIcon />
-                    </Link>
-                  </Tooltip>
-                </S.UserLinks>
+                {userId === userProfile?.id ? (
+                  <>
+                    <Button value='프로필 편집하기' onClick={modalOpen} />
+                    <S.UserLinks>
+                      <Link to={String(userProfile?.githubUrl)}>
+                        <GithubIcon />
+                      </Link>
+                      <Tooltip
+                        value={String(userProfile?.email)}
+                        onClick={() =>
+                          copyTooltipText(String(userProfile?.email))
+                        }
+                        style={{ cursor: 'pointer' }}
+                      >
+                        <Link to={`mailto:${String(userProfile?.email)}`}>
+                          <EmailIcon />
+                        </Link>
+                      </Tooltip>
+                    </S.UserLinks>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      value={followState ? '팔로우 취소하기' : '팔로우'}
+                      onClick={followState ? unfollowUser : followUser}
+                      background={followState ? theme.grey[500] : theme.primary}
+                    />
+                    <S.UserLinks>
+                      <Link to={String(userProfile?.githubUrl)}>
+                        <GithubIcon />
+                      </Link>
+                      <Tooltip
+                        value={String(userProfile?.email)}
+                        onClick={() =>
+                          copyTooltipText(String(userProfile?.email))
+                        }
+                        style={{ cursor: 'pointer' }}
+                      >
+                        <Link to={`mailto:${String(userProfile?.email)}`}>
+                          <EmailIcon />
+                        </Link>
+                      </Tooltip>
+                    </S.UserLinks>
+                  </>
+                )}
               </S.ButtonContainer>
             </S.UserInformation>
           </S.UserContainer>
@@ -284,20 +326,7 @@ const MyPage = () => {
               filteredProjects
                 .slice()
                 .sort((a, b) => b.id - a.id)
-                .map((data) => (
-                  <ProjectBox
-                    id={data.id}
-                    key={data.id}
-                    name={data.name}
-                    content={data.content}
-                    currentPeople={data.currentPeople}
-                    requiredPeople={data.requiredPeople}
-                    imgUrl={data.imgUrl}
-                    viewCount={data.viewCount}
-                    likeCount={data.likeCount}
-                    likeState={data.likeState}
-                  />
-                ))
+                .map((data) => <ProjectBox key={data.id} {...data} />)
             ) : selected === 0 ? (
               <S.NoContents>참여중인 프로젝트가 없습니다.</S.NoContents>
             ) : null}
@@ -305,20 +334,7 @@ const MyPage = () => {
               filteredEndProjects
                 .slice()
                 .sort((a, b) => b.id - a.id)
-                .map((data) => (
-                  <ProjectBox
-                    id={data.id}
-                    key={data.id}
-                    name={data.name}
-                    content={data.content}
-                    currentPeople={data.currentPeople}
-                    requiredPeople={data.requiredPeople}
-                    imgUrl={data.imgUrl}
-                    viewCount={data.viewCount}
-                    likeCount={data.likeCount}
-                    likeState={data.likeState}
-                  />
-                ))
+                .map((data) => <ProjectBox key={data.id} {...data} />)
             ) : selected === 1 ? (
               <S.NoContents>참여했던 프로젝트가 없습니다.</S.NoContents>
             ) : null}

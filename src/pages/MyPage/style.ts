@@ -148,3 +148,11 @@ export const Names = styled.div`
   gap: 12px;
   align-items: center;
 `;
+
+export const FowllowGap = styled.span`
+  margin-left: 0.5rem;
+`;
+
+export const CountFollow = styled.span`
+  cursor: pointer;
+`;

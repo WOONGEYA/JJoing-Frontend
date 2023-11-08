@@ -29,3 +29,13 @@ export const sortProject2 = atom({
   key: 'sortProject2',
   default: '',
 });
+
+export const gotoUserProfile = atom({
+  key: 'userProfile',
+  default: false,
+});
+
+export const gotoUserProfileId = atom({
+  key: 'userProfile',
+  default: 0,
+});

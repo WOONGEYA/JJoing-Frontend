@@ -5,12 +5,16 @@ import Layout from 'components/Layout';
 import useModal from 'hooks/useModal';
 import ProjectBox from 'components/ProjectBox';
 import * as S from './style';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import instance from 'apis/httpClient';
 import ProfileUpdateModal from 'components/ProfileUpdateModal';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { gotoUserProfile, gotoUserProfileId, userKey } from 'apis/recoil';
+import FollowerList from 'pages/FollowerList';
+import FollowingrList from 'pages/FollowingList';
 
 interface UserProfile {
   statusMessage: string;
@@ -62,9 +66,23 @@ const MyPage = () => {
     navigator.clipboard.writeText(text).then(() => alert('복사 완료'));
   };
 
+  const id = useRecoilValue(userKey);
+
   const modalOpen = () => {
     openModal({
       component: <ProfileUpdateModal closeModal={closeModal} />,
+    });
+  };
+
+  const followerList = () => {
+    openModal({
+      component: <FollowerList closeModal={closeModal} id={id} />,
+    });
+  };
+
+  const followingList = () => {
+    openModal({
+      component: <FollowingrList closeModal={closeModal} id={id} />,
     });
   };
 
@@ -159,6 +177,16 @@ const MyPage = () => {
     updateFollowInfo();
   }, []);
 
+  const [gotoUser, setGoToUser] = useRecoilState(gotoUserProfile);
+  const gotoUserId = useRecoilValue(gotoUserProfileId);
+
+  const router = useNavigate();
+
+  if (gotoUser) {
+    router(`/others/${gotoUserId}`);
+    setGoToUser(false);
+  }
+
   return (
     <Layout>
       <S.Contents>
@@ -191,8 +219,14 @@ const MyPage = () => {
                     </S.UserPosition>
                   </div>
                   <S.Follow>
-                    팔로우 {followInfo?.followCount} 팔로워{' '}
-                    {followInfo?.followingCount}
+                    <S.CountFollow onClick={followerList}>
+                      팔로워 {followInfo?.followingCount}
+                    </S.CountFollow>
+                    <S.FowllowGap>
+                      <S.CountFollow onClick={followingList}>
+                        팔로우 {followInfo?.followCount}
+                      </S.CountFollow>
+                    </S.FowllowGap>
                   </S.Follow>
                   <S.StatusMessage>
                     {userProfile?.statusMessage
