@@ -66,4 +66,22 @@ export const CommentWrapper = styled.div`
   min-height: 50px;
   padding-bottom: 25px;
   color: ${theme.grey[800]};
+  cursor: pointer;
+`;
+
+export const ButtonContainer = styled.div`
+  width: 52px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #38b57d;
+  cursor: pointer;
+  border-radius: 50%;
+`;
+
+export const MessageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 `;

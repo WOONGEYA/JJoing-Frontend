@@ -1,8 +1,8 @@
 import MessageInput from 'components/MessageInput';
 import * as S from './style';
-import SubmitArrowIcon from 'assets/SubmitArrowIcon.svg';
 import { useState } from 'react';
 import Comment from 'components/Comment';
+import SubmitArrow from 'assets/SubmitArrow';
 
 const MessageBox = () => {
   const [userInput, setUserInput] = useState('');
@@ -25,7 +25,11 @@ const MessageBox = () => {
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
         />
-        <S.SubmitBtn src={SubmitArrowIcon} alt='img' onClick={sendData} />
+        <S.ButtonContainer onClick={sendData}>
+          <div style={{ marginLeft: '7px' }}>
+            <SubmitArrow />
+          </div>
+        </S.ButtonContainer>
       </S.MessageContainer>
       <S.MessageList>
         {arr.map((data, i) => (
