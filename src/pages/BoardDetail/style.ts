@@ -139,7 +139,7 @@ export const Content = styled.div`
 export const MessageWrapper = styled.div`
   width: 100%;
   height: 30%;
-  padding: 2.5rem 0 2.5rem 0;
+  padding: 2.5rem 0 2rem 0;
 `;
 
 export const FlexBox = styled.div`

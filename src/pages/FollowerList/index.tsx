@@ -31,7 +31,7 @@ const FollowerList = ({ closeModal, id }: ProfileUpdateModalProps) => {
     <S.Container>
       <S.TopWrapper>
         <S.TitleContainer>
-          <S.Title>팔로우</S.Title>
+          <S.Title>팔로워</S.Title>
           <CloseIcon cursor='pointer' onClick={() => closeModal()} />
         </S.TitleContainer>
         <S.TitleContainer2>

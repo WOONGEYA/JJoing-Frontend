@@ -4,14 +4,15 @@ import theme from 'styles/theme';
 
 export const InputContainer = styled.div`
   display: flex;
-  padding: 15px 12px;
+  padding: 15px 20px;
   align-items: flex-start;
-  border-radius: 4px;
   background: ${theme.grey[100]};
   gap: 4px;
   align-items: center;
   ${font.$footnote}
   color: ${theme.grey[200]};
+  border: 1px solid ${theme.grey[200]};
+  border-radius: 30px;
 `;
 
 export const InputText = styled.input<{ type: string }>`

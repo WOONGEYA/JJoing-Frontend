@@ -16,9 +16,6 @@ const MessageInput = ({
   return (
     <S.InputContainer style={{ width, height }}>
       <S.InputText type={type} {...rest} />
-      {type === 'search' && (
-        <MessageArrowIcon color={theme.grey[500]} width={16} height={16} />
-      )}
     </S.InputContainer>
   );
 };
