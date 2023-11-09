@@ -4,6 +4,7 @@ import notifications from 'fixtures/notify.dummy';
 import EyeIcon from 'assets/EyeIcon';
 import MessageIcon from 'assets/MessageIcon';
 import { useNavigate } from 'react-router-dom';
+import theme from 'styles/theme';
 
 const Board = () => {
   console.log(notifications);
@@ -27,11 +28,11 @@ const Board = () => {
             </S.ProjectDetail>
             <S.Detail>
               <S.DetailBox>
-                <EyeIcon />
+                <EyeIcon color={theme.grey[600]} />
                 10234
               </S.DetailBox>
               <S.DetailBox>
-                <MessageIcon />
+                <MessageIcon color={theme.grey[600]} />
                 fds
               </S.DetailBox>
               <S.DetailDay>2023일 전</S.DetailDay>

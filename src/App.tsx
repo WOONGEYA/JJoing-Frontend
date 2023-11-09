@@ -14,6 +14,7 @@ import Notify from 'pages/Notify';
 import MyJJong from 'pages/MyJJong';
 import ProjectJoinList from 'pages/ProjectJoinList';
 import Board from 'pages/Board';
+import BoardDetail from 'pages/BoardDetail';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -56,6 +57,7 @@ const App = () => {
               />
               <Route path='/board' element={<Board />} />
               <Route path='*' element={<Navigate replace to='/' />} />
+              <Route path='/boards/:id' element={<BoardDetail />} />
             </Routes>
           </BrowserRouter>
         </QueryClientProvider>
