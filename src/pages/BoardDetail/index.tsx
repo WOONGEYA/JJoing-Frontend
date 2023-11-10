@@ -4,15 +4,53 @@ import EyeIcon from 'assets/EyeIcon';
 import MessageIcon from 'assets/MessageIcon';
 import theme from 'styles/theme';
 import MessageBox from 'components/MessageBox';
+import ArrowIcon from 'assets/ArrowIcon';
+import KebabIcon from 'assets/KebabIcon';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const BoardDetail = () => {
+  const router = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const EditProject = () => {
+    console.log('Edit');
+  };
+  const onDelete = () => {
+    console.log('Delete');
+  };
+
   return (
     <Layout>
+      <S.PrevPage>
+        <ArrowIcon
+          onClick={() => {
+            router(-1);
+          }}
+        />
+      </S.PrevPage>
       <S.FlexBox>
         <S.Container>
           <S.TextContainer>
             <S.TextBox>
-              <S.Title>대충제목이라는 뜻을 지어보았습니다</S.Title>
+              <S.TitleWrapper>
+                <S.Title>대충제목이라는 뜻을 지어보았습니다</S.Title>
+                <S.ModifyWrapper>
+                  <KebabIcon
+                    onClick={() => {
+                      setIsOpen(!isOpen);
+                    }}
+                  />
+                  {isOpen && (
+                    <S.DropdownContainer>
+                      <S.Options>
+                        <S.Option onClick={EditProject}>수정</S.Option>
+                        <S.Option onClick={onDelete}>삭제</S.Option>
+                      </S.Options>
+                    </S.DropdownContainer>
+                  )}
+                </S.ModifyWrapper>
+              </S.TitleWrapper>
               <S.UserInfoContainer>
                 <S.ProfileInfoContainer>
                   <S.ProfileImg></S.ProfileImg>

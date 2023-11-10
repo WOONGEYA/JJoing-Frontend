@@ -5,13 +5,33 @@ import EyeIcon from 'assets/EyeIcon';
 import MessageIcon from 'assets/MessageIcon';
 import { useNavigate } from 'react-router-dom';
 import theme from 'styles/theme';
+import Input from 'components/Input';
+import { useState } from 'react';
 
 const Board = () => {
-  console.log(notifications);
+  const [userInput, setUserInput] = useState('');
   const router = useNavigate();
+
   return (
     <Layout>
       <S.Container>
+        <S.WriteContainer>
+          <Input
+            type='search'
+            width={'45%'}
+            height={20}
+            placeholder='검색어를 입력해주세요.'
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+          />
+          <S.WriterButton
+            onClick={() => {
+              router('/createBoard');
+            }}
+          >
+            작성하기
+          </S.WriterButton>
+        </S.WriteContainer>
         {notifications.map((data, i) => (
           <S.BoardBoxContainer
             key={i}

@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const BoardBoxContainer = styled.div`
-  width: calc(100% - 40px);
+  width: calc(100% - 30px);
   height: 67px;
   background-color: white;
   border-radius: 12px;
@@ -51,4 +51,31 @@ export const DetailBox = styled.div`
 
 export const DetailDay = styled.div`
   color: ${theme.grey[600]};
+`;
+
+export const WriteContainer = styled.div`
+  width: 100%;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const WriterButton = styled.div`
+  display: inline-flex;
+  padding: 12px 20px;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background-color: ${theme.primary};
+  color: white;
+  &:hover {
+    transition: 0.2s ease-in-out;
+    background-color: ${theme.darkGreen};
+  }
+  &:active {
+    background-color: ${theme.darkGreen};
+    color: ${theme.grey[700]};
+  }
 `;

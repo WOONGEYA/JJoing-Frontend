@@ -11,7 +11,7 @@ export const InputContainer = styled.div`
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
   gap: 4px;
   align-items: center;
-  ${font.$footnote}
+  ${font.$footnote};
 `;
 
 export const InputText = styled.input<{ type: string }>`

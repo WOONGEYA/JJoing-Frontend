@@ -1,4 +1,6 @@
 const primary = '#38B57D';
+const darkGreen = '#268C5F';
+const darkGreen2 = '#1A6F49';
 const secondary = '#264466';
 const warning = '#F4493C';
 
@@ -26,4 +28,6 @@ export default {
   white,
   red,
   grey,
+  darkGreen,
+  darkGreen2,
 };

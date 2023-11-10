@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchIcon from 'assets/SearchIcon';
 import * as S from './style';
+import { font } from 'styles/font';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: string;
