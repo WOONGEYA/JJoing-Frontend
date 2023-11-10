@@ -1,16 +1,32 @@
 import Layout from 'components/Layout';
 import * as S from './style';
-import notifications from 'fixtures/notify.dummy';
 import EyeIcon from 'assets/EyeIcon';
 import MessageIcon from 'assets/MessageIcon';
 import { useNavigate } from 'react-router-dom';
 import theme from 'styles/theme';
 import Input from 'components/Input';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import { readBoard } from 'apis/api';
+import { IReadBoard } from 'type/IReadBoard';
+import { truncateText } from 'utils/truncateText';
+import { daysAgo } from 'utils/daysAgo';
 
 const Board = () => {
   const [userInput, setUserInput] = useState('');
+  const [projectDetail, setProjectDetail] = useState<IReadBoard[]>();
   const router = useNavigate();
+
+  const { data } = useQuery({
+    queryKey: ['readBoard'],
+    queryFn: readBoard,
+  });
+
+  useEffect(() => {
+    if (data) {
+      setProjectDetail(data.postResponses);
+    }
+  }, [data]);
 
   return (
     <Layout>
@@ -32,30 +48,46 @@ const Board = () => {
             작성하기
           </S.WriterButton>
         </S.WriteContainer>
-        {notifications.map((data, i) => (
-          <S.BoardBoxContainer
-            key={i}
-            onClick={() => {
-              router(`/boards/${i}`);
-            }}
-          >
+        {projectDetail?.map((data, i) => (
+          <S.BoardBoxContainer key={i}>
             <S.ProfileInfoContainer>
-              <div>{data.project}</div>
-              <div>{data.user}</div>
+              <S.Title
+                onClick={() => {
+                  router(`/boards/${i}`);
+                }}
+              >
+                {data.title}
+              </S.Title>
+              <S.UserProfile>
+                <S.ProfileImg
+                  src={data.userImg}
+                  alt='img'
+                  onClick={() => {
+                    router(`/others/${data.userId}`);
+                  }}
+                />
+                {data.userName}
+              </S.UserProfile>
             </S.ProfileInfoContainer>
             <S.ProjectDetail>
-              <S.DetailDay>{data.timestamp}</S.DetailDay>
+              <S.DetailDay>
+                {truncateText(String(data.content), 30)}
+              </S.DetailDay>
             </S.ProjectDetail>
             <S.Detail>
               <S.DetailBox>
                 <EyeIcon color={theme.grey[600]} />
-                10234
+                {Number(data.viewCount) < 1 ? 0 : data.viewCount}
               </S.DetailBox>
               <S.DetailBox>
                 <MessageIcon color={theme.grey[600]} />
                 fds
               </S.DetailBox>
-              <S.DetailDay>2023일 전</S.DetailDay>
+              <S.DetailDay>
+                {daysAgo(data.createTime) < 1
+                  ? '오늘'
+                  : daysAgo(data.createTime) + '일 전'}
+              </S.DetailDay>
             </S.Detail>
           </S.BoardBoxContainer>
         ))}

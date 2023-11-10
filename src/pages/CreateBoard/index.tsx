@@ -6,13 +6,16 @@ import Input from 'components/Input';
 import UploadIcon from 'assets/UploadIcon';
 import { useState } from 'react';
 import useImageUpload from 'hooks/useImageUpload';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { createBoard } from 'apis/api';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const CreateBoard = () => {
   const [name, setName] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const { imageUrl, handleImageChange } = useImageUpload();
+  const router = useNavigate();
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -30,12 +33,19 @@ const CreateBoard = () => {
     }
   };
 
+  const queryClient = useQueryClient();
+
   const { mutate } = useMutation({
     mutationFn: () => createBoard({ title: name, content, imgUrl: imageUrl }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['readBoard']);
+    },
   });
 
   const onSubmit = () => {
     mutate();
+    router('/board');
+    toast.success('게시글 작성이 완료되었습니다.');
   };
 
   return (

@@ -20,3 +20,8 @@ export const createBoard = async ({ title, content, imgUrl }: ICreateBoard) => {
   const { data } = await instance.post('/post', { title, content, imgUrl });
   return data;
 };
+
+export const readBoard = async () => {
+  const { data } = await instance.get('/post');
+  return data;
+};
