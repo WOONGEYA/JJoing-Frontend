@@ -24,7 +24,7 @@ const dropdownOptions2 = [
   },
 ];
 
-interface NewProject {
+export interface NewProject {
   id: number;
   name: string;
   content: string;

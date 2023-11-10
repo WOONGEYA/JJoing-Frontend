@@ -13,6 +13,9 @@ import Main from 'pages/Main';
 import Notify from 'pages/Notify';
 import MyJJong from 'pages/MyJJong';
 import ProjectJoinList from 'pages/ProjectJoinList';
+import Board from 'pages/Board';
+import BoardDetail from 'pages/BoardDetail';
+import CreateBoard from 'pages/CreateBoard';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -53,7 +56,10 @@ const App = () => {
                 path='/seeMyProjectJoing/:id'
                 element={<ProjectJoinList />}
               />
+              <Route path='/board' element={<Board />} />
               <Route path='*' element={<Navigate replace to='/' />} />
+              <Route path='/boards/:id' element={<BoardDetail />} />
+              <Route path='/createBoard' element={<CreateBoard />} />
             </Routes>
           </BrowserRouter>
         </QueryClientProvider>

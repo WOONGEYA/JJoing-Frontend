@@ -76,6 +76,8 @@ const Header = () => {
     getNotificationCount();
   }, [notificationCount]);
 
+  const router = useNavigate();
+
   return (
     <S.HeaderContainer>
       <S.HeaderWrapper>
@@ -87,9 +89,16 @@ const Header = () => {
             <S.MenuItem>프로젝트 목록</S.MenuItem>
           </Link>
           <S.MenuItem
+            onClick={() => {
+              router('/board');
+            }}
+          >
+            게시판
+          </S.MenuItem>
+          <S.MenuItem
             onClick={localStorage.accessToken ? modalOpen : loginAlert}
           >
-            새 프로젝트
+            새 프로젝트 생성
           </S.MenuItem>
         </S.MenuList>
         <S.ProfileContainer>

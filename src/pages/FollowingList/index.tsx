@@ -16,7 +16,6 @@ const FollowingrList = ({ closeModal, id }: ProfileUpdateModalProps) => {
     queryKey: ['userFollow', id],
     queryFn: () => followList(Number(id)),
   });
-  console.log('data', data);
 
   useEffect(() => {
     setPeople(data);

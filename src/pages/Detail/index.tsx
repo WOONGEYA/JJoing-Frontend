@@ -10,7 +10,7 @@ import Layout from 'components/Layout';
 import CalendarIcon from 'assets/CalendarIcon';
 import Tag from 'components/Tag';
 import * as S from './style';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import GenerateModalEdit from 'components/GenerateModalEdit';
 import { toast } from 'react-toastify';

@@ -25,11 +25,13 @@ const FollowerList = ({ closeModal, id }: ProfileUpdateModalProps) => {
     person.name.toLowerCase().includes(userInput.toLowerCase()),
   );
 
+  console.log('data', data);
+
   return (
     <S.Container>
       <S.TopWrapper>
         <S.TitleContainer>
-          <S.Title>팔로우</S.Title>
+          <S.Title>팔로워</S.Title>
           <CloseIcon cursor='pointer' onClick={() => closeModal()} />
         </S.TitleContainer>
         <S.TitleContainer2>

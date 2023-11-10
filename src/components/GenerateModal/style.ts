@@ -60,7 +60,7 @@ export const Description = styled.textarea`
   height: 200px;
   resize: none;
   ${shadow.shadow2};
-  padding: 16px 12px;
+  padding: 12px;
   box-sizing: border-box;
   border-radius: 4px;
   margin-bottom: 24px;
