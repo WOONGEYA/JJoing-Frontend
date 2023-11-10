@@ -5,35 +5,37 @@ import theme from 'styles/theme';
 import Input from 'components/Input';
 import UploadIcon from 'assets/UploadIcon';
 import { useState } from 'react';
-import instance from 'apis/httpClient';
+import useImageUpload from 'hooks/useImageUpload';
+import { useMutation } from 'react-query';
+import { createBoard } from 'apis/api';
 
 const CreateBoard = () => {
-  const [imageUrl, setImageUrl] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [content, setContent] = useState<string>('');
+  const { imageUrl, handleImageChange } = useImageUpload();
 
-  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const selectedFile = e.target.files[0];
-      setImageUrl(URL.createObjectURL(selectedFile));
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const {
+      target: { name, value },
+    } = e;
 
-      const formData = new FormData();
-      formData.append('image', selectedFile);
-
-      const blob = new Blob([JSON.stringify(selectedFile)], {
-        type: 'application/json',
-      });
-
-      formData.append('data', blob);
-
-      try {
-        const { data } = await instance.post('/project/image', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-      } catch (error) {
-        console.error('Error uploading image:', error);
-      }
+    if (name === 'title') {
+      setName(value);
     }
+
+    if (name === 'content') {
+      setContent(value);
+    }
+  };
+
+  const { mutate } = useMutation({
+    mutationFn: () => createBoard({ title: name, content, imgUrl: imageUrl }),
+  });
+
+  const onSubmit = () => {
+    mutate();
   };
 
   return (
@@ -46,13 +48,18 @@ const CreateBoard = () => {
             </S.Curcor>
           </S.CloseWrapper>
           <S.TextBox>
-            <Input placeholder='제목을 입력해주세요.' height={27} />
+            <Input
+              placeholder='제목을 입력해주세요.'
+              height={27}
+              name='title'
+              onChange={onChange}
+            />
 
             <S.Description
               required
               placeholder='내용을 입력해주세요'
-              // value={userInput.content}
-              // onChange={(e) => handleInputChange('content', e.target.value)}
+              name='content'
+              onChange={onChange}
             />
           </S.TextBox>
           <S.ImgContainer>
@@ -67,7 +74,7 @@ const CreateBoard = () => {
               )}
             </S.AddImgContainer>
             <S.ButtonContainer>
-              <S.SubmitBtn>완료</S.SubmitBtn>
+              <S.SubmitBtn onClick={onSubmit}>완료</S.SubmitBtn>
             </S.ButtonContainer>
           </S.ImgContainer>
         </S.TextContainer>
