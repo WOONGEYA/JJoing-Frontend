@@ -87,7 +87,7 @@ export const MeritContainer = styled.div`
   gap: 24px;
   align-self: stretch;
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+  transition: opacity 0.6s ease-in-out;
 `;
 
 export const MeritText = styled.div`
