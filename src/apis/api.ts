@@ -1,4 +1,4 @@
-import { ICreateBoard } from 'type/ICreateBoard';
+import { ICreateBoard } from 'types/ICreateBoard';
 import instance from './httpClient';
 import { useState } from 'react';
 

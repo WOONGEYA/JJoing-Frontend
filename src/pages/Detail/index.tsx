@@ -96,17 +96,11 @@ const Detail = () => {
 
   const addHeart = () => {
     try {
-      instance
-        .post(`/like/${id}`, null, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then(() => {
-          setTimeout(() => {
-            window.location.reload();
-          }, 100);
-        });
+      instance.post(`/like/${id}`, null, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
     } catch (error) {
       console.log('좋아요 가져오기 실패');
     }
@@ -114,17 +108,11 @@ const Detail = () => {
 
   const deleteHeart = () => {
     try {
-      instance
-        .delete(`/like/${id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        })
-        .then(() => {
-          setTimeout(() => {
-            window.location.reload();
-          }, 100);
-        });
+      instance.delete(`/like/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
     } catch (error) {
       console.log('실패');
     }

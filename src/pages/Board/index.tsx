@@ -8,7 +8,7 @@ import Input from 'components/Input';
 import { useEffect, useState } from 'react';
 import { useInfiniteQuery, useQuery } from 'react-query';
 import { fetchBoards, getBoardList } from 'apis/api';
-import { IReadBoard } from 'type/IReadBoard';
+import { IReadBoard } from 'types/IReadBoard';
 import { daysAgo } from 'utils/daysAgo';
 import { BoardKey } from 'contents/queryKey';
 

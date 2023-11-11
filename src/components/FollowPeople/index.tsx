@@ -1,4 +1,4 @@
-import { IFollower } from 'type/IFollower';
+import { IFollower } from 'types/IFollower';
 import * as S from './style';
 import { useRecoilState } from 'recoil';
 import { gotoUserProfile, gotoUserProfileId } from 'apis/recoil';
