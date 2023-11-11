@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import theme from 'styles/theme';
 import Input from 'components/Input';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import { getBoardList } from 'apis/api';
+import { useInfiniteQuery, useQuery } from 'react-query';
+import { fetchBoards, getBoardList } from 'apis/api';
 import { IReadBoard } from 'type/IReadBoard';
 import { daysAgo } from 'utils/daysAgo';
 import { BoardKey } from 'contents/queryKey';
@@ -22,6 +22,14 @@ const Board = () => {
     queryKey: [BoardKey],
     queryFn: getBoardList,
   });
+
+  const result = useInfiniteQuery({
+    queryKey: [BoardKey],
+    queryFn: ({ pageParam = 1 }) => fetchBoards(pageParam),
+    getNextPageParam: (lastPage, allPages) => lastPage.nextPage,
+  });
+
+  console.log('result', result);
 
   useEffect(() => {
     if (data) {
@@ -91,6 +99,7 @@ const Board = () => {
             </S.Detail>
           </S.BoardBoxContainer>
         ))}
+        {/* <div onClick={() => fetchNextPage()}>Next Page</div> */}
       </S.Container>
     </Layout>
   );

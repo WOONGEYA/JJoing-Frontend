@@ -1,5 +1,6 @@
 import { ICreateBoard } from 'type/ICreateBoard';
 import instance from './httpClient';
+import { useState } from 'react';
 
 export const followList = async (id: number) => {
   const { data } = await instance.get(`follow/${id}/follower`);
@@ -24,4 +25,16 @@ export const createBoard = async ({ title, content, imgUrl }: ICreateBoard) => {
 export const getBoardList = async () => {
   const { data } = await instance.get('/post');
   return data;
+};
+
+export const fetchBoards = async (page = 1) => {
+  const { data } = await instance.get(`/post?page=${page}`, {
+    params: {
+      limit: 10,
+      page,
+    },
+  });
+
+  console.log('data.postResponses', data.postResponses);
+  return { data: data.postResponses, nextPage: page + 1 };
 };
