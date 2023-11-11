@@ -156,13 +156,6 @@ export const TitleWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const PrevPage = styled.div`
-  cursor: pointer;
-  position: absolute;
-  margin: 5% 0 0 8%;
-  overflow: hidden;
-`;
-
 export const ModifyWrapper = styled.div`
   cursor: pointer;
 `;

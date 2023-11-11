@@ -24,14 +24,17 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
 
     if (name === 'produce') {
       setProdudce(value);
+      return;
     }
 
     if (name === 'skills') {
       setUserSkills(value);
+      return;
     }
 
     if (name === 'phone') {
       setPhone(value);
+      return;
     }
   };
 

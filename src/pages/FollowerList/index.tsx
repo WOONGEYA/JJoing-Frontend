@@ -1,11 +1,11 @@
-import { ProfileUpdateModalProps } from 'type/IModalOpen';
+import { ProfileUpdateModalProps } from 'types/IModalOpen';
 import * as S from './style';
 import CloseIcon from 'assets/CloseIcon';
 import { useQuery } from 'react-query';
 import { followingList } from 'apis/api';
 import FollowPeople from 'components/FollowPeople';
 import { useEffect, useState } from 'react';
-import { IFollower } from 'type/IFollower';
+import { IFollower } from 'types/IFollower';
 import Input from 'components/Input';
 
 const FollowerList = ({ closeModal, id }: ProfileUpdateModalProps) => {
