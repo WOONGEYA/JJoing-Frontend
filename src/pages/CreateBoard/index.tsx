@@ -5,34 +5,57 @@ import theme from 'styles/theme';
 import Input from 'components/Input';
 import UploadIcon from 'assets/UploadIcon';
 import { useState } from 'react';
-import instance from 'apis/httpClient';
+import useImageUpload from 'hooks/useImageUpload';
+import { useMutation, useQueryClient } from 'react-query';
+import { createBoard } from 'apis/api';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { BoardKey } from 'contents/queryKey';
 
 const CreateBoard = () => {
-  const [imageUrl, setImageUrl] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [content, setContent] = useState<string>('');
+  const { imageUrl, handleImageChange } = useImageUpload();
+  const router = useNavigate();
 
-  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const selectedFile = e.target.files[0];
-      setImageUrl(URL.createObjectURL(selectedFile));
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const {
+      target: { name, value },
+    } = e;
 
-      const formData = new FormData();
-      formData.append('image', selectedFile);
+    if (name === 'title') {
+      setName(value);
+      return;
+    }
 
-      const blob = new Blob([JSON.stringify(selectedFile)], {
-        type: 'application/json',
-      });
+    if (name === 'content') {
+      setContent(value);
+      return;
+    }
+  };
 
-      formData.append('data', blob);
+  const queryClient = useQueryClient();
 
-      try {
-        const { data } = await instance.post('/project/image', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-      } catch (error) {
-        console.error('Error uploading image:', error);
-      }
+  const postBoardMutate = useMutation({
+    mutationFn: () => createBoard({ title: name, content, imgUrl: imageUrl }),
+    onSuccess: () => {
+      queryClient.invalidateQueries([BoardKey]);
+      router('/board');
+      toast.success('게시글 작성이 완료되었습니다.');
+    },
+  });
+
+  const submitPostboard = () => {
+    if (name.length < 2) {
+      toast.error('제목을 두 글자 이상 입력해주세요.');
+      return;
+    } else if (content.length < 5) {
+      toast.error('내용을 다섯 글자 이상 입력해주세요.');
+      return;
+    } else if (name.length >= 2 && content.length >= 5) {
+      postBoardMutate.mutate();
     }
   };
 
@@ -46,13 +69,18 @@ const CreateBoard = () => {
             </S.Curcor>
           </S.CloseWrapper>
           <S.TextBox>
-            <Input placeholder='제목을 입력해주세요.' height={27} />
+            <Input
+              placeholder='제목을 입력해주세요.'
+              height={27}
+              name='title'
+              onChange={onChange}
+            />
 
             <S.Description
               required
               placeholder='내용을 입력해주세요'
-              // value={userInput.content}
-              // onChange={(e) => handleInputChange('content', e.target.value)}
+              name='content'
+              onChange={onChange}
             />
           </S.TextBox>
           <S.ImgContainer>
@@ -67,7 +95,7 @@ const CreateBoard = () => {
               )}
             </S.AddImgContainer>
             <S.ButtonContainer>
-              <S.SubmitBtn>완료</S.SubmitBtn>
+              <S.SubmitBtn onClick={submitPostboard}>완료</S.SubmitBtn>
             </S.ButtonContainer>
           </S.ImgContainer>
         </S.TextContainer>

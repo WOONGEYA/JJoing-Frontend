@@ -1,3 +1,4 @@
+import { ICreateBoard } from 'type/ICreateBoard';
 import instance from './httpClient';
 
 export const followList = async (id: number) => {
@@ -12,5 +13,15 @@ export const followingList = async (id: number) => {
 
 export const userInfo = async (id: number) => {
   const { data } = await instance.get(`/user/${id}`);
+  return data;
+};
+
+export const createBoard = async ({ title, content, imgUrl }: ICreateBoard) => {
+  const { data } = await instance.post('/post', { title, content, imgUrl });
+  return data;
+};
+
+export const getBoardList = async () => {
+  const { data } = await instance.get('/post');
   return data;
 };

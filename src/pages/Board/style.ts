@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
+import { font } from 'styles/font';
 import theme from 'styles/theme';
 
 export const Container = styled.div`
   max-width: 1032px;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 5% 0 5% 0;
   box-sizing: border-box;
@@ -18,7 +20,10 @@ export const BoardBoxContainer = styled.div`
   border-radius: 12px;
   padding: 15px;
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
+  &:hover {
+    transition: 0.3s ease-in-out;
+    background-color: ${theme.grey[100]};
+  }
 `;
 
 export const ProfileInfoContainer = styled.div`
@@ -26,6 +31,7 @@ export const ProfileInfoContainer = styled.div`
   height: 40%;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.3%;
 `;
 
 export const ProjectDetail = styled.div`
@@ -50,6 +56,14 @@ export const DetailBox = styled.div`
 `;
 
 export const DetailDay = styled.div`
+  color: ${theme.grey[600]};
+  width: 50%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+`;
+
+export const detailContents = styled.div`
   color: ${theme.grey[600]};
 `;
 
@@ -78,4 +92,23 @@ export const WriterButton = styled.div`
     background-color: ${theme.darkGreen};
     color: ${theme.grey[700]};
   }
+`;
+
+export const Title = styled.div`
+  font-size: 18px;
+  cursor: pointer;
+`;
+
+export const UserProfile = styled.div`
+  width: 4.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const ProfileImg = styled.img`
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  cursor: pointer;
 `;
