@@ -7,19 +7,20 @@ import theme from 'styles/theme';
 import Input from 'components/Input';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { readBoard } from 'apis/api';
+import { getBoardList } from 'apis/api';
 import { IReadBoard } from 'type/IReadBoard';
-import { truncateText } from 'utils/truncateText';
 import { daysAgo } from 'utils/daysAgo';
+import { BoardKey } from 'contents/queryKey';
 
 const Board = () => {
   const [userInput, setUserInput] = useState('');
   const [projectDetail, setProjectDetail] = useState<IReadBoard[]>();
+
   const router = useNavigate();
 
   const { data } = useQuery({
-    queryKey: ['readBoard'],
-    queryFn: readBoard,
+    queryKey: [BoardKey],
+    queryFn: getBoardList,
   });
 
   useEffect(() => {
@@ -28,6 +29,7 @@ const Board = () => {
     }
   }, [data]);
 
+  console.log(projectDetail);
   return (
     <Layout>
       <S.Container>
@@ -70,9 +72,7 @@ const Board = () => {
               </S.UserProfile>
             </S.ProfileInfoContainer>
             <S.ProjectDetail>
-              <S.DetailDay>
-                {truncateText(String(data.content), 30)}
-              </S.DetailDay>
+              <S.DetailDay>{data.content}</S.DetailDay>
             </S.ProjectDetail>
             <S.Detail>
               <S.DetailBox>
@@ -83,11 +83,11 @@ const Board = () => {
                 <MessageIcon color={theme.grey[600]} />
                 fds
               </S.DetailBox>
-              <S.DetailDay>
+              <S.detailContents>
                 {daysAgo(data.createTime) < 1
                   ? '오늘'
                   : daysAgo(data.createTime) + '일 전'}
-              </S.DetailDay>
+              </S.detailContents>
             </S.Detail>
           </S.BoardBoxContainer>
         ))}

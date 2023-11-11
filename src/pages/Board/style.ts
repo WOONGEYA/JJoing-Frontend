@@ -57,6 +57,14 @@ export const DetailBox = styled.div`
 
 export const DetailDay = styled.div`
   color: ${theme.grey[600]};
+  width: 50%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+`;
+
+export const detailContents = styled.div`
+  color: ${theme.grey[600]};
 `;
 
 export const WriteContainer = styled.div`
@@ -102,4 +110,5 @@ export const ProfileImg = styled.img`
   width: 25px;
   height: 25px;
   border-radius: 50%;
+  cursor: pointer;
 `;

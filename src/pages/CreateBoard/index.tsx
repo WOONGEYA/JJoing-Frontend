@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { createBoard } from 'apis/api';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { BoardKey } from 'contents/queryKey';
 
 const CreateBoard = () => {
   const [name, setName] = useState<string>('');
@@ -26,26 +27,36 @@ const CreateBoard = () => {
 
     if (name === 'title') {
       setName(value);
+      return;
     }
 
     if (name === 'content') {
       setContent(value);
+      return;
     }
   };
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const postBoardMutate = useMutation({
     mutationFn: () => createBoard({ title: name, content, imgUrl: imageUrl }),
     onSuccess: () => {
-      queryClient.invalidateQueries(['readBoard']);
+      queryClient.invalidateQueries([BoardKey]);
+      router('/board');
+      toast.success('게시글 작성이 완료되었습니다.');
     },
   });
 
-  const onSubmit = () => {
-    mutate();
-    router('/board');
-    toast.success('게시글 작성이 완료되었습니다.');
+  const submitPostboard = () => {
+    if (name.length < 2) {
+      toast.error('제목을 두 글자 이상 입력해주세요.');
+      return;
+    } else if (content.length < 5) {
+      toast.error('내용을 다섯 글자 이상 입력해주세요.');
+      return;
+    } else if (name.length >= 2 && content.length >= 5) {
+      postBoardMutate.mutate();
+    }
   };
 
   return (
@@ -84,7 +95,7 @@ const CreateBoard = () => {
               )}
             </S.AddImgContainer>
             <S.ButtonContainer>
-              <S.SubmitBtn onClick={onSubmit}>완료</S.SubmitBtn>
+              <S.SubmitBtn onClick={submitPostboard}>완료</S.SubmitBtn>
             </S.ButtonContainer>
           </S.ImgContainer>
         </S.TextContainer>

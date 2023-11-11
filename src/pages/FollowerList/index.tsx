@@ -25,8 +25,6 @@ const FollowerList = ({ closeModal, id }: ProfileUpdateModalProps) => {
     person.name.toLowerCase().includes(userInput.toLowerCase()),
   );
 
-  console.log('data', data);
-
   return (
     <S.Container>
       <S.TopWrapper>

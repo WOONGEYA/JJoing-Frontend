@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import instance from 'apis/httpClient';
 
-function useImageUpload() {
-  const [imageUrl, setImageUrl] = useState<string>('');
+function useProjectImageUpload() {
+  const [imageUrl, setImageUrl] = useState('');
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -33,4 +33,4 @@ function useImageUpload() {
   return { imageUrl, handleImageChange };
 }
 
-export default useImageUpload;
+export default useProjectImageUpload;
