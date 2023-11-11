@@ -7,6 +7,12 @@ export const Container = styled.div`
   width: 100vw;
 `;
 
+export const Layout = styled.div`
+  width: 100vw;
+  max-width: 1200px; // 화면의 최대 너비를 1200px로 설정
+  margin: 0 auto;
+`;
+
 export const Welcome = styled.div`
   height: calc(100vh - 60px);
   display: flex;
@@ -80,6 +86,8 @@ export const MeritContainer = styled.div`
   align-items: center;
   gap: 24px;
   align-self: stretch;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
 `;
 
 export const MeritText = styled.div`
@@ -111,9 +119,9 @@ export const MeritImage = styled.div`
 
 export const Page = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
-  gap: 48px;
+  align-items: center;
+  gap: 30px;
 `;
 
 export const Number = styled.div<{ $active?: string }>`
@@ -139,17 +147,6 @@ export const Number = styled.div<{ $active?: string }>`
 
 export const Image = styled.img`
   width: min(100%, 384px);
-`;
-
-export const Login = styled.span`
-  display: flex;
-  padding: 12px 48px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-  background: ${theme.primary};
-  ${font.$title02}
-  color: ${theme.white}
 `;
 
 export const Help = styled.div`
@@ -199,4 +196,15 @@ export const TabTitle = styled.h1`
 
 export const TabImage = styled.img`
   height: 120px;
+`;
+
+export const Login = styled.span`
+  display: flex;
+  padding: 12px 48px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: ${theme.primary};
+  ${font.$title02}
+  color: ${theme.white}
 `;

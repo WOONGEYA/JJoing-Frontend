@@ -86,3 +86,13 @@ export const addProjectDetail = async (id: number) => {
 
   return data;
 };
+
+export const deleteNoti = async () => {
+  const { data } = await instance.delete('/notification');
+  return data;
+};
+
+export const getNoti = async () => {
+  const { data } = await instance.get('/notification');
+  return data;
+};
