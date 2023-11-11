@@ -16,6 +16,7 @@ import ProjectJoinList from 'pages/ProjectJoinList';
 import Board from 'pages/Board';
 import BoardDetail from 'pages/BoardDetail';
 import CreateBoard from 'pages/CreateBoard';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,6 +42,7 @@ const App = () => {
       />
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
           <Modal />
           <BrowserRouter>
             <Routes>

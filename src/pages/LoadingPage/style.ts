@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import theme from 'styles/theme';
 
 export const rotate = keyframes`
   0% {
@@ -22,6 +23,6 @@ export const Loader = styled.div`
   height: 50px;
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  border-top-color: #fff;
+  border-top-color: ${theme.primary};
   animation: ${rotate} 1s linear infinite;
 `;
