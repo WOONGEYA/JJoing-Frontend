@@ -22,13 +22,6 @@ const BoardDetail = () => {
 
   return (
     <Layout>
-      <S.PrevPage>
-        <ArrowIcon
-          onClick={() => {
-            router(-1);
-          }}
-        />
-      </S.PrevPage>
       <S.FlexBox>
         <S.Container>
           <S.TextContainer>
