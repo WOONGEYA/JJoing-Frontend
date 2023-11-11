@@ -9,6 +9,9 @@ import instance from 'apis/httpClient';
 import NotifyBox from 'components/NotifyBox';
 import { toast } from 'react-toastify';
 import { NewProject } from 'pages/Explore';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { deleteNoti, getNoti } from 'apis/api';
+import { Notification } from 'contents/queryKey';
 
 interface alarmList {
   id: number;
@@ -22,37 +25,32 @@ function Notify() {
   const [alarmList, setAlarmList] = useState<alarmList[]>([]);
   const [newArrs, setNewArrs] = useState<number[]>([]);
 
-  const handleDeleteAll = () => {
-    const fetchData = async () => {
-      try {
-        await instance.delete('/notification');
-        window.location.reload();
-      } catch (error) {
-        toast.error('알림 삭제 실패');
-      }
-    };
-    fetchData();
-  };
+  const queryClient = useQueryClient();
 
-  const filteredNotifications = alarmList.filter((alarmList) =>
-    alarmList.title.toLowerCase().includes(userInput.toLowerCase()),
-  );
+  const deleteNotification = useMutation({
+    mutationKey: [Notification],
+    mutationFn: () => deleteNoti(),
+    onSuccess: () => {
+      queryClient.invalidateQueries([Notification]);
+    },
+  });
+
+  const getNotification = useQuery({
+    queryKey: [Notification],
+    queryFn: () => getNoti(),
+    onSuccess: (data) => {
+      setAlarmList(data);
+      setNewArrs(data);
+    },
+  });
+
+  const handleDeleteAll = () => {
+    deleteNotification.mutate();
+  };
 
   const filteredAlarmList = alarmList.filter((alarm) =>
     newArrs.includes(alarm.projectId),
   );
-
-  React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await instance.get('/notification');
-        setAlarmList(data);
-      } catch (error) {
-        console.log('에러');
-      }
-    };
-    fetchData();
-  }, []);
 
   useEffect(() => {
     instance.get('/project').then((res) => {
