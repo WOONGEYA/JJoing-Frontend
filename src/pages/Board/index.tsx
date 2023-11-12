@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import theme from 'styles/theme';
 import Input from 'components/Input';
 import { useEffect, useState } from 'react';
-import { useInfiniteQuery, useQuery } from 'react-query';
-import { fetchBoards, getBoardList } from 'apis/api';
+import { useQuery } from 'react-query';
+import { getBoardList } from 'apis/api';
 import { IReadBoard } from 'types/IReadBoard';
 import { daysAgo } from 'utils/daysAgo';
 import { BoardKey } from 'contents/queryKey';
@@ -23,21 +23,12 @@ const Board = () => {
     queryFn: getBoardList,
   });
 
-  const result = useInfiniteQuery({
-    queryKey: [BoardKey],
-    queryFn: ({ pageParam = 1 }) => fetchBoards(pageParam),
-    getNextPageParam: (lastPage, allPages) => lastPage.nextPage,
-  });
-
-  console.log('result', result);
-
   useEffect(() => {
     if (data) {
       setProjectDetail(data.postResponses);
     }
   }, [data]);
 
-  console.log(projectDetail);
   return (
     <Layout>
       <S.Container>
@@ -63,7 +54,7 @@ const Board = () => {
             <S.ProfileInfoContainer>
               <S.Title
                 onClick={() => {
-                  router(`/boards/${i}`);
+                  router(`/boards/${data.id}`);
                 }}
               >
                 {data.title}
@@ -99,7 +90,6 @@ const Board = () => {
             </S.Detail>
           </S.BoardBoxContainer>
         ))}
-        {/* <div onClick={() => fetchNextPage()}>Next Page</div> */}
       </S.Container>
     </Layout>
   );
