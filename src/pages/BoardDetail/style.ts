@@ -9,6 +9,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 1024px;
 `;
 
 export const TextContainer = styled.div`
@@ -83,11 +84,10 @@ export const DetailDay = styled.div`
   color: ${theme.grey[600]};
 `;
 
-export const ProfileImg = styled.div`
+export const ProfileImg = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: gray;
 `;
 
 export const ProfileDetailBox = styled.div`
@@ -111,7 +111,6 @@ export const BoardDate = styled.div`
 export const ProfileInfo = styled.div``;
 
 export const ContentContainer = styled.div`
-  width: 100%;
   min-height: 60vh;
   padding: 5vh 0 3vh 0;
   border-bottom: 1px solid ${theme.grey[500]};
@@ -135,6 +134,7 @@ export const Content = styled.div`
   line-height: 3ch;
   color: ${theme.grey[800]};
   font-size: 20px;
+  width: 100%;
 `;
 
 export const MessageWrapper = styled.div`

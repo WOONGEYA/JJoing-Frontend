@@ -96,3 +96,8 @@ export const getNoti = async () => {
   const { data } = await instance.get('/notification');
   return data;
 };
+
+export const getBoardProject = async (id: number) => {
+  const { data } = await instance.get(`/post/${id}`);
+  return data;
+};

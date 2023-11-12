@@ -126,8 +126,7 @@ export const Page = styled.div`
 
 export const Number = styled.div<{ $active?: string }>`
   display: flex;
-  width: 36px;
-  height: 36px;
+  padding: 5px 15px;
   border-radius: 50%;
   border: 2px solid ${theme.primary};
   justify-content: center;

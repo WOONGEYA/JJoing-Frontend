@@ -4,14 +4,26 @@ import EyeIcon from 'assets/EyeIcon';
 import MessageIcon from 'assets/MessageIcon';
 import theme from 'styles/theme';
 import MessageBox from 'components/MessageBox';
-import ArrowIcon from 'assets/ArrowIcon';
 import KebabIcon from 'assets/KebabIcon';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { getBoardProject } from 'apis/api';
+import { ReadDetailProject } from 'contents/queryKey';
+import { IDetailProject } from 'types/IDetailProject';
 
 const BoardDetail = () => {
-  const router = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [projectDetail, setProjectDetail] = useState<IDetailProject>();
+  const { id } = useParams();
+
+  useQuery({
+    queryKey: [ReadDetailProject],
+    queryFn: () => getBoardProject(Number(id)),
+    onSuccess: (data: IDetailProject) => {
+      setProjectDetail(data);
+    },
+  });
 
   const EditProject = () => {
     console.log('Edit');
@@ -27,7 +39,7 @@ const BoardDetail = () => {
           <S.TextContainer>
             <S.TextBox>
               <S.TitleWrapper>
-                <S.Title>대충제목이라는 뜻을 지어보았습니다</S.Title>
+                <S.Title>{projectDetail?.title}</S.Title>
                 <S.ModifyWrapper>
                   <KebabIcon
                     onClick={() => {
@@ -46,10 +58,12 @@ const BoardDetail = () => {
               </S.TitleWrapper>
               <S.UserInfoContainer>
                 <S.ProfileInfoContainer>
-                  <S.ProfileImg></S.ProfileImg>
+                  <S.ProfileImg src={projectDetail?.userImg} alt='userImg' />
                   <S.ProfileDetailBox>
-                    <S.UserName>박우빈</S.UserName>
-                    <S.BoardDate>2023.11.17 11:17</S.BoardDate>
+                    <S.UserName>{projectDetail?.userName}</S.UserName>
+                    <S.BoardDate>
+                      {projectDetail?.createTime.replace('T', ' ')}
+                    </S.BoardDate>
                   </S.ProfileDetailBox>
                 </S.ProfileInfoContainer>
                 <S.Detail>
@@ -59,30 +73,17 @@ const BoardDetail = () => {
                   <S.DetialWrapper>
                     <S.DetailBox>
                       <EyeIcon color={theme.grey[500]} />
-                      10234
+                      {projectDetail?.viewCount}
                     </S.DetailBox>
                     <S.DetailBox>
-                      <MessageIcon color={theme.grey[500]} />
-                      fds
+                      <MessageIcon color={theme.grey[500]} />2
                     </S.DetailBox>
                   </S.DetialWrapper>
                 </S.Detail>
               </S.UserInfoContainer>
             </S.TextBox>
             <S.ContentContainer>
-              <S.Content>
-                안녕하세요 저는 이상진입니다. 현재 부산 소프트웨어
-                마이스터고등학교에 재학중이며 스탠바이랩이라는 회사에 너무 너무
-                취직하고 싶습니다. 스탠바이랩 짱 항상 화이팅 안녕하세요 저는
-                이상진입니다. 현재 부산 소프트웨어 마이스터고등학교에 재학중이며
-                스탠바이랩이라는 회사에 너무 너무 취직하고 싶습니다. 스탠바이랩
-                짱 항상 화이팅안녕하세요 저는 이상진입니다. 현재 부산 소프트웨어
-                마이스터고등학교에 재학중이며 스탠바이랩이라는 회사에 너무 너무
-                취직하고 싶습니다. 스탠바이랩 짱 항상 화이팅 안녕하세요 저는
-                이상진입니다. 현재 부산 소프트웨어 마이스터고등학교에 재학중이며
-                스탠바이랩이라는 회사에 너무 너무 취직하고 싶습니다. 스탠바이랩
-                짱 항상 화이팅
-              </S.Content>
+              <S.Content>{projectDetail?.content}</S.Content>
               <S.CountMessage>댓글 16개</S.CountMessage>
             </S.ContentContainer>
             <S.MessageWrapper>
