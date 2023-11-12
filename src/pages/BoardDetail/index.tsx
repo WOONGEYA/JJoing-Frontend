@@ -4,14 +4,24 @@ import EyeIcon from 'assets/EyeIcon';
 import MessageIcon from 'assets/MessageIcon';
 import theme from 'styles/theme';
 import MessageBox from 'components/MessageBox';
-import ArrowIcon from 'assets/ArrowIcon';
 import KebabIcon from 'assets/KebabIcon';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { getBoardProject } from 'apis/api';
+import { ReadDetailProject } from 'contents/queryKey';
 
 const BoardDetail = () => {
-  const router = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const { id } = useParams();
+
+  useQuery({
+    queryKey: [ReadDetailProject],
+    queryFn: () => getBoardProject(Number(id)),
+    onSuccess: (data: any) => {
+      console.log(data);
+    },
+  });
 
   const EditProject = () => {
     console.log('Edit');

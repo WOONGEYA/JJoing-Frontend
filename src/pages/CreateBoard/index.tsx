@@ -65,7 +65,12 @@ const CreateBoard = () => {
         <S.TextContainer>
           <S.CloseWrapper>
             <S.Curcor>
-              <CloseIcon width={25} height={25} color={theme.grey[600]} />
+              <CloseIcon
+                width={25}
+                height={25}
+                color={theme.grey[600]}
+                onClick={() => router(-1)}
+              />
             </S.Curcor>
           </S.CloseWrapper>
           <S.TextBox>
