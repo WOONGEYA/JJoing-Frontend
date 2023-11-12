@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Layout from 'components/Layout';
-import { MainCover, tab1, tab2, tab3, card1, card2, card3 } from 'assets/png';
+import { MainCover, tab1, tab2, tab3 } from 'assets/png';
+import Book from 'assets/book.svg';
+import Love from 'assets/love.svg';
+import Money from 'assets/money.svg';
 import LoginModal from 'components/LoginModal';
 import useModal from 'hooks/useModal';
 import { useNavigate } from 'react-router-dom';
@@ -23,17 +26,17 @@ const Main = () => {
 
       if (
         merit3Ref.current &&
-        scrollY >= merit3Ref.current.offsetTop - windowHeight / 2
+        scrollY >= merit3Ref.current.offsetTop - windowHeight / 1.75
       ) {
         setActiveSection(3);
       } else if (
         merit2Ref.current &&
-        scrollY >= merit2Ref.current.offsetTop - windowHeight / 2
+        scrollY >= merit2Ref.current.offsetTop - windowHeight / 1.75
       ) {
         setActiveSection(2);
       } else if (
         merit1Ref.current &&
-        scrollY >= merit1Ref.current.offsetTop - windowHeight / 2
+        scrollY >= merit1Ref.current.offsetTop - windowHeight / 1.75
       ) {
         setActiveSection(1);
       } else {
@@ -86,7 +89,7 @@ const Main = () => {
               <S.Button onClick={handleStartButton}>쪼잉 시작하기</S.Button>
             </div>
           </S.WelcomeContent>
-          <S.MainImage src={MainCover}></S.MainImage>
+          <S.MainImage src={MainCover} alt='mainImg' />
         </S.Landing>
       </S.Welcome>
       <S.Merit>
@@ -161,7 +164,7 @@ const Main = () => {
                 <S.TabTitle>
                   원하는 분야의 프로젝트를 빠르게 찾을 수 있도록
                 </S.TabTitle>
-                <S.TabImage src={card1} />
+                <S.TabImage src={Book} />
               </S.TabContent>
             </S.Tab>
             <S.Tab>
@@ -169,7 +172,7 @@ const Main = () => {
                 <S.TabTitle>
                   원하는 분위기의 프로젝트 팀을 찾을 수 있도록
                 </S.TabTitle>
-                <S.TabImage src={card2} />
+                <S.TabImage src={Love} />
               </S.TabContent>
             </S.Tab>
             <S.Tab>
@@ -177,7 +180,7 @@ const Main = () => {
                 <S.TabTitle>
                   협업으로 내 실력을 더 높이 끌어올릴 수 있도록
                 </S.TabTitle>
-                <S.TabImage src={card3} />
+                <S.TabImage src={Money} />
               </S.TabContent>
             </S.Tab>
           </S.Tabs>

@@ -14,6 +14,7 @@ export const Layout = styled.div`
 `;
 
 export const Welcome = styled.div`
+  width: 100%;
   height: calc(100vh - 60px);
   display: flex;
 `;
@@ -119,9 +120,8 @@ export const MeritImage = styled.div`
 
 export const Page = styled.div`
   display: flex;
-  align-items: flex-start;
+  justify-content: space-between;
   align-items: center;
-  gap: 30px;
 `;
 
 export const Number = styled.div<{ $active?: string }>`
@@ -164,6 +164,7 @@ export const HelpContent = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 64px;
+  width: 100%;
 `;
 
 export const Tabs = styled.div`
@@ -173,38 +174,45 @@ export const Tabs = styled.div`
 `;
 
 export const Tab = styled.div`
-  display: flex;
-  padding: 32px 24px;
-  align-items: flex-start;
-  ${shadow.shadow2}
+  display: inline-flex;
+  padding: 43px 36px 38.694px 28px;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 0px 40px 40px 40px;
+  background: #fff;
+  box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.05);
 `;
 
 export const TabContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 48px;
   flex: 1 0 0;
 `;
 
 export const TabTitle = styled.h1`
-  ${font.$title01};
-  word-break: keep-all;
-  white-space: pre-wrap;
+  color: #000;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
 `;
 
 export const TabImage = styled.img`
-  height: 120px;
+  height: 6rem;
 `;
 
 export const Login = styled.span`
   display: flex;
-  padding: 12px 48px;
+  padding: 12px 38px;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
   background: ${theme.primary};
-  ${font.$title02}
-  color: ${theme.white}
+  ${font.$title03}
+  color: ${theme.white};
+  cursor: pointer;
 `;
