@@ -185,3 +185,9 @@ export const Option = styled.div`
     background-color: ${theme.grey[200]};
   }
 `;
+
+export const ProjectImg = styled.img`
+  max-width: 30%;
+  max-height: 30%;
+  margin-top: 2rem;
+`;

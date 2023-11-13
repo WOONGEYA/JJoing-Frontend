@@ -4,28 +4,25 @@ import theme from 'styles/theme';
 import { useState } from 'react';
 import SubmitArrow from 'assets/SubmitArrow';
 import MessageInput from 'components/MessageInput';
+import { ICommentProps } from 'types/IComponentsProps';
 
-interface CommentProps {
-  data: string;
-}
-
-const Comment = ({ data }: CommentProps) => {
+const Comment = ({ data }: { data: ICommentProps }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <S.CommentContainer>
       <S.ProfileContainer>
-        <S.Circle />
+        <S.Circle src={data.userImg} alt='img' />
       </S.ProfileContainer>
       <S.ProfileChatContainer>
         <S.ProfileChatTitle>
           <S.UserProfile>
-            <S.UserView>박우빈</S.UserView>
-            <S.DateView>2023.11.17 11:17</S.DateView>
+            <S.UserView>{data.userName}</S.UserView>
+            <S.DateView>{data.createTime}</S.DateView>
           </S.UserProfile>
           <S.CountView>
             <MessageIcon color={theme.grey[500]} />
-            20
+            {data.reCommentCount}
           </S.CountView>
         </S.ProfileChatTitle>
         <S.CommentWrapper
@@ -33,7 +30,7 @@ const Comment = ({ data }: CommentProps) => {
             setIsOpen(!isOpen);
           }}
         >
-          {data}
+          <p>{data.content}</p>
         </S.CommentWrapper>
         {isOpen && (
           <S.MessageContainer>
@@ -41,8 +38,6 @@ const Comment = ({ data }: CommentProps) => {
               width={'95%'}
               placeholder='타인의 권리를 침해하거나 명예를 훼손하는 댓글은 제재를 받을 수 있습니다.'
               type='search'
-              // value={userInput}
-              // onChange={(e) => setUserInput(e.target.value)}
             />
             <S.ButtonContainer>
               <div style={{ marginLeft: '7px' }}>

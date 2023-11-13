@@ -48,7 +48,6 @@ const BoardDetail = () => {
     deleteBoard.mutate();
   };
 
-  console.log(projectDetail?.userId, ids);
   return (
     <Layout>
       <S.FlexBox>
@@ -96,9 +95,7 @@ const BoardDetail = () => {
                     </S.DetailBox>
                     <S.DetailBox>
                       <MessageIcon color={theme.grey[500]} />
-                      {projectDetail?.commentCount == null
-                        ? 0
-                        : projectDetail?.commentCount}
+                      {projectDetail?.commentCount}
                     </S.DetailBox>
                   </S.DetialWrapper>
                 </S.Detail>
@@ -106,12 +103,9 @@ const BoardDetail = () => {
             </S.TextBox>
             <S.ContentContainer>
               <S.Content>{projectDetail?.content}</S.Content>
+              <S.ProjectImg src={projectDetail?.postImg} alt='img' />
               <S.CountMessage>
-                댓글{' '}
-                {projectDetail?.commentCount == null
-                  ? 0
-                  : projectDetail?.commentCount}
-                개
+                댓글 {projectDetail?.commentCount}개
               </S.CountMessage>
             </S.ContentContainer>
             <S.MessageWrapper>

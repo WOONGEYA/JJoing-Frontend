@@ -53,10 +53,9 @@ export const UserView = styled.div`
   font-weight: 500;
 `;
 
-export const Circle = styled.div`
+export const Circle = styled.img`
   width: 55px;
   height: 55px;
-  background-color: blue;
   border-radius: 50%;
 `;
 

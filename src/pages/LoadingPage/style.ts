@@ -14,7 +14,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 60vh;
 `;
 
 export const Loader = styled.div`

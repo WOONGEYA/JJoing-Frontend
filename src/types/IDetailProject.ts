@@ -8,4 +8,5 @@ export interface IDetailProject {
   userName: string;
   userImg: string;
   commentCount: number;
+  postImg: string;
 }
