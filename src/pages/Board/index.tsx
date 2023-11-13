@@ -7,20 +7,32 @@ import theme from 'styles/theme';
 import Input from 'components/Input';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { getBoardList } from 'apis/api';
+import { FindProject, getBoardList } from 'apis/api';
 import { IReadBoard } from 'types/IReadBoard';
 import { daysAgo } from 'utils/daysAgo';
-import { BoardKey } from 'contents/queryKey';
+import { BoardKey, ReadDetailProject } from 'contents/queryKey';
+import NoResultPage from 'components/NoResult';
 
 const Board = () => {
   const [userInput, setUserInput] = useState('');
   const [projectDetail, setProjectDetail] = useState<IReadBoard[]>();
-
+  const [searchResult, setSearchResult] = useState<IReadBoard[]>();
+  const [shouldSearch, setShouldSearch] = useState(false);
   const router = useNavigate();
 
   const { data } = useQuery({
     queryKey: [BoardKey],
     queryFn: getBoardList,
+  });
+
+  const searchQuery = useQuery({
+    queryKey: [ReadDetailProject, userInput],
+    queryFn: () => FindProject(userInput),
+    enabled: shouldSearch,
+    onSettled: () => setShouldSearch(false),
+    onSuccess: (data) => {
+      setSearchResult(data.postResponses);
+    },
   });
 
   useEffect(() => {
@@ -29,7 +41,6 @@ const Board = () => {
     }
   }, [data]);
 
-  console.log(userInput);
   return (
     <Layout>
       <S.Container>
@@ -41,6 +52,11 @@ const Board = () => {
             placeholder='검색어를 입력해주세요.'
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
+            onKeyPress={(e: React.KeyboardEvent) => {
+              if (e.key === 'Enter') {
+                setShouldSearch(true);
+              }
+            }}
           />
           <S.WriterButton
             onClick={() => {
@@ -50,7 +66,7 @@ const Board = () => {
             작성하기
           </S.WriterButton>
         </S.WriteContainer>
-        {projectDetail?.map((data, i) => (
+        {(searchResult || projectDetail)?.map((data, i) => (
           <S.BoardBoxContainer key={i}>
             <S.ProfileInfoContainer>
               <S.Title
@@ -91,6 +107,9 @@ const Board = () => {
             </S.Detail>
           </S.BoardBoxContainer>
         ))}
+        {userInput.length > 0 && searchResult && searchResult.length === 0 && (
+          <NoResultPage />
+        )}
       </S.Container>
     </Layout>
   );

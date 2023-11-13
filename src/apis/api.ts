@@ -17,9 +17,18 @@ export const userInfo = async (id: number) => {
 };
 
 export const createBoard = async ({ title, content, imgUrl }: ICreateBoard) => {
-  const { data } = await instance.post('/post', { title, content, imgUrl });
+  const { data } = await instance.post(
+    '/post',
+    { title, content, imgUrl },
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    },
+  );
   return data;
 };
+
 export const putBoard = async ({
   title,
   content,
@@ -129,5 +138,32 @@ export const deleteBoardProject = async (id: number) => {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
   });
+  return data;
+};
+
+export const FindProject = async (content: string) => {
+  const { data } = await instance.get('/post/search', {
+    params: { q: content },
+  });
+  return data;
+};
+
+export const postComment = async (id: number, content: string) => {
+  const { data } = await instance.post(
+    `/comment/${id}`,
+    {
+      content,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    },
+  );
+  return data;
+};
+
+export const getComment = async (id: number) => {
+  const { data } = await instance.get(`/comment/${id}`);
   return data;
 };
