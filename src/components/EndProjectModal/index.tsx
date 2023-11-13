@@ -9,15 +9,11 @@ interface GenerateModalProps {
 
 const EndProjectModal = ({ closeModal, pageId }: GenerateModalProps) => {
   const onEnd = async () => {
-    await instance.put(
-      `/project/close/${pageId}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
+    await instance.put(`/project/close/${pageId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
-    );
+    });
     closeModal();
     window.location.reload();
   };

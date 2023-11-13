@@ -6,16 +6,20 @@ import theme from 'styles/theme';
 import MessageBox from 'components/MessageBox';
 import KebabIcon from 'assets/KebabIcon';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { getBoardProject } from 'apis/api';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { deleteBoardProject, getBoardProject } from 'apis/api';
 import { ReadDetailProject } from 'contents/queryKey';
 import { IDetailProject } from 'types/IDetailProject';
+import { useRecoilValue } from 'recoil';
+import { userKey } from 'apis/recoil';
 
 const BoardDetail = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [projectDetail, setProjectDetail] = useState<IDetailProject>();
   const { id } = useParams();
+  const ids = useRecoilValue(userKey);
+  const router = useNavigate();
 
   useQuery({
     queryKey: [ReadDetailProject],
@@ -26,12 +30,25 @@ const BoardDetail = () => {
   });
 
   const EditProject = () => {
-    console.log('Edit');
-  };
-  const onDelete = () => {
-    console.log('Delete');
+    router(`/board/edit/${id}`);
   };
 
+  const queryClient = useQueryClient();
+
+  const deleteBoard = useMutation({
+    mutationKey: [ReadDetailProject],
+    mutationFn: () => deleteBoardProject(Number(id)),
+    onSuccess: () => {
+      queryClient.invalidateQueries([ReadDetailProject]);
+      router('/board');
+    },
+  });
+
+  const onDelete = () => {
+    deleteBoard.mutate();
+  };
+
+  console.log(projectDetail?.userId, ids);
   return (
     <Layout>
       <S.FlexBox>
@@ -41,11 +58,13 @@ const BoardDetail = () => {
               <S.TitleWrapper>
                 <S.Title>{projectDetail?.title}</S.Title>
                 <S.ModifyWrapper>
-                  <KebabIcon
-                    onClick={() => {
-                      setIsOpen(!isOpen);
-                    }}
-                  />
+                  {projectDetail?.userId === ids && (
+                    <KebabIcon
+                      onClick={() => {
+                        setIsOpen(!isOpen);
+                      }}
+                    />
+                  )}
                   {isOpen && (
                     <S.DropdownContainer>
                       <S.Options>
@@ -76,7 +95,10 @@ const BoardDetail = () => {
                       {projectDetail?.viewCount}
                     </S.DetailBox>
                     <S.DetailBox>
-                      <MessageIcon color={theme.grey[500]} />2
+                      <MessageIcon color={theme.grey[500]} />
+                      {projectDetail?.commentCount == null
+                        ? 0
+                        : projectDetail?.commentCount}
                     </S.DetailBox>
                   </S.DetialWrapper>
                 </S.Detail>
@@ -84,7 +106,13 @@ const BoardDetail = () => {
             </S.TextBox>
             <S.ContentContainer>
               <S.Content>{projectDetail?.content}</S.Content>
-              <S.CountMessage>댓글 16개</S.CountMessage>
+              <S.CountMessage>
+                댓글{' '}
+                {projectDetail?.commentCount == null
+                  ? 0
+                  : projectDetail?.commentCount}
+                개
+              </S.CountMessage>
             </S.ContentContainer>
             <S.MessageWrapper>
               <MessageBox />

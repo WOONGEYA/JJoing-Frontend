@@ -7,4 +7,5 @@ export interface IReadBoard {
   userImg?: string;
   userName?: string;
   viewCount?: number;
+  commentCount?: number;
 }

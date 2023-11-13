@@ -20,6 +20,27 @@ export const createBoard = async ({ title, content, imgUrl }: ICreateBoard) => {
   const { data } = await instance.post('/post', { title, content, imgUrl });
   return data;
 };
+export const putBoard = async ({
+  title,
+  content,
+  imgUrl,
+  id,
+}: ICreateBoard) => {
+  const { data } = await instance.put(
+    `/post/${id}`,
+    {
+      title,
+      content,
+      imgUrl,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    },
+  );
+  return data;
+};
 
 export const getBoardList = async () => {
   const { data } = await instance.get('/post');
@@ -99,5 +120,14 @@ export const getNoti = async () => {
 
 export const getBoardProject = async (id: number) => {
   const { data } = await instance.get(`/post/${id}`);
+  return data;
+};
+
+export const deleteBoardProject = async (id: number) => {
+  const { data } = await instance.delete(`/post/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
   return data;
 };
