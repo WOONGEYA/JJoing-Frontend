@@ -6,9 +6,9 @@ import theme from 'styles/theme';
 import MessageBox from 'components/MessageBox';
 import KebabIcon from 'assets/KebabIcon';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { getBoardProject } from 'apis/api';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { deleteBoardProject, getBoardProject } from 'apis/api';
 import { ReadDetailProject } from 'contents/queryKey';
 import { IDetailProject } from 'types/IDetailProject';
 import { useRecoilValue } from 'recoil';
@@ -19,6 +19,7 @@ const BoardDetail = () => {
   const [projectDetail, setProjectDetail] = useState<IDetailProject>();
   const { id } = useParams();
   const ids = useRecoilValue(userKey);
+  const router = useNavigate();
 
   useQuery({
     queryKey: [ReadDetailProject],
@@ -31,8 +32,20 @@ const BoardDetail = () => {
   const EditProject = () => {
     console.log('Edit');
   };
+
+  const queryClient = useQueryClient();
+
+  const deleteBoard = useMutation({
+    mutationKey: [ReadDetailProject],
+    mutationFn: () => deleteBoardProject(Number(id)),
+    onSuccess: () => {
+      queryClient.invalidateQueries([ReadDetailProject]);
+      router('/board');
+    },
+  });
+
   const onDelete = () => {
-    console.log('Delete');
+    deleteBoard.mutate();
   };
 
   console.log(projectDetail?.userId, ids);

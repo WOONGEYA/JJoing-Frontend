@@ -101,3 +101,12 @@ export const getBoardProject = async (id: number) => {
   const { data } = await instance.get(`/post/${id}`);
   return data;
 };
+
+export const deleteBoardProject = async (id: number) => {
+  const { data } = await instance.delete(`/post/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
+  return data;
+};
