@@ -20,8 +20,8 @@ export const Container = styled.div`
   box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   background-color: ${theme.white};
+  transition: 0.75s cubic-bezier(0.19, 1, 0.22, 1);
   &:hover {
-    transition: 0.2s ease-in-out;
     box-shadow: 2px 4px 20px 0px rgba(0, 0, 0, 0.3);
     transform: translateY(-5px);
   }

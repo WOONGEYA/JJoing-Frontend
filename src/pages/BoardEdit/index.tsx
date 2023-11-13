@@ -6,17 +6,19 @@ import Input from 'components/Input';
 import UploadIcon from 'assets/UploadIcon';
 import { useState } from 'react';
 import useImageUpload from 'hooks/useImageUpload';
-import { useMutation, useQueryClient } from 'react-query';
-import { createBoard } from 'apis/api';
-import { useNavigate } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { getBoardProject, putBoard } from 'apis/api';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { BoardKey } from 'contents/queryKey';
+import { BoardKey, ReadDetailProject } from 'contents/queryKey';
+import { IDetailProject } from 'types/IDetailProject';
 
-const CreateBoard = () => {
+const BoardEdit = () => {
   const [name, setName] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const { imageUrl, handleImageChange } = useImageUpload();
   const router = useNavigate();
+  const { id } = useParams();
 
   const onChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -36,14 +38,25 @@ const CreateBoard = () => {
     }
   };
 
+  console.log(name, content);
+
+  useQuery({
+    queryKey: [ReadDetailProject],
+    queryFn: () => getBoardProject(Number(id)),
+    onSuccess: (data: IDetailProject) => {
+      setName(data.title);
+      setContent(data.content);
+    },
+  });
+
   const queryClient = useQueryClient();
 
   const postBoardMutate = useMutation({
-    mutationFn: () => createBoard({ title: name, content, imgUrl: imageUrl }),
+    mutationFn: () => putBoard({ title: name, content, imgUrl: imageUrl }),
     onSuccess: () => {
       queryClient.invalidateQueries([BoardKey]);
       router('/board');
-      toast.success('게시글 작성이 완료되었습니다.');
+      toast.success('게시글 수정이 완료되었습니다.');
     },
   });
 
@@ -62,7 +75,7 @@ const CreateBoard = () => {
   return (
     <Layout>
       <S.Container>
-        <S.CreateBoardTitle>게시글 생성</S.CreateBoardTitle>
+        <S.CreateBoardTitle>게시글 수정</S.CreateBoardTitle>
         <S.TextContainer>
           <S.CloseWrapper>
             <S.Curcor>
@@ -79,10 +92,12 @@ const CreateBoard = () => {
               placeholder='제목을 입력해주세요.'
               height={27}
               name='title'
+              value={name}
               onChange={onChange}
             />
 
             <S.Description
+              value={content}
               required
               placeholder='내용을 입력해주세요'
               name='content'
@@ -110,4 +125,4 @@ const CreateBoard = () => {
   );
 };
 
-export default CreateBoard;
+export default BoardEdit;

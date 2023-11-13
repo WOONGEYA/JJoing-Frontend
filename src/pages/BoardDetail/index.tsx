@@ -30,7 +30,7 @@ const BoardDetail = () => {
   });
 
   const EditProject = () => {
-    console.log('Edit');
+    router(`/board/edit/${id}`);
   };
 
   const queryClient = useQueryClient();

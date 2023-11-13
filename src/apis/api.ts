@@ -21,6 +21,20 @@ export const createBoard = async ({ title, content, imgUrl }: ICreateBoard) => {
   return data;
 };
 
+export const putBoard = async ({
+  title,
+  content,
+  imgUrl,
+  id,
+}: ICreateBoard) => {
+  const { data } = await instance.put(`/post/${id}`, {
+    title,
+    content,
+    imgUrl,
+  });
+  return data;
+};
+
 export const getBoardList = async () => {
   const { data } = await instance.get('/post');
   return data;
