@@ -20,18 +20,25 @@ export const createBoard = async ({ title, content, imgUrl }: ICreateBoard) => {
   const { data } = await instance.post('/post', { title, content, imgUrl });
   return data;
 };
-
 export const putBoard = async ({
   title,
   content,
   imgUrl,
   id,
 }: ICreateBoard) => {
-  const { data } = await instance.put(`/post/${id}`, {
-    title,
-    content,
-    imgUrl,
-  });
+  const { data } = await instance.put(
+    `/post/${id}`,
+    {
+      title,
+      content,
+      imgUrl,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    },
+  );
   return data;
 };
 

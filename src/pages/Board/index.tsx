@@ -29,6 +29,7 @@ const Board = () => {
     }
   }, [data]);
 
+  console.log(userInput);
   return (
     <Layout>
       <S.Container>
@@ -80,7 +81,7 @@ const Board = () => {
               </S.DetailBox>
               <S.DetailBox>
                 <MessageIcon color={theme.grey[600]} />
-                fds
+                {data?.commentCount == null ? 0 : data?.commentCount}
               </S.DetailBox>
               <S.detailContents>
                 {daysAgo(data.createTime) < 1

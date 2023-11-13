@@ -95,7 +95,10 @@ const BoardDetail = () => {
                       {projectDetail?.viewCount}
                     </S.DetailBox>
                     <S.DetailBox>
-                      <MessageIcon color={theme.grey[500]} />2
+                      <MessageIcon color={theme.grey[500]} />
+                      {projectDetail?.commentCount == null
+                        ? 0
+                        : projectDetail?.commentCount}
                     </S.DetailBox>
                   </S.DetialWrapper>
                 </S.Detail>
@@ -103,7 +106,13 @@ const BoardDetail = () => {
             </S.TextBox>
             <S.ContentContainer>
               <S.Content>{projectDetail?.content}</S.Content>
-              <S.CountMessage>댓글 16개</S.CountMessage>
+              <S.CountMessage>
+                댓글{' '}
+                {projectDetail?.commentCount == null
+                  ? 0
+                  : projectDetail?.commentCount}
+                개
+              </S.CountMessage>
             </S.ContentContainer>
             <S.MessageWrapper>
               <MessageBox />

@@ -7,4 +7,5 @@ export interface IDetailProject {
   userId: number;
   userName: string;
   userImg: string;
+  commentCount: number;
 }

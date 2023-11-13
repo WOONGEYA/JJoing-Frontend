@@ -52,7 +52,8 @@ const BoardEdit = () => {
   const queryClient = useQueryClient();
 
   const postBoardMutate = useMutation({
-    mutationFn: () => putBoard({ title: name, content, imgUrl: imageUrl }),
+    mutationFn: () =>
+      putBoard({ title: name, content, imgUrl: imageUrl, id: Number(id) }),
     onSuccess: () => {
       queryClient.invalidateQueries([BoardKey]);
       router('/board');
@@ -116,7 +117,7 @@ const BoardEdit = () => {
               )}
             </S.AddImgContainer>
             <S.ButtonContainer>
-              <S.SubmitBtn onClick={submitPostboard}>완료</S.SubmitBtn>
+              <S.SubmitBtn onClick={submitPostboard}>수정</S.SubmitBtn>
             </S.ButtonContainer>
           </S.ImgContainer>
         </S.TextContainer>
