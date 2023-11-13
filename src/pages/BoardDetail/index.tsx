@@ -11,11 +11,14 @@ import { useQuery } from 'react-query';
 import { getBoardProject } from 'apis/api';
 import { ReadDetailProject } from 'contents/queryKey';
 import { IDetailProject } from 'types/IDetailProject';
+import { useRecoilValue } from 'recoil';
+import { userKey } from 'apis/recoil';
 
 const BoardDetail = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [projectDetail, setProjectDetail] = useState<IDetailProject>();
   const { id } = useParams();
+  const ids = useRecoilValue(userKey);
 
   useQuery({
     queryKey: [ReadDetailProject],
@@ -32,6 +35,7 @@ const BoardDetail = () => {
     console.log('Delete');
   };
 
+  console.log(projectDetail?.userId, ids);
   return (
     <Layout>
       <S.FlexBox>
@@ -41,11 +45,13 @@ const BoardDetail = () => {
               <S.TitleWrapper>
                 <S.Title>{projectDetail?.title}</S.Title>
                 <S.ModifyWrapper>
-                  <KebabIcon
-                    onClick={() => {
-                      setIsOpen(!isOpen);
-                    }}
-                  />
+                  {projectDetail?.userId === ids && (
+                    <KebabIcon
+                      onClick={() => {
+                        setIsOpen(!isOpen);
+                      }}
+                    />
+                  )}
                   {isOpen && (
                     <S.DropdownContainer>
                       <S.Options>
