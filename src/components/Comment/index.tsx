@@ -5,9 +5,39 @@ import { useState } from 'react';
 import SubmitArrow from 'assets/SubmitArrow';
 import MessageInput from 'components/MessageInput';
 import { ICommentProps } from 'types/IComponentsProps';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { ReComent } from 'contents/queryKey';
+import { getReComment, postReComment } from 'apis/api';
+import { IRecomment } from 'types/IRecomment';
 
 const Comment = ({ data }: { data: ICommentProps }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [userInput, setUserInput] = useState('');
+  const [arr, setArr] = useState<IRecomment[]>([]);
+
+  const queryClient = useQueryClient();
+
+  const commentMutate = useMutation({
+    mutationKey: [ReComent],
+    mutationFn: () => postReComment(Number(data.id), userInput),
+    onSuccess: (data) => {
+      setArr((prevArr) => [...prevArr, data]);
+      queryClient.invalidateQueries([ReComent]);
+    },
+  });
+
+  const getComments = useQuery({
+    queryKey: [ReComent],
+    queryFn: () => getReComment(Number(data.id)),
+    onSuccess: (data: IRecomment[]) => {
+      setArr(data);
+    },
+  });
+
+  const sendData = () => {
+    commentMutate.mutate();
+    setUserInput('');
+  };
 
   return (
     <S.CommentContainer>
@@ -32,16 +62,27 @@ const Comment = ({ data }: { data: ICommentProps }) => {
         >
           <p>{data.content}</p>
         </S.CommentWrapper>
+        {arr.map((data, index) => (
+          <div key={index}>{data.content}</div>
+        ))}
+
         {isOpen && (
           <S.MessageContainer>
             <MessageInput
               width={'95%'}
               placeholder='타인의 권리를 침해하거나 명예를 훼손하는 댓글은 제재를 받을 수 있습니다.'
               type='search'
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              onKeyPress={(e: React.KeyboardEvent) => {
+                if (e.key === 'Enter') {
+                  sendData();
+                }
+              }}
             />
             <S.ButtonContainer>
               <div style={{ marginLeft: '7px' }}>
-                <SubmitArrow />
+                <SubmitArrow onClick={sendData} />
               </div>
             </S.ButtonContainer>
           </S.MessageContainer>

@@ -34,7 +34,7 @@ const MessageBox = () => {
   });
 
   const sendData = () => {
-    console.log(commentMutate.mutate());
+    commentMutate.mutate();
     setUserInput('');
   };
 

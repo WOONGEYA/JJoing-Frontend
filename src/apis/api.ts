@@ -167,3 +167,23 @@ export const getComment = async (id: number) => {
   const { data } = await instance.get(`/comment/${id}`);
   return data;
 };
+
+export const postReComment = async (id: number, content: string) => {
+  const { data } = await instance.post(
+    `/recomment/${id}`,
+    {
+      content,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    },
+  );
+  return data;
+};
+
+export const getReComment = async (id: number) => {
+  const { data } = await instance.get(`/recomment/${id}`);
+  return data;
+};
