@@ -15,6 +15,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { gotoUserProfile, gotoUserProfileId, userKey } from 'apis/recoil';
 import FollowerList from 'pages/FollowerList';
 import FollowingrList from 'pages/FollowingList';
+import { useQueries, useQueryClient } from 'react-query';
 
 interface UserProfile {
   statusMessage: string;
@@ -40,14 +41,10 @@ interface Project {
   likeState: boolean;
 }
 
-interface FollowInfo {
-  followCount: number;
-  followingCount: number;
-}
-
 const MyPage = () => {
   const { openModal, closeModal } = useModal();
 
+  const navigate = useNavigate();
   const [selected, setSelected] = React.useState(0);
   const [myProject, setMyProject] = React.useState<Project[] | null>([]);
   const [endMyProject, setEndMyProject] = React.useState<Project[] | null>();
@@ -55,7 +52,8 @@ const MyPage = () => {
     null,
   );
   const [userInput, setUserInput] = React.useState<string>('');
-  const [followInfo, setFollowInfo] = React.useState<FollowInfo>();
+  const [followInfo, setFollowInfo] = React.useState();
+  const [followingInfo, setFollowingInfo] = React.useState();
 
   const handleTabSelect = (e: React.MouseEvent<HTMLDivElement>) => {
     const id = parseInt(e.currentTarget.id);
@@ -67,22 +65,30 @@ const MyPage = () => {
   };
 
   const id = useRecoilValue(userKey);
+  const newId = Number(id);
 
   const modalOpen = () => {
     openModal({
       component: <ProfileUpdateModal closeModal={closeModal} />,
     });
   };
-
   const followerList = () => {
     openModal({
-      component: <FollowerList closeModal={closeModal} id={id} />,
+      component: (
+        <FollowerList closeModal={closeModal} id={newId} navigate={navigate} />
+      ),
     });
   };
 
   const followingList = () => {
     openModal({
-      component: <FollowingrList closeModal={closeModal} id={id} />,
+      component: (
+        <FollowingrList
+          closeModal={closeModal}
+          id={newId}
+          navigate={navigate}
+        />
+      ),
     });
   };
 
@@ -97,7 +103,7 @@ const MyPage = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [id]);
 
   React.useEffect(() => {
     instance
@@ -148,34 +154,32 @@ const MyPage = () => {
       });
   }, []);
 
-  const getUserId = async () => {
-    const { data } = await instance.get('/user', {
-      headers: { Authorization: localStorage.getItem('accessToken') },
-    });
-    return data.id;
-  };
-
-  const getFollowingCount = async () => {
-    const id = await getUserId();
+  const getFollowingCount = async (id: number) => {
     const { data } = await instance.get(`/follow/${id}/following/count`);
     return data;
   };
 
-  const getFollowCount = async () => {
-    const id = await getUserId();
+  const getFollowCount = async (id: number) => {
     const { data } = await instance.get(`/follow/${id}/follower/count`);
     return data;
   };
 
-  const updateFollowInfo = async () => {
-    const followCount = await getFollowCount();
-    const followingCount = await getFollowingCount();
-    setFollowInfo({ followCount, followingCount });
-  };
-
-  React.useEffect(() => {
-    updateFollowInfo();
-  }, []);
+  useQueries([
+    {
+      queryKey: ['userFollowing', id],
+      queryFn: () => getFollowingCount(Number(id)),
+      onSuccess: (data: any) => {
+        setFollowingInfo(data);
+      },
+    },
+    {
+      queryKey: ['userFollowers', id],
+      queryFn: () => getFollowCount(Number(id)),
+      onSuccess: (data: any) => {
+        setFollowInfo(data);
+      },
+    },
+  ]);
 
   const [gotoUser, setGoToUser] = useRecoilState(gotoUserProfile);
   const gotoUserId = useRecoilValue(gotoUserProfileId);
@@ -220,11 +224,11 @@ const MyPage = () => {
                   </div>
                   <S.Follow>
                     <S.CountFollow onClick={followerList}>
-                      팔로워 {followInfo?.followingCount}
+                      팔로워 {followInfo}
                     </S.CountFollow>
                     <S.FowllowGap>
                       <S.CountFollow onClick={followingList}>
-                        팔로우 {followInfo?.followCount}
+                        팔로우 {followingInfo}
                       </S.CountFollow>
                     </S.FowllowGap>
                   </S.Follow>

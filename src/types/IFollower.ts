@@ -5,4 +5,5 @@ export interface IFollower {
   name: string;
   school: string;
   closeModal: () => void;
+  navigate: () => void;
 }

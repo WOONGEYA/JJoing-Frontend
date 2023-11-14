@@ -1,21 +1,32 @@
 import { ProfileUpdateModalProps } from 'types/IModalOpen';
 import * as S from './style';
 import CloseIcon from 'assets/CloseIcon';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { followingList } from 'apis/api';
 import FollowPeople from 'components/FollowPeople';
 import { useEffect, useState } from 'react';
 import { IFollower } from 'types/IFollower';
 import Input from 'components/Input';
 
-const FollowerList = ({ closeModal, id }: ProfileUpdateModalProps) => {
+const FollowerList = ({
+  closeModal,
+  id,
+  navigate,
+}: ProfileUpdateModalProps) => {
   const [people, setPeople] = useState<IFollower[]>();
   const [userInput, setUserInput] = useState('');
+  const queryClient = useQueryClient();
 
   const { data } = useQuery({
     queryKey: ['userFollow', id],
     queryFn: () => followingList(Number(id)),
   });
+
+  const handleNavigateProfile = (id: number) => {
+    navigate?.(`/others/${id}`);
+    closeModal();
+    queryClient.invalidateQueries(['userFollow', id]);
+  };
 
   useEffect(() => {
     setPeople(data);
@@ -47,7 +58,14 @@ const FollowerList = ({ closeModal, id }: ProfileUpdateModalProps) => {
       <S.ScrollContainer>
         {filteredFollower && filteredFollower.length > 0 ? (
           filteredFollower.map((person: IFollower) => (
-            <FollowPeople key={person.id} {...person} closeModal={closeModal} />
+            <FollowPeople
+              key={person.id}
+              {...person}
+              closeModal={closeModal}
+              navigate={() => {
+                handleNavigateProfile(person.id);
+              }}
+            />
           ))
         ) : (
           <S.Icon>검색 결과가 없습니다.</S.Icon>

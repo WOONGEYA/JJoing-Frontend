@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GithubIcon from 'assets/GithubIcon';
 import EmailIcon from 'assets/EmailIcon';
 import Layout from 'components/Layout';
 import ProjectBox from 'components/ProjectBox';
 import * as S from './style';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import instance from 'apis/httpClient';
@@ -16,6 +16,7 @@ import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import FollowerList from 'pages/FollowerList';
 import FollowingrList from 'pages/FollowingList';
+import { useQueries } from 'react-query';
 
 interface UserProfile {
   id: number;
@@ -53,6 +54,7 @@ interface FollowList {
 }
 
 const MyPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams() as { id: string };
   const [selected, setSelected] = React.useState(0);
   const [othersProject, setOthersProject] = React.useState<Project[] | null>(
@@ -68,6 +70,8 @@ const MyPage = () => {
     followingCount: 0,
   });
   const [followState, setFollowState] = React.useState(false);
+  const [follow, setFollow] = useState();
+  const [following, setFollowing] = useState();
 
   const handleTabSelect = (e: React.MouseEvent<HTMLDivElement>) => {
     const id = parseInt(e.currentTarget.id);
@@ -89,7 +93,7 @@ const MyPage = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [id]);
 
   const { openModal, closeModal } = useModal();
 
@@ -150,25 +154,32 @@ const MyPage = () => {
       })
     : [];
 
-  const getFollowingCount = async () => {
+  const getFollowingCount = async (id: number) => {
     const { data } = await instance.get(`/follow/${id}/following/count`);
     return data;
   };
 
-  const getFollowCount = async () => {
+  const getFollowCount = async (id: number) => {
     const { data } = await instance.get(`/follow/${id}/follower/count`);
     return data;
   };
 
-  const updateFollowInfo = async () => {
-    const followCount = await getFollowCount();
-    const followingCount = await getFollowingCount();
-    setFollowInfo({ followCount, followingCount });
-  };
-
-  React.useEffect(() => {
-    updateFollowInfo();
-  }, []);
+  useQueries([
+    {
+      queryKey: ['userFollowing', id],
+      queryFn: () => getFollowingCount(Number(id)),
+      onSuccess: (data: any) => {
+        setFollowing(data);
+      },
+    },
+    {
+      queryKey: ['userFollowers', id],
+      queryFn: () => getFollowCount(Number(id)),
+      onSuccess: (data: any) => {
+        setFollow(data);
+      },
+    },
+  ]);
 
   const followUser = async () => {
     await instance.post(`/follow/${id}`);
@@ -221,13 +232,21 @@ const MyPage = () => {
 
   const followerList = () => {
     openModal({
-      component: <FollowerList closeModal={closeModal} id={newId} />,
+      component: (
+        <FollowerList closeModal={closeModal} id={newId} navigate={navigate} />
+      ),
     });
   };
 
   const followingList = () => {
     openModal({
-      component: <FollowingrList closeModal={closeModal} id={newId} />,
+      component: (
+        <FollowingrList
+          closeModal={closeModal}
+          id={newId}
+          navigate={navigate}
+        />
+      ),
     });
   };
 
@@ -258,11 +277,11 @@ const MyPage = () => {
                   </div>
                   <S.Follow>
                     <S.CountFollow onClick={followerList}>
-                      팔로워 {followInfo?.followingCount}
+                      팔로워 {follow}
                     </S.CountFollow>
                     <S.FowllowGap>
                       <S.CountFollow onClick={followingList}>
-                        팔로우 {followInfo?.followCount}
+                        팔로우 {following}
                       </S.CountFollow>
                     </S.FowllowGap>
                   </S.Follow>

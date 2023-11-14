@@ -15,6 +15,7 @@ export const Container = styled.div`
   align-items: center;
   ${font.$footnote};
   margin-left: 5px;
+  cursor: pointer;
 
   &:first-child {
     margin-top: 5.5rem;

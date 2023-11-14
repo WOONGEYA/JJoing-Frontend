@@ -12,6 +12,7 @@ import { IReadBoard } from 'types/IReadBoard';
 import { daysAgo } from 'utils/daysAgo';
 import { BoardKey, ReadDetailProject } from 'contents/queryKey';
 import NoResultPage from 'components/NoResult';
+import { toast } from 'react-toastify';
 
 const Board = () => {
   const [userInput, setUserInput] = useState('');
@@ -34,6 +35,14 @@ const Board = () => {
       setSearchResult(data.postResponses);
     },
   });
+
+  const writeBoard = () => {
+    if (localStorage.getItem('accessToken')) {
+      router('/createBoard');
+    } else {
+      toast.error('로그인 후 이용해주세요.');
+    }
+  };
 
   useEffect(() => {
     if (data) {
@@ -58,21 +67,16 @@ const Board = () => {
               }
             }}
           />
-          <S.WriterButton
-            onClick={() => {
-              router('/createBoard');
-            }}
-          >
-            작성하기
-          </S.WriterButton>
+          <S.WriterButton onClick={writeBoard}>작성하기</S.WriterButton>
         </S.WriteContainer>
         {(searchResult || projectDetail)?.map((data, i) => (
-          <S.BoardBoxContainer key={i}>
-            <S.ProfileInfoContainer
-              onClick={() => {
-                router(`/boards/${data.id}`);
-              }}
-            >
+          <S.BoardBoxContainer
+            key={i}
+            onClick={() => {
+              router(`/boards/${data.id}`);
+            }}
+          >
+            <S.ProfileInfoContainer>
               <S.Title>{data.title}</S.Title>
               <S.UserProfile>
                 <S.ProfileImg
