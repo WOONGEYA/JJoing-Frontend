@@ -1,7 +1,7 @@
 import MessageIcon from 'assets/MessageIcon';
 import * as S from './style';
 import theme from 'styles/theme';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SubmitArrow from 'assets/SubmitArrow';
 import MessageInput from 'components/MessageInput';
 import { ICommentProps } from 'types/IComponentsProps';
@@ -9,6 +9,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { ReComent } from 'contents/queryKey';
 import { getReComment, postReComment } from 'apis/api';
 import { IRecomment } from 'types/IRecomment';
+import Recomment from 'components/ReComment';
 
 const Comment = ({ data }: { data: ICommentProps }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,10 +28,13 @@ const Comment = ({ data }: { data: ICommentProps }) => {
   });
 
   const getComments = useQuery({
-    queryKey: [ReComent],
+    queryKey: [ReComent, data.id],
     queryFn: () => getReComment(Number(data.id)),
     onSuccess: (data: IRecomment[]) => {
-      setArr(data);
+      if (data) {
+        getComments;
+        setArr(data);
+      }
     },
   });
 
@@ -38,6 +42,10 @@ const Comment = ({ data }: { data: ICommentProps }) => {
     commentMutate.mutate();
     setUserInput('');
   };
+
+  useEffect(() => {
+    getComments;
+  }, []);
 
   return (
     <S.CommentContainer>
@@ -48,7 +56,7 @@ const Comment = ({ data }: { data: ICommentProps }) => {
         <S.ProfileChatTitle>
           <S.UserProfile>
             <S.UserView>{data.userName}</S.UserView>
-            <S.DateView>{data.createTime}</S.DateView>
+            <S.DateView>{data.createTime?.replace('T', ' ')}</S.DateView>
           </S.UserProfile>
           <S.CountView>
             <MessageIcon color={theme.grey[500]} />
@@ -63,7 +71,7 @@ const Comment = ({ data }: { data: ICommentProps }) => {
           <p>{data.content}</p>
         </S.CommentWrapper>
         {arr.map((data, index) => (
-          <div key={index}>{data.content}</div>
+          <Recomment data={data} key={index} />
         ))}
 
         {isOpen && (

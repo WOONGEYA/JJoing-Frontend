@@ -103,7 +103,9 @@ const BoardDetail = () => {
             </S.TextBox>
             <S.ContentContainer>
               <S.Content>{projectDetail?.content}</S.Content>
-              <S.ProjectImg src={projectDetail?.postImg} alt='img' />
+              {projectDetail?.postImg && (
+                <S.ProjectImg src={projectDetail?.postImg} alt='img' />
+              )}
               <S.CountMessage>
                 댓글 {projectDetail?.commentCount}개
               </S.CountMessage>

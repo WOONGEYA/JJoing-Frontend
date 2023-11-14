@@ -80,7 +80,7 @@ const Main = () => {
             <div>
               <S.Title>
                 프로젝트를 함께 할 팀원을
-                <S.Emphasis>쪼잉</S.Emphasis>에서 찾아보세요!
+                <S.Emphasis> 쪼잉</S.Emphasis>에서 찾아보세요!
               </S.Title>
               <S.Subtitle>
                 관심 분야의 프로젝트를 직접 생성하거나 찾아보세요. 쪼잉은 더

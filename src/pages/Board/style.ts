@@ -24,6 +24,7 @@ export const BoardBoxContainer = styled.div`
     transition: 0.3s ease-in-out;
     background-color: ${theme.grey[100]};
   }
+  cursor: pointer;
 `;
 
 export const ProfileInfoContainer = styled.div`
@@ -78,7 +79,6 @@ export const WriteContainer = styled.div`
 export const WriterButton = styled.div`
   display: inline-flex;
   padding: 12px 20px;
-  cursor: pointer;
   justify-content: center;
   align-items: center;
   border-radius: 4px;
