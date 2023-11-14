@@ -277,11 +277,11 @@ const MyPage = () => {
                   </div>
                   <S.Follow>
                     <S.CountFollow onClick={followerList}>
-                      팔로워 {follow}
+                      팔로워 {following}
                     </S.CountFollow>
                     <S.FowllowGap>
                       <S.CountFollow onClick={followingList}>
-                        팔로우 {following}
+                        팔로우 {follow}
                       </S.CountFollow>
                     </S.FowllowGap>
                   </S.Follow>
