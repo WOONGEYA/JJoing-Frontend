@@ -8,6 +8,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getComment, postComment } from 'apis/api';
 import { Comments } from 'contents/queryKey';
 import { ICommentProps } from 'types/IComponentsProps';
+import { toast } from 'react-toastify';
 
 const MessageBox = () => {
   const [userInput, setUserInput] = useState('');
@@ -34,8 +35,12 @@ const MessageBox = () => {
   });
 
   const sendData = () => {
-    commentMutate.mutate();
-    setUserInput('');
+    if (localStorage.getItem('accessToken')) {
+      commentMutate.mutate();
+      setUserInput('');
+    } else {
+      toast.error('로그인 후 이용해 주세요');
+    }
   };
 
   return (

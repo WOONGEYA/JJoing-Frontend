@@ -10,6 +10,7 @@ import { ReComent } from 'contents/queryKey';
 import { getReComment, postReComment } from 'apis/api';
 import { IRecomment } from 'types/IRecomment';
 import Recomment from 'components/ReComment';
+import { toast } from 'react-toastify';
 
 const Comment = ({ data }: { data: ICommentProps }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,8 +40,12 @@ const Comment = ({ data }: { data: ICommentProps }) => {
   });
 
   const sendData = () => {
-    commentMutate.mutate();
-    setUserInput('');
+    if (localStorage.getItem('accessToken')) {
+      commentMutate.mutate();
+      setUserInput('');
+    } else {
+      toast.error('로그인 후 이용해 주세요');
+    }
   };
 
   useEffect(() => {
