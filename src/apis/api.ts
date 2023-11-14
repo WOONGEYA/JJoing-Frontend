@@ -22,7 +22,7 @@ export const createBoard = async ({ title, content, imgUrl }: ICreateBoard) => {
     { title, content, imgUrl },
     {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     },
   );
@@ -165,5 +165,25 @@ export const postComment = async (id: number, content: string) => {
 
 export const getComment = async (id: number) => {
   const { data } = await instance.get(`/comment/${id}`);
+  return data;
+};
+
+export const postReComment = async (id: number, content: string) => {
+  const { data } = await instance.post(
+    `/recomment/${id}`,
+    {
+      content,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    },
+  );
+  return data;
+};
+
+export const getReComment = async (id: number) => {
+  const { data } = await instance.get(`/recomment/${id}`);
   return data;
 };

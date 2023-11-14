@@ -68,19 +68,18 @@ const Board = () => {
         </S.WriteContainer>
         {(searchResult || projectDetail)?.map((data, i) => (
           <S.BoardBoxContainer key={i}>
-            <S.ProfileInfoContainer>
-              <S.Title
-                onClick={() => {
-                  router(`/boards/${data.id}`);
-                }}
-              >
-                {data.title}
-              </S.Title>
+            <S.ProfileInfoContainer
+              onClick={() => {
+                router(`/boards/${data.id}`);
+              }}
+            >
+              <S.Title>{data.title}</S.Title>
               <S.UserProfile>
                 <S.ProfileImg
                   src={data.userImg}
                   alt='img'
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     router(`/others/${data.userId}`);
                   }}
                 />

@@ -15,13 +15,13 @@ const MessageBox = () => {
   const { id } = useParams();
 
   const queryClient = useQueryClient();
-  queryClient.invalidateQueries([Comments]);
 
   const commentMutate = useMutation({
     mutationKey: [Comments],
     mutationFn: () => postComment(Number(id), userInput),
     onSuccess: (data) => {
-      setArr((prevArr) => [...prevArr, data]); // 수정된 부분
+      setArr((prevArr) => [...prevArr, data]);
+      queryClient.invalidateQueries([Comments]);
     },
   });
 
@@ -34,7 +34,7 @@ const MessageBox = () => {
   });
 
   const sendData = () => {
-    console.log(commentMutate.mutate());
+    commentMutate.mutate();
     setUserInput('');
   };
 

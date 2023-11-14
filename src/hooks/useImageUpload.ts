@@ -7,7 +7,7 @@ function useProjectImageUpload() {
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0];
-      setImageUrl(URL.createObjectURL(selectedFile));
+      // setImageUrl(URL.createObjectURL(selectedFile));
 
       const formData = new FormData();
       formData.append('image', selectedFile);
@@ -19,11 +19,14 @@ function useProjectImageUpload() {
       formData.append('data', blob);
 
       try {
-        const { data } = await instance.post('/project/image', formData, {
+        const {
+          data: { imgUrl },
+        } = await instance.post('/project/image', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
+        setImageUrl(imgUrl);
       } catch (error) {
         console.error('Error uploading image:', error);
       }
