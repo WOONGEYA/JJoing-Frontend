@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GithubIcon from 'assets/GithubIcon';
 import EmailIcon from 'assets/EmailIcon';
 import Layout from 'components/Layout';
@@ -16,6 +16,7 @@ import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import FollowerList from 'pages/FollowerList';
 import FollowingrList from 'pages/FollowingList';
+import { useQueries } from 'react-query';
 
 interface UserProfile {
   id: number;
@@ -69,6 +70,8 @@ const MyPage = () => {
     followingCount: 0,
   });
   const [followState, setFollowState] = React.useState(false);
+  const [follow, setFollow] = useState();
+  const [following, setFollowing] = useState();
 
   const handleTabSelect = (e: React.MouseEvent<HTMLDivElement>) => {
     const id = parseInt(e.currentTarget.id);
@@ -151,25 +154,32 @@ const MyPage = () => {
       })
     : [];
 
-  const getFollowingCount = async () => {
+  const getFollowingCount = async (id: number) => {
     const { data } = await instance.get(`/follow/${id}/following/count`);
     return data;
   };
 
-  const getFollowCount = async () => {
+  const getFollowCount = async (id: number) => {
     const { data } = await instance.get(`/follow/${id}/follower/count`);
     return data;
   };
 
-  const updateFollowInfo = async () => {
-    const followCount = await getFollowCount();
-    const followingCount = await getFollowingCount();
-    setFollowInfo({ followCount, followingCount });
-  };
-
-  React.useEffect(() => {
-    updateFollowInfo();
-  }, []);
+  useQueries([
+    {
+      queryKey: ['userFollowing', id],
+      queryFn: () => getFollowingCount(Number(id)),
+      onSuccess: (data: any) => {
+        setFollowing(data);
+      },
+    },
+    {
+      queryKey: ['userFollowers', id],
+      queryFn: () => getFollowCount(Number(id)),
+      onSuccess: (data: any) => {
+        setFollow(data);
+      },
+    },
+  ]);
 
   const followUser = async () => {
     await instance.post(`/follow/${id}`);
@@ -267,11 +277,11 @@ const MyPage = () => {
                   </div>
                   <S.Follow>
                     <S.CountFollow onClick={followerList}>
-                      팔로워 {followInfo?.followingCount}
+                      팔로워 {follow}
                     </S.CountFollow>
                     <S.FowllowGap>
                       <S.CountFollow onClick={followingList}>
-                        팔로우 {followInfo?.followCount}
+                        팔로우 {following}
                       </S.CountFollow>
                     </S.FowllowGap>
                   </S.Follow>

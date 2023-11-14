@@ -10,8 +10,8 @@ const FollowPeople = ({
   major,
 }: IFollower) => {
   return (
-    <S.Container>
-      <S.ImgWrapper onClick={navigate} src={imgUrl} alt='img' />
+    <S.Container onClick={navigate}>
+      <S.ImgWrapper src={imgUrl} alt='img' />
       <S.UserInfoContainer>
         <div>{name}</div>
         <S.UserInfo>
