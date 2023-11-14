@@ -76,7 +76,13 @@ const BoardDetail = () => {
               </S.TitleWrapper>
               <S.UserInfoContainer>
                 <S.ProfileInfoContainer>
-                  <S.ProfileImg src={projectDetail?.userImg} alt='userImg' />
+                  <S.ProfileImg
+                    src={projectDetail?.userImg}
+                    alt='userImg'
+                    onClick={() => {
+                      router(`/others/${projectDetail?.userId}`);
+                    }}
+                  />
                   <S.ProfileDetailBox>
                     <S.UserName>{projectDetail?.userName}</S.UserName>
                     <S.BoardDate>

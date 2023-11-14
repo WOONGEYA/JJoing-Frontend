@@ -48,6 +48,7 @@ interface FollowInfo {
 const MyPage = () => {
   const { openModal, closeModal } = useModal();
 
+  const navigate = useNavigate();
   const [selected, setSelected] = React.useState(0);
   const [myProject, setMyProject] = React.useState<Project[] | null>([]);
   const [endMyProject, setEndMyProject] = React.useState<Project[] | null>();
@@ -67,22 +68,30 @@ const MyPage = () => {
   };
 
   const id = useRecoilValue(userKey);
+  const newId = Number(id);
 
   const modalOpen = () => {
     openModal({
       component: <ProfileUpdateModal closeModal={closeModal} />,
     });
   };
-
   const followerList = () => {
     openModal({
-      component: <FollowerList closeModal={closeModal} id={id} />,
+      component: (
+        <FollowerList closeModal={closeModal} id={newId} navigate={navigate} />
+      ),
     });
   };
 
   const followingList = () => {
     openModal({
-      component: <FollowingrList closeModal={closeModal} id={id} />,
+      component: (
+        <FollowingrList
+          closeModal={closeModal}
+          id={newId}
+          navigate={navigate}
+        />
+      ),
     });
   };
 
@@ -97,7 +106,7 @@ const MyPage = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [id]);
 
   React.useEffect(() => {
     instance

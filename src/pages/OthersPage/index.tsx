@@ -4,7 +4,7 @@ import EmailIcon from 'assets/EmailIcon';
 import Layout from 'components/Layout';
 import ProjectBox from 'components/ProjectBox';
 import * as S from './style';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Tooltip from 'components/Tooltip';
 import Input from 'components/Input';
 import instance from 'apis/httpClient';
@@ -53,6 +53,7 @@ interface FollowList {
 }
 
 const MyPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams() as { id: string };
   const [selected, setSelected] = React.useState(0);
   const [othersProject, setOthersProject] = React.useState<Project[] | null>(
@@ -89,7 +90,7 @@ const MyPage = () => {
     };
 
     fetchUserData();
-  }, []);
+  }, [id]);
 
   const { openModal, closeModal } = useModal();
 
@@ -221,13 +222,21 @@ const MyPage = () => {
 
   const followerList = () => {
     openModal({
-      component: <FollowerList closeModal={closeModal} id={newId} />,
+      component: (
+        <FollowerList closeModal={closeModal} id={newId} navigate={navigate} />
+      ),
     });
   };
 
   const followingList = () => {
     openModal({
-      component: <FollowingrList closeModal={closeModal} id={newId} />,
+      component: (
+        <FollowingrList
+          closeModal={closeModal}
+          id={newId}
+          navigate={navigate}
+        />
+      ),
     });
   };
 
