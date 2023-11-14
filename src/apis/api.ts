@@ -22,7 +22,7 @@ export const createBoard = async ({ title, content, imgUrl }: ICreateBoard) => {
     { title, content, imgUrl },
     {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     },
   );

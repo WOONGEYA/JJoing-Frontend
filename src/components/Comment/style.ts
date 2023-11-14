@@ -33,7 +33,7 @@ export const UserProfile = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 21%;
+  width: 13rem;
 `;
 
 export const DateView = styled.div`
