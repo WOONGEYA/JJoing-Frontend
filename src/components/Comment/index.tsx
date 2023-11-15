@@ -7,17 +7,20 @@ import MessageInput from 'components/MessageInput';
 import { ICommentProps } from 'types/IComponentsProps';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Comments, ReComent } from 'contents/queryKey';
-import { deleteMent, getReComment, postReComment } from 'apis/api';
+import { deleteMent, getReComment, postReComment, putComments } from 'apis/api';
 import { IRecomment } from 'types/IRecomment';
 import Recomment from 'components/ReComment';
 import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
+import Input from 'components/Input';
 
 const Comment = ({ data }: { data: ICommentProps }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userInput, setUserInput] = useState('');
+  const [modInput, setModInput] = useState(data.content);
   const [arr, setArr] = useState<IRecomment[]>([]);
+  const [open, setOpen] = useState(false);
   const [detailRecomments, setDetailRecomments] = useState(false);
   const myId = useRecoilValue(userKey);
 
@@ -32,6 +35,7 @@ const Comment = ({ data }: { data: ICommentProps }) => {
     },
   });
 
+  console.log('data', data);
   const getComments = useQuery({
     queryKey: [ReComent, data.id],
     queryFn: () => getReComment(Number(data.id)),
@@ -72,6 +76,27 @@ const Comment = ({ data }: { data: ICommentProps }) => {
     delComment.mutate();
   };
 
+  const ModifyComment = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const changeComment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setModInput(e.target.value);
+  };
+
+  const putC = useMutation({
+    mutationKey: [Comments],
+    mutationFn: () => putComments(Number(data.id), modInput),
+    onSuccess: () => {
+      queryClient.invalidateQueries([Comments]);
+    },
+  });
+
+  const putComment = () => {
+    putC.mutate();
+    setOpen((prevOpen) => !prevOpen);
+  };
+
   return (
     <S.CommentContainer>
       <S.ProfileContainer>
@@ -86,7 +111,11 @@ const Comment = ({ data }: { data: ICommentProps }) => {
           <S.CountView>
             {myId == data.userId ? (
               <>
-                <S.Btn>수정</S.Btn>
+                {open ? (
+                  <S.Btn onClick={ModifyComment}>수정 취소</S.Btn>
+                ) : (
+                  <S.Btn onClick={ModifyComment}>수정</S.Btn>
+                )}
                 <S.Btn onClick={DeleteComment}>삭제</S.Btn>
               </>
             ) : null}
@@ -101,8 +130,21 @@ const Comment = ({ data }: { data: ICommentProps }) => {
             setIsOpen(!isOpen);
           }}
         >
-          <p>{data.content}</p>
+          {open ? (
+            <Input
+              value={modInput}
+              onChange={changeComment}
+              onKeyPress={(e: React.KeyboardEvent) => {
+                if (e.key === 'Enter') {
+                  putComment();
+                }
+              }}
+            />
+          ) : (
+            <p>{data.content}</p>
+          )}
         </S.CommentWrapper>
+
         {detailRecomments && arr.length > 0 ? (
           <>
             {arr.map((data, index) => (
@@ -122,7 +164,7 @@ const Comment = ({ data }: { data: ICommentProps }) => {
             </S.DetialComment>
           )
         )}
-        {isOpen && (
+        {open == false && isOpen && (
           <S.MessageContainer>
             <MessageInput
               width={'95%'}

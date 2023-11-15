@@ -192,3 +192,18 @@ export const deleteMent = async (id: number) => {
   const { data } = await instance.delete(`/comment/${id}`);
   return data;
 };
+
+export const putComments = async (id: number, content: string) => {
+  const { data } = await instance.put(
+    `/comment/${id}`,
+    {
+      content,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    },
+  );
+  return data;
+};
