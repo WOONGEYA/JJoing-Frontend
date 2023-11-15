@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { deleteBoardProject, getBoardProject } from 'apis/api';
-import { ReadDetailProject } from 'contents/queryKey';
+import { ReComent, ReadDetailProject } from 'contents/queryKey';
 import { IDetailProject } from 'types/IDetailProject';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
@@ -91,9 +91,7 @@ const BoardDetail = () => {
                   </S.ProfileDetailBox>
                 </S.ProfileInfoContainer>
                 <S.Detail>
-                  <S.ProjectDetail>
-                    <S.ProfileInfo></S.ProfileInfo>
-                  </S.ProjectDetail>
+                  <S.ProjectDetail></S.ProjectDetail>
                   <S.DetialWrapper>
                     <S.DetailBox>
                       <EyeIcon color={theme.grey[500]} />

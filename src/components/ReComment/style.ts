@@ -88,3 +88,13 @@ export const MessageContainer = styled.div`
   align-items: center;
   gap: 1rem;
 `;
+
+export const CloseRecomment = styled.div`
+  cursor: pointer;
+  color: ${theme.grey[600]};
+  margin-bottom: 1rem;
+`;
+
+export const Btn = styled.div`
+  cursor: pointer;
+`;

@@ -6,16 +6,23 @@ import SubmitArrow from 'assets/SubmitArrow';
 import MessageInput from 'components/MessageInput';
 import { ICommentProps } from 'types/IComponentsProps';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { ReComent } from 'contents/queryKey';
-import { getReComment, postReComment } from 'apis/api';
+import { Comments, ReComent } from 'contents/queryKey';
+import { deleteMent, getReComment, postReComment, putComments } from 'apis/api';
 import { IRecomment } from 'types/IRecomment';
 import Recomment from 'components/ReComment';
 import { toast } from 'react-toastify';
+import { useRecoilValue } from 'recoil';
+import { userKey } from 'apis/recoil';
+import Input from 'components/Input';
 
 const Comment = ({ data }: { data: ICommentProps }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userInput, setUserInput] = useState('');
+  const [modInput, setModInput] = useState(data.content);
   const [arr, setArr] = useState<IRecomment[]>([]);
+  const [open, setOpen] = useState(false);
+  const [detailRecomments, setDetailRecomments] = useState(false);
+  const myId = useRecoilValue(userKey);
 
   const queryClient = useQueryClient();
 
@@ -28,6 +35,7 @@ const Comment = ({ data }: { data: ICommentProps }) => {
     },
   });
 
+  console.log('data', data);
   const getComments = useQuery({
     queryKey: [ReComent, data.id],
     queryFn: () => getReComment(Number(data.id)),
@@ -38,6 +46,10 @@ const Comment = ({ data }: { data: ICommentProps }) => {
       }
     },
   });
+
+  const recommentOpen = () => {
+    setDetailRecomments(!detailRecomments);
+  };
 
   const sendData = () => {
     if (localStorage.getItem('accessToken')) {
@@ -52,6 +64,39 @@ const Comment = ({ data }: { data: ICommentProps }) => {
     getComments;
   }, []);
 
+  const delComment = useMutation({
+    mutationKey: [Comments],
+    mutationFn: () => deleteMent(Number(data.id)),
+    onSuccess: () => {
+      queryClient.invalidateQueries([Comments]);
+    },
+  });
+
+  const DeleteComment = () => {
+    delComment.mutate();
+  };
+
+  const ModifyComment = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const changeComment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setModInput(e.target.value);
+  };
+
+  const putC = useMutation({
+    mutationKey: [Comments],
+    mutationFn: () => putComments(Number(data.id), modInput),
+    onSuccess: () => {
+      queryClient.invalidateQueries([Comments]);
+    },
+  });
+
+  const putComment = () => {
+    putC.mutate();
+    setOpen((prevOpen) => !prevOpen);
+  };
+
   return (
     <S.CommentContainer>
       <S.ProfileContainer>
@@ -64,8 +109,20 @@ const Comment = ({ data }: { data: ICommentProps }) => {
             <S.DateView>{data.createTime?.replace('T', ' ')}</S.DateView>
           </S.UserProfile>
           <S.CountView>
-            <MessageIcon color={theme.grey[500]} />
-            {data.reCommentCount}
+            {myId == data.userId ? (
+              <>
+                {open ? (
+                  <S.Btn onClick={ModifyComment}>수정 취소</S.Btn>
+                ) : (
+                  <S.Btn onClick={ModifyComment}>수정</S.Btn>
+                )}
+                <S.Btn onClick={DeleteComment}>삭제</S.Btn>
+              </>
+            ) : null}
+            <S.FlexBox>
+              <MessageIcon color={theme.grey[500]} />
+              {data.reCommentCount}
+            </S.FlexBox>
           </S.CountView>
         </S.ProfileChatTitle>
         <S.CommentWrapper
@@ -73,13 +130,41 @@ const Comment = ({ data }: { data: ICommentProps }) => {
             setIsOpen(!isOpen);
           }}
         >
-          <p>{data.content}</p>
+          {open ? (
+            <Input
+              value={modInput}
+              onChange={changeComment}
+              onKeyPress={(e: React.KeyboardEvent) => {
+                if (e.key === 'Enter') {
+                  putComment();
+                }
+              }}
+            />
+          ) : (
+            <p>{data.content}</p>
+          )}
         </S.CommentWrapper>
-        {arr.map((data, index) => (
-          <Recomment data={data} key={index} />
-        ))}
 
-        {isOpen && (
+        {detailRecomments && arr.length > 0 ? (
+          <>
+            {arr.map((data, index) => (
+              <Recomment
+                data={data}
+                key={index}
+                detailRecomments={detailRecomments}
+                setDetailRecomments={setDetailRecomments}
+                isLastRecomment={index === arr.length - 1}
+              />
+            ))}
+          </>
+        ) : (
+          arr.length > 0 && (
+            <S.DetialComment onClick={recommentOpen}>
+              댓글 상세보기
+            </S.DetialComment>
+          )
+        )}
+        {open == false && isOpen && (
           <S.MessageContainer>
             <MessageInput
               width={'95%'}

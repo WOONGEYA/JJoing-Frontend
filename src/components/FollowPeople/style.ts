@@ -29,15 +29,22 @@ export const ImgWrapper = styled.img`
 `;
 
 export const UserInfoContainer = styled.div`
-  width: 250px;
+  width: 67%;
   height: 50px;
   margin-left: 10px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-direction: column;
 `;
 
 export const UserInfo = styled.div`
   color: ${theme.grey[600]};
   ${font.$subhead}
+`;
+
+export const FollowBtn = styled.div`
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.3rem;
+  background-color: ${theme.grey[600]};
+  color: white;
 `;

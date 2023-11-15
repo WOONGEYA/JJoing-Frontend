@@ -187,3 +187,43 @@ export const getReComment = async (id: number) => {
   const { data } = await instance.get(`/recomment/${id}`);
   return data;
 };
+
+export const deleteMent = async (id: number) => {
+  const { data } = await instance.delete(`/comment/${id}`);
+  return data;
+};
+
+export const putComments = async (id: number, content: string) => {
+  const { data } = await instance.put(
+    `/comment/${id}`,
+    {
+      content,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    },
+  );
+  return data;
+};
+
+export const deleteReMent = async (id: number) => {
+  const { data } = await instance.delete(`/recomment/${id}`);
+  return data;
+};
+
+export const putReComments = async (id: number, content: string) => {
+  const { data } = await instance.put(
+    `/recomment/${id}`,
+    {
+      content,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    },
+  );
+  return data;
+};

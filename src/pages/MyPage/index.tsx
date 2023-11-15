@@ -15,7 +15,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { gotoUserProfile, gotoUserProfileId, userKey } from 'apis/recoil';
 import FollowerList from 'pages/FollowerList';
 import FollowingrList from 'pages/FollowingList';
-import { useQueries, useQueryClient } from 'react-query';
+import { useQueries } from 'react-query';
 
 interface UserProfile {
   statusMessage: string;
@@ -224,11 +224,11 @@ const MyPage = () => {
                   </div>
                   <S.Follow>
                     <S.CountFollow onClick={followerList}>
-                      팔로워 {followInfo}
+                      팔로워 {followingInfo}
                     </S.CountFollow>
                     <S.FowllowGap>
                       <S.CountFollow onClick={followingList}>
-                        팔로우 {followingInfo}
+                        팔로우 {followInfo}
                       </S.CountFollow>
                     </S.FowllowGap>
                   </S.Follow>
