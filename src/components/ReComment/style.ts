@@ -94,3 +94,7 @@ export const CloseRecomment = styled.div`
   color: ${theme.grey[600]};
   margin-bottom: 1rem;
 `;
+
+export const Btn = styled.div`
+  cursor: pointer;
+`;
