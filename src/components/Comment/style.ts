@@ -88,3 +88,9 @@ export const MessageContainer = styled.div`
   align-items: center;
   gap: 1rem;
 `;
+
+export const DetialComment = styled.div`
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  color: ${theme.grey[600]};
+`;

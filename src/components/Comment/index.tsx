@@ -16,6 +16,7 @@ const Comment = ({ data }: { data: ICommentProps }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userInput, setUserInput] = useState('');
   const [arr, setArr] = useState<IRecomment[]>([]);
+  const [detailRecomments, setDetailRecomments] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -38,6 +39,10 @@ const Comment = ({ data }: { data: ICommentProps }) => {
       }
     },
   });
+
+  const recommentOpen = () => {
+    setDetailRecomments(!detailRecomments);
+  };
 
   const sendData = () => {
     if (localStorage.getItem('accessToken')) {
@@ -75,10 +80,25 @@ const Comment = ({ data }: { data: ICommentProps }) => {
         >
           <p>{data.content}</p>
         </S.CommentWrapper>
-        {arr.map((data, index) => (
-          <Recomment data={data} key={index} />
-        ))}
-
+        {detailRecomments && arr.length > 0 ? (
+          <>
+            {arr.map((data, index) => (
+              <Recomment
+                data={data}
+                key={index}
+                detailRecomments={detailRecomments}
+                setDetailRecomments={setDetailRecomments}
+                isLastRecomment={index === arr.length - 1}
+              />
+            ))}
+          </>
+        ) : (
+          arr.length > 0 && (
+            <S.DetialComment onClick={recommentOpen}>
+              댓글 {data.reCommentCount}개
+            </S.DetialComment>
+          )
+        )}
         {isOpen && (
           <S.MessageContainer>
             <MessageInput
