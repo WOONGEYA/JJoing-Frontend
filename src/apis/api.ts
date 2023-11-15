@@ -187,3 +187,8 @@ export const getReComment = async (id: number) => {
   const { data } = await instance.get(`/recomment/${id}`);
   return data;
 };
+
+export const deleteMent = async (id: number) => {
+  const { data } = await instance.delete(`/comment/${id}`);
+  return data;
+};

@@ -6,17 +6,20 @@ import SubmitArrow from 'assets/SubmitArrow';
 import MessageInput from 'components/MessageInput';
 import { ICommentProps } from 'types/IComponentsProps';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { ReComent } from 'contents/queryKey';
-import { getReComment, postReComment } from 'apis/api';
+import { Comments, ReComent } from 'contents/queryKey';
+import { deleteMent, getReComment, postReComment } from 'apis/api';
 import { IRecomment } from 'types/IRecomment';
 import Recomment from 'components/ReComment';
 import { toast } from 'react-toastify';
+import { useRecoilValue } from 'recoil';
+import { userKey } from 'apis/recoil';
 
 const Comment = ({ data }: { data: ICommentProps }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userInput, setUserInput] = useState('');
   const [arr, setArr] = useState<IRecomment[]>([]);
   const [detailRecomments, setDetailRecomments] = useState(false);
+  const myId = useRecoilValue(userKey);
 
   const queryClient = useQueryClient();
 
@@ -57,6 +60,18 @@ const Comment = ({ data }: { data: ICommentProps }) => {
     getComments;
   }, []);
 
+  const delComment = useMutation({
+    mutationKey: [Comments],
+    mutationFn: () => deleteMent(Number(data.id)),
+    onSuccess: () => {
+      queryClient.invalidateQueries([Comments]);
+    },
+  });
+
+  const DeleteComment = () => {
+    delComment.mutate();
+  };
+
   return (
     <S.CommentContainer>
       <S.ProfileContainer>
@@ -69,8 +84,16 @@ const Comment = ({ data }: { data: ICommentProps }) => {
             <S.DateView>{data.createTime?.replace('T', ' ')}</S.DateView>
           </S.UserProfile>
           <S.CountView>
-            <MessageIcon color={theme.grey[500]} />
-            {data.reCommentCount}
+            {myId == data.userId ? (
+              <>
+                <S.Btn>수정</S.Btn>
+                <S.Btn onClick={DeleteComment}>삭제</S.Btn>
+              </>
+            ) : null}
+            <S.FlexBox>
+              <MessageIcon color={theme.grey[500]} />
+              {data.reCommentCount}
+            </S.FlexBox>
           </S.CountView>
         </S.ProfileChatTitle>
         <S.CommentWrapper
@@ -95,7 +118,7 @@ const Comment = ({ data }: { data: ICommentProps }) => {
         ) : (
           arr.length > 0 && (
             <S.DetialComment onClick={recommentOpen}>
-              댓글 {data.reCommentCount}개
+              댓글 상세보기
             </S.DetialComment>
           )
         )}

@@ -15,7 +15,6 @@ export const Container = styled.div`
 export const TextContainer = styled.div`
   max-width: 900px;
   padding: 3rem 4rem;
-  min-height: 100vh;
   background-color: white;
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
@@ -66,7 +65,7 @@ export const ProjectDetail = styled.div`
 
 export const Detail = styled.div`
   width: 100%;
-  height: 100%;
+  height: 50%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -112,7 +111,7 @@ export const BoardDate = styled.div`
 export const ProfileInfo = styled.div``;
 
 export const ContentContainer = styled.div`
-  min-height: 60vh;
+  min-height: 40vh;
   padding: 5vh 0 3vh 0;
   border-bottom: 1px solid ${theme.grey[500]};
   display: flex;

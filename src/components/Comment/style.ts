@@ -44,7 +44,7 @@ export const DateView = styled.div`
 export const CountView = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
   color: ${theme.grey[500]};
 `;
 
@@ -93,4 +93,14 @@ export const DetialComment = styled.div`
   cursor: pointer;
   margin-bottom: 0.5rem;
   color: ${theme.grey[600]};
+`;
+
+export const FlexBox = styled.div`
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+`;
+
+export const Btn = styled.div`
+  cursor: pointer;
 `;

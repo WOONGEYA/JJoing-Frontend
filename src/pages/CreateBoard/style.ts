@@ -5,7 +5,7 @@ import theme from 'styles/theme';
 
 export const Container = styled.div`
   max-width: 1032px;
-  min-height: 120vh;
+  min-height: 50vh;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -16,7 +16,6 @@ export const Container = styled.div`
 
 export const TextContainer = styled.div`
   width: calc(100% - 60px);
-  min-height: 90vh;
   padding: 25px;
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
   background-color: white;
@@ -35,17 +34,16 @@ export const Curcor = styled.div`
 export const TextBox = styled.div`
   width: 95%;
   margin: 0 auto;
-  min-height: 70vh;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   gap: 2rem;
   padding: 1rem 0 1rem 0;
 `;
 
 export const Description = styled.textarea`
   width: 100%;
-  min-height: 70vh;
+  min-height: 40vh;
   resize: none;
   ${shadow.shadow2};
   padding: 12px;
@@ -57,7 +55,7 @@ export const Description = styled.textarea`
 export const ImgContainer = styled.div`
   width: 95%;
   margin: 0 auto;
-  min-height: 25vh;
+  min-height: 8vh;
   padding-bottom: 3rem;
 `;
 
@@ -69,7 +67,7 @@ export const ImgTitle = styled.div`
 
 export const AddImgContainer = styled.div`
   width: 100%;
-  height: 20vh;
+  height: 10vh;
 `;
 
 export const UploadedImage = styled.img`
@@ -116,7 +114,7 @@ export const UploadWrapper = styled.div`
 
 export const ButtonContainer = styled.div`
   width: 100%;
-  height: 20vh;
+  margin-top: 5rem;
   display: flex;
   align-items: center;
   justify-content: center;

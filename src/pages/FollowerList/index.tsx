@@ -36,6 +36,7 @@ const FollowerList = ({
     person.name.toLowerCase().includes(userInput.toLowerCase()),
   );
 
+  console.log(people);
   return (
     <S.Container>
       <S.TopWrapper>
@@ -65,6 +66,7 @@ const FollowerList = ({
               navigate={() => {
                 handleNavigateProfile(person.id);
               }}
+              navigates={navigate}
             />
           ))
         ) : (
