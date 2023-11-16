@@ -59,13 +59,15 @@ const FollowPeople = ({
           </S.UserInfo>
         </div>
       </S.UserInfoContainer>
-      {myId === id ? (
-        <></>
-      ) : open ? (
-        <S.FollowingBtn onClick={handleFollowing}>팔로잉</S.FollowingBtn>
-      ) : (
-        <S.FollowBtn onClick={handleFollow}>팔로우</S.FollowBtn>
-      )}
+      {localStorage.getItem('accessToken') ? (
+        myId === Number(id) ? (
+          <></>
+        ) : open ? (
+          <S.FollowingBtn onClick={handleFollowing}>팔로잉</S.FollowingBtn>
+        ) : (
+          <S.FollowBtn onClick={handleFollow}>팔로우</S.FollowBtn>
+        )
+      ) : null}
     </S.Container>
   );
 };

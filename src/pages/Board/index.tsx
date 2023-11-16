@@ -69,47 +69,50 @@ const Board = () => {
           />
           <S.WriterButton onClick={writeBoard}>작성하기</S.WriterButton>
         </S.WriteContainer>
-        {(searchResult || projectDetail)?.map((data, i) => (
-          <S.BoardBoxContainer
-            key={i}
-            onClick={() => {
-              router(`/boards/${data.id}`);
-            }}
-          >
-            <S.ProfileInfoContainer>
-              <S.Title>{data.title}</S.Title>
-              <S.UserProfile>
-                <S.ProfileImg
-                  src={data.userImg}
-                  alt='img'
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    router(`/others/${data.userId}`);
-                  }}
-                />
-                {data.userName}
-              </S.UserProfile>
-            </S.ProfileInfoContainer>
-            <S.ProjectDetail>
-              <S.DetailDay>{data.content}</S.DetailDay>
-            </S.ProjectDetail>
-            <S.Detail>
-              <S.DetailBox>
-                <EyeIcon color={theme.grey[600]} />
-                {Number(data.viewCount) < 1 ? 0 : data.viewCount}
-              </S.DetailBox>
-              <S.DetailBox>
-                <MessageIcon color={theme.grey[600]} />
-                {data?.commentCount == null ? 0 : data?.commentCount}
-              </S.DetailBox>
-              <S.detailContents>
-                {daysAgo(data.createTime) < 1
-                  ? '오늘'
-                  : daysAgo(data.createTime) + '일 전'}
-              </S.detailContents>
-            </S.Detail>
-          </S.BoardBoxContainer>
-        ))}
+        {(searchResult || projectDetail)
+          ?.slice()
+          .reverse()
+          .map((data, i) => (
+            <S.BoardBoxContainer
+              key={i}
+              onClick={() => {
+                router(`/boards/${data.id}`);
+              }}
+            >
+              <S.ProfileInfoContainer>
+                <S.Title>{data.title}</S.Title>
+                <S.UserProfile>
+                  <S.ProfileImg
+                    src={data.userImg}
+                    alt='img'
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router(`/others/${data.userId}`);
+                    }}
+                  />
+                  {data.userName}
+                </S.UserProfile>
+              </S.ProfileInfoContainer>
+              <S.ProjectDetail>
+                <S.DetailDay>{data.content}</S.DetailDay>
+              </S.ProjectDetail>
+              <S.Detail>
+                <S.DetailBox>
+                  <EyeIcon color={theme.grey[600]} />
+                  {Number(data.viewCount) < 1 ? 0 : data.viewCount}
+                </S.DetailBox>
+                <S.DetailBox>
+                  <MessageIcon color={theme.grey[600]} />
+                  {data?.commentCount == null ? 0 : data?.commentCount}
+                </S.DetailBox>
+                <S.detailContents>
+                  {daysAgo(data.createTime) < 1
+                    ? '오늘'
+                    : daysAgo(data.createTime) + '일 전'}
+                </S.detailContents>
+              </S.Detail>
+            </S.BoardBoxContainer>
+          ))}
         {userInput.length > 0 && searchResult && searchResult.length === 0 && (
           <NoResultPage />
         )}

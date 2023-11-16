@@ -52,10 +52,12 @@ export const Content = styled.div`
 
 export const ScrollContainer = styled.div`
   width: 98%;
+  height: 26.25rem;
+  overflow: auto;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.8rem;
 `;
 
 export const InputWrapper = styled.div`
