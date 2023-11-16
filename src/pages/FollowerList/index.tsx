@@ -36,13 +36,17 @@ const FollowerList = ({
     person.name.toLowerCase().includes(userInput.toLowerCase()),
   );
 
-  console.log(people);
+  const closeModalAndRefresh = () => {
+    closeModal();
+    window.location.reload();
+  };
+
   return (
     <S.Container>
       <S.TopWrapper>
         <S.TitleContainer>
           <S.Title>팔로워</S.Title>
-          <CloseIcon cursor='pointer' onClick={() => closeModal()} />
+          <CloseIcon cursor='pointer' onClick={closeModalAndRefresh} />
         </S.TitleContainer>
         <S.TitleContainer2>
           <S.Search>

@@ -37,12 +37,17 @@ const FollowingrList = ({
     queryClient.invalidateQueries(['userFollow', id]);
   };
 
+  const closeModalAndRefresh = () => {
+    closeModal();
+    window.location.reload();
+  };
+
   return (
     <S.Container>
       <S.TopWrapper>
         <S.TitleContainer>
           <S.Title>팔로우</S.Title>
-          <CloseIcon cursor='pointer' onClick={() => closeModal()} />
+          <CloseIcon cursor='pointer' onClick={closeModalAndRefresh} />
         </S.TitleContainer>
         <S.TitleContainer2>
           <S.Search>
