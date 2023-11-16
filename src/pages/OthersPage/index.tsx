@@ -204,10 +204,15 @@ const MyPage = () => {
   };
 
   const getUserId = async () => {
-    const { data } = await instance.get('/user', {
-      headers: { Authorization: localStorage.getItem('accessToken') },
-    });
-    return data.id;
+    try {
+      const { data } = await instance.get('/user', {
+        headers: { Authorization: localStorage.getItem('accessToken') },
+      });
+      return data.id;
+    } catch (error) {
+      console.error('Error fetching user id:', error);
+      return null;
+    }
   };
 
   const getMyFollowerList = async () => {
@@ -218,10 +223,12 @@ const MyPage = () => {
 
   const checkIsMyFollower = async () => {
     const myFollowerList = await getMyFollowerList();
-    const isMyFollower = myFollowerList.some(
-      (follower: FollowList) => Number(follower.id) === parseInt(id),
-    );
-    setFollowState(isMyFollower);
+    if (myFollowerList) {
+      const isMyFollower = myFollowerList.some(
+        (follower: FollowList) => Number(follower.id) === parseInt(id),
+      );
+      setFollowState(isMyFollower);
+    }
   };
 
   React.useEffect(() => {
