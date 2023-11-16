@@ -90,7 +90,7 @@ const Board = () => {
                       router(`/others/${data.userId}`);
                     }}
                   />
-                  {data.userName}
+                  <S.NameContainer>{data.userName}</S.NameContainer>
                 </S.UserProfile>
               </S.ProfileInfoContainer>
               <S.ProjectDetail>

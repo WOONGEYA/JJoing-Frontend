@@ -113,3 +113,7 @@ export const ProfileImg = styled.img`
   border-radius: 50%;
   cursor: pointer;
 `;
+
+export const NameContainer = styled.div`
+  width: 3rem;
+`;
