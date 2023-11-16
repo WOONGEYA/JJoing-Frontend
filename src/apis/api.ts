@@ -227,3 +227,13 @@ export const putReComments = async (id: number, content: string) => {
   );
   return data;
 };
+
+export const deleteFollow = async (id: number) => {
+  const { data } = await instance.delete(`/follow/${id}`);
+  return data;
+};
+
+export const addFollow = async (id: number) => {
+  const { data } = await instance.post(`/follow/${id}`);
+  return data;
+};

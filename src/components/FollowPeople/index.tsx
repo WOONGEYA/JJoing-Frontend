@@ -1,5 +1,10 @@
 import { IFollower } from 'types/IFollower';
 import * as S from './style';
+import { useRecoilValue } from 'recoil';
+import { userKey } from 'apis/recoil';
+import { useMutation, useQueryClient } from 'react-query';
+import { addFollow, deleteFollow } from 'apis/api';
+import { useState } from 'react';
 
 const FollowPeople = ({
   id,
@@ -11,9 +16,36 @@ const FollowPeople = ({
   followState,
   navigates,
 }: IFollower) => {
-  const handleClick = (e: React.MouseEvent) => {
+  const myId = useRecoilValue(userKey);
+  const queryClient = useQueryClient();
+  const [open, setOpen] = useState(followState);
+
+  const deleteF = useMutation({
+    mutationKey: ['userFollow'],
+    mutationFn: () => deleteFollow(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['userFollow', id]);
+    },
+  });
+
+  const addF = useMutation({
+    mutationKey: ['userFollow'],
+    mutationFn: () => addFollow(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['userFollow', id]);
+    },
+  });
+
+  const handleFollow = (e: React.MouseEvent) => {
     e.stopPropagation();
-    navigates?.('/123123123');
+    addF.mutate();
+    setOpen(true);
+  };
+
+  const handleFollowing = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    deleteF.mutate();
+    setOpen(false);
   };
 
   return (
@@ -27,10 +59,12 @@ const FollowPeople = ({
           </S.UserInfo>
         </div>
       </S.UserInfoContainer>
-      {followState ? (
-        <S.FollowingBtn onClick={handleClick}>팔로잉</S.FollowingBtn>
+      {myId === id ? (
+        <></>
+      ) : open ? (
+        <S.FollowingBtn onClick={handleFollowing}>팔로잉</S.FollowingBtn>
       ) : (
-        <S.FollowBtn onClick={handleClick}>팔로우</S.FollowBtn>
+        <S.FollowBtn onClick={handleFollow}>팔로우</S.FollowBtn>
       )}
     </S.Container>
   );

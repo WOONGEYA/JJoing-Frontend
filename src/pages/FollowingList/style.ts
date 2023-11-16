@@ -1,4 +1,3 @@
-import { Bottom } from './../../components/Footer/style';
 import { styled } from 'styled-components';
 import { font } from 'styles/font';
 import theme from 'styles/theme';
@@ -9,7 +8,6 @@ export const Container = styled.div`
   background-color: white;
   border-radius: 10px;
   padding: 20px;
-  overflow: scroll;
 `;
 
 export const TitleContainer = styled.div`

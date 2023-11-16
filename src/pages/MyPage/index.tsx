@@ -15,7 +15,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { gotoUserProfile, gotoUserProfileId, userKey } from 'apis/recoil';
 import FollowerList from 'pages/FollowerList';
 import FollowingrList from 'pages/FollowingList';
-import { useQueries } from 'react-query';
+import { useQueries, useQueryClient } from 'react-query';
 
 interface UserProfile {
   statusMessage: string;
@@ -92,6 +92,8 @@ const MyPage = () => {
     });
   };
 
+  const queryClient = useQueryClient();
+
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -102,8 +104,14 @@ const MyPage = () => {
       }
     };
 
-    fetchUserData();
-  }, [id]);
+    const fetchData = async () => {
+      await queryClient.invalidateQueries(['userFollowing', 'userFollow', id]);
+      await queryClient.invalidateQueries(['userFollowing', 'userFollow', id]);
+      await fetchUserData();
+    };
+
+    fetchData();
+  }, [id, queryClient]);
 
   React.useEffect(() => {
     instance
@@ -166,17 +174,18 @@ const MyPage = () => {
 
   useQueries([
     {
-      queryKey: ['userFollowing', id],
+      queryKey: ['userFollowing', 'userFollow', id],
       queryFn: () => getFollowingCount(Number(id)),
       onSuccess: (data: any) => {
         setFollowingInfo(data);
       },
     },
     {
-      queryKey: ['userFollowers', id],
+      queryKey: ['userFollowers', 'userFollow', id],
       queryFn: () => getFollowCount(Number(id)),
       onSuccess: (data: any) => {
         setFollowInfo(data);
+        queryClient.invalidateQueries(['userFollow']);
       },
     },
   ]);
