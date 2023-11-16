@@ -87,7 +87,7 @@ const Board = () => {
                     alt='img'
                     onClick={(e) => {
                       e.stopPropagation();
-                      router(`/others/${data.userId}`);
+                      router(`/others/${data?.userId}`);
                     }}
                   />
                   <S.NameContainer>{data.userName}</S.NameContainer>

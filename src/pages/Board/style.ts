@@ -108,8 +108,8 @@ export const UserProfile = styled.div`
 `;
 
 export const ProfileImg = styled.img`
-  width: 25px;
-  height: 25px;
+  width: 2.8rem;
+  height: 1.8rem;
   border-radius: 50%;
   cursor: pointer;
 `;
