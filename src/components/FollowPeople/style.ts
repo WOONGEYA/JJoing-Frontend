@@ -3,7 +3,8 @@ import { font } from 'styles/font';
 import theme from 'styles/theme';
 
 export const Container = styled.div`
-  width: 94%;
+  width: 93%;
+  margin: 0 auto;
   height: 60px;
   display: flex;
   padding: 8px 12px;
@@ -16,6 +17,7 @@ export const Container = styled.div`
   ${font.$footnote};
   margin-left: 5px;
   cursor: pointer;
+  margin-bottom: 5px;
 
   &:first-child {
     margin-top: 5.5rem;

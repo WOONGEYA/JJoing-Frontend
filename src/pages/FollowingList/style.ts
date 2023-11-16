@@ -51,7 +51,9 @@ export const Content = styled.div`
 `;
 
 export const ScrollContainer = styled.div`
-  width: 98%;
+  width: 100%;
+  height: 26.25rem;
+  overflow: auto;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -64,6 +66,7 @@ export const InputWrapper = styled.div`
 
 export const TopWrapper = styled.div`
   position: fixed;
+  width: 93%;
   background-color: white;
   padding-top: 20px;
   top: 0;
