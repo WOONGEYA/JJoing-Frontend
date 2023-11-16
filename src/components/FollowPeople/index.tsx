@@ -2,6 +2,7 @@ import { IFollower } from 'types/IFollower';
 import * as S from './style';
 
 const FollowPeople = ({
+  id,
   navigate,
   imgUrl,
   name,
@@ -26,7 +27,11 @@ const FollowPeople = ({
           </S.UserInfo>
         </div>
       </S.UserInfoContainer>
-      <S.FollowBtn onClick={handleClick}>팔로우</S.FollowBtn>
+      {followState ? (
+        <S.FollowingBtn onClick={handleClick}>팔로잉</S.FollowingBtn>
+      ) : (
+        <S.FollowBtn onClick={handleClick}>팔로우</S.FollowBtn>
+      )}
     </S.Container>
   );
 };
