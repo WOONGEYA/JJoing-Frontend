@@ -100,7 +100,7 @@ export const Title = styled.div`
 `;
 
 export const UserProfile = styled.div`
-  width: 4.8rem;
+  width: 5rem;
   display: flex;
   gap: 0.5rem;
   align-items: center;
