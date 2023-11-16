@@ -29,7 +29,7 @@ export const ImgWrapper = styled.img`
 `;
 
 export const UserInfoContainer = styled.div`
-  width: 67%;
+  width: 65%;
   height: 50px;
   margin-left: 10px;
   display: flex;
@@ -47,4 +47,11 @@ export const FollowBtn = styled.div`
   border-radius: 0.3rem;
   background-color: ${theme.grey[600]};
   color: white;
+`;
+
+export const FollowingBtn = styled.div`
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.3rem;
+  background-color: ${theme.grey[400]};
+  color: ${theme.grey[800]};
 `;

@@ -43,7 +43,7 @@ const App = () => {
       />
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
-          {/* <ReactQueryDevtools initialIsOpen={false} position='bottom-right' /> */}
+          <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
           <Modal />
           <BrowserRouter>
             <Routes>
