@@ -51,13 +51,33 @@ export const Content = styled.div`
 `;
 
 export const ScrollContainer = styled.div`
-  width: 100%;
+  width: 98%;
   height: 26.25rem;
   overflow: auto;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  /* 스크롤바의 너비 */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* 스크롤바의 배경 */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* 스크롤바 핸들 */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* 스크롤바 핸들 호버 */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;
 
 export const InputWrapper = styled.div`
