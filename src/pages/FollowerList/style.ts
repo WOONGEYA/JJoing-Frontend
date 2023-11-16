@@ -9,24 +9,6 @@ export const Container = styled.div`
   border-radius: 10px;
   padding: 20px;
   overflow: scroll;
-
-  /* 스크롤바 스타일 */
-  ::-webkit-scrollbar {
-    width: 8px; /* 스크롤바의 너비 */
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* 스크롤바 트랙의 배경색 */
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #888; /* 스크롤바의 색상 */
-    border-radius: 4px; /* 스크롤바의 모서리 반경 */
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #555; /* 스크롤바의 호버 상태 색상 */
-  }
 `;
 
 export const TitleContainer = styled.div`
