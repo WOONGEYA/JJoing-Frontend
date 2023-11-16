@@ -115,5 +115,8 @@ export const ProfileImg = styled.img`
 `;
 
 export const NameContainer = styled.div`
-  width: 3rem;
+  width: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;
