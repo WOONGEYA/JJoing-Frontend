@@ -198,6 +198,8 @@ export const TabTitle = styled.h1`
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+  word-break: keep-all;
+  white-space: pre-wrap;
 `;
 
 export const TabImage = styled.img`

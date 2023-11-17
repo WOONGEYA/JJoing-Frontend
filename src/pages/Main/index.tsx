@@ -109,8 +109,8 @@ const Main = () => {
           <S.MeritText>
             <S.MainMerit>프로젝트 찾기 / 만들기</S.MainMerit>
             <S.MeritDescription>
-              하고싶었던 프로젝트를 찾거나 직접 만들어 보세요. 원하던 분위기의
-              팀이나 팀원을 찾을 수도 있어요!
+              하고싶었던 프로젝트를 찾거나 직접 만들어 보세요.{'\n'}
+              원하던 분위기의 팀이나 팀원을 찾을 수도 있어요!
             </S.MeritDescription>
           </S.MeritText>
         </S.MeritContainer>
@@ -127,10 +127,10 @@ const Main = () => {
             </S.Page>
           </S.MeritImage>
           <S.MeritText>
-            <S.MainMerit>프로젝트 찾기 / 만들기</S.MainMerit>
+            <S.MainMerit>프로젝트 시작하기</S.MainMerit>
             <S.MeritDescription>
-              하고싶었던 프로젝트를 찾거나 직접 만들어 보세요. 원하던 분위기의
-              팀이나 팀원을 찾을 수도 있어요!
+              자신있는 분야를 찾아 실력을 마음껏 뽐내보세요!{'\n'}
+              원하던 프로젝트 속에서 최선을 다 해 보아요.
             </S.MeritDescription>
           </S.MeritText>
         </S.MeritContainer>
@@ -147,10 +147,10 @@ const Main = () => {
             </S.Page>
           </S.MeritImage>
           <S.MeritText>
-            <S.MainMerit>프로젝트 찾기 / 만들기</S.MainMerit>
+            <S.MainMerit>프로젝트를 하며 성장하기</S.MainMerit>
             <S.MeritDescription>
-              하고싶었던 프로젝트를 찾거나 직접 만들어 보세요. 원하던 분위기의
-              팀이나 팀원을 찾을 수도 있어요!
+              팀원들과 협업하면서 스스로의 실력을 향상시켜보세요. {'\n'}
+              프로젝트가 끝나면 더욱 성장한 자신을 볼 수 있어요!
             </S.MeritDescription>
           </S.MeritText>
         </S.MeritContainer>
@@ -184,7 +184,7 @@ const Main = () => {
               </S.TabContent>
             </S.Tab>
           </S.Tabs>
-          <S.Login onClick={handleStartButton}>쪼잉 로그인 하러가기</S.Login>
+          <S.Login onClick={handleStartButton}>쪼잉 시작하러 가기</S.Login>
         </S.HelpContent>
       </S.Help>
     </Layout>
