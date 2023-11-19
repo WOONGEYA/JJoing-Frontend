@@ -33,6 +33,7 @@ import {
   getisLiked,
 } from 'apis/api';
 import LoadingPage from 'pages/LoadingPage';
+import DetailModal from 'components/DetailModal';
 
 const Detail = () => {
   const { id } = useParams();
@@ -60,6 +61,18 @@ const Detail = () => {
     openModal({
       component: (
         <EndProjectModal closeModal={closeModal} pageId={Number(id)} />
+      ),
+    });
+  };
+
+  const AboutThumbnail = () => {
+    openModal({
+      component: (
+        <DetailModal
+          closeModal={closeModal}
+          imgUrl={userInfo?.imgUrl}
+          pageId={Number(id)}
+        />
       ),
     });
   };
@@ -154,7 +167,10 @@ const Detail = () => {
           <S.ProjectLayout>
             <S.ProjectInfo>
               <S.ProjectImageContainer>
-                <S.ProjectImage src={userInfo?.imgUrl} />
+                <S.ProjectImage
+                  onClick={AboutThumbnail}
+                  src={userInfo?.imgUrl}
+                />
               </S.ProjectImageContainer>
               <S.ProjectBasicInfo>
                 <S.Top>
