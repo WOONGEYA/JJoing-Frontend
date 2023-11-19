@@ -10,7 +10,7 @@ interface SVGAttributeProps extends React.SVGAttributes<HTMLOrSVGElement> {
 const EyeIcon = ({
   width = 20,
   height = 20,
-  color = theme.black,
+  color = theme.secondary,
   ...rest
 }: SVGAttributeProps) => {
   return (

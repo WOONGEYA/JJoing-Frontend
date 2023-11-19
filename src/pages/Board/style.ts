@@ -84,6 +84,7 @@ export const WriterButton = styled.div`
   border-radius: 4px;
   background-color: ${theme.primary};
   color: white;
+  cursor: pointer;
   &:hover {
     transition: 0.2s ease-in-out;
     background-color: ${theme.darkGreen};

@@ -237,3 +237,11 @@ export const addFollow = async (id: number) => {
   const { data } = await instance.post(`/follow/${id}`);
   return data;
 };
+
+export const getProject = async (params: {
+  state?: string;
+  criteria?: string;
+}) => {
+  const { data } = await instance.get('/project', { params });
+  return data;
+};

@@ -71,6 +71,7 @@ export const Button = styled.span`
   background: ${theme.primary};
   ${font.$title02}
   color: ${theme.white};
+  cursor: pointer;
 `;
 
 export const Merit = styled.div`
@@ -216,4 +217,22 @@ export const Login = styled.span`
   ${font.$title03}
   color: ${theme.white};
   cursor: pointer;
+`;
+
+export const ScrollHint = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  animation: bounce 2s infinite;
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translate(-50%, -7px);
+    }
+    50% {
+      transform: translate(-50%, 7px);
+    }
+  }
 `;

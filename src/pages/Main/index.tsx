@@ -6,6 +6,7 @@ import Love from 'assets/love.svg';
 import Money from 'assets/money.svg';
 import LoginModal from 'components/LoginModal';
 import useModal from 'hooks/useModal';
+import { FaChevronDown } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 
@@ -86,10 +87,17 @@ const Main = () => {
                 관심 분야의 프로젝트를 직접 생성하거나 찾아보세요. 쪼잉은 더
                 나은 프로젝트 경험을 위해 시작되었습니다.
               </S.Subtitle>
-              <S.Button onClick={handleStartButton}>쪼잉 시작하기</S.Button>
+              <S.Button onClick={handleStartButton}>
+                {localStorage.getItem('accessToken')
+                  ? '프로젝트 보기'
+                  : '로그인하기'}
+              </S.Button>
             </div>
           </S.WelcomeContent>
           <S.MainImage src={MainCover} alt='mainImg' />
+          <S.ScrollHint>
+            <FaChevronDown />
+          </S.ScrollHint>
         </S.Landing>
       </S.Welcome>
       <S.Merit>
@@ -184,7 +192,6 @@ const Main = () => {
               </S.TabContent>
             </S.Tab>
           </S.Tabs>
-          <S.Login onClick={handleStartButton}>쪼잉 시작하러 가기</S.Login>
         </S.HelpContent>
       </S.Help>
     </Layout>

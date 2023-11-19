@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProjectBox from 'components/ProjectBox';
 import Dropdown from 'components/Dropdown';
 import * as S from './style';
@@ -7,6 +7,9 @@ import instance from 'apis/httpClient';
 import { useRecoilValue } from 'recoil';
 import { sortProject, sortProject2 } from 'apis/recoil';
 import Dropdown2 from 'components/Dropdown2';
+import { useQuery } from 'react-query';
+import { getProject } from 'apis/api';
+import { ProjectLiked } from 'contents/queryKey';
 
 const dropdownOptions = [
   {
@@ -60,32 +63,33 @@ const Explore = () => {
 
   const projectSort = useRecoilValue(sortProject);
   const projectSort2 = useRecoilValue(sortProject2);
+  const [likes, setLikes] = useState(0);
 
-  const fetchProjects = React.useCallback(() => {
-    const params: { state?: string; criteria?: string } = {};
+  let state = '';
+  let criteria = '';
 
-    if (projectSort === '진행중인 프로젝트') {
-      params.state = 'FINDING';
-    } else if (projectSort === '끝난 프로젝트') {
-      params.state = 'FOUND';
-    }
+  if (projectSort === '진행중인 프로젝트') {
+    state = 'FINDING';
+  } else if (projectSort === '끝난 프로젝트') {
+    state = 'FOUND';
+  }
 
-    if (projectSort2 === '조회수 많은 순') {
-      params.criteria = 'view';
-    } else if (projectSort2 === '마이쫑 많은 순') {
-      params.criteria = 'like';
-    }
+  if (projectSort2 === '조회수 많은 순') {
+    criteria = 'view';
+  } else if (projectSort2 === '마이쫑 많은 순') {
+    criteria = 'like';
+  }
 
-    instance
-      .get('/project', {
-        params,
-      })
-      .then((res) => setMyProject(res.data));
-  }, [projectSort, projectSort2]);
+  const params = { state, criteria };
 
-  useEffect(() => {
-    fetchProjects();
-  }, [fetchProjects]);
+  useQuery({
+    queryKey: [ProjectLiked, params, likes],
+    queryFn: () => getProject(params),
+    onSuccess: (data) => {
+      setMyProject(data);
+      setLikes(data.likes);
+    },
+  });
 
   return (
     <Layout>
