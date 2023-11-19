@@ -15,7 +15,7 @@ import useModal from 'hooks/useModal';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import FollowerList from 'pages/FollowerList';
-import FollowingrList from 'pages/FollowingList';
+import FollowingList from 'pages/FollowingList';
 import { useQueries } from 'react-query';
 
 interface UserProfile {
@@ -234,11 +234,7 @@ const MyPage = () => {
   const followingList = () => {
     openModal({
       component: (
-        <FollowingrList
-          closeModal={closeModal}
-          id={newId}
-          navigate={navigate}
-        />
+        <FollowingList closeModal={closeModal} id={newId} navigate={navigate} />
       ),
     });
   };
@@ -272,11 +268,11 @@ const MyPage = () => {
                     <S.CountFollow onClick={followerList}>
                       팔로워 {following}
                     </S.CountFollow>
-                    <S.FowllowGap>
+                    <S.FollowGap>
                       <S.CountFollow onClick={followingList}>
                         팔로우 {follow}
                       </S.CountFollow>
-                    </S.FowllowGap>
+                    </S.FollowGap>
                   </S.Follow>
                   <S.StatusMessage>
                     {userProfile?.statusMessage}

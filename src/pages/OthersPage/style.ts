@@ -149,7 +149,7 @@ export const Names = styled.div`
   align-items: center;
 `;
 
-export const FowllowGap = styled.span`
+export const FollowGap = styled.span`
   margin-left: 0.5rem;
 `;
 

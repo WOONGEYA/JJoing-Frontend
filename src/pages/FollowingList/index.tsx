@@ -8,7 +8,7 @@ import { IFollower } from 'types/IFollower';
 import FollowPeople from 'components/FollowPeople';
 import Input from 'components/Input';
 
-const FollowingrList = ({
+const FollowingList = ({
   closeModal,
   id,
   navigate,
@@ -81,4 +81,4 @@ const FollowingrList = ({
   );
 };
 
-export default FollowingrList;
+export default FollowingList;
