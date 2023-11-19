@@ -101,7 +101,7 @@ export const Title = styled.div`
 `;
 
 export const UserProfile = styled.div`
-  width: 5rem;
+  width: 5.4rem;
   display: flex;
   gap: 0.5rem;
   align-items: center;
@@ -109,7 +109,7 @@ export const UserProfile = styled.div`
 `;
 
 export const ProfileImg = styled.img`
-  width: 2.8rem;
+  width: 2.3rem;
   height: 1.8rem;
   border-radius: 50%;
   cursor: pointer;
