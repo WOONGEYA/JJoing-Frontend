@@ -10,6 +10,7 @@ import * as S from './style';
 import useModal from 'hooks/useModal';
 import GenerateModal from 'components/GenerateModal';
 import { toast } from 'react-toastify';
+import { UserProfile } from 'pages/MyPage';
 
 const Header = () => {
   const navigate = useNavigate();

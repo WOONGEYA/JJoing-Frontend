@@ -17,7 +17,7 @@ import FollowerList from 'pages/FollowerList';
 import FollowingrList from 'pages/FollowingList';
 import { useQueries, useQueryClient } from 'react-query';
 
-interface UserProfile {
+export interface UserProfile {
   statusMessage: string;
   nickName: string;
   githubUrl: string;
@@ -93,6 +93,7 @@ const MyPage = () => {
   };
 
   const queryClient = useQueryClient();
+  console.log(userProfile);
 
   React.useEffect(() => {
     const fetchUserData = async () => {

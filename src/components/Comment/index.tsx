@@ -120,6 +120,14 @@ const Comment = ({ data }: { data: ICommentProps }) => {
               </>
             ) : null}
             <S.FlexBox>
+              <div
+                style={{ marginRight: '10px', cursor: 'pointer' }}
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+              >
+                답글
+              </div>
               <MessageIcon color={theme.grey[500]} />
               {data.reCommentCount}
             </S.FlexBox>

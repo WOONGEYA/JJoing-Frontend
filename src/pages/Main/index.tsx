@@ -9,6 +9,10 @@ import useModal from 'hooks/useModal';
 import { FaChevronDown } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
+import { useQueryClient } from 'react-query';
+import { UserProfile } from 'pages/MyPage';
+import instance from 'apis/httpClient';
+import { toast } from 'react-toastify';
 
 const Main = () => {
   const { openModal, closeModal } = useModal();
@@ -72,6 +76,42 @@ const Main = () => {
       handleModalOpen();
     }
   };
+
+  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(
+    null,
+  );
+
+  console.log(userProfile);
+
+  React.useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await instance.get('/user');
+        setUserProfile(response.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  useEffect(() => {
+    console.log('userProfile:', userProfile);
+
+    const hasInvalidData =
+      userProfile &&
+      Object.values(userProfile).some(
+        (prop) => typeof prop === 'string' && prop.length < 1,
+      );
+
+    console.log('hasInvalidData:', hasInvalidData);
+
+    if (hasInvalidData) {
+      navigate('/myPage');
+      toast('프로필 정보를 추가해 주세요!');
+    }
+  }, [userProfile, navigate]);
 
   return (
     <Layout>
