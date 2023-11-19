@@ -65,13 +65,9 @@ const MyPage = () => {
   >();
   const [userProfile, setUserProfile] = React.useState<UserProfile>();
   const [userInput, setUserInput] = React.useState<string>('');
-  const [followInfo, setFollowInfo] = React.useState<FollowInfo>({
-    followCount: 0,
-    followingCount: 0,
-  });
   const [followState, setFollowState] = React.useState(false);
-  const [follow, setFollow] = useState();
-  const [following, setFollowing] = useState();
+  const [follow, setFollow] = useState(0);
+  const [following, setFollowing] = useState(0);
 
   const handleTabSelect = (e: React.MouseEvent<HTMLDivElement>) => {
     const id = parseInt(e.currentTarget.id);
@@ -168,14 +164,14 @@ const MyPage = () => {
     {
       queryKey: ['userFollowing', id],
       queryFn: () => getFollowingCount(Number(id)),
-      onSuccess: (data: any) => {
+      onSuccess: (data: number) => {
         setFollowing(data);
       },
     },
     {
       queryKey: ['userFollowers', id],
       queryFn: () => getFollowCount(Number(id)),
-      onSuccess: (data: any) => {
+      onSuccess: (data: number) => {
         setFollow(data);
       },
     },
@@ -183,23 +179,13 @@ const MyPage = () => {
 
   const followUser = async () => {
     await instance.post(`/follow/${id}`);
-    setFollowInfo((prev) => {
-      return {
-        ...prev,
-        followingCount: prev.followingCount + 1,
-      };
-    });
+    setFollow((prev) => prev + 1);
     setFollowState(true);
   };
 
   const unfollowUser = async () => {
     await instance.delete(`/follow/${id}`);
-    setFollowInfo((prev) => {
-      return {
-        ...prev,
-        followingCount: prev.followingCount - 1,
-      };
-    });
+    setFollow((prev) => prev - 1);
     setFollowState(false);
   };
 
