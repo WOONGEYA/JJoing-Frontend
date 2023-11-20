@@ -13,12 +13,17 @@ import * as S from './style';
 const Main = () => {
   const { openModal, closeModal } = useModal();
   const navigate = useNavigate();
-
+  const scrollRef = useRef<HTMLDivElement>(null);
   const merit1Ref = useRef<HTMLDivElement>(null);
   const merit2Ref = useRef<HTMLDivElement>(null);
   const merit3Ref = useRef<HTMLDivElement>(null);
 
   const [activeSection, setActiveSection] = useState(0);
+
+  const onScrollToMerit = () => {
+    if (scrollRef.current)
+      scrollRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -95,12 +100,12 @@ const Main = () => {
             </div>
           </S.WelcomeContent>
           <S.MainImage src={MainCover} alt='mainImg' />
-          <S.ScrollHint>
+          <S.ScrollHint onClick={onScrollToMerit}>
             <FaChevronDown />
           </S.ScrollHint>
         </S.Landing>
       </S.Welcome>
-      <S.Merit>
+      <S.Merit ref={scrollRef}>
         <S.Title style={{ marginBottom: 0 }}>쪼잉은 이런 점이 좋아요!</S.Title>
         <S.MeritContainer
           ref={merit1Ref}
