@@ -129,7 +129,7 @@ const Main = () => {
               <S.Button onClick={handleStartButton}>
                 {localStorage.getItem('accessToken')
                   ? '프로젝트 보러가기'
-                  : '로그인 하러가기'}
+                  : '시작 전 로그인 하러가기'}
               </S.Button>
             </div>
           </S.WelcomeContent>
