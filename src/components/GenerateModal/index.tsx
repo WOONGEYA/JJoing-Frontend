@@ -230,7 +230,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 />
               </FlexVertical>
             </S.InputArea>
-
             <S.HeadLine>모집 분야</S.HeadLine>
             <S.InputArea>
               <Input
@@ -268,7 +267,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
           </>
         ) : (
           <>
-            <S.HeadLine>개발분위기</S.HeadLine>
+            <S.HeadLine>개발 분위기</S.HeadLine>
             <S.InputArea>
               <Input
                 required
