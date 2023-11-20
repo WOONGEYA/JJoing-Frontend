@@ -85,7 +85,7 @@ const Main = () => {
     const isUserLoggedIn = checkLoginStatus();
     const isFirstLogin = checkIsFirstLogin();
 
-    if (isUserLoggedIn) {
+    if (!isUserLoggedIn) {
       if (isFirstLogin) {
         openEditDirectlyModal();
         return;
