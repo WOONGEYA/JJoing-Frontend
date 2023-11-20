@@ -129,9 +129,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
 
   const updateProfile = async () => {
     try {
-      closeModal();
-      window.location.reload();
       if (checkPostValid(userInput)) {
+        closeModal();
         await instance.post(
           '/project',
           { ...userInput, imgUrl: newImageUrl },
@@ -143,7 +142,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
         );
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

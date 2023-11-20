@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import { UserInput } from 'components/GenerateModal';
 
 const checkPostValid = (post: UserInput) => {
-  if (!post.name.trim()) return toast.error('이름을 입력해주세요!');
+  if (!post.name.trim()) return toast.error('프로젝트 이름을 입력해주세요!');
   if (!post.content.trim()) return toast.error('내용을 입력해주세요!');
   if (!post.requiredPeople) return toast.error('인원을 입력해주세요!');
   if (!post.endDate.trim()) return toast.error('날짜를 선택해주세요!');
