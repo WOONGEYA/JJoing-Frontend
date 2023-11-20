@@ -70,7 +70,7 @@ const Main = () => {
 
   const checkLoginStatus = () => {
     const accessToken = localStorage.getItem('accessToken');
-    return accessToken !== null;
+    return accessToken === null;
   };
 
   const setIsFirstLogin = () => {
