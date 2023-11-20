@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Header from 'components/Header';
 import * as S from './style';
 import * as Flex from 'styles/flex';
 import trash from 'assets/trash.svg';
@@ -6,9 +7,10 @@ import NoNotify from 'components/NoNotify/index';
 import Search from 'components/Search';
 import instance from 'apis/httpClient';
 import NotifyBox from 'components/NotifyBox';
+import { toast } from 'react-toastify';
 import { NewProject } from 'pages/Explore';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { deleteNotification, getNotification } from 'apis';
+import { deleteNoti, getNoti } from 'apis';
 import { Notification } from 'contents/queryKey';
 import Layout from 'components/Layout';
 
@@ -26,17 +28,17 @@ function Notify() {
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const deleteNotification = useMutation({
     mutationKey: [Notification],
-    mutationFn: () => deleteNotification(),
+    mutationFn: () => deleteNoti(),
     onSuccess: () => {
       queryClient.invalidateQueries([Notification]);
     },
   });
 
-  useQuery({
+  const getNotification = useQuery({
     queryKey: [Notification],
-    queryFn: () => getNotification(),
+    queryFn: () => getNoti(),
     onSuccess: (data) => {
       setAlarmList(data);
       setNewArrs(data);
@@ -44,7 +46,7 @@ function Notify() {
   });
 
   const handleDeleteAll = () => {
-    mutate();
+    deleteNotification.mutate();
   };
 
   const filteredAlarmList = alarmList.filter((alarm) =>
@@ -61,18 +63,16 @@ function Notify() {
   return (
     <Layout>
       <S.Container>
-        <S.NotificationHeader>
+        <S.NotifiHeader>
           <Search value={userInput} onChange={setUserInput} />
           <Flex.FlexVertical style={{ gap: '12px' }}>
-            <S.NotificationAmount>
-              {filteredAlarmList.length} / 100
-            </S.NotificationAmount>
-            <S.DeleteNotification onClick={handleDeleteAll}>
+            <S.NotifiAmount>{filteredAlarmList.length} / 100</S.NotifiAmount>
+            <S.DeleteNotifi onClick={handleDeleteAll}>
               <S.Icon src={trash} alt='Trash' />
               모든 알림 삭제하기
-            </S.DeleteNotification>
+            </S.DeleteNotifi>
           </Flex.FlexVertical>
-        </S.NotificationHeader>
+        </S.NotifiHeader>
         {filteredAlarmList.length === 0 ? (
           <NoNotify />
         ) : (

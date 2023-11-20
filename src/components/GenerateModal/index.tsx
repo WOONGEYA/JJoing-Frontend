@@ -129,9 +129,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
 
   const updateProfile = async () => {
     try {
-      closeModal();
-      window.location.reload();
       if (checkPostValid(userInput)) {
+        closeModal();
         await instance.post(
           '/project',
           { ...userInput, imgUrl: newImageUrl },
@@ -143,7 +142,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
         );
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -231,7 +230,6 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 />
               </FlexVertical>
             </S.InputArea>
-
             <S.HeadLine>모집 분야</S.HeadLine>
             <S.InputArea>
               <Input
@@ -269,7 +267,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
           </>
         ) : (
           <>
-            <S.HeadLine>개발분위기</S.HeadLine>
+            <S.HeadLine>개발 분위기</S.HeadLine>
             <S.InputArea>
               <Input
                 required

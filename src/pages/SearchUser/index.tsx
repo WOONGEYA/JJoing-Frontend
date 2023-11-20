@@ -8,14 +8,13 @@ import { UserInfo } from 'types/ISearchMember';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import { useNavigate } from 'react-router-dom';
+import NoResultPage from 'components/NoResult';
+import UserProfile from 'components/UserProfile';
 
 const SearchUser = () => {
   const [userInput, setUserInput] = useState('');
   const [searchKey, setSearchKey] = useState('');
   const [userInfo, setUserInfo] = useState<UserInfo[]>();
-  const myId = useRecoilValue(userKey);
-  const [open, setOpen] = useState(false); //followState
-  const [selectedId, setSelectedId] = useState<number>(0);
 
   const { data, error } = useQuery({
     queryKey: ['searchUser', searchKey],
@@ -44,34 +43,6 @@ const SearchUser = () => {
     }
   }, [data, error, userInfo]);
 
-  const queryClient = useQueryClient();
-
-  const deleteF = useMutation({
-    mutationKey: ['userFollow'],
-    mutationFn: () => deleteFollow(selectedId),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['userFollow', selectedId]);
-    },
-  });
-
-  const addF = useMutation({
-    mutationKey: ['userFollow'],
-    mutationFn: () => addFollow(selectedId),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['userFollow', selectedId]);
-    },
-  });
-
-  const handleFollow = (id: number) => {
-    setSelectedId(id);
-    addF.mutate();
-  };
-
-  const handleFollowing = (id: number) => {
-    setSelectedId(id);
-    deleteF.mutate();
-  };
-
   const navigate = useNavigate();
 
   return (
@@ -92,37 +63,20 @@ const SearchUser = () => {
             }}
           />
         </S.WriteContainer>
-        {userInfo?.map((data) => (
-          <S.ContentContainer
-            key={data.id}
-            onClick={() => {
-              navigate(`/others/${data.id}`);
-            }}
-          >
-            <S.ImgWrapper src={data.imgUrl} alt='img' />
-            <S.UserInfoContainer>
-              <S.InfoWrapper>
-                <div>{data.name}</div>
-                <S.UserInfo>
-                  {data.school} / {data.major?.length ? data.major : '등록x '}
-                </S.UserInfo>
-              </S.InfoWrapper>
-            </S.UserInfoContainer>
-            {localStorage.getItem('accessToken') ? (
-              myId === Number(data.id) ? (
-                <S.FollowBtnMy></S.FollowBtnMy>
-              ) : open ? (
-                <S.FollowingBtn onClick={() => handleFollowing(data.id)}>
-                  팔로잉
-                </S.FollowingBtn>
-              ) : (
-                <S.FollowBtn onClick={() => handleFollow(data.id)}>
-                  팔로우
-                </S.FollowBtn>
-              )
-            ) : null}
-          </S.ContentContainer>
-        ))}
+        {userInfo?.length === 0 && searchKey.length > 1 ? (
+          <NoResultPage />
+        ) : (
+          userInfo?.map((data) => (
+            <div
+              key={data.id}
+              onClick={() => {
+                navigate(`/others/${data.id}`);
+              }}
+            >
+              <UserProfile {...data} />
+            </div>
+          ))
+        )}
       </S.Container>
     </Layout>
   );
