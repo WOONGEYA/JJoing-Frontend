@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import theme from 'styles/theme';
 import { useNavigate, useParams } from 'react-router-dom';
-import instance from 'apis/httpClient';
 import MemberIcon from 'assets/MemberIcon';
 import useModal from 'hooks/useModal';
 import SendProfile from 'components/SendProfile';

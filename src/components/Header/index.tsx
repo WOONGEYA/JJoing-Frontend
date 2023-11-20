@@ -50,7 +50,8 @@ const Header = () => {
 
   const handleLogout = () => {
     navigate('/');
-    localStorage.clear();
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     window.location.reload();
   };
 
