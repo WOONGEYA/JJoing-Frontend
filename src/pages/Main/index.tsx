@@ -174,25 +174,19 @@ const Main = () => {
           <S.Tabs>
             <S.Tab>
               <S.TabContent>
-                <S.TabTitle>
-                  원하는 분야의 프로젝트를 빠르게 찾을 수 있도록
-                </S.TabTitle>
+                <S.TabTitle>원하는 분야의 프로젝트를 빠르게 찾기</S.TabTitle>
                 <S.TabImage src={Book} />
               </S.TabContent>
             </S.Tab>
             <S.Tab>
               <S.TabContent>
-                <S.TabTitle>
-                  원하는 분위기의 프로젝트 팀을 찾을 수 있도록
-                </S.TabTitle>
+                <S.TabTitle>원하는 분위기의 프로젝트 팀을 쉽게 찾기</S.TabTitle>
                 <S.TabImage src={Love} />
               </S.TabContent>
             </S.Tab>
             <S.Tab>
               <S.TabContent>
-                <S.TabTitle>
-                  협업으로 내 실력을 더 높이 끌어올릴 수 있도록
-                </S.TabTitle>
+                <S.TabTitle>협업으로 내 실력을 더 높이 끌어올리기</S.TabTitle>
                 <S.TabImage src={Money} />
               </S.TabContent>
             </S.Tab>
