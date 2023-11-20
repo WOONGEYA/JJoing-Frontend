@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import ArrowIcon from 'assets/ArrowIcon';
 import theme from 'styles/theme';
 import { font } from 'styles/font';
 
