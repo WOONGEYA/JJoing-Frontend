@@ -5,12 +5,13 @@ import theme from 'styles/theme';
 
 export const Container = styled.div`
   max-width: 1032px;
-  padding-top: 20vh;
+  padding-top: 10vh;
+  min-height: 68.5vh;
   box-sizing: border-box;
   margin: 0 auto;
 `;
 
-export const NotificationHeader = styled.div`
+export const NotifiHeader = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -28,12 +29,12 @@ export const HeaderElement = styled.div`
   display: flex;
 `;
 
-export const NotificationAmount = styled.span`
+export const NotifiAmount = styled.span`
   color: ${theme.grey[800]};
   ${font.$subhead};
 `;
 
-export const DeleteNotification = styled.button`
+export const DeleteNotifi = styled.button`
   min-width: 160px;
   height: 38px;
   color: ${theme.grey[800]};
