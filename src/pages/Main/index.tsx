@@ -12,6 +12,7 @@ import * as S from './style';
 import { UserProfile } from 'pages/MyPage';
 import instance from 'apis/httpClient';
 import { toast } from 'react-toastify';
+import EditDirectlyModal from 'components/EditDirectlyModal';
 
 const Main = () => {
   const { openModal, closeModal } = useModal();
@@ -61,15 +62,36 @@ const Main = () => {
     });
   };
 
+  const openEditDirectlyModal = () => {
+    openModal({
+      component: <EditDirectlyModal closeModal={closeModal} />,
+    });
+  };
+
   const checkLoginStatus = () => {
     const accessToken = localStorage.getItem('accessToken');
-    return accessToken !== null;
+    return accessToken === null;
+  };
+
+  const setIsFirstLogin = () => {
+    localStorage.setItem('isFirstLogin', 'false');
+  };
+
+  const checkIsFirstLogin = () => {
+    return localStorage.getItem('isFirstLogin') === undefined;
   };
 
   const handleStartButton = () => {
     const isUserLoggedIn = checkLoginStatus();
+    const isFirstLogin = checkIsFirstLogin();
 
-    if (isUserLoggedIn) {
+    if (!isUserLoggedIn) {
+      if (isFirstLogin) {
+        openEditDirectlyModal();
+        return;
+      }
+
+      setIsFirstLogin();
       navigate('/explore');
     } else {
       handleModalOpen();
@@ -128,8 +150,8 @@ const Main = () => {
               </S.Subtitle>
               <S.Button onClick={handleStartButton}>
                 {localStorage.getItem('accessToken')
-                  ? '프로젝트 보기'
-                  : '로그인하기'}
+                  ? '프로젝트 보러가기'
+                  : '시작 전 로그인 하러가기'}
               </S.Button>
             </div>
           </S.WelcomeContent>
@@ -231,6 +253,7 @@ const Main = () => {
               </S.TabContent>
             </S.Tab>
           </S.Tabs>
+          <S.Button onClick={handleStartButton}>쪼잉 시작하기</S.Button>
         </S.HelpContent>
       </S.Help>
     </Layout>

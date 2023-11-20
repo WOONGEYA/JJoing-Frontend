@@ -72,6 +72,7 @@ const MyPage = () => {
       component: <ProfileUpdateModal closeModal={closeModal} />,
     });
   };
+
   const followerList = () => {
     openModal({
       component: (
