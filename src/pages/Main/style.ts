@@ -63,7 +63,7 @@ export const Subtitle = styled.h2`
 export const Button = styled.span`
   display: flex;
   width: fit-content;
-  padding: 12px 48px;
+  padding: 12px 32px;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
