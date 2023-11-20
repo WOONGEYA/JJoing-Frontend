@@ -146,6 +146,8 @@ export const DescriptionText = styled.p`
 export const DescriptionContent = styled.p`
   color: ${theme.grey[600]};
   ${font.$body};
+  word-break: keep-all;
+  white-space: pre-wrap;
 `;
 
 export const Category = styled.div`
