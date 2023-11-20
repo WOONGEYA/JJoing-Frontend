@@ -39,6 +39,9 @@ export const HeadLine = styled.h3`
 
 export const InputArea = styled.div`
   margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 export const CheckBox = styled.input``;
@@ -80,7 +83,6 @@ export const UploadImage = styled.label`
 
 export const TagArea = styled.div`
   width: 100%;
-  height: 30px;
   display: flex;
   gap: 8px;
 `;
