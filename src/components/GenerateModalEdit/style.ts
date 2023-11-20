@@ -66,7 +66,6 @@ export const Description = styled.textarea`
   padding: 16px 12px;
   box-sizing: border-box;
   border-radius: 4px;
-  margin-bottom: 24px;
 `;
 
 export const UploadImage = styled.label`

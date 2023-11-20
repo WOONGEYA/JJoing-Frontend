@@ -12,7 +12,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-height: vh;
+  max-height: 95vh;
   overflow-y: scroll;
   overflow-x: clip;
 `;
@@ -66,7 +66,6 @@ export const Description = styled.textarea`
   padding: 16px 12px;
   box-sizing: border-box;
   border-radius: 4px;
-  margin-bottom: 24px;
 `;
 
 export const UploadImage = styled.label`

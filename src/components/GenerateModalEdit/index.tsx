@@ -297,7 +297,12 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
                 {userInput.moods.map((tag, index) => (
                   <S.Tag key={index}>
                     <S.TagContent>{tag}</S.TagContent>
-                    <CloseIcon height={16} onClick={() => deleteMoods(index)} />
+                    <CloseIcon
+                      height={16}
+                      width={16}
+                      cursor='pointer'
+                      onClick={() => deleteMoods(index)}
+                    />
                   </S.Tag>
                 ))}
               </S.TagArea>
@@ -317,7 +322,12 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
                 {userInput.skills.map((tag, index) => (
                   <S.Tag key={index}>
                     <S.TagContent>{tag}</S.TagContent>
-                    <CloseIcon width={16} onClick={() => deleteSkills(index)} />
+                    <CloseIcon
+                      height={16}
+                      width={16}
+                      cursor='pointer'
+                      onClick={() => deleteSkills(index)}
+                    />
                   </S.Tag>
                 ))}
               </S.TagArea>
@@ -338,6 +348,8 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
                   <S.Tag key={index}>
                     <S.TagContent>{tag}</S.TagContent>
                     <CloseIcon
+                      height={16}
+                      width={16}
                       cursor='pointer'
                       onClick={() => deleteCoops(index)}
                     />
