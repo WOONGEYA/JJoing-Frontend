@@ -28,7 +28,7 @@ instance.interceptors.response.use(
     return response;
   },
 
-  (error) => {
+  async (error) => {
     if (error === undefined) return;
 
     const { status } = error.response;
@@ -49,17 +49,14 @@ instance.interceptors.response.use(
     };
 
     const handleAccessTokenRequest = async () => {
-      try {
-        const { accessToken } = await getUpdatedAccessToken();
-        setUpdatedAccessToken(accessToken);
-      } catch (error) {
-        console.log('에러');
-      }
+      const { accessToken } = await getUpdatedAccessToken();
+      setUpdatedAccessToken(accessToken);
     };
 
-    if (status === 403) {
-      window.location.reload;
-      handleAccessTokenRequest();
+    switch (status) {
+      case 403:
+        await handleAccessTokenRequest();
+        window.location.reload();
     }
 
     return error;
