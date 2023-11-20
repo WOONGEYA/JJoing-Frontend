@@ -9,7 +9,6 @@ import useModal from 'hooks/useModal';
 import { FaChevronDown } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
-import { useQueryClient } from 'react-query';
 import { UserProfile } from 'pages/MyPage';
 import instance from 'apis/httpClient';
 import { toast } from 'react-toastify';

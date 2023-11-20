@@ -43,11 +43,6 @@ interface Project {
   likeState: boolean;
 }
 
-interface FollowInfo {
-  followCount: number;
-  followingCount: number;
-}
-
 interface FollowList {
   id: string;
   name: string;
