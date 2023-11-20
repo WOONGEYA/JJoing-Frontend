@@ -89,7 +89,6 @@ const MyPage = () => {
   };
 
   const queryClient = useQueryClient();
-  console.log(userProfile);
 
   React.useEffect(() => {
     const fetchUserData = async () => {

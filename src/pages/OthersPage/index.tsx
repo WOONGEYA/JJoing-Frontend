@@ -15,8 +15,8 @@ import useModal from 'hooks/useModal';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import FollowerList from 'pages/FollowerList';
-import FollowingList from 'pages/FollowingList';
-import { useQueries } from 'react-query';
+import FollowingrList from 'pages/FollowingList';
+import { useMutation, useQueries, useQueryClient } from 'react-query';
 
 interface UserProfile {
   id: number;
@@ -43,6 +43,11 @@ interface Project {
   likeState: boolean;
 }
 
+interface FollowInfo {
+  followCount: number;
+  followingCount: number;
+}
+
 interface FollowList {
   id: string;
   name: string;
@@ -61,8 +66,8 @@ const MyPage = () => {
   const [userProfile, setUserProfile] = React.useState<UserProfile>();
   const [userInput, setUserInput] = React.useState<string>('');
   const [followState, setFollowState] = React.useState(false);
-  const [follow, setFollow] = useState(0);
-  const [following, setFollowing] = useState(0);
+  const [follow, setFollow] = useState(followState);
+  const [following, setFollowing] = useState(followState);
 
   const handleTabSelect = (e: React.MouseEvent<HTMLDivElement>) => {
     const id = parseInt(e.currentTarget.id);
@@ -155,34 +160,44 @@ const MyPage = () => {
     return data;
   };
 
+  const queryClient = useQueryClient();
+
   useQueries([
     {
       queryKey: ['userFollowing', id],
       queryFn: () => getFollowingCount(Number(id)),
-      onSuccess: (data: number) => {
+      onSuccess: (data: any) => {
         setFollowing(data);
       },
     },
     {
       queryKey: ['userFollowers', id],
       queryFn: () => getFollowCount(Number(id)),
-      onSuccess: (data: number) => {
+      onSuccess: (data: any) => {
         setFollow(data);
       },
     },
   ]);
 
-  const followUser = async () => {
-    await instance.post(`/follow/${id}`);
-    setFollow((prev) => prev + 1);
-    setFollowState(true);
-  };
+  const followMutation = useMutation(
+    (id: number) => instance.post(`/follow/${id}`),
+    {
+      onSuccess: () => {
+        checkIsMyFollower();
+        queryClient.invalidateQueries(['userFollowing', id]);
+      },
+    },
+  );
 
-  const unfollowUser = async () => {
-    await instance.delete(`/follow/${id}`);
-    setFollow((prev) => prev - 1);
-    setFollowState(false);
-  };
+  const unfollowMutation = useMutation(
+    (id: number) => instance.delete(`/follow/${id}`),
+    {
+      onSuccess: () => {
+        checkIsMyFollower();
+        queryClient.invalidateQueries(['userFollowing', id]);
+      },
+    },
+  );
 
   const getUserId = async () => {
     try {
@@ -218,6 +233,14 @@ const MyPage = () => {
 
   const newId = Number(id);
 
+  const followUser = () => {
+    followMutation.mutate(newId);
+  };
+
+  const unfollowUser = () => {
+    unfollowMutation.mutate(newId);
+  };
+
   const followerList = () => {
     openModal({
       component: (
@@ -229,7 +252,11 @@ const MyPage = () => {
   const followingList = () => {
     openModal({
       component: (
-        <FollowingList closeModal={closeModal} id={newId} navigate={navigate} />
+        <FollowingrList
+          closeModal={closeModal}
+          id={newId}
+          navigate={navigate}
+        />
       ),
     });
   };
@@ -263,11 +290,11 @@ const MyPage = () => {
                     <S.CountFollow onClick={followerList}>
                       팔로워 {following}
                     </S.CountFollow>
-                    <S.FollowGap>
+                    <S.FowllowGap>
                       <S.CountFollow onClick={followingList}>
                         팔로우 {follow}
                       </S.CountFollow>
-                    </S.FollowGap>
+                    </S.FowllowGap>
                   </S.Follow>
                   <S.StatusMessage>
                     {userProfile?.statusMessage}

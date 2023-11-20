@@ -101,6 +101,13 @@ const Header = () => {
           >
             게시판
           </S.MenuItem>
+          <S.MenuItem
+            onClick={() => {
+              router('/search-user');
+            }}
+          >
+            유저 검색
+          </S.MenuItem>
         </S.MenuList>
         <S.ProfileContainer>
           {localStorage.accessToken ? (

@@ -245,3 +245,12 @@ export const getProject = async (params: {
   const { data } = await instance.get('/project', { params });
   return data;
 };
+
+export const searchUser = async (query: string) => {
+  const { data } = await instance.get('/user/search', {
+    params: {
+      q: query,
+    },
+  });
+  return data;
+};

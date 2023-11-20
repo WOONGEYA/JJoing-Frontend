@@ -18,6 +18,7 @@ import BoardDetail from 'pages/BoardDetail';
 import CreateBoard from 'pages/CreateBoard';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import BoardEdit from 'pages/BoardEdit';
+import SearchUser from 'pages/SearchUser';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -64,6 +65,7 @@ const App = () => {
               <Route path='/boards/:id' element={<BoardDetail />} />
               <Route path='/createBoard' element={<CreateBoard />} />
               <Route path='/board/edit/:id' element={<BoardEdit />} />
+              <Route path='/search-user' element={<SearchUser />} />
             </Routes>
           </BrowserRouter>
         </QueryClientProvider>

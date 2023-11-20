@@ -156,3 +156,7 @@ export const FollowGap = styled.span`
 export const CountFollow = styled.span`
   cursor: pointer;
 `;
+
+export const FowllowGap = styled.span`
+  margin-left: 0.5rem;
+`;
