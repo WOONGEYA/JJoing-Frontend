@@ -26,7 +26,9 @@ const EditDirectlyModal = ({ closeModal }: EditDirectlyModal) => {
   return (
     <S.Container>
       <S.Content>
-        <S.Title>지금 바로 프로필을 업데이트 하시겠나요?</S.Title>
+        <S.Title>
+          쪼잉을 처음 시작하시는군요! 지금 바로 프로필을 업데이트 하시겠나요?
+        </S.Title>
         <S.Explanation>
           프로필을 업데이트하면 쪼잉을 하기 더 좋아요.
         </S.Explanation>

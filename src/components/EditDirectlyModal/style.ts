@@ -44,4 +44,5 @@ export const Button = styled.div<{ color?: string }>`
   border-radius: 4px;
   color: ${theme.white};
   ${font.$headline};
+  flex: 1 0 0;
 `;
