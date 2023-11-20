@@ -91,9 +91,9 @@ const Main = () => {
         return;
       }
 
-      setIsFirstLogin();
       navigate('/explore');
     } else {
+      setIsFirstLogin();
       handleModalOpen();
     }
   };
