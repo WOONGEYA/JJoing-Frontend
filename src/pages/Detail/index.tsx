@@ -202,7 +202,7 @@ const Detail = () => {
                   <S.Recruiting>
                     <S.RecruitingText>
                       <MemberIcon color={theme.black} />
-                      모집 인원
+                      멤버
                     </S.RecruitingText>
                     <S.RecruitingMember>
                       {userInfo?.currentPeople}/{userInfo?.requiredPeople}

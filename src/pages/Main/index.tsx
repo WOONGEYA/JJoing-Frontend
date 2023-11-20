@@ -20,11 +20,6 @@ const Main = () => {
 
   const [activeSection, setActiveSection] = useState(0);
 
-  const onScrollToMerit = () => {
-    if (scrollRef.current)
-      scrollRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -76,6 +71,11 @@ const Main = () => {
     } else {
       handleModalOpen();
     }
+  };
+
+  const onScrollToMerit = () => {
+    if (scrollRef.current)
+      scrollRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
