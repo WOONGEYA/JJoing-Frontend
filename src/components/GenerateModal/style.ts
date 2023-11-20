@@ -12,6 +12,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  max-height: vh;
+  overflow-y: scroll;
+  overflow-x: clip;
 `;
 
 export const Header = styled.div`
@@ -35,9 +38,6 @@ export const HeadLine = styled.h3`
 `;
 
 export const InputArea = styled.div`
-  display: flex;
-  gap: 8px;
-  flex-direction: column;
   margin-bottom: 16px;
 `;
 
@@ -63,7 +63,7 @@ export const Description = styled.textarea`
   height: 200px;
   resize: none;
   ${shadow.shadow2};
-  padding: 12px;
+  padding: 16px 12px;
   box-sizing: border-box;
   border-radius: 4px;
   margin-bottom: 24px;
@@ -81,19 +81,23 @@ export const UploadImage = styled.label`
 
 export const TagArea = styled.div`
   width: 100%;
+  height: 30px;
   display: flex;
   gap: 8px;
 `;
 
 export const Tag = styled.div`
   border-radius: 30px;
-  display: flex;
-  gap: 8px;
   height: 100%;
   padding: 8px 16px;
-  display: flex;
+  max-width: 428px;
   align-items: center;
   box-sizing: border-box;
+  display: flex;
+  gap: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   ${shadow.shadow2};
 `;
 
@@ -133,4 +137,11 @@ export const Profile = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const TagContent = styled.span`
+  max-width: 392px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
