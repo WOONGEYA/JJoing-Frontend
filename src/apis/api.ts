@@ -117,12 +117,12 @@ export const addProjectDetail = async (id: number) => {
   return data;
 };
 
-export const deleteNoti = async () => {
+export const deleteNotification = async () => {
   const { data } = await instance.delete('/notification');
   return data;
 };
 
-export const getNoti = async () => {
+export const getNotification = async () => {
   const { data } = await instance.get('/notification');
   return data;
 };
