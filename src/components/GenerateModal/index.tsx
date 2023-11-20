@@ -247,13 +247,9 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   <S.Tag key={index}>
                     {tag}
                     <CloseIcon
-                      style={{
-                        right: 0,
-                        marginLeft: '10px',
-                        cursor: 'pointer',
-                        width: '15px',
-                        height: '15px',
-                      }}
+                      height={16}
+                      width={16}
+                      cursor='pointer'
                       onClick={() => deletePosition(index)}
                     />
                   </S.Tag>
@@ -288,13 +284,9 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   <S.Tag key={index}>
                     {tag}
                     <CloseIcon
-                      style={{
-                        right: 0,
-                        marginLeft: '10px',
-                        cursor: 'pointer',
-                        width: '15px',
-                        height: '15px',
-                      }}
+                      height={16}
+                      width={16}
+                      cursor='pointer'
                       onClick={() => deleteMoods(index)}
                     />
                   </S.Tag>
@@ -316,13 +308,9 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   <S.Tag key={index}>
                     {tag}
                     <CloseIcon
-                      style={{
-                        right: 0,
-                        marginLeft: '10px',
-                        cursor: 'pointer',
-                        width: '15px',
-                        height: '15px',
-                      }}
+                      height={16}
+                      width={16}
+                      cursor='pointer'
                       onClick={() => deleteSkills(index)}
                     />
                   </S.Tag>
@@ -344,13 +332,9 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   <S.Tag key={index}>
                     {tag}
                     <CloseIcon
-                      style={{
-                        right: 0,
-                        marginLeft: '10px',
-                        cursor: 'pointer',
-                        width: '15px',
-                        height: '15px',
-                      }}
+                      height={16}
+                      width={16}
+                      cursor='pointer'
                       onClick={() => deleteCoops(index)}
                     />
                   </S.Tag>

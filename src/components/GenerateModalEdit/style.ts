@@ -12,6 +12,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  max-height: 95vh;
+  overflow-y: scroll;
+  overflow-x: clip;
 `;
 
 export const Header = styled.div`
@@ -87,11 +90,15 @@ export const Tag = styled.div`
   border-radius: 30px;
   height: 100%;
   padding: 8px 16px;
-  display: flex;
+  max-width: 428px;
   align-items: center;
   box-sizing: border-box;
+  display: flex;
+  gap: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   ${shadow.shadow2};
-  margin-top: 10px;
 `;
 
 export const UploadedImage = styled.img`
@@ -130,4 +137,11 @@ export const Profile = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const TagContent = styled.span`
+  max-width: 392px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

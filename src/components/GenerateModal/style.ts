@@ -35,6 +35,9 @@ export const HeadLine = styled.h3`
 `;
 
 export const InputArea = styled.div`
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
   margin-bottom: 16px;
 `;
 
@@ -84,13 +87,14 @@ export const TagArea = styled.div`
 
 export const Tag = styled.div`
   border-radius: 30px;
+  display: flex;
+  gap: 8px;
   height: 100%;
   padding: 8px 16px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
   ${shadow.shadow2};
-  margin-top: 10px;
 `;
 
 export const UploadedImage = styled.img`

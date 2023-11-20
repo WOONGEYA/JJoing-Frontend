@@ -263,17 +263,8 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
               <S.TagArea>
                 {userInput.positions.map((tag, index) => (
                   <S.Tag key={index}>
-                    {tag}
-                    <CloseIcon
-                      style={{
-                        right: 0,
-                        marginLeft: '10px',
-                        cursor: 'pointer',
-                        width: '15px',
-                        height: '15px',
-                      }}
-                      onClick={() => deletePosition(index)}
-                    />
+                    <S.TagContent>{tag}</S.TagContent>
+                    <CloseIcon onClick={() => deletePosition(index)} />
                   </S.Tag>
                 ))}
               </S.TagArea>
