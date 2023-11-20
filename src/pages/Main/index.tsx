@@ -73,11 +73,25 @@ const Main = () => {
     return accessToken !== null;
   };
 
+  const setIsFirstLogin = () => {
+    localStorage.setItem('isFirstLogin', 'false');
+  };
+
+  const checkIsFirstLogin = () => {
+    return localStorage.getItem('isFirstLogin') === undefined;
+  };
+
   const handleStartButton = () => {
     const isUserLoggedIn = checkLoginStatus();
+    const isFirstLogin = checkIsFirstLogin();
 
     if (isUserLoggedIn) {
-      openEditDirectlyModal();
+      if (isFirstLogin) {
+        openEditDirectlyModal();
+        return;
+      }
+
+      setIsFirstLogin();
       navigate('/explore');
     } else {
       handleModalOpen();
