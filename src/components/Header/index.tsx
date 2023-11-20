@@ -135,7 +135,7 @@ const Header = () => {
                     <Link to='/myjjong'>
                       <S.Option>마이쫑</S.Option>
                     </Link>
-                    <S.Inquire href={FORM_URL}>
+                    <S.Inquire href='https://forms.gle/6VFhVxgRpB6M12nr7'>
                       <S.Option>쪼잉에 문의하기</S.Option>
                     </S.Inquire>
                     <S.Option onClick={handleLogout}>로그아웃</S.Option>
