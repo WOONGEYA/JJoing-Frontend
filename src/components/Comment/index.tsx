@@ -35,7 +35,6 @@ const Comment = ({ data }: { data: ICommentProps }) => {
     },
   });
 
-  console.log('data', data);
   const getComments = useQuery({
     queryKey: [ReComent, data.id],
     queryFn: () => getReComment(Number(data.id)),

@@ -11,7 +11,7 @@ const DeleteConfirm = ({ closeModal, id }: GenerateModalProps) => {
   const onDelete = () => {
     const fetchData = async () => {
       try {
-        const { data } = await instance.delete(`/notification/${id}`, {
+        await instance.delete(`/notification/${id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },

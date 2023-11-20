@@ -194,7 +194,6 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
     }));
   };
 
-  console.log('endDate', userInput.endDate);
   return (
     <S.Container>
       <S.Header>

@@ -25,7 +25,6 @@ const Recomment = ({
   const [open, setOpen] = useState(false);
   const [modInput, setModInput] = useState(data.content);
   const queryClient = useQueryClient();
-  console.log(data.id);
 
   const closeRecomment = () => {
     setDetailRecomments(!detailRecomments);

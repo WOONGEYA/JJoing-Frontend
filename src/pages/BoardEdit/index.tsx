@@ -38,8 +38,6 @@ const BoardEdit = () => {
     }
   };
 
-  console.log(name, content);
-
   useQuery({
     queryKey: [ReadDetailProject],
     queryFn: () => getBoardProject(Number(id)),

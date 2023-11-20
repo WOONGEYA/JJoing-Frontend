@@ -102,8 +102,6 @@ const Main = () => {
     null,
   );
 
-  console.log(userProfile);
-
   React.useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -118,15 +116,11 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    console.log('userProfile:', userProfile);
-
     const hasInvalidData =
       userProfile &&
       Object.values(userProfile).some(
         (prop) => typeof prop === 'string' && prop.length < 1,
       );
-
-    console.log('hasInvalidData:', hasInvalidData);
 
     if (hasInvalidData) {
       navigate('/myPage');
