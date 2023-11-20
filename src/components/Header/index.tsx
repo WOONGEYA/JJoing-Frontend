@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import BellIcon from 'assets/BellIcon';
 import LogoIcon from 'assets/LogoIcon';
 import { Link, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { accessGoogle, userKey } from 'apis/recoil';
 import { FORM_URL, OAUTH_URL } from 'constants/config';
 import instance from 'apis/httpClient';
@@ -10,7 +10,6 @@ import * as S from './style';
 import useModal from 'hooks/useModal';
 import GenerateModal from 'components/GenerateModal';
 import { toast } from 'react-toastify';
-import { UserProfile } from 'pages/MyPage';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -18,7 +17,7 @@ const Header = () => {
   const [img, setImg] = useRecoilState(accessGoogle);
   const { openModal, closeModal } = useModal();
   const [notificationCount, setNotificationCount] = React.useState(0);
-  const [userId, setUserId] = useRecoilState(userKey);
+  const setUserId = useSetRecoilState(userKey);
 
   const modalOpen = () => {
     openModal({
