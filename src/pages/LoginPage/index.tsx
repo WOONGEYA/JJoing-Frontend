@@ -25,6 +25,7 @@ const LoginPage = () => {
 
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('firstLogin', 'false');
       navigate('/');
     },
     onError: () => {

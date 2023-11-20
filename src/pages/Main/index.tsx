@@ -78,10 +78,6 @@ const Main = () => {
     return accessToken === null;
   };
 
-  const setIsFirstLogin = () => {
-    localStorage.setItem('isFirstLogin', 'false');
-  };
-
   const checkIsFirstLogin = () => {
     return localStorage.getItem('isFirstLogin') === undefined;
   };
@@ -98,7 +94,6 @@ const Main = () => {
 
       navigate('/explore');
     } else {
-      setIsFirstLogin();
       handleModalOpen();
     }
   };
