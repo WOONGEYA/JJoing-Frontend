@@ -12,6 +12,7 @@ import * as S from './style';
 import { UserProfile } from 'pages/MyPage';
 import instance from 'apis/httpClient';
 import { toast } from 'react-toastify';
+import EditDirectlyModal from 'components/EditDirectlyModal';
 
 const Main = () => {
   const { openModal, closeModal } = useModal();
@@ -61,6 +62,12 @@ const Main = () => {
     });
   };
 
+  const openEditDirectlyModal = () => {
+    openModal({
+      component: <EditDirectlyModal closeModal={closeModal} />,
+    });
+  };
+
   const checkLoginStatus = () => {
     const accessToken = localStorage.getItem('accessToken');
     return accessToken !== null;
@@ -70,6 +77,7 @@ const Main = () => {
     const isUserLoggedIn = checkLoginStatus();
 
     if (isUserLoggedIn) {
+      openEditDirectlyModal();
       navigate('/explore');
     } else {
       handleModalOpen();
