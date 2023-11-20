@@ -2,7 +2,7 @@ import { ProfileUpdateModalProps } from 'types/IModalOpen';
 import * as S from './style';
 import CloseIcon from 'assets/CloseIcon';
 import { useQuery, useQueryClient } from 'react-query';
-import { followingList } from 'apis/api';
+import { followingList } from 'apis';
 import FollowPeople from 'components/FollowPeople';
 import { useEffect, useState } from 'react';
 import { IFollower } from 'types/IFollower';

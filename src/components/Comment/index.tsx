@@ -7,7 +7,7 @@ import MessageInput from 'components/MessageInput';
 import { ICommentProps } from 'types/IComponentsProps';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Comments, ReComent } from 'contents/queryKey';
-import { deleteMent, getReComment, postReComment, putComments } from 'apis/api';
+import { deleteMent, getReComment, postReComment, putComments } from 'apis';
 import { IRecomment } from 'types/IRecomment';
 import Recomment from 'components/ReComment';
 import { toast } from 'react-toastify';

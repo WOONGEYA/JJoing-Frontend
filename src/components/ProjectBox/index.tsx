@@ -4,7 +4,7 @@ import LikeIcon from 'assets/LikeIcon';
 import { useNavigate } from 'react-router-dom';
 import theme from 'styles/theme';
 import { useMutation, useQueryClient } from 'react-query';
-import { addProjectDetail, deleteHeart } from 'apis/api';
+import { addProjectDetail, deleteHeart } from 'apis';
 import { ProjectLiked } from 'contents/queryKey';
 import EyeIcon from 'assets/EyeIcon';
 

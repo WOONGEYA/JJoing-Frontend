@@ -8,7 +8,7 @@ import instance from 'apis/httpClient';
 import NotifyBox from 'components/NotifyBox';
 import { NewProject } from 'pages/Explore';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { deleteNotification, getNotification } from 'apis/api';
+import { deleteNotification, getNotification } from 'apis';
 import { Notification } from 'contents/queryKey';
 import Layout from 'components/Layout';
 

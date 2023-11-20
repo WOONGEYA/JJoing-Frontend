@@ -8,7 +8,7 @@ import { useRecoilValue } from 'recoil';
 import { sortProject, sortProject2 } from 'apis/recoil';
 import Dropdown2 from 'components/Dropdown2';
 import { useQuery } from 'react-query';
-import { getProject } from 'apis/api';
+import { getProject } from 'apis';
 import { ProjectLiked } from 'contents/queryKey';
 
 const dropdownOptions = [

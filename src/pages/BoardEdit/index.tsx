@@ -7,7 +7,7 @@ import UploadIcon from 'assets/UploadIcon';
 import { useState } from 'react';
 import useImageUpload from 'hooks/useImageUpload';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { getBoardProject, putBoard } from 'apis/api';
+import { getBoardProject, putBoard } from 'apis';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { BoardKey, ReadDetailProject } from 'contents/queryKey';

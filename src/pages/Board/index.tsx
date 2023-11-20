@@ -7,7 +7,7 @@ import theme from 'styles/theme';
 import Input from 'components/Input';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { FindProject, getBoardList } from 'apis/api';
+import { FindProject, getBoardList } from 'apis';
 import { IReadBoard } from 'types/IReadBoard';
 import { daysAgo } from 'utils/daysAgo';
 import { BoardKey, ReadDetailProject } from 'contents/queryKey';

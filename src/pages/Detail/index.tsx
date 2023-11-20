@@ -31,7 +31,7 @@ import {
   getProjectDetail,
   getProjectMember,
   getisLiked,
-} from 'apis/api';
+} from 'apis';
 import LoadingPage from 'pages/LoadingPage';
 import DetailModal from 'components/DetailModal';
 

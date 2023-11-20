@@ -6,7 +6,7 @@ import { userKey } from 'apis/recoil';
 import Input from 'components/Input';
 import { useMutation, useQueryClient } from 'react-query';
 import { ReComent } from 'contents/queryKey';
-import { deleteReMent, putReComments } from 'apis/api';
+import { deleteReMent, putReComments } from 'apis';
 
 interface IRecommentProps {
   data: IRecomment;

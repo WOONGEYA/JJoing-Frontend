@@ -3,7 +3,7 @@ import * as S from './style';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import { useMutation, useQueryClient } from 'react-query';
-import { addFollow, deleteFollow } from 'apis/api';
+import { addFollow, deleteFollow } from 'apis';
 import { useState } from 'react';
 
 const FollowPeople = ({

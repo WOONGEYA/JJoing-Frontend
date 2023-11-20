@@ -5,7 +5,7 @@ import Comment from 'components/Comment';
 import SubmitArrow from 'assets/SubmitArrow';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { getComment, postComment } from 'apis/api';
+import { getComment, postComment } from 'apis';
 import { Comments } from 'contents/queryKey';
 import { ICommentProps } from 'types/IComponentsProps';
 import { toast } from 'react-toastify';
