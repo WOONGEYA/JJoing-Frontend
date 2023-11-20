@@ -15,7 +15,7 @@ import useModal from 'hooks/useModal';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import FollowerList from 'pages/FollowerList';
-import FollowingrList from 'pages/FollowingList';
+import FollowingList from 'pages/FollowingList';
 import { useMutation, useQueries, useQueryClient } from 'react-query';
 
 interface UserProfile {
@@ -41,11 +41,6 @@ interface Project {
   likeCount: number;
   selectId: number;
   likeState: boolean;
-}
-
-interface FollowInfo {
-  followCount: number;
-  followingCount: number;
 }
 
 interface FollowList {
@@ -252,11 +247,7 @@ const MyPage = () => {
   const followingList = () => {
     openModal({
       component: (
-        <FollowingrList
-          closeModal={closeModal}
-          id={newId}
-          navigate={navigate}
-        />
+        <FollowingList closeModal={closeModal} id={newId} navigate={navigate} />
       ),
     });
   };
