@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { deleteBoardProject, getBoardProject } from 'apis/api';
-import { ReComent, ReadDetailProject } from 'contents/queryKey';
+import { ReadDetailProject } from 'contents/queryKey';
 import { IDetailProject } from 'types/IDetailProject';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
