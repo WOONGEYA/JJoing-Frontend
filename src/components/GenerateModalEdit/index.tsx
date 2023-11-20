@@ -296,17 +296,8 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
               <S.TagArea>
                 {userInput.moods.map((tag, index) => (
                   <S.Tag key={index}>
-                    {tag}
-                    <CloseIcon
-                      style={{
-                        right: 0,
-                        marginLeft: '10px',
-                        cursor: 'pointer',
-                        width: '15px',
-                        height: '15px',
-                      }}
-                      onClick={() => deleteMoods(index)}
-                    />
+                    <S.TagContent>{tag}</S.TagContent>
+                    <CloseIcon height={16} onClick={() => deleteMoods(index)} />
                   </S.Tag>
                 ))}
               </S.TagArea>
@@ -325,17 +316,8 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
               <S.TagArea>
                 {userInput.skills.map((tag, index) => (
                   <S.Tag key={index}>
-                    {tag}
-                    <CloseIcon
-                      style={{
-                        right: 0,
-                        marginLeft: '10px',
-                        cursor: 'pointer',
-                        width: '15px',
-                        height: '15px',
-                      }}
-                      onClick={() => deleteSkills(index)}
-                    />
+                    <S.TagContent>{tag}</S.TagContent>
+                    <CloseIcon width={16} onClick={() => deleteSkills(index)} />
                   </S.Tag>
                 ))}
               </S.TagArea>
@@ -354,15 +336,9 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
               <S.TagArea>
                 {userInput.coops.map((tag, index) => (
                   <S.Tag key={index}>
-                    {tag}
+                    <S.TagContent>{tag}</S.TagContent>
                     <CloseIcon
-                      style={{
-                        right: 0,
-                        marginLeft: '10px',
-                        cursor: 'pointer',
-                        width: '15px',
-                        height: '15px',
-                      }}
+                      cursor='pointer'
                       onClick={() => deleteCoops(index)}
                     />
                   </S.Tag>

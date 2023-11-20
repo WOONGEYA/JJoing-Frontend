@@ -245,7 +245,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
               <S.TagArea>
                 {userInput.positions.map((tag, index) => (
                   <S.Tag key={index}>
-                    {tag}
+                    <S.TagContent>{tag}</S.TagContent>
                     <CloseIcon
                       height={16}
                       width={16}
@@ -282,7 +282,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
               <S.TagArea>
                 {userInput.moods.map((tag, index) => (
                   <S.Tag key={index}>
-                    {tag}
+                    <S.TagContent>{tag}</S.TagContent>
                     <CloseIcon
                       height={16}
                       width={16}
@@ -306,7 +306,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
               <S.TagArea>
                 {userInput.skills.map((tag, index) => (
                   <S.Tag key={index}>
-                    {tag}
+                    <S.TagContent>{tag}</S.TagContent>
                     <CloseIcon
                       height={16}
                       width={16}
@@ -330,7 +330,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
               <S.TagArea>
                 {userInput.coops.map((tag, index) => (
                   <S.Tag key={index}>
-                    {tag}
+                    <S.TagContent>{tag}</S.TagContent>
                     <CloseIcon
                       height={16}
                       width={16}
