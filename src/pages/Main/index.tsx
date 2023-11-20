@@ -17,12 +17,17 @@ import EditDirectlyModal from 'components/EditDirectlyModal';
 const Main = () => {
   const { openModal, closeModal } = useModal();
   const navigate = useNavigate();
-
+  const scrollRef = useRef<HTMLDivElement>(null);
   const merit1Ref = useRef<HTMLDivElement>(null);
   const merit2Ref = useRef<HTMLDivElement>(null);
   const merit3Ref = useRef<HTMLDivElement>(null);
 
   const [activeSection, setActiveSection] = useState(0);
+
+  const onScrollToMerit = () => {
+    if (scrollRef.current)
+      scrollRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -150,12 +155,12 @@ const Main = () => {
             </div>
           </S.WelcomeContent>
           <S.MainImage src={MainCover} alt='mainImg' />
-          <S.ScrollHint>
+          <S.ScrollHint onClick={onScrollToMerit}>
             <FaChevronDown />
           </S.ScrollHint>
         </S.Landing>
       </S.Welcome>
-      <S.Merit>
+      <S.Merit ref={scrollRef}>
         <S.Title style={{ marginBottom: 0 }}>쪼잉은 이런 점이 좋아요!</S.Title>
         <S.MeritContainer
           ref={merit1Ref}
@@ -224,25 +229,19 @@ const Main = () => {
           <S.Tabs>
             <S.Tab>
               <S.TabContent>
-                <S.TabTitle>
-                  원하는 분야의 프로젝트를 빠르게 찾을 수 있도록
-                </S.TabTitle>
+                <S.TabTitle>원하는 분야의 프로젝트를 빠르게 찾기</S.TabTitle>
                 <S.TabImage src={Book} />
               </S.TabContent>
             </S.Tab>
             <S.Tab>
               <S.TabContent>
-                <S.TabTitle>
-                  원하는 분위기의 프로젝트 팀을 찾을 수 있도록
-                </S.TabTitle>
+                <S.TabTitle>원하는 분위기의 프로젝트 팀을 쉽게 찾기</S.TabTitle>
                 <S.TabImage src={Love} />
               </S.TabContent>
             </S.Tab>
             <S.Tab>
               <S.TabContent>
-                <S.TabTitle>
-                  협업으로 내 실력을 더 높이 끌어올릴 수 있도록
-                </S.TabTitle>
+                <S.TabTitle>협업으로 내 실력을 더 높이 끌어올리기</S.TabTitle>
                 <S.TabImage src={Money} />
               </S.TabContent>
             </S.Tab>
