@@ -14,7 +14,7 @@ import ProfileUpdateModal from 'components/ProfileUpdateModal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { gotoUserProfile, gotoUserProfileId, userKey } from 'apis/recoil';
 import FollowerList from 'pages/FollowerList';
-import FollowingrList from 'pages/FollowingList';
+import FollowingList from 'pages/FollowingList';
 import { useQueries, useQueryClient } from 'react-query';
 
 export interface UserProfile {
@@ -83,11 +83,7 @@ const MyPage = () => {
   const followingList = () => {
     openModal({
       component: (
-        <FollowingrList
-          closeModal={closeModal}
-          id={newId}
-          navigate={navigate}
-        />
+        <FollowingList closeModal={closeModal} id={newId} navigate={navigate} />
       ),
     });
   };

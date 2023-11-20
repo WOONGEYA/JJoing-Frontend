@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ProjectBox from 'components/ProjectBox';
 import Dropdown from 'components/Dropdown';
 import * as S from './style';
 import Layout from 'components/Layout';
-import instance from 'apis/httpClient';
 import { useRecoilValue } from 'recoil';
 import { sortProject, sortProject2 } from 'apis/recoil';
 import Dropdown2 from 'components/Dropdown2';

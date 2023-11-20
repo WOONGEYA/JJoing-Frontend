@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import { font } from 'styles/font';
-import { shadow } from 'styles/shadow';
 import theme from 'styles/theme';
 
 export const Container = styled.div`
