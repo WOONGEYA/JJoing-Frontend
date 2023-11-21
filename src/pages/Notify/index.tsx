@@ -38,12 +38,11 @@ function Notify() {
   const getNotification = useQuery({
     queryKey: [Notification],
     queryFn: () => getNoti(),
-    onSuccess: (data) => {
-      setAlarmList(data);
+    onSuccess: async (data) => {
+      await setAlarmList(data);
       setNewArrs(data);
     },
   });
-
   const handleDeleteAll = () => {
     deleteNotification.mutate();
   };
@@ -53,11 +52,13 @@ function Notify() {
   );
 
   useEffect(() => {
-    instance.get('/project').then((res) => {
-      const ids = res.data.map((el: NewProject) => el.id);
-      setNewArrs(ids);
-    });
-  }, []);
+    if (alarmList.length > 0) {
+      instance.get('/project').then((res) => {
+        const ids = res.data.map((el: NewProject) => el.id);
+        setNewArrs(ids);
+      });
+    }
+  }, [alarmList]);
 
   return (
     <Layout>
