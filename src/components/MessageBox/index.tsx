@@ -26,7 +26,7 @@ const MessageBox = () => {
     },
   });
 
-  const getComments = useQuery({
+  useQuery({
     queryKey: [Comments],
     queryFn: () => getComment(Number(id)),
     onSuccess: (data: ICommentProps[]) => {

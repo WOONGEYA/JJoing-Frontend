@@ -7,7 +7,7 @@ interface GenerateModalProps {
   imgUrl?: string;
 }
 
-const DetailModal = ({ closeModal, pageId, imgUrl }: GenerateModalProps) => {
+const DetailModal = ({ closeModal, imgUrl }: GenerateModalProps) => {
   return (
     <Container>
       <Top>

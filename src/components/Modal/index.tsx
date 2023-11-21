@@ -12,7 +12,7 @@ const Modal = () => {
       {...modal}
       onClose={() => {
         modal.onClose?.();
-        if (!modal.menualClose) {
+        if (!modal.manualClose) {
           closeModal();
         }
       }}

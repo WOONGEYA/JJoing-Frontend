@@ -26,7 +26,7 @@ const Board = () => {
     queryFn: getBoardList,
   });
 
-  const searchQuery = useQuery({
+  useQuery({
     queryKey: [ReadDetailProject, userInput],
     queryFn: () => FindProject(userInput),
     enabled: shouldSearch,

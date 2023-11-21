@@ -1,7 +1,5 @@
 import React from 'react';
 import * as S from './style';
-import MessageArrowIcon from 'assets/MessageArrow';
-import theme from 'styles/theme';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: string;
