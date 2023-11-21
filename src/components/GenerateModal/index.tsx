@@ -9,6 +9,7 @@ import instance from 'apis/httpClient';
 import EditIcon from 'assets/EditIcon';
 import { toast } from 'react-toastify';
 import { checkPostValid } from 'helper';
+import { useQueryClient } from 'react-query';
 
 interface GenerateModalProps {
   closeModal: () => void;
@@ -29,7 +30,7 @@ export interface UserInput {
 
 const initialUserInput: UserInput = {
   name: '',
-  requiredPeople: 2,
+  requiredPeople: 1,
   startDate: '',
   endDate: '',
   skills: [],
@@ -127,21 +128,28 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     }
   };
 
+  const queryClient = useQueryClient();
+
   const updateProfile = async () => {
     try {
-      const isValidPost = checkPostValid(userInput);
+      const updatedUserInput = {
+        ...userInput,
+        requiredPeople: userInput.requiredPeople + 1,
+      };
+      const isValidPost = checkPostValid(updatedUserInput);
       if (isValidPost !== false) {
         closeModal();
         toast.success('프로젝트가 생성되었습니다!');
         await instance.post(
           '/project',
-          { ...userInput, imgUrl: newImageUrl },
+          { ...updatedUserInput, imgUrl: newImageUrl },
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             },
           },
         );
+        queryClient.invalidateQueries(['ProjectLiked']);
       }
     } catch (err) {
       console.error(err);
