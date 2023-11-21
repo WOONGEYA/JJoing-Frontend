@@ -77,7 +77,7 @@ function NotifyBox({ id, title, content, projectId }: NotifyBoxProps) {
         <F.FlexVertical>
           <S.TitleBox>
             <S.Element>
-              <S.Desciption>{title}</S.Desciption>
+              <S.Description>{title}</S.Description>
             </S.Element>
             <S.SubTitle>{content}</S.SubTitle>
           </S.TitleBox>
