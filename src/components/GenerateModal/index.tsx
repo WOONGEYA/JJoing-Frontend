@@ -240,19 +240,21 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   handleAddItem('positions', e.currentTarget.value, e)
                 }
               />
-              <S.TagArea>
-                {userInput.positions.map((tag, index) => (
-                  <S.Tag key={index}>
-                    <S.TagContent>{tag}</S.TagContent>
-                    <CloseIcon
-                      height={16}
-                      width={16}
-                      cursor='pointer'
-                      onClick={() => deletePosition(index)}
-                    />
-                  </S.Tag>
-                ))}
-              </S.TagArea>
+              {userInput.positions.length && (
+                <S.TagArea>
+                  {userInput.positions.map((tag, index) => (
+                    <S.Tag key={index}>
+                      <S.TagContent>{tag}</S.TagContent>
+                      <CloseIcon
+                        height={16}
+                        width={16}
+                        cursor='pointer'
+                        onClick={() => deletePosition(index)}
+                      />
+                    </S.Tag>
+                  ))}
+                </S.TagArea>
+              )}
             </S.InputArea>
             <S.InputArea>
               <S.HeadLine>프로젝트 설명</S.HeadLine>
@@ -279,19 +281,21 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   handleAddItem('moods', e.currentTarget.value, e)
                 }
               />
-              <S.TagArea>
-                {userInput.moods.map((tag, index) => (
-                  <S.Tag key={index}>
-                    <S.TagContent>{tag}</S.TagContent>
-                    <CloseIcon
-                      height={16}
-                      width={16}
-                      cursor='pointer'
-                      onClick={() => deleteMoods(index)}
-                    />
-                  </S.Tag>
-                ))}
-              </S.TagArea>
+              {userInput.moods.length && (
+                <S.TagArea>
+                  {userInput.moods.map((tag, index) => (
+                    <S.Tag key={index}>
+                      <S.TagContent>{tag}</S.TagContent>
+                      <CloseIcon
+                        height={16}
+                        width={16}
+                        cursor='pointer'
+                        onClick={() => deleteMoods(index)}
+                      />
+                    </S.Tag>
+                  ))}
+                </S.TagArea>
+              )}
             </S.InputArea>
             <S.InputArea>
               <S.HeadLine>사용 기술</S.HeadLine>
@@ -303,19 +307,21 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   handleAddItem('skills', e.currentTarget.value, e)
                 }
               />
-              <S.TagArea>
-                {userInput.skills.map((tag, index) => (
-                  <S.Tag key={index}>
-                    <S.TagContent>{tag}</S.TagContent>
-                    <CloseIcon
-                      height={16}
-                      width={16}
-                      cursor='pointer'
-                      onClick={() => deleteSkills(index)}
-                    />
-                  </S.Tag>
-                ))}
-              </S.TagArea>
+              {userInput.skills.length && (
+                <S.TagArea>
+                  {userInput.skills.map((tag, index) => (
+                    <S.Tag key={index}>
+                      <S.TagContent>{tag}</S.TagContent>
+                      <CloseIcon
+                        height={16}
+                        width={16}
+                        cursor='pointer'
+                        onClick={() => deleteSkills(index)}
+                      />
+                    </S.Tag>
+                  ))}
+                </S.TagArea>
+              )}
             </S.InputArea>
             <S.InputArea>
               <S.HeadLine>협업 툴</S.HeadLine>
@@ -327,19 +333,21 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   handleAddItem('coops', e.currentTarget.value, e)
                 }
               />
-              <S.TagArea>
-                {userInput.coops.map((tag, index) => (
-                  <S.Tag key={index}>
-                    <S.TagContent>{tag}</S.TagContent>
-                    <CloseIcon
-                      height={16}
-                      width={16}
-                      cursor='pointer'
-                      onClick={() => deleteCoops(index)}
-                    />
-                  </S.Tag>
-                ))}
-              </S.TagArea>
+              {userInput.coops.length && (
+                <S.TagArea>
+                  {userInput.coops.map((tag, index) => (
+                    <S.Tag key={index}>
+                      <S.TagContent>{tag}</S.TagContent>
+                      <CloseIcon
+                        height={16}
+                        width={16}
+                        cursor='pointer'
+                        onClick={() => deleteCoops(index)}
+                      />
+                    </S.Tag>
+                  ))}
+                </S.TagArea>
+              )}
             </S.InputArea>
             <S.InputArea>
               <S.HeadLine>커버 이미지 추가</S.HeadLine>
