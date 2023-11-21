@@ -256,9 +256,7 @@ export const getProject = async (params: {
 
 export const searchUser = async (query: string) => {
   const { data } = await instance.get('/user/search', {
-    params: {
-      q: query,
-    },
+    params: { q: query },
   });
   return data;
 };

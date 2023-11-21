@@ -16,20 +16,19 @@ const SearchUser = () => {
   const [searchKey, setSearchKey] = useState('');
   const [userInfo, setUserInfo] = useState<UserInfo[]>();
 
-  const { data, error } = useQuery({
+  const searchQuery = useQuery({
     queryKey: ['searchUser', searchKey],
     queryFn: () => searchUser(searchKey),
+    enabled: searchKey.length >= 0,
   });
+
+  const { data, error } = searchQuery;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
   };
 
   const handleSubmit = () => {
-    if (!userInput) {
-      return;
-    }
-
     setSearchKey(userInput);
   };
 
@@ -41,7 +40,7 @@ const SearchUser = () => {
     if (error) {
       console.error(error);
     }
-  }, [data, error, userInfo]);
+  }, [data, error]);
 
   const navigate = useNavigate();
 
