@@ -236,6 +236,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 required
                 type='text'
                 placeholder='예시) 프론트, 백엔드, 디자이너 (엔터로 구분해주세요.)'
+                value={userInput.positions}
+                onChange={(e) => handleInputChange('positions', e.target.value)}
                 onKeyPress={(e) =>
                   handleAddItem('positions', e.currentTarget.value, e)
                 }
@@ -275,6 +277,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 required
                 type='text'
                 placeholder='예시) 진중함, 목표지향, 창의적 (엔터로 구분해주세요.)'
+                value={userInput.moods}
+                onChange={(e) => handleInputChange('moods', e.target.value)}
                 onKeyPress={(e) =>
                   handleAddItem('moods', e.currentTarget.value, e)
                 }
@@ -299,6 +303,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 required
                 type='text'
                 placeholder='사용 기술을 적어주세요. (엔터로 구분해주세요.)'
+                value={userInput.skills}
+                onChange={(e) => handleInputChange('skills', e.target.value)}
                 onKeyPress={(e) =>
                   handleAddItem('skills', e.currentTarget.value, e)
                 }
@@ -323,6 +329,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 required
                 type='text'
                 placeholder='협업할 때 쓰는 툴을 알려주세요. (엔터로 구분해주세요.)'
+                value={userInput.coops}
+                onChange={(e) => handleInputChange('coops', e.target.value)}
                 onKeyPress={(e) =>
                   handleAddItem('coops', e.currentTarget.value, e)
                 }
