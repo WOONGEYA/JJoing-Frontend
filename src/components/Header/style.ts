@@ -26,16 +26,13 @@ export const MenuList = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
 `;
 
 export const MenuItem = styled.div`
   color: ${theme.black};
   ${font.$body};
   cursor: pointer;
-  &:first-child {
-    margin-left: 20px;
-  }
 `;
 
 export const ProfileContainer = styled.div`
