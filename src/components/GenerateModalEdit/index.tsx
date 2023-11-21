@@ -216,7 +216,8 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
             <S.InputArea>
               <S.HeadLine>모집 인원</S.HeadLine>
               <Input
-                min='0'
+                min='2'
+                max='10'
                 required
                 placeholder='모집 인원을 알려주세요'
                 type='number'
@@ -252,24 +253,26 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
               <Input
                 required
                 type='text'
-                placeholder='예시) 프론트, 백엔드, 디자이너'
+                placeholder='예시) 프론트, 백엔드, 디자이너 (엔터로 구분해주세요.)'
                 onKeyPress={(e) =>
                   handleAddItem('positions', e.currentTarget.value, e)
                 }
               />
-              <S.TagArea>
-                {userInput.positions.map((tag, index) => (
-                  <S.Tag key={index}>
-                    <S.TagContent>{tag}</S.TagContent>
-                    <CloseIcon
-                      height={16}
-                      width={16}
-                      cursor='pointer'
-                      onClick={() => deletePosition(index)}
-                    />
-                  </S.Tag>
-                ))}
-              </S.TagArea>
+              {userInput.positions.length && (
+                <S.TagArea>
+                  {userInput.positions.map((tag, index) => (
+                    <S.Tag key={index}>
+                      <S.TagContent>{tag}</S.TagContent>
+                      <CloseIcon
+                        height={16}
+                        width={16}
+                        cursor='pointer'
+                        onClick={() => deletePosition(index)}
+                      />
+                    </S.Tag>
+                  ))}
+                </S.TagArea>
+              )}
             </S.InputArea>
             <S.InputArea>
               <S.HeadLine>프로젝트 설명</S.HeadLine>
@@ -281,82 +284,88 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
               />
             </S.InputArea>
             <S.ButtonContainer>
-              <S.Button onClick={() => setTab((prev) => !prev)}>다음</S.Button>
+              <Button value='다음' onClick={() => setTab((prev) => !prev)} />
             </S.ButtonContainer>
           </>
         ) : (
           <>
             <S.InputArea>
-              <S.HeadLine>개발분위기</S.HeadLine>
+              <S.HeadLine>개발 분위기</S.HeadLine>
               <Input
                 required
                 type='text'
-                placeholder='예시) 진중함, 목표지향, 창의적'
+                placeholder='예시) 진중함, 목표지향, 창의적 (엔터로 구분해주세요.)'
                 onKeyPress={(e) =>
                   handleAddItem('moods', e.currentTarget.value, e)
                 }
               />
-              <S.TagArea>
-                {userInput.moods.map((tag, index) => (
-                  <S.Tag key={index}>
-                    <S.TagContent>{tag}</S.TagContent>
-                    <CloseIcon
-                      height={16}
-                      width={16}
-                      cursor='pointer'
-                      onClick={() => deleteMoods(index)}
-                    />
-                  </S.Tag>
-                ))}
-              </S.TagArea>
+              {userInput.moods.length && (
+                <S.TagArea>
+                  {userInput.moods.map((tag, index) => (
+                    <S.Tag key={index}>
+                      <S.TagContent>{tag}</S.TagContent>
+                      <CloseIcon
+                        height={16}
+                        width={16}
+                        cursor='pointer'
+                        onClick={() => deleteMoods(index)}
+                      />
+                    </S.Tag>
+                  ))}
+                </S.TagArea>
+              )}
             </S.InputArea>
             <S.InputArea>
               <S.HeadLine>사용 기술</S.HeadLine>
               <Input
                 required
                 type='text'
-                placeholder='사용 기술을 적어주세요.'
+                placeholder='사용 기술을 적어주세요. (엔터로 구분해주세요.)'
                 onKeyPress={(e) =>
                   handleAddItem('skills', e.currentTarget.value, e)
                 }
               />
-              <S.TagArea>
-                {userInput.skills.map((tag, index) => (
-                  <S.Tag key={index}>
-                    <S.TagContent>{tag}</S.TagContent>
-                    <CloseIcon
-                      height={16}
-                      width={16}
-                      cursor='pointer'
-                      onClick={() => deleteSkills(index)}
-                    />
-                  </S.Tag>
-                ))}
-              </S.TagArea>
+              {userInput.skills.length && (
+                <S.TagArea>
+                  {userInput.skills.map((tag, index) => (
+                    <S.Tag key={index}>
+                      <S.TagContent>{tag}</S.TagContent>
+                      <CloseIcon
+                        height={16}
+                        width={16}
+                        cursor='pointer'
+                        onClick={() => deleteSkills(index)}
+                      />
+                    </S.Tag>
+                  ))}
+                </S.TagArea>
+              )}
             </S.InputArea>
             <S.InputArea>
               <S.HeadLine>협업 툴</S.HeadLine>
               <Input
                 required
                 type='text'
-                placeholder='협업할 때 쓰는 툴을 알려주세요.'
+                placeholder='협업할 때 쓰는 툴을 알려주세요. (엔터로 구분해주세요.)'
                 onKeyPress={(e) =>
                   handleAddItem('coops', e.currentTarget.value, e)
                 }
               />
-              <S.TagArea>
-                {userInput.coops.map((tag, index) => (
-                  <S.Tag key={index}>
-                    <S.TagContent>{tag}</S.TagContent>
-                    <CloseIcon
-                      height={16}
-                      width={16}
-                      cursor='pointer'
-                      onClick={() => deleteCoops(index)}
-                    />
-                  </S.Tag>
-                ))}
-              </S.TagArea>
+              {userInput.coops.length && (
+                <S.TagArea>
+                  {userInput.coops.map((tag, index) => (
+                    <S.Tag key={index}>
+                      <S.TagContent>{tag}</S.TagContent>
+                      <CloseIcon
+                        height={16}
+                        width={16}
+                        cursor='pointer'
+                        onClick={() => deleteCoops(index)}
+                      />
+                    </S.Tag>
+                  ))}
+                </S.TagArea>
+              )}
             </S.InputArea>
             <S.InputArea>
               <S.HeadLine>커버 이미지 추가</S.HeadLine>
@@ -388,7 +397,7 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
                 value={'이전'}
                 background={theme.grey[500]}
               />
-              <Button value={'업데이트'} onClick={updateProfile} />
+              <Button value='업데이트' onClick={updateProfile} />
             </FlexVertical>
           </>
         )}
