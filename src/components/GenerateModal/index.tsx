@@ -129,8 +129,10 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
 
   const updateProfile = async () => {
     try {
-      if (checkPostValid(userInput)) {
+      const isValidPost = checkPostValid(userInput);
+      if (isValidPost !== false) {
         closeModal();
+        toast.success('프로젝트가 생성되었습니다!');
         await instance.post(
           '/project',
           { ...userInput, imgUrl: newImageUrl },

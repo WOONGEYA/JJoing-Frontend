@@ -31,6 +31,7 @@ instance.interceptors.response.use(
   async (error) => {
     if (error === undefined) return;
 
+    const originalRequest = error.config;
     const { status } = error.response;
 
     const getUpdatedAccessToken = async () => {
@@ -51,12 +52,14 @@ instance.interceptors.response.use(
     const handleAccessTokenRequest = async () => {
       const { accessToken } = await getUpdatedAccessToken();
       setUpdatedAccessToken(accessToken);
+      return accessToken;
     };
 
-    switch (status) {
-      case 403:
-        await handleAccessTokenRequest();
-        window.location.reload();
+    if (status === 403 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      const newToken = await handleAccessTokenRequest();
+      originalRequest.headers.Authorization = newToken;
+      return instance(originalRequest);
     }
 
     return error;
