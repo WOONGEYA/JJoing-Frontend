@@ -85,6 +85,7 @@ export const TagArea = styled.div`
   width: 100%;
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 `;
 
 export const Tag = styled.div`
