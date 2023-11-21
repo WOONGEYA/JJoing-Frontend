@@ -42,6 +42,7 @@ export const UserInfoContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid ${theme.grey[500]};
+  white-space: pre-wrap;
 `;
 
 export const DetailWrapper = styled.div`

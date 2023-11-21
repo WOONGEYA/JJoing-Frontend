@@ -9,6 +9,8 @@ import instance from 'apis/httpClient';
 import EditIcon from 'assets/EditIcon';
 import { toast } from 'react-toastify';
 import { checkPostValid } from 'helper';
+import { useQueryClient } from 'react-query';
+import { ProjectLiked } from 'contents/queryKey';
 
 interface GenerateModalProps {
   closeModal: () => void;
@@ -29,7 +31,7 @@ export interface UserInput {
 
 const initialUserInput: UserInput = {
   name: '',
-  requiredPeople: 2,
+  requiredPeople: 1,
   startDate: '',
   endDate: '',
   skills: [],
@@ -62,8 +64,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
 
   const [userInput, setUserInput] = useState(initialUserInput);
   const [tab, setTab] = useState(true);
-  const [uploadedImage] = useState<string | null>(null);
-  const [startDate] = useState(getCurrentDate());
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [startDate, setStartDate] = useState(getCurrentDate());
   const [imageUrl, setImageUrl] = useState<string>(img);
   const [newImageUrl, setNewImageUrl] = useState<string>(img);
 
@@ -127,19 +129,28 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     }
   };
 
+  const queryClient = useQueryClient();
+
   const updateProfile = async () => {
     try {
-      if (checkPostValid(userInput)) {
+      const updatedUserInput = {
+        ...userInput,
+        requiredPeople: userInput.requiredPeople + 1,
+      };
+      const isValidPost = checkPostValid(updatedUserInput);
+      if (isValidPost !== false) {
         closeModal();
+        toast.success('프로젝트가 생성되었습니다!');
         await instance.post(
           '/project',
-          { ...userInput, imgUrl: newImageUrl },
+          { ...updatedUserInput, imgUrl: newImageUrl },
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             },
           },
         );
+        queryClient.invalidateQueries([ProjectLiked]);
       }
     } catch (err) {
       console.error(err);
@@ -230,12 +241,13 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 />
               </FlexVertical>
             </S.InputArea>
+
+            <S.HeadLine>모집 분야</S.HeadLine>
             <S.InputArea>
-              <S.HeadLine>모집 분야</S.HeadLine>
               <Input
                 required
                 type='text'
-                placeholder='예시) 프론트, 백엔드, 디자이너 (엔터로 구분해주세요.)'
+                placeholder='예시) 프론트, 백엔드, 디자이너'
                 onKeyPress={(e) =>
                   handleAddItem('positions', e.currentTarget.value, e)
                 }
@@ -265,18 +277,16 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 onChange={(e) => handleInputChange('content', e.target.value)}
               />
             </S.InputArea>
-            <S.ButtonContainer>
-              <Button value='다음' onClick={() => setTab((prev) => !prev)} />
-            </S.ButtonContainer>
+            <S.Button onClick={() => setTab((prev) => !prev)}>다음</S.Button>
           </>
         ) : (
           <>
+            <S.HeadLine>개발분위기</S.HeadLine>
             <S.InputArea>
-              <S.HeadLine>개발 분위기</S.HeadLine>
               <Input
                 required
                 type='text'
-                placeholder='예시) 진중함, 목표지향, 창의적 (엔터로 구분해주세요.)'
+                placeholder='예시) 진중함, 목표지향, 창의적'
                 onKeyPress={(e) =>
                   handleAddItem('moods', e.currentTarget.value, e)
                 }
@@ -297,12 +307,12 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 </S.TagArea>
               )}
             </S.InputArea>
+            <S.HeadLine>사용 기술</S.HeadLine>
             <S.InputArea>
-              <S.HeadLine>사용 기술</S.HeadLine>
               <Input
                 required
                 type='text'
-                placeholder='사용 기술을 적어주세요. (엔터로 구분해주세요.)'
+                placeholder='사용 기술을 적어주세요.'
                 onKeyPress={(e) =>
                   handleAddItem('skills', e.currentTarget.value, e)
                 }
@@ -323,12 +333,12 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 </S.TagArea>
               )}
             </S.InputArea>
+            <S.HeadLine>협업 툴</S.HeadLine>
             <S.InputArea>
-              <S.HeadLine>협업 툴</S.HeadLine>
               <Input
                 required
                 type='text'
-                placeholder='협업할 때 쓰는 툴을 알려주세요. (엔터로 구분해주세요.)'
+                placeholder='협업할 때 쓰는 툴을 알려주세요.'
                 onKeyPress={(e) =>
                   handleAddItem('coops', e.currentTarget.value, e)
                 }
@@ -349,8 +359,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 </S.TagArea>
               )}
             </S.InputArea>
+            <S.HeadLine>커버 이미지 추가</S.HeadLine>
             <S.InputArea>
-              <S.HeadLine>커버 이미지 추가</S.HeadLine>
               {uploadedImage ? (
                 <S.UploadedImage
                   src={uploadedImage}
@@ -373,7 +383,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 value={'이전'}
                 background={theme.grey[500]}
               />
-              <Button value='완료' onClick={updateProfile} />
+              <Button value={'완료'} onClick={updateProfile} />
             </FlexVertical>
           </>
         )}
