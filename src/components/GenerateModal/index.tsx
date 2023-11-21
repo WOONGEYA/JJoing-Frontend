@@ -230,8 +230,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 />
               </FlexVertical>
             </S.InputArea>
-            <S.HeadLine>모집 분야</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>모집 분야</S.HeadLine>
               <Input
                 required
                 type='text'
@@ -264,13 +264,13 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
               />
             </S.InputArea>
             <S.ButtonContainer>
-              <S.Button onClick={() => setTab((prev) => !prev)}>다음</S.Button>
+              <Button value='다음' onClick={() => setTab((prev) => !prev)} />
             </S.ButtonContainer>
           </>
         ) : (
           <>
-            <S.HeadLine>개발 분위기</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>개발 분위기</S.HeadLine>
               <Input
                 required
                 type='text'
@@ -293,8 +293,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 ))}
               </S.TagArea>
             </S.InputArea>
-            <S.HeadLine>사용 기술</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>사용 기술</S.HeadLine>
               <Input
                 required
                 type='text'
@@ -317,8 +317,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 ))}
               </S.TagArea>
             </S.InputArea>
-            <S.HeadLine>협업 툴</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>협업 툴</S.HeadLine>
               <Input
                 required
                 type='text'
@@ -341,8 +341,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 ))}
               </S.TagArea>
             </S.InputArea>
-            <S.HeadLine>커버 이미지 추가</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>커버 이미지 추가</S.HeadLine>
               {uploadedImage ? (
                 <S.UploadedImage
                   src={uploadedImage}
@@ -365,7 +365,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 value={'이전'}
                 background={theme.grey[500]}
               />
-              <Button value={'완료'} onClick={updateProfile} />
+              <Button value='완료' onClick={updateProfile} />
             </FlexVertical>
           </>
         )}
