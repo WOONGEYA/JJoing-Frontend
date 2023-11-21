@@ -139,8 +139,8 @@ const Main = () => {
                 <S.Emphasis> 쪼잉</S.Emphasis>에서 찾아보세요!
               </S.Title>
               <S.Subtitle>
-                관심 분야의 프로젝트를 직접 생성하거나 찾아보세요. 쪼잉은 더
-                나은 프로젝트 경험을 위해 시작되었습니다.
+                관심 분야의 프로젝트를 직접 생성하거나 찾아보세요. {'\n'}
+                쪼잉은 더 나은 프로젝트 경험을 위해 시작되었습니다.
               </S.Subtitle>
               <S.Button onClick={handleStartButton}>
                 {localStorage.getItem('accessToken')
