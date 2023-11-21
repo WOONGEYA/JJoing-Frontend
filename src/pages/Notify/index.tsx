@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from 'components/Header';
 import * as S from './style';
 import * as Flex from 'styles/flex';
 import trash from 'assets/trash.svg';
@@ -7,9 +6,8 @@ import NoNotify from 'components/NoNotify/index';
 import Search from 'components/Search';
 import instance from 'apis/httpClient';
 import NotifyBox from 'components/NotifyBox';
-import { toast } from 'react-toastify';
 import { NewProject } from 'pages/Explore';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { deleteNoti, getNoti } from 'apis';
 import { Notification } from 'contents/queryKey';
 import Layout from 'components/Layout';
@@ -32,7 +30,7 @@ function Notify() {
   });
 
   const getNotification = useQuery({
-    queryKey: [Notification],
+    queryKey: ['Notify'],
     queryFn: () => getNoti(),
     onSuccess: (data) => {
       setAlarmList(data);
