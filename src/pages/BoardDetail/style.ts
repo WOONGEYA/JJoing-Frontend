@@ -134,6 +134,8 @@ export const Content = styled.div`
   color: ${theme.grey[800]};
   font-size: 20px;
   width: 100%;
+  white-space: pre-wrap;
+  word-break: keep-all;
 `;
 
 export const MessageWrapper = styled.div`
