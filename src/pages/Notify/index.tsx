@@ -26,14 +26,9 @@ function Notify() {
   const [alarmList, setAlarmList] = useState<alarmList[]>([]);
   const [newArrs, setNewArrs] = useState<number[]>([]);
 
-  const queryClient = useQueryClient();
-
   const deleteNotification = useMutation({
     mutationKey: [Notification],
     mutationFn: () => deleteNoti(),
-    onSuccess: () => {
-      queryClient.invalidateQueries([Notification]);
-    },
   });
 
   const getNotification = useQuery({

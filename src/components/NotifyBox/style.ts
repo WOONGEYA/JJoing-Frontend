@@ -13,6 +13,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
   &:nth-last-child(1) {
     margin-bottom: 50px;
   }

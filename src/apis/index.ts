@@ -229,12 +229,20 @@ export const putReComments = async (id: number, content: string) => {
 };
 
 export const deleteFollow = async (id: number) => {
-  const { data } = await instance.delete(`/follow/${id}`);
+  const { data } = await instance.delete(`/follow/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
   return data;
 };
 
 export const addFollow = async (id: number) => {
-  const { data } = await instance.post(`/follow/${id}`);
+  const { data } = await instance.post(`/follow/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
   return data;
 };
 
