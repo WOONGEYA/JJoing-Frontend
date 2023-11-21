@@ -77,7 +77,7 @@ export const getProjectMember = async (id: number) => {
   return data;
 };
 
-export const getisLiked = async (id: number) => {
+export const getIsLiked = async (id: number) => {
   const { data } = await instance.get(`/like/check/${id}/project`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -117,12 +117,12 @@ export const addProjectDetail = async (id: number) => {
   return data;
 };
 
-export const deleteNoti = async () => {
+export const deleteNotification = async () => {
   const { data } = await instance.delete('/notification');
   return data;
 };
 
-export const getNoti = async () => {
+export const getNotification = async () => {
   const { data } = await instance.get('/notification');
   return data;
 };
@@ -188,7 +188,7 @@ export const getReComment = async (id: number) => {
   return data;
 };
 
-export const deleteMent = async (id: number) => {
+export const deleteComment = async (id: number) => {
   const { data } = await instance.delete(`/comment/${id}`);
   return data;
 };
@@ -208,7 +208,7 @@ export const putComments = async (id: number, content: string) => {
   return data;
 };
 
-export const deleteReMent = async (id: number) => {
+export const deleteReComment = async (id: number) => {
   const { data } = await instance.delete(`/recomment/${id}`);
   return data;
 };

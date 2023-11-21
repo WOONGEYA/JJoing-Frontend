@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 import PropTypes from 'prop-types';
 import searchIcon from 'assets/search.svg';
 import styled from 'styled-components';

@@ -44,7 +44,7 @@ export const UserInfoContainer = styled.div`
   border-bottom: 1px solid ${theme.grey[500]};
 `;
 
-export const DetialWrapper = styled.div`
+export const DetailWrapper = styled.div`
   display: flex;
   gap: 2rem;
 `;

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { font } from 'styles/font';
 import theme from 'styles/theme';
 
 export const CommentContainer = styled.div`
@@ -89,7 +88,7 @@ export const MessageContainer = styled.div`
   gap: 1rem;
 `;
 
-export const DetialComment = styled.div`
+export const DetailComment = styled.div`
   cursor: pointer;
   margin-bottom: 0.5rem;
   color: ${theme.grey[600]};
