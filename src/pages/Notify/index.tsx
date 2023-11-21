@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Header from 'components/Header';
 import * as S from './style';
 import * as Flex from 'styles/flex';
 import trash from 'assets/trash.svg';
@@ -7,7 +8,7 @@ import Search from 'components/Search';
 import instance from 'apis/httpClient';
 import NotifyBox from 'components/NotifyBox';
 import { NewProject } from 'pages/Explore';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { deleteNoti, getNoti } from 'apis';
 import { Notification } from 'contents/queryKey';
 import Layout from 'components/Layout';
@@ -24,13 +25,18 @@ function Notify() {
   const [alarmList, setAlarmList] = useState<alarmList[]>([]);
   const [newArrs, setNewArrs] = useState<number[]>([]);
 
+  const queryClient = useQueryClient();
+
   const deleteNotification = useMutation({
     mutationKey: [Notification],
     mutationFn: () => deleteNoti(),
+    onSuccess: () => {
+      queryClient.invalidateQueries([Notification]);
+    },
   });
 
   const getNotification = useQuery({
-    queryKey: ['Notify'],
+    queryKey: [Notification],
     queryFn: () => getNoti(),
     onSuccess: (data) => {
       setAlarmList(data);
