@@ -14,7 +14,6 @@ const FollowPeople = ({
   school,
   major,
   followState,
-  navigates,
 }: IFollower) => {
   const myId = useRecoilValue(userKey);
   const queryClient = useQueryClient();

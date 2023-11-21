@@ -220,11 +220,12 @@ export const Login = styled.span`
 
 export const ScrollHint = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: -10vh;
   left: 50%;
   transform: translateX(-50%);
   font-size: 2rem;
   animation: bounce 2s infinite;
+  cursor: pointer;
   @keyframes bounce {
     0%,
     100% {

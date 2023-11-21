@@ -11,7 +11,7 @@ export const Container = styled.div`
   margin: 0 auto;
 `;
 
-export const NotifiHeader = styled.div`
+export const NotificationHeader = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
@@ -29,12 +29,12 @@ export const HeaderElement = styled.div`
   display: flex;
 `;
 
-export const NotifiAmount = styled.span`
+export const NotificationAmount = styled.span`
   color: ${theme.grey[800]};
   ${font.$subhead};
 `;
 
-export const DeleteNotifi = styled.button`
+export const DeleteNotification = styled.button`
   min-width: 160px;
   height: 38px;
   color: ${theme.grey[800]};

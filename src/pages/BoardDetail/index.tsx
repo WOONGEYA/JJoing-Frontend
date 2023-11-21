@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { deleteBoardProject, getBoardProject } from 'apis';
-import { ReComent, ReadDetailProject } from 'contents/queryKey';
+import { ReadDetailProject } from 'contents/queryKey';
 import { IDetailProject } from 'types/IDetailProject';
 import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
@@ -92,7 +92,7 @@ const BoardDetail = () => {
                 </S.ProfileInfoContainer>
                 <S.Detail>
                   <S.ProjectDetail></S.ProjectDetail>
-                  <S.DetialWrapper>
+                  <S.DetailWrapper>
                     <S.DetailBox>
                       <EyeIcon color={theme.grey[500]} />
                       {projectDetail?.viewCount}
@@ -101,7 +101,7 @@ const BoardDetail = () => {
                       <MessageIcon color={theme.grey[500]} />
                       {projectDetail?.commentCount}
                     </S.DetailBox>
-                  </S.DetialWrapper>
+                  </S.DetailWrapper>
                 </S.Detail>
               </S.UserInfoContainer>
             </S.TextBox>

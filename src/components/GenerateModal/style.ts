@@ -30,15 +30,16 @@ export const ModalTitle = styled.h1`
 
 export const ModalContents = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;
 
 export const HeadLine = styled.h3`
   ${font.$headline};
-  margin-bottom: 8px;
 `;
 
 export const InputArea = styled.div`
-  margin-bottom: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -85,6 +86,7 @@ export const TagArea = styled.div`
   width: 100%;
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 `;
 
 export const Tag = styled.div`
@@ -145,4 +147,9 @@ export const TagContent = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: right;
 `;

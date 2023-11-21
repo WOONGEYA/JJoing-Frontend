@@ -6,8 +6,8 @@ import SubmitArrow from 'assets/SubmitArrow';
 import MessageInput from 'components/MessageInput';
 import { ICommentProps } from 'types/IComponentsProps';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { Comments, ReComent } from 'contents/queryKey';
-import { deleteMent, getReComment, postReComment, putComments } from 'apis';
+import { Comments, ReComment } from 'contents/queryKey';
+import { deleteComment, getReComment, postReComment, putComments } from 'apis';
 import { IRecomment } from 'types/IRecomment';
 import Recomment from 'components/ReComment';
 import { toast } from 'react-toastify';
@@ -27,16 +27,16 @@ const Comment = ({ data }: { data: ICommentProps }) => {
   const queryClient = useQueryClient();
 
   const commentMutate = useMutation({
-    mutationKey: [ReComent],
+    mutationKey: [ReComment],
     mutationFn: () => postReComment(Number(data.id), userInput),
     onSuccess: (data) => {
       setArr((prevArr) => [...prevArr, data]);
-      queryClient.invalidateQueries([ReComent]);
+      queryClient.invalidateQueries([ReComment]);
     },
   });
 
   const getComments = useQuery({
-    queryKey: [ReComent, data.id],
+    queryKey: [ReComment, data.id],
     queryFn: () => getReComment(Number(data.id)),
     onSuccess: (data: IRecomment[]) => {
       if (data) {
@@ -65,7 +65,7 @@ const Comment = ({ data }: { data: ICommentProps }) => {
 
   const delComment = useMutation({
     mutationKey: [Comments],
-    mutationFn: () => deleteMent(Number(data.id)),
+    mutationFn: () => deleteComment(Number(data.id)),
     onSuccess: () => {
       queryClient.invalidateQueries([Comments]);
     },
@@ -166,9 +166,9 @@ const Comment = ({ data }: { data: ICommentProps }) => {
           </>
         ) : (
           arr.length > 0 && (
-            <S.DetialComment onClick={recommentOpen}>
+            <S.DetailComment onClick={recommentOpen}>
               댓글 상세보기
-            </S.DetialComment>
+            </S.DetailComment>
           )
         )}
         {open == false && isOpen && (

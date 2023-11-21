@@ -13,7 +13,7 @@ interface GenerateModalProps {
 }
 
 const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
-  const [produdce, setProdudce] = React.useState<string>('');
+  const [introduction, setIntroduction] = React.useState<string>('');
   const [userSkills, setUserSkills] = React.useState<string>('');
   const [phone, setPhone] = React.useState<string>('');
 
@@ -23,7 +23,7 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
     } = e;
 
     if (name === 'produce') {
-      setProdudce(value);
+      setIntroduction(value);
       return;
     }
 
@@ -40,7 +40,7 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
 
   const onSubmit = async () => {
     const sendData = {
-      introduce: produdce,
+      introduce: introduction,
       position: userSkills,
       phone: phone,
     };
@@ -73,7 +73,7 @@ const SendProfile = ({ closeModal, pageId }: GenerateModalProps) => {
           width='calc(100% - 25px)'
           name='produce'
           type='text'
-          value={produdce}
+          value={introduction}
           onChange={onChange}
           required
         />

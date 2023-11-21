@@ -32,7 +32,7 @@ export const Element = styled.div`
   cursor: pointer;
 `;
 
-export const Desciption = styled.h1`
+export const Description = styled.h1`
   ${font.$body};
 `;
 

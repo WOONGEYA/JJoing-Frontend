@@ -32,13 +32,13 @@ const DeleteConfirm = ({ closeModal, id }: GenerateModalProps) => {
         <S.MainText>정말 해당 알림을 삭제하시겠습니까?</S.MainText>
         <S.SubText>삭제한 알림은 복구할 수 없습니다.</S.SubText>
         <S.ButtonsWrapper>
-          <S.CancleButton // 클릭시에 나오게 하려면 () => closeModal
+          <S.CancelButton // 클릭시에 나오게 하려면 () => closeModal
             onClick={() => {
               closeModal();
             }}
           >
             취소
-          </S.CancleButton>
+          </S.CancelButton>
           <S.SuccessButton onClick={onDelete}>삭제</S.SuccessButton>
         </S.ButtonsWrapper>
       </S.ModalTextWrapper>

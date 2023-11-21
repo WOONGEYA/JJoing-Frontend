@@ -46,7 +46,7 @@ export const ButtonsWrapper = styled.div`
   justify-content: space-evenly;
 `;
 
-export const CancleButton = styled.div`
+export const CancelButton = styled.div`
   background-color: ${theme.grey[400]};
   width: 140px;
   height: 40px;

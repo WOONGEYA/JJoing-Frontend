@@ -232,11 +232,11 @@ const MyPage = () => {
                     <S.CountFollow onClick={followerList}>
                       팔로워 {followingInfo}
                     </S.CountFollow>
-                    <S.FowllowGap>
+                    <S.FollowGap>
                       <S.CountFollow onClick={followingList}>
                         팔로우 {followInfo}
                       </S.CountFollow>
-                    </S.FowllowGap>
+                    </S.FollowGap>
                   </S.Follow>
                   <S.StatusMessage>
                     {userProfile?.statusMessage

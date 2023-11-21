@@ -29,7 +29,7 @@ import {
   deleteProjectDetail,
   getProjectDetail,
   getProjectMember,
-  getisLiked,
+  getIsLiked,
 } from 'apis';
 import LoadingPage from 'pages/LoadingPage';
 import DetailModal from 'components/DetailModal';
@@ -109,7 +109,7 @@ const Detail = () => {
     },
     {
       queryKey: [ProjectLiked],
-      queryFn: () => getisLiked(Number(id)),
+      queryFn: () => getIsLiked(Number(id)),
       onSuccess: (data: boolean) => {
         setIsEnd(data);
       },

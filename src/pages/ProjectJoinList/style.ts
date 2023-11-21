@@ -42,7 +42,7 @@ export const Element = styled.div`
   margin-left: 3px;
 `;
 
-export const Desciption = styled.h1`
+export const Description = styled.h1`
   ${font.$body};
 `;
 

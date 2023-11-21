@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { font } from 'styles/font';
 import theme from 'styles/theme';
 
 export const CommentContainer = styled.div`

@@ -5,8 +5,8 @@ import { useRecoilValue } from 'recoil';
 import { userKey } from 'apis/recoil';
 import Input from 'components/Input';
 import { useMutation, useQueryClient } from 'react-query';
-import { ReComent } from 'contents/queryKey';
-import { deleteReMent, putReComments } from 'apis';
+import { ReComment } from 'contents/queryKey';
+import { deleteReComment, putReComments } from 'apis';
 
 interface IRecommentProps {
   data: IRecomment;
@@ -35,10 +35,10 @@ const Recomment = ({
   };
 
   const delComment = useMutation({
-    mutationKey: [ReComent],
-    mutationFn: () => deleteReMent(Number(data.id)),
+    mutationKey: [ReComment],
+    mutationFn: () => deleteReComment(Number(data.id)),
     onSuccess: () => {
-      queryClient.invalidateQueries([ReComent]);
+      queryClient.invalidateQueries([ReComment]);
     },
   });
 
@@ -51,10 +51,10 @@ const Recomment = ({
   };
 
   const putC = useMutation({
-    mutationKey: [ReComent],
+    mutationKey: [ReComment],
     mutationFn: () => putReComments(Number(data.id), modInput),
     onSuccess: () => {
-      queryClient.invalidateQueries([ReComent]);
+      queryClient.invalidateQueries([ReComment]);
     },
   });
 
