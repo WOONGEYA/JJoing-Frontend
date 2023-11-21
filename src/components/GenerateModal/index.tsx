@@ -62,8 +62,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
 
   const [userInput, setUserInput] = useState(initialUserInput);
   const [tab, setTab] = useState(true);
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-  const [startDate, setStartDate] = useState(getCurrentDate());
+  const [uploadedImage] = useState<string | null>(null);
+  const [startDate] = useState(getCurrentDate());
   const [imageUrl, setImageUrl] = useState<string>(img);
   const [newImageUrl, setNewImageUrl] = useState<string>(img);
 
@@ -263,7 +263,9 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 onChange={(e) => handleInputChange('content', e.target.value)}
               />
             </S.InputArea>
-            <S.Button onClick={() => setTab((prev) => !prev)}>다음</S.Button>
+            <S.ButtonContainer>
+              <S.Button onClick={() => setTab((prev) => !prev)}>다음</S.Button>
+            </S.ButtonContainer>
           </>
         ) : (
           <>
