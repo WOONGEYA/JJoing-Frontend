@@ -67,7 +67,6 @@ const GenerateModalEdit = ({
 
   const [userInput, setUserInput] = useState(initialUserInput);
   const [tab, setTab] = useState(true);
-  const [uploadedImage] = useState<string | null>(null);
   const [startDate] = useState(getCurrentDate());
   const [imageUrl, setImageUrl] = useState<string>(img);
   const [newImageUrl, setNewImageUrl] = useState<string>(img);
@@ -374,27 +373,19 @@ const GenerateModalEdit = ({
             </S.InputArea>
             <S.InputArea>
               <S.HeadLine>커버 이미지 추가</S.HeadLine>
-              {uploadedImage ? (
-                <S.UploadedImage
-                  src={uploadedImage}
-                  alt='Uploaded Cover'
-                  style={{ maxWidth: '100%', height: '255px' }}
-                />
-              ) : (
-                <S.UploadImage>
-                  <S.Profile>
-                    <S.ProfileImage url={imageUrl} htmlFor='file' />
-                    <input type='file' id='file' onChange={handleImageChange} />
-                    <EditIcon
-                      style={{
-                        position: 'absolute',
-                        zIndex: '2',
-                        cursor: 'pointer',
-                      }}
-                    />
-                  </S.Profile>
-                </S.UploadImage>
-              )}
+              <S.UploadImage>
+                <S.Profile>
+                  <S.ProfileImage url={imageUrl} htmlFor='file' />
+                  <input type='file' id='file' onChange={handleImageChange} />
+                  <EditIcon
+                    style={{
+                      position: 'absolute',
+                      zIndex: '2',
+                      cursor: 'pointer',
+                    }}
+                  />
+                </S.Profile>
+              </S.UploadImage>
             </S.InputArea>
             <FlexVertical style={{ justifyContent: 'space-between' }}>
               <Button
