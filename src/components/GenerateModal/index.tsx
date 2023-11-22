@@ -391,7 +391,13 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 <S.Profile>
                   <S.ProfileImage url={imageUrl} htmlFor='file' />
                   <input type='file' id='file' onChange={handleImageChange} />
-                  <EditIcon style={{ position: 'absolute', zIndex: '2' }} />
+                  <EditIcon
+                    style={{
+                      position: 'absolute',
+                      zIndex: '2',
+                      cursor: 'pointer',
+                    }}
+                  />
                 </S.Profile>
               </S.UploadImage>
             </S.InputArea>
