@@ -36,7 +36,7 @@ import DetailModal from 'components/DetailModal';
 
 const Detail = () => {
   const { id } = useParams();
-  const [userInfo, setUserInfo] = React.useState<IProjectDetailInfo>();
+  const [projectInfo, setProjectInfo] = React.useState<IProjectDetailInfo>();
   const [projectUsers, setProjectUsers] = React.useState<IMember[]>([]);
   const [isEnd, setIsEnd] = useState(false);
   const userId = useRecoilValue(userKey);
@@ -69,7 +69,7 @@ const Detail = () => {
       component: (
         <DetailModal
           closeModal={closeModal}
-          imgUrl={userInfo?.imgUrl}
+          imgUrl={projectInfo?.imgUrl}
           pageId={Number(id)}
         />
       ),
@@ -79,7 +79,11 @@ const Detail = () => {
   const EditProject = () => {
     openModal({
       component: (
-        <GenerateModalEdit closeModal={closeModal} pageId={Number(id)} />
+        <GenerateModalEdit
+          closeModal={closeModal}
+          pageId={Number(id)}
+          projectImage={projectInfo?.imgUrl || ''}
+        />
       ),
     });
   };
@@ -97,7 +101,7 @@ const Detail = () => {
       queryKey: [ReadDetailProject],
       queryFn: () => getProjectDetail(Number(id)),
       onSuccess: (data: IProjectDetailInfo) => {
-        setUserInfo(data);
+        setProjectInfo(data);
       },
     },
     {
@@ -168,12 +172,12 @@ const Detail = () => {
               <S.ProjectImageContainer>
                 <S.ProjectImage
                   onClick={AboutThumbnail}
-                  src={userInfo?.imgUrl}
+                  src={projectInfo?.imgUrl}
                 />
               </S.ProjectImageContainer>
               <S.ProjectBasicInfo>
                 <S.Top>
-                  <S.ProjectName>{userInfo?.name}</S.ProjectName>
+                  <S.ProjectName>{projectInfo?.name}</S.ProjectName>
                   {projectUsers[0]?.userId === userId && (
                     <S.TabKey onClick={toggle}>
                       <KebabIcon />
@@ -195,7 +199,7 @@ const Detail = () => {
                       모집 기한
                     </S.DeadlineText>
                     <S.DeadlineDate>
-                      {userInfo?.startDate} ~ {userInfo?.endDate}
+                      {projectInfo?.startDate} ~ {projectInfo?.endDate}
                     </S.DeadlineDate>
                   </S.Deadline>
                   <S.Recruiting>
@@ -204,7 +208,7 @@ const Detail = () => {
                       모집 인원
                     </S.RecruitingText>
                     <S.RecruitingMember>
-                      {userInfo?.currentPeople}/{userInfo?.requiredPeople}
+                      {projectInfo?.currentPeople}/{projectInfo?.requiredPeople}
                     </S.RecruitingMember>
                   </S.Recruiting>
                 </S.RecruitInfo>
@@ -236,25 +240,25 @@ const Detail = () => {
                       </S.Button>
                       <S.Button
                         color={
-                          userInfo?.state === 'FOUND'
+                          projectInfo?.state === 'FOUND'
                             ? theme.grey[600]
                             : theme.secondary
                         }
                         onClick={() => {
-                          if (userInfo?.state !== 'FOUND') {
+                          if (projectInfo?.state !== 'FOUND') {
                             EndProject();
                           }
                         }}
-                        cursor={userInfo?.state === 'FOUND' ? 'default' : ''}
+                        cursor={projectInfo?.state === 'FOUND' ? 'default' : ''}
                       >
-                        {userInfo?.state === 'FOUND'
+                        {projectInfo?.state === 'FOUND'
                           ? '모집이 마감되었습니다'
                           : '모집 마감하기'}
                       </S.Button>
                     </>
                   ) : (
                     <>
-                      {userInfo?.state === 'FOUND' ? (
+                      {projectInfo?.state === 'FOUND' ? (
                         <S.Button color={theme.grey[600]} cursor='default'>
                           모집이 마감되었습니다
                         </S.Button>
@@ -283,13 +287,15 @@ const Detail = () => {
             <S.ProjectDetail>
               <S.Description>
                 <S.DescriptionText>프로젝트 설명</S.DescriptionText>
-                <S.DescriptionContent>{userInfo?.content}</S.DescriptionContent>
+                <S.DescriptionContent>
+                  {projectInfo?.content}
+                </S.DescriptionContent>
               </S.Description>
               <S.Category>
                 <S.CategoryContainer>
                   <S.CategoryText>개발 분위기</S.CategoryText>
                   <S.TagContainer>
-                    {userInfo?.moods.map((mood) => (
+                    {projectInfo?.moods.map((mood) => (
                       <Tag key={mood} value={mood} />
                     ))}
                   </S.TagContainer>
@@ -297,7 +303,7 @@ const Detail = () => {
                 <S.CategoryContainer>
                   <S.CategoryText>사용 기술</S.CategoryText>
                   <S.TagContainer>
-                    {userInfo?.skills.map((skill) => (
+                    {projectInfo?.skills.map((skill) => (
                       <Tag key={skill} value={skill} />
                     ))}
                   </S.TagContainer>
@@ -305,7 +311,7 @@ const Detail = () => {
                 <S.CategoryContainer>
                   <S.CategoryText>협업 툴</S.CategoryText>
                   <S.TagContainer>
-                    {userInfo?.coops.map((coop) => (
+                    {projectInfo?.coops.map((coop) => (
                       <Tag key={coop} value={coop} />
                     ))}
                   </S.TagContainer>

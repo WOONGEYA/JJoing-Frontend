@@ -11,7 +11,7 @@ export const ModalContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  gap: 20px;
+  gap: 16px;
   border-radius: 12px;
   height: 20rem;
 `;

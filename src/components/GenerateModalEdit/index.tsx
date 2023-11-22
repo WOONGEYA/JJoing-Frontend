@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 interface GenerateModalProps {
   closeModal: () => void;
   pageId: number;
+  projectImage: string;
 }
 
 interface UserInput {
@@ -40,7 +41,11 @@ const initialUserInput: UserInput = {
   imgUrl: '',
 };
 
-const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
+const GenerateModalEdit = ({
+  closeModal,
+  pageId,
+  projectImage,
+}: GenerateModalProps) => {
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -58,7 +63,7 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
     return `${year}-${month}-${day}`;
   };
 
-  const img: string = process.env.REACT_APP_BASE_IMG || '';
+  const img: string = projectImage || process.env.REACT_APP_BASE_IMG || '';
 
   const [userInput, setUserInput] = useState(initialUserInput);
   const [tab, setTab] = useState(true);
