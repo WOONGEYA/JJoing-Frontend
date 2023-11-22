@@ -31,7 +31,11 @@ const MyJJong = () => {
             },
           })
         ).data;
-        setProjectJJoing(response);
+        if (Array.isArray(response)) {
+          setProjectJJoing(response);
+        } else {
+          setProjectJJoing([]);
+        }
       } catch (error) {
         console.log('에러');
       }
@@ -47,7 +51,7 @@ const MyJJong = () => {
           <S.Title>마이쫑에 추가한 프로젝트</S.Title>
         </S.Header>
         <S.Projects>
-          {projectJJoing.length > 0 ? (
+          {projectJJoing && projectJJoing.length > 0 ? (
             projectJJoing.map((data) => (
               <ProjectBox
                 id={data.id}

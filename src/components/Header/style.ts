@@ -69,6 +69,7 @@ export const Options = styled.div`
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   text-decoration: none;
+  margin-left: 2.3rem;
 `;
 
 export const Option = styled.div`
