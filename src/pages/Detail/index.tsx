@@ -82,7 +82,7 @@ const Detail = () => {
         <GenerateModalEdit
           closeModal={closeModal}
           pageId={Number(id)}
-          projectImage={projectInfo?.imgUrl}
+          projectImage={projectInfo?.imgUrl || ''}
         />
       ),
     });
