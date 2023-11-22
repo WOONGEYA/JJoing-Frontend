@@ -64,8 +64,7 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
 
   const [userInput, setUserInput] = useState(initialUserInput);
   const [tab, setTab] = useState(true);
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-  const [startDate, setStartDate] = useState(getCurrentDate());
+  const [startDate] = useState(getCurrentDate());
   const [imageUrl, setImageUrl] = useState<string>(img);
   const [newImageUrl, setNewImageUrl] = useState<string>(img);
 
@@ -241,9 +240,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 />
               </FlexVertical>
             </S.InputArea>
-
-            <S.HeadLine>모집 분야</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>모집 분야</S.HeadLine>
               <Input
                 required
                 type='text'
@@ -252,23 +250,21 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   handleAddItem('positions', e.currentTarget.value, e)
                 }
               />
-              <S.TagArea>
-                {userInput.positions.map((tag, index) => (
-                  <S.Tag key={index}>
-                    {tag}
-                    <CloseIcon
-                      style={{
-                        right: 0,
-                        marginLeft: '10px',
-                        cursor: 'pointer',
-                        width: '15px',
-                        height: '15px',
-                      }}
-                      onClick={() => deletePosition(index)}
-                    />
-                  </S.Tag>
-                ))}
-              </S.TagArea>
+              {userInput.positions.length !== 0 && (
+                <S.TagArea>
+                  {userInput.positions.map((tag, index) => (
+                    <S.Tag key={index}>
+                      {tag}
+                      <CloseIcon
+                        width={16}
+                        height={16}
+                        cursor='pointer'
+                        onClick={() => deletePosition(index)}
+                      />
+                    </S.Tag>
+                  ))}
+                </S.TagArea>
+              )}
             </S.InputArea>
             <S.InputArea>
               <S.HeadLine>프로젝트 설명</S.HeadLine>
@@ -280,13 +276,13 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
               />
             </S.InputArea>
             <S.ButtonContainer>
-              <S.Button onClick={() => setTab((prev) => !prev)}>다음</S.Button>
+              <Button onClick={() => setTab((prev) => !prev)} value='다음' />
             </S.ButtonContainer>
           </>
         ) : (
           <>
-            <S.HeadLine>개발분위기</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>개발 분위기</S.HeadLine>
               <Input
                 required
                 type='text'
@@ -295,23 +291,21 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   handleAddItem('moods', e.currentTarget.value, e)
                 }
               />
-              <S.TagArea>
-                {userInput.moods.map((tag, index) => (
-                  <S.Tag key={index}>
-                    {tag}
-                    <CloseIcon
-                      style={{
-                        right: 0,
-                        marginLeft: '10px',
-                        cursor: 'pointer',
-                        width: '15px',
-                        height: '15px',
-                      }}
-                      onClick={() => deleteMoods(index)}
-                    />
-                  </S.Tag>
-                ))}
-              </S.TagArea>
+              {userInput.moods.length !== 0 && (
+                <S.TagArea>
+                  {userInput.moods.map((tag, index) => (
+                    <S.Tag key={index}>
+                      {tag}
+                      <CloseIcon
+                        width={16}
+                        height={16}
+                        cursor='pointer'
+                        onClick={() => deleteMoods(index)}
+                      />
+                    </S.Tag>
+                  ))}
+                </S.TagArea>
+              )}
             </S.InputArea>
             <S.HeadLine>사용 기술</S.HeadLine>
             <S.InputArea>
@@ -323,23 +317,21 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   handleAddItem('skills', e.currentTarget.value, e)
                 }
               />
-              <S.TagArea>
-                {userInput.skills.map((tag, index) => (
-                  <S.Tag key={index}>
-                    {tag}
-                    <CloseIcon
-                      style={{
-                        right: 0,
-                        marginLeft: '10px',
-                        cursor: 'pointer',
-                        width: '15px',
-                        height: '15px',
-                      }}
-                      onClick={() => deleteSkills(index)}
-                    />
-                  </S.Tag>
-                ))}
-              </S.TagArea>
+              {userInput.skills.length !== 0 && (
+                <S.TagArea>
+                  {userInput.skills.map((tag, index) => (
+                    <S.Tag key={index}>
+                      {tag}
+                      <CloseIcon
+                        height={16}
+                        width={16}
+                        cursor='pointer'
+                        onClick={() => deleteSkills(index)}
+                      />
+                    </S.Tag>
+                  ))}
+                </S.TagArea>
+              )}
             </S.InputArea>
             <S.HeadLine>협업 툴</S.HeadLine>
             <S.InputArea>
@@ -351,41 +343,32 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                   handleAddItem('coops', e.currentTarget.value, e)
                 }
               />
-              <S.TagArea>
-                {userInput.coops.map((tag, index) => (
-                  <S.Tag key={index}>
-                    {tag}
-                    <CloseIcon
-                      style={{
-                        right: 0,
-                        marginLeft: '10px',
-                        cursor: 'pointer',
-                        width: '15px',
-                        height: '15px',
-                      }}
-                      onClick={() => deleteCoops(index)}
-                    />
-                  </S.Tag>
-                ))}
-              </S.TagArea>
+              {userInput.coops.length !== 0 && (
+                <S.TagArea>
+                  {userInput.coops.map((tag, index) => (
+                    <S.Tag key={index}>
+                      {tag}
+                      <CloseIcon
+                        width={16}
+                        height={16}
+                        cursor='pointer'
+                        onClick={() => deleteCoops(index)}
+                      />
+                    </S.Tag>
+                  ))}
+                </S.TagArea>
+              )}
             </S.InputArea>
             <S.HeadLine>커버 이미지 추가</S.HeadLine>
             <S.InputArea>
-              {uploadedImage ? (
-                <S.UploadedImage
-                  src={uploadedImage}
-                  alt='Uploaded Cover'
-                  style={{ maxWidth: '100%', height: '255px' }}
-                />
-              ) : (
-                <S.UploadImage>
-                  <S.Profile>
-                    <S.ProfileImage url={imageUrl} htmlFor='file' />
-                    <input type='file' id='file' onChange={handleImageChange} />
-                    <EditIcon style={{ position: 'absolute', zIndex: '2' }} />
-                  </S.Profile>
-                </S.UploadImage>
-              )}
+              <S.HeadLine>커버 이미지 추가</S.HeadLine>
+              <S.UploadImage>
+                <S.Profile>
+                  <S.ProfileImage url={imageUrl} htmlFor='file' />
+                  <input type='file' id='file' onChange={handleImageChange} />
+                  <EditIcon style={{ position: 'absolute', zIndex: '2' }} />
+                </S.Profile>
+              </S.UploadImage>
             </S.InputArea>
             <FlexVertical style={{ justifyContent: 'space-between' }}>
               <Button

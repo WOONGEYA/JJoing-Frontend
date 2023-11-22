@@ -6,7 +6,7 @@ import theme from 'styles/theme';
 export const Container = styled.div`
   max-width: 1032px;
   padding-top: 10vh;
-  min-height: 68.5vh;
+  min-height: calc(100vh - 243.5px);
   box-sizing: border-box;
   margin: 0 auto;
 `;
