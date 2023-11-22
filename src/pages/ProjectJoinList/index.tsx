@@ -2,13 +2,12 @@ import { useParams } from 'react-router-dom';
 import * as S from './style';
 import instance from 'apis/httpClient';
 import { useState } from 'react';
-import useModal from 'hooks/useModal';
-import ShowJJoingPerson from 'components/ShowJJoingPerson';
 import Header from 'components/Header';
 import NoNotify from 'components/NoNotify';
 import { useQuery } from 'react-query';
+import JJoingUser from 'components/JJoingUser';
 
-interface User {
+export interface User {
   id: number;
   introduce: string;
   userName: string;
@@ -39,16 +38,6 @@ const ProjectJoinList = () => {
     },
   });
 
-  const OpenJjoingList = () => {
-    openModal({
-      component: (
-        <ShowJJoingPerson closeModal={closeModal} userData={userData} />
-      ),
-    });
-  };
-
-  const { openModal, closeModal } = useModal();
-
   return (
     <>
       <Header />
@@ -58,17 +47,7 @@ const ProjectJoinList = () => {
           <S.SubTitle>프로필을 클릭해 상세 사항을 확인해 보세요!</S.SubTitle>
         </S.TitleContainer>
         {userData.length > 0 ? (
-          userData.map((data) => (
-            <S.Container key={data.id} onClick={OpenJjoingList}>
-              <S.ProfileImg src={data.userImg} alt='' />
-              <S.UserInfoContainer>
-                <div>{data.userName}</div>
-                <S.UserInfo>
-                  {data.school} / {data.position}
-                </S.UserInfo>
-              </S.UserInfoContainer>
-            </S.Container>
-          ))
+          userData.map((data) => <JJoingUser key={data.id} {...data} />)
         ) : (
           <S.NoJJoingContainer>
             <NoNotify />

@@ -27,7 +27,6 @@ export const Container = styled.div`
   align-items: center;
   cursor: pointer;
   margin-bottom: 15px;
-  margin-top: 40px;
 `;
 
 export const Image = styled.div`
