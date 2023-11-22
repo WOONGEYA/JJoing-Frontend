@@ -36,6 +36,6 @@ export const gotoUserProfile = atom({
 });
 
 export const gotoUserProfileId = atom({
-  key: 'userProfile',
+  key: 'userProfileId',
   default: 0,
 });

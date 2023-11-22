@@ -5,18 +5,14 @@ import theme from 'styles/theme';
 
 export const Container = styled.div`
   width: 100%;
-  height: 92px;
   border-radius: 4px;
   ${shadow.shadow2};
   padding: 16px;
   box-sizing: border-box;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   background-color: white;
-  &:nth-last-child(1) {
-    margin-bottom: 50px;
-  }
 `;
 
 export const Image = styled.div`
@@ -28,7 +24,6 @@ export const Image = styled.div`
 `;
 
 export const Element = styled.div`
-  margin-left: 3px;
   cursor: pointer;
 `;
 
@@ -46,25 +41,20 @@ export const Time = styled.h2`
   color: ${theme.grey[800]};
 `;
 
-export const Icon = styled.img`
-  width: 100%;
-  height: 18px;
-`;
-
 export const Else = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: right;
+  justify-content: center;
+  align-items: flex-start;
 `;
 
 export const SubTitle = styled.div`
-  font-size: ${font.$subhead};
+  font-size: ${font.$callout};
   color: ${theme.grey[600]};
-  margin-left: 4px;
 `;
 
 export const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 `;

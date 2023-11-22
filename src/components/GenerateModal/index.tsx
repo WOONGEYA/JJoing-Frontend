@@ -28,6 +28,12 @@ export interface UserInput {
   positions: string[];
   imgUrl: string;
 }
+interface TagInput {
+  positions: string;
+  moods: string;
+  skills: string;
+  coops: string;
+}
 
 const initialUserInput: UserInput = {
   name: '',
@@ -40,6 +46,13 @@ const initialUserInput: UserInput = {
   coops: [],
   positions: [],
   imgUrl: '',
+};
+
+const initialTagInput: TagInput = {
+  positions: '',
+  moods: '',
+  skills: '',
+  coops: '',
 };
 
 const GenerateModal = ({ closeModal }: GenerateModalProps) => {
@@ -61,12 +74,13 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
   };
 
   const img: string = process.env.REACT_APP_BASE_IMG || '';
+  const startDate = getCurrentDate();
 
   const [userInput, setUserInput] = useState(initialUserInput);
   const [tab, setTab] = useState(true);
-  const [startDate] = useState(getCurrentDate());
   const [imageUrl, setImageUrl] = useState<string>(img);
   const [newImageUrl, setNewImageUrl] = useState<string>(img);
+  const [tagInput, setTagInput] = useState<TagInput>(initialTagInput);
 
   const handleInputChange = (
     field: keyof UserInput,
@@ -82,6 +96,14 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     setUserInput((prevInput) => ({
       ...prevInput,
       [field]: value,
+    }));
+  };
+
+  const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
+    setTagInput((prev) => ({
+      ...prev,
+      [name]: value,
     }));
   };
 
@@ -113,18 +135,18 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
     }
   };
 
-  const handleAddItem = (
-    field: keyof UserInput,
-    value: string,
-    event: React.KeyboardEvent<HTMLInputElement>,
-  ) => {
+  const handleAddItem = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
     if (event.key === 'Enter' && value.trim() !== '') {
       event.preventDefault();
+      setTagInput((prev) => ({ ...prev, [name]: '' }));
       setUserInput((prevInput) => ({
         ...prevInput,
-        [field]: [...(prevInput[field] as string[]), value.trim()],
+        [name]: [
+          ...(prevInput[name as keyof UserInput] as string[]),
+          value.trim(),
+        ],
       }));
-      event.currentTarget.value = '';
     }
   };
 
@@ -246,9 +268,10 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 required
                 type='text'
                 placeholder='예시) 프론트, 백엔드, 디자이너'
-                onKeyPress={(e) =>
-                  handleAddItem('positions', e.currentTarget.value, e)
-                }
+                value={tagInput.positions}
+                name='positions'
+                onChange={handleTagInputChange}
+                onKeyPress={handleAddItem}
               />
               {userInput.positions.length !== 0 && (
                 <S.TagArea>
@@ -287,9 +310,10 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 required
                 type='text'
                 placeholder='예시) 진중함, 목표지향, 창의적'
-                onKeyPress={(e) =>
-                  handleAddItem('moods', e.currentTarget.value, e)
-                }
+                value={tagInput.moods}
+                name='moods'
+                onChange={handleTagInputChange}
+                onKeyPress={handleAddItem}
               />
               {userInput.moods.length !== 0 && (
                 <S.TagArea>
@@ -307,15 +331,16 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 </S.TagArea>
               )}
             </S.InputArea>
-            <S.HeadLine>사용 기술</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>사용 기술</S.HeadLine>
               <Input
                 required
                 type='text'
                 placeholder='사용 기술을 적어주세요.'
-                onKeyPress={(e) =>
-                  handleAddItem('skills', e.currentTarget.value, e)
-                }
+                value={tagInput.skills}
+                name='skills'
+                onChange={handleTagInputChange}
+                onKeyPress={handleAddItem}
               />
               {userInput.skills.length !== 0 && (
                 <S.TagArea>
@@ -333,15 +358,16 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 </S.TagArea>
               )}
             </S.InputArea>
-            <S.HeadLine>협업 툴</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>협업 툴</S.HeadLine>
               <Input
                 required
                 type='text'
                 placeholder='협업할 때 쓰는 툴을 알려주세요.'
-                onKeyPress={(e) =>
-                  handleAddItem('coops', e.currentTarget.value, e)
-                }
+                value={tagInput.coops}
+                name='coops'
+                onChange={handleTagInputChange}
+                onKeyPress={handleAddItem}
               />
               {userInput.coops.length !== 0 && (
                 <S.TagArea>
@@ -359,14 +385,19 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 </S.TagArea>
               )}
             </S.InputArea>
-            <S.HeadLine>커버 이미지 추가</S.HeadLine>
             <S.InputArea>
               <S.HeadLine>커버 이미지 추가</S.HeadLine>
               <S.UploadImage>
                 <S.Profile>
                   <S.ProfileImage url={imageUrl} htmlFor='file' />
                   <input type='file' id='file' onChange={handleImageChange} />
-                  <EditIcon style={{ position: 'absolute', zIndex: '2' }} />
+                  <EditIcon
+                    style={{
+                      position: 'absolute',
+                      zIndex: '2',
+                      cursor: 'pointer',
+                    }}
+                  />
                 </S.Profile>
               </S.UploadImage>
             </S.InputArea>
