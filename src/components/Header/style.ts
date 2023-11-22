@@ -33,12 +33,15 @@ export const MenuItem = styled.div`
   color: ${theme.black};
   ${font.$body};
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ProfileContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 48px;
+  gap: 24px;
 `;
 
 export const Login = styled.a`
@@ -56,6 +59,7 @@ export const Profile = styled.img`
   object-fit: cover;
   cursor: pointer;
   background-color: ${theme.grey[300]};
+  margin-left: 24px;
 `;
 
 export const Options = styled.div`

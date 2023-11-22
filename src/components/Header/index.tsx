@@ -10,6 +10,8 @@ import * as S from './style';
 import useModal from 'hooks/useModal';
 import GenerateModal from 'components/GenerateModal';
 import { toast } from 'react-toastify';
+import SearchIcon from 'assets/SearchIcon';
+import theme from 'styles/theme';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -101,17 +103,17 @@ const Header = () => {
           >
             게시판
           </S.MenuItem>
-          <S.MenuItem
-            onClick={() => {
-              router('/search-user');
-            }}
-          >
-            유저 검색
-          </S.MenuItem>
         </S.MenuList>
         <S.ProfileContainer>
           {localStorage.accessToken ? (
             <>
+              <S.MenuItem
+                onClick={() => {
+                  router('/search-user');
+                }}
+              >
+                <SearchIcon width={33} height={33} color={'#264466'} />
+              </S.MenuItem>
               <Link to='/notify'>
                 <S.BellContainer>
                   <BellIcon cursor='pointer' />
