@@ -28,6 +28,13 @@ interface UserInput {
   imgUrl: string;
 }
 
+interface TagInput {
+  positions: string;
+  moods: string;
+  skills: string;
+  coops: string;
+}
+
 const initialUserInput: UserInput = {
   name: '',
   requiredPeople: 2,
@@ -39,6 +46,13 @@ const initialUserInput: UserInput = {
   coops: [],
   positions: [],
   imgUrl: '',
+};
+
+const initialTagInput: TagInput = {
+  positions: '',
+  moods: '',
+  skills: '',
+  coops: '',
 };
 
 const GenerateModalEdit = ({
@@ -64,12 +78,13 @@ const GenerateModalEdit = ({
   };
 
   const img: string = projectImage || process.env.REACT_APP_BASE_IMG || '';
+  const startDate = getCurrentDate();
 
   const [userInput, setUserInput] = useState(initialUserInput);
   const [tab, setTab] = useState(true);
-  const [startDate] = useState(getCurrentDate());
   const [imageUrl, setImageUrl] = useState<string>(img);
   const [newImageUrl, setNewImageUrl] = useState<string>(img);
+  const [tagInput, setTagInput] = useState<TagInput>(initialTagInput);
 
   const handleInputChange = (
     field: keyof UserInput,
@@ -97,6 +112,14 @@ const GenerateModalEdit = ({
   useEffect(() => {
     setImageUrl(userInput.imgUrl);
   }, [userInput.imgUrl]);
+
+  const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
+    setTagInput((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -127,18 +150,18 @@ const GenerateModalEdit = ({
     }
   };
 
-  const handleAddItem = (
-    field: keyof UserInput,
-    value: string,
-    event: React.KeyboardEvent<HTMLInputElement>,
-  ) => {
+  const handleAddItem = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
     if (event.key === 'Enter' && value.trim() !== '') {
       event.preventDefault();
+      setTagInput((prev) => ({ ...prev, [name]: '' }));
       setUserInput((prevInput) => ({
         ...prevInput,
-        [field]: [...(prevInput[field] as string[]), value.trim()],
+        [name]: [
+          ...(prevInput[name as keyof UserInput] as string[]),
+          value.trim(),
+        ],
       }));
-      event.currentTarget.value = '';
     }
   };
 
@@ -257,10 +280,11 @@ const GenerateModalEdit = ({
               <Input
                 required
                 type='text'
-                placeholder='예시) 프론트, 백엔드, 디자이너 (엔터로 구분해주세요.)'
-                onKeyPress={(e) =>
-                  handleAddItem('positions', e.currentTarget.value, e)
-                }
+                placeholder='예시) 프론트, 백엔드, 디자이너'
+                value={tagInput.positions}
+                name='positions'
+                onChange={handleTagInputChange}
+                onKeyPress={handleAddItem}
               />
               {userInput.positions.length !== 0 && (
                 <S.TagArea>
@@ -298,10 +322,11 @@ const GenerateModalEdit = ({
               <Input
                 required
                 type='text'
-                placeholder='예시) 진중함, 목표지향, 창의적 (엔터로 구분해주세요.)'
-                onKeyPress={(e) =>
-                  handleAddItem('moods', e.currentTarget.value, e)
-                }
+                placeholder='예시) 진중함, 목표지향, 창의적'
+                value={tagInput.moods}
+                name='moods'
+                onChange={handleTagInputChange}
+                onKeyPress={handleAddItem}
               />
               {userInput.moods.length !== 0 && (
                 <S.TagArea>
@@ -324,10 +349,11 @@ const GenerateModalEdit = ({
               <Input
                 required
                 type='text'
-                placeholder='사용 기술을 적어주세요. (엔터로 구분해주세요.)'
-                onKeyPress={(e) =>
-                  handleAddItem('skills', e.currentTarget.value, e)
-                }
+                placeholder='사용 기술을 적어주세요.'
+                value={tagInput.skills}
+                name='skills'
+                onChange={handleTagInputChange}
+                onKeyPress={handleAddItem}
               />
               {userInput.skills.length !== 0 && (
                 <S.TagArea>
@@ -350,10 +376,11 @@ const GenerateModalEdit = ({
               <Input
                 required
                 type='text'
-                placeholder='협업할 때 쓰는 툴을 알려주세요. (엔터로 구분해주세요.)'
-                onKeyPress={(e) =>
-                  handleAddItem('coops', e.currentTarget.value, e)
-                }
+                placeholder='협업할 때 쓰는 툴을 알려주세요.'
+                value={tagInput.coops}
+                name='coops'
+                onChange={handleTagInputChange}
+                onKeyPress={handleAddItem}
               />
               {userInput.coops.length !== 0 && (
                 <S.TagArea>
