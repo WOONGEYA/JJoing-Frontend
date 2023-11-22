@@ -276,7 +276,9 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 onChange={(e) => handleInputChange('content', e.target.value)}
               />
             </S.InputArea>
-            <S.Button onClick={() => setTab((prev) => !prev)}>다음</S.Button>
+            <S.ButtonContainer>
+              <S.Button onClick={() => setTab((prev) => !prev)}>다음</S.Button>
+            </S.ButtonContainer>
           </>
         ) : (
           <>
