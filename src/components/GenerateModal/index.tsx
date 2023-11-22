@@ -241,9 +241,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 />
               </FlexVertical>
             </S.InputArea>
-
-            <S.HeadLine>모집 분야</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>모집 분야</S.HeadLine>
               <Input
                 required
                 type='text'
@@ -281,8 +280,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
           </>
         ) : (
           <>
-            <S.HeadLine>개발분위기</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>개발분위기</S.HeadLine>
               <Input
                 required
                 type='text'
@@ -307,8 +306,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 </S.TagArea>
               )}
             </S.InputArea>
-            <S.HeadLine>사용 기술</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>사용 기술</S.HeadLine>
               <Input
                 required
                 type='text'
@@ -333,8 +332,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 </S.TagArea>
               )}
             </S.InputArea>
-            <S.HeadLine>협업 툴</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>협업 툴</S.HeadLine>
               <Input
                 required
                 type='text'
@@ -359,8 +358,8 @@ const GenerateModal = ({ closeModal }: GenerateModalProps) => {
                 </S.TagArea>
               )}
             </S.InputArea>
-            <S.HeadLine>커버 이미지 추가</S.HeadLine>
             <S.InputArea>
+              <S.HeadLine>커버 이미지 추가</S.HeadLine>
               {uploadedImage ? (
                 <S.UploadedImage
                   src={uploadedImage}
