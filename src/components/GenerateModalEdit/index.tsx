@@ -258,7 +258,7 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
                   handleAddItem('positions', e.currentTarget.value, e)
                 }
               />
-              {userInput.positions.length && (
+              {userInput.positions.length !== 0 && (
                 <S.TagArea>
                   {userInput.positions.map((tag, index) => (
                     <S.Tag key={index}>
@@ -299,7 +299,7 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
                   handleAddItem('moods', e.currentTarget.value, e)
                 }
               />
-              {userInput.moods.length && (
+              {userInput.moods.length !== 0 && (
                 <S.TagArea>
                   {userInput.moods.map((tag, index) => (
                     <S.Tag key={index}>
@@ -325,7 +325,7 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
                   handleAddItem('skills', e.currentTarget.value, e)
                 }
               />
-              {userInput.skills.length && (
+              {userInput.skills.length !== 0 && (
                 <S.TagArea>
                   {userInput.skills.map((tag, index) => (
                     <S.Tag key={index}>
@@ -351,7 +351,7 @@ const GenerateModalEdit = ({ closeModal, pageId }: GenerateModalProps) => {
                   handleAddItem('coops', e.currentTarget.value, e)
                 }
               />
-              {userInput.coops.length && (
+              {userInput.coops.length !== 0 && (
                 <S.TagArea>
                   {userInput.coops.map((tag, index) => (
                     <S.Tag key={index}>
