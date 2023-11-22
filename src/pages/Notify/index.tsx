@@ -5,23 +5,16 @@ import trash from 'assets/trash.svg';
 import NoNotify from 'components/NoNotify/index';
 import Search from 'components/Search';
 import instance from 'apis/httpClient';
-import NotifyBox from 'components/NotifyBox';
+import NotifyBox, { NotifyBoxProps } from 'components/NotifyBox';
 import { NewProject } from 'pages/Explore';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { deleteNotification, getNotification } from 'apis';
 import { Notification } from 'contents/queryKey';
 import Layout from 'components/Layout';
 
-interface alarmList {
-  id: number;
-  title: string;
-  content: string;
-  projectId: number;
-}
-
 function Notify() {
   const [userInput, setUserInput] = useState<string>('');
-  const [alarmList, setAlarmList] = useState<alarmList[]>([]);
+  const [alarmList, setAlarmList] = useState<NotifyBoxProps[]>([]);
   const [newArrs, setNewArrs] = useState<number[]>([]);
 
   const queryClient = useQueryClient();
@@ -37,8 +30,8 @@ function Notify() {
   useQuery({
     queryKey: [Notification],
     queryFn: () => getNotification(),
-    onSuccess: async (data) => {
-      await setAlarmList(data);
+    onSuccess: (data) => {
+      setAlarmList(data);
       setNewArrs(data);
     },
   });
@@ -59,6 +52,10 @@ function Notify() {
       });
     }
   }, [alarmList]);
+
+  filteredAlarmList.map((data) => {
+    console.log(data);
+  });
 
   return (
     <Layout>
@@ -81,14 +78,8 @@ function Notify() {
           <>
             {filteredAlarmList && (
               <S.Notifications>
-                {filteredAlarmList.reverse().map((data, index) => (
-                  <NotifyBox
-                    key={index}
-                    id={data.id}
-                    title={data.title}
-                    content={data.content}
-                    projectId={data.projectId}
-                  />
+                {filteredAlarmList.reverse().map((data) => (
+                  <NotifyBox key={data.id} {...data} />
                 ))}
               </S.Notifications>
             )}

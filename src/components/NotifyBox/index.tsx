@@ -1,15 +1,9 @@
-import * as S from './style';
-import * as F from 'styles/flex';
-import trash from 'assets/trash.svg';
-import useModal from 'hooks/useModal';
-import DeleteConfirm from 'components/DeleteConfirm';
 import React from 'react';
 import instance from 'apis/httpClient';
 import { useQuery } from 'react-query';
-import ShowJJoingPerson from 'components/ShowJJoingPerson';
-import { useNavigate } from 'react-router-dom';
+import NotifyPerson from 'components/NotifyPerson';
 
-interface User {
+export interface User {
   id: number;
   introduce: string;
   userName: string;
@@ -20,22 +14,16 @@ interface User {
   userId: number;
 }
 
-interface NotifyBoxProps {
+export interface NotifyBoxProps {
   id: number;
   title: string;
   content: string;
   projectId: number;
+  userId: number;
 }
 
-function NotifyBox({ id, title, content, projectId }: NotifyBoxProps) {
-  const { openModal, closeModal } = useModal();
+function NotifyBox({ id, title, content, projectId, userId }: NotifyBoxProps) {
   const [userData, setUserData] = React.useState<User[]>([]);
-
-  const modalOpen = () => {
-    openModal({
-      component: <DeleteConfirm id={id} closeModal={closeModal} />,
-    });
-  };
 
   const isUser = async (id: number) => {
     const { data } = await instance.get(`/application/project/${id}`, {
@@ -52,45 +40,16 @@ function NotifyBox({ id, title, content, projectId }: NotifyBoxProps) {
     },
   });
 
-  const OpenJjoingList = () => {
-    openModal({
-      component: (
-        <ShowJJoingPerson closeModal={closeModal} userData={userData} />
-      ),
-    });
-  };
-
-  const navigate = useNavigate();
-
-  const GotoDetail = (projectId: number) => {
-    navigate(`/detail/${projectId}`);
-  };
   return (
-    <S.Container>
-      <S.Element
-        onClick={() =>
-          projectId !== null && content.includes('일원')
-            ? GotoDetail(projectId)
-            : OpenJjoingList()
-        }
-      >
-        <F.FlexVertical>
-          <S.TitleBox>
-            <S.Element>
-              <S.Description>{title}</S.Description>
-            </S.Element>
-            <S.SubTitle>{content}</S.SubTitle>
-          </S.TitleBox>
-        </F.FlexVertical>
-      </S.Element>
-      <S.Else>
-        <S.Icon
-          src={trash}
-          style={{ marginRight: '30px', cursor: 'pointer' }}
-          onClick={modalOpen}
-        />
-      </S.Else>
-    </S.Container>
+    <>
+      <NotifyPerson
+        id={id}
+        title={title}
+        content={content}
+        projectId={projectId}
+        userId={userId}
+      />
+    </>
   );
 }
 
