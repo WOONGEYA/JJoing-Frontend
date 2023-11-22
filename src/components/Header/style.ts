@@ -59,7 +59,6 @@ export const Profile = styled.img`
   object-fit: cover;
   cursor: pointer;
   background-color: ${theme.grey[300]};
-  margin-left: 24px;
 `;
 
 export const Options = styled.div`
