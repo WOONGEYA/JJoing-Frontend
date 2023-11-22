@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as S from './style';
 import * as Flex from 'styles/flex';
-import trash from 'assets/trash.svg';
 import NoNotify from 'components/NoNotify/index';
 import Search from 'components/Search';
 import instance from 'apis/httpClient';
@@ -11,6 +10,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { deleteNotification, getNotification } from 'apis';
 import { Notification } from 'contents/queryKey';
 import Layout from 'components/Layout';
+import DeleteIcon from 'assets/DeleteIcon';
 
 function Notify() {
   const [userInput, setUserInput] = useState<string>('');
@@ -63,7 +63,7 @@ function Notify() {
               {filteredAlarmList.length} / 100
             </S.NotificationAmount>
             <S.DeleteNotification onClick={handleDeleteAll}>
-              <S.Icon src={trash} alt='Trash' />
+              <DeleteIcon width={16} height={16} />
               모든 알림 삭제하기
             </S.DeleteNotification>
           </Flex.FlexVertical>
