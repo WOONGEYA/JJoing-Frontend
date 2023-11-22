@@ -1,22 +1,39 @@
 import instance from 'apis/httpClient';
 import * as S from './style';
 import CloseIcon from 'assets/CloseIcon';
-import Input from 'components/Input';
 import theme from 'styles/theme';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
+import Input from 'components/Input';
 
-interface GenerateModalProps {
+interface NotifyAlertProps {
+  applicationId: number;
+  fromUserId: number;
   closeModal: () => void;
-  userId: number;
 }
 
-const NotifyAlert = ({ closeModal, userId }: GenerateModalProps) => {
+interface UserInfo {
+  id: number;
+  introduce: string;
+  userId: number;
+  userName: string;
+  userImg: string;
+  school: string;
+  phone: string;
+  position: string;
+}
+
+const NotifyAlert = ({
+  applicationId,
+  closeModal,
+  fromUserId,
+}: NotifyAlertProps) => {
+  const [member, setMember] = useState<UserInfo>();
   const [isMember, setIsMember] = useState(null);
 
   const DeleteJJoing = () => {
     instance
-      .put(`/application/${userId}/reject`, {
+      .put(`/application/${applicationId}/reject`, {
         headers: {
           Authorization: `Barer ${localStorage.getItem('accessToken')}`,
         },
@@ -24,13 +41,12 @@ const NotifyAlert = ({ closeModal, userId }: GenerateModalProps) => {
       .then(() => {
         toast.error('쪼잉을 거절했습니다.');
         closeModal();
-        window.location.reload();
       });
   };
 
   const JJoingNow = () => {
     instance
-      .put(`/application/${userId}/accept`, {
+      .put(`/application/${applicationId}/accept`, {
         headers: {
           Authorization: `Barer ${localStorage.getItem('accessToken')}`,
         },
@@ -43,8 +59,14 @@ const NotifyAlert = ({ closeModal, userId }: GenerateModalProps) => {
   };
 
   useEffect(() => {
-    instance.get(`/project/member/check/${userId}`, {}).then((res) => {
+    instance.get(`/project/member/check/${applicationId}`).then((res) => {
       setIsMember(res.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    instance.get(`/application/${applicationId}`).then((res) => {
+      setMember(res.data);
     });
   }, []);
 
@@ -56,20 +78,20 @@ const NotifyAlert = ({ closeModal, userId }: GenerateModalProps) => {
       </S.TitleContainer>
       <S.Content>
         <S.ContentTitle>한줄 소개</S.ContentTitle>
-        <S.Description value={userId} readOnly />
+        <S.Description value={member?.introduce} readOnly />
       </S.Content>
       <S.Content>
         <S.ContentTitle>전화번호</S.ContentTitle>
-        {/* <Input width={'95%'} value={userData[0].phone} readOnly /> */}
+        <Input width={'95%'} value={member?.phone} readOnly />
       </S.Content>
       <S.Content>
         <S.GoProfileText>프로필 정보</S.GoProfileText>
         <S.Container>
-          {/* <S.ProfileImg src={userData[0].userImg} alt='' /> */}
+          <S.ProfileImg src={member?.userImg} alt='' />
           <S.UserInfoContainer>
-            {/* <div>{userData[0].userName}</div> */}
+            <div>{member?.userName}</div>
             <S.UserInfo>
-              {/* {userData[0].school} / {userData[0].position} */}
+              {member?.school} / {member?.position}
             </S.UserInfo>
           </S.UserInfoContainer>
         </S.Container>

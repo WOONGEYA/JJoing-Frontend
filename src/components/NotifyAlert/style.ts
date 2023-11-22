@@ -109,7 +109,6 @@ export const ProfileImg = styled.img`
   width: 60px;
   height: 60px;
   border-radius: 0.2rem;
-  background-color: orange;
 `;
 
 export const UserInfoContainer = styled.div`

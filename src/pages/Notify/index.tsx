@@ -53,10 +53,6 @@ function Notify() {
     }
   }, [alarmList]);
 
-  filteredAlarmList.map((data) => {
-    console.log(data);
-  });
-
   return (
     <Layout>
       <S.Container>
