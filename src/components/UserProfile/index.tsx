@@ -48,7 +48,7 @@ const UserProfile = (data: UserInfo) => {
       <S.ImgWrapper src={data.imgUrl} alt='img' />
       <S.UserInfoContainer>
         <S.InfoWrapper>
-          <div>{data.name}</div>
+          <div>{data.nickName}</div>
           <S.UserInfo>
             {data.school} / {data.major?.length ? data.major : '등록x '}
           </S.UserInfo>

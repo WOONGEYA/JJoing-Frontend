@@ -9,4 +9,5 @@ export interface IDetailProject {
   userImg: string;
   commentCount: number;
   postImg: string;
+  userNickName: string;
 }

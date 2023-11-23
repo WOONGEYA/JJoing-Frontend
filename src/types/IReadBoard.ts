@@ -8,4 +8,6 @@ export interface IReadBoard {
   userName?: string;
   viewCount?: number;
   commentCount?: number;
+  nickName?: string;
+  userNickName?: string;
 }

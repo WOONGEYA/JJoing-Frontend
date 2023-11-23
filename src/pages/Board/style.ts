@@ -100,23 +100,20 @@ export const Title = styled.div`
 `;
 
 export const UserProfile = styled.div`
-  width: 5.4rem;
   display: flex;
-  gap: 0.5rem;
   align-items: center;
-  justify-content: space-between;
 `;
 
 export const ProfileImg = styled.img`
-  width: 2.3rem;
-  height: 1.8rem;
+  width: 1.7rem;
+  height: 1.7rem;
   border-radius: 50%;
   cursor: pointer;
 `;
 
 export const NameContainer = styled.div`
-  width: 4rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  margin-left: 0.5rem;
 `;

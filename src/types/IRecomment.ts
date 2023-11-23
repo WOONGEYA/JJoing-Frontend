@@ -5,4 +5,5 @@ export interface IRecomment {
   userId: number;
   userImg: string;
   userName: string;
+  userNickName: string;
 }

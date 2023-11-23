@@ -84,7 +84,7 @@ const BoardDetail = () => {
                     }}
                   />
                   <S.ProfileDetailBox>
-                    <S.UserName>{projectDetail?.userName}</S.UserName>
+                    <S.UserName>{projectDetail?.userNickName}</S.UserName>
                     <S.BoardDate>
                       {projectDetail?.createTime.replace('T', ' ')}
                     </S.BoardDate>

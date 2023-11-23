@@ -72,7 +72,7 @@ const Recomment = ({
         <S.ProfileChatContainer>
           <S.ProfileChatTitle>
             <S.UserProfile>
-              <S.UserView>{data.userName}</S.UserView>
+              <S.UserView>{data.userNickName}</S.UserView>
               <S.DateView>{data.createTime?.replace('T', ' ')}</S.DateView>
             </S.UserProfile>
             <S.CountView>

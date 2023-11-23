@@ -6,4 +6,5 @@ export interface ICommentProps {
   userName: string;
   userImg: string;
   reCommentCount: number;
+  userNickName: string;
 }
