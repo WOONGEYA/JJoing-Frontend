@@ -112,7 +112,7 @@ const Header = () => {
                   router('/search-user');
                 }}
               >
-                <SearchIcon width={33} height={33} color={'#264466'} />
+                <SearchIcon width={32} height={32} color={theme.secondary} />
               </S.MenuItem>
               <Link to='/notify'>
                 <S.BellContainer>

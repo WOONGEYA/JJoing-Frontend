@@ -16,13 +16,12 @@ export const NotificationHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 25px;
+  margin-bottom: 24px;
 `;
 
 export const Icon = styled.img`
   width: 16px;
   height: 16px;
-  margin-left: 12px;
 `;
 
 export const HeaderElement = styled.div`
@@ -35,13 +34,11 @@ export const NotificationAmount = styled.span`
 `;
 
 export const DeleteNotification = styled.button`
-  min-width: 160px;
-  height: 38px;
+  padding: 8px 16px;
   color: ${theme.grey[800]};
   ${font.$callout};
   display: flex;
   align-items: center;
-  gap: 4px;
   border: none;
   border-radius: 4px;
   ${shadow.shadow2};
@@ -50,6 +47,7 @@ export const DeleteNotification = styled.button`
   :hover {
     background-color: ${theme.grey[500]};
   }
+  gap: 8px;
 `;
 
 export const Notifications = styled.div`

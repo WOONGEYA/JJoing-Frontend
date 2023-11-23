@@ -3,11 +3,11 @@ import instance from 'apis/httpClient';
 import { useQuery } from 'react-query';
 import * as S from './style';
 import * as F from 'styles/flex';
-import trash from 'assets/trash.svg';
 import useModal from 'hooks/useModal';
 import { useNavigate } from 'react-router-dom';
 import DeleteConfirm from 'components/DeleteConfirm';
 import NotifyAlert from 'components/NotifyAlert';
+import DeleteIcon from 'assets/DeleteIcon';
 
 export interface User {
   id: number;
@@ -92,20 +92,12 @@ function NotifyBox({
       >
         <F.FlexVertical>
           <S.TitleBox>
-            <S.Element>
-              <S.Description>{title}</S.Description>
-            </S.Element>
+            <S.Description>{title}</S.Description>
             <S.SubTitle>{content}</S.SubTitle>
           </S.TitleBox>
         </F.FlexVertical>
       </S.Element>
-      <S.Else>
-        <S.Icon
-          src={trash}
-          style={{ marginRight: '30px', cursor: 'pointer' }}
-          onClick={modalOpen}
-        />
-      </S.Else>
+      <DeleteIcon onClick={modalOpen} cursor='pointer' />
     </S.Container>
   );
 }
